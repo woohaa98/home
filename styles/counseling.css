@@ -1,0 +1,131 @@
+/* Counseling Services Section Styles */
+
+#counseling {
+  background: var(--warm-white);
+  padding: 100px 60px;
+}
+
+.services-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.services-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.service-card {
+  background: white;
+  border-radius: 18px;
+  padding: 28px;
+  border: 1px solid var(--divider);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  border-color: var(--terracotta-light);
+  box-shadow: 0 8px 32px rgba(196,113,74,0.1);
+  transform: translateX(6px);
+}
+
+.service-card h4 {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-card p {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+
+.service-num {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--terracotta);
+  background: rgba(196,113,74,0.1);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.approach-box {
+  background: linear-gradient(145deg, #F9F0EA, #F5EFE6);
+  border-radius: 24px;
+  padding: 48px;
+  border: 1px solid rgba(196,113,74,0.12);
+}
+
+.approach-box h3 {
+  font-family: 'Lora', serif;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.approach-box p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-mid);
+  margin-bottom: 20px;
+}
+
+.approach-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.pillar {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.pillar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(196,113,74,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.pillar-text h5 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+
+.pillar-text p {
+  font-size: 0.83rem;
+  color: var(--text-mid);
+}
+
+/* Responsive Counseling */
+@media (max-width: 900px) {
+  #counseling {
+    padding: 72px 28px;
+  }
+
+  .services-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

@@ -1,0 +1,271 @@
+/* Dual Persona / Work Section Styles */
+
+#personas {
+  background: var(--cream);
+  padding: 100px 60px;
+}
+
+.personas-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.personas-header .section-label,
+.personas-header .section-title,
+.personas-header .section-sub {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.personas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 28px;
+}
+
+.persona-card {
+  border-radius: 24px;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.persona-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.1);
+}
+
+.persona-card.counselor {
+  background: linear-gradient(145deg, #F9F0EA 0%, #F0E4D8 100%);
+  border: 1px solid rgba(196,113,74,0.15);
+}
+
+.persona-card.pm {
+  background: linear-gradient(145deg, #EEF4F0 0%, #E2EDE6 100%);
+  border: 1px solid rgba(122,158,135,0.2);
+}
+
+.persona-card.yoga {
+  background: linear-gradient(145deg, #F2EFF8 0%, #E8E2F2 100%);
+  border: 1px solid rgba(138,115,167,0.2);
+  position: relative;
+}
+
+.persona-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.icon-terra {
+  background: rgba(196,113,74,0.15);
+}
+
+.icon-sage {
+  background: rgba(122,158,135,0.15);
+}
+
+.icon-plum {
+  background: rgba(138,115,167,0.15);
+}
+
+.persona-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.persona-card h3 {
+  font-family: 'Lora', serif;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: var(--text-dark);
+}
+
+.persona-card p {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--text-mid);
+  margin-bottom: 28px;
+}
+
+.persona-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-chip {
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.chip-terra {
+  background: rgba(196,113,74,0.12);
+  color: #A85A35;
+}
+
+.chip-sage {
+  background: rgba(122,158,135,0.15);
+  color: #4F7A60;
+}
+
+.chip-plum {
+  background: rgba(138,115,167,0.12);
+  color: #6B5491;
+}
+
+.persona-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+
+.link-terra {
+  color: var(--terracotta);
+}
+
+.link-sage {
+  color: var(--sage);
+}
+
+.link-plum {
+  color: #8A73A7;
+}
+
+.persona-card-link:hover {
+  gap: 12px;
+}
+
+.coming-soon-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8A73A7;
+  background: rgba(138,115,167,0.12);
+  border: 1px solid rgba(138,115,167,0.25);
+  border-radius: 100px;
+  padding: 4px 10px;
+}
+
+/* PM Work Cards */
+.pm-header {
+  margin-bottom: 56px;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.work-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--divider);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.work-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+}
+
+.work-card-top {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.work-card-top::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.04));
+}
+
+.wc1 {
+  background: linear-gradient(135deg, #E8EEF5, #D4DEE8);
+}
+
+.wc2 {
+  background: linear-gradient(135deg, #EEF0F5, #DDE0EC);
+}
+
+.wc3 {
+  background: linear-gradient(135deg, #EDF4F0, #D8EAE0);
+}
+
+.work-card-body {
+  padding: 24px;
+}
+
+.work-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 10px;
+}
+
+.work-card-body h4 {
+  font-family: 'Lora', serif;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.work-card-body p {
+  font-size: 0.85rem;
+  color: var(--text-mid);
+  line-height: 1.65;
+}
+
+.work-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--sage);
+  text-decoration: none;
+  margin-top: 16px;
+  transition: gap 0.2s;
+}
+
+.work-card-link:hover {
+  gap: 10px;
+}
+
+/* Responsive Personas */
+@media (max-width: 900px) {
+  #personas {
+    padding: 72px 28px;
+  }
+
+  .personas-grid,
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+}
