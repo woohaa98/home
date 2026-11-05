@@ -841,6 +841,37 @@
   .tool-link:hover { gap: 10px; opacity: 0.85; }
 
 
+  /* ---- THERAPY RESOURCES ---- */
+  .resources-feature {
+    max-width: 1100px; margin: 80px auto 0;
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: 44px; align-items: center;
+    background: white; border: 1px solid var(--divider); border-radius: 24px; padding: 48px;
+    position: relative; overflow: hidden;
+  }
+  .resources-feature::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--sage), var(--sage-light) 45%, var(--terracotta-light) 70%, var(--terracotta));
+  }
+  .rf-text h3 { font-family: 'Lora', serif; font-weight: 400; font-size: 1.75rem; line-height: 1.25; color: var(--text-dark); margin-bottom: 14px; }
+  .rf-text h3 em { color: var(--terracotta); }
+  .rf-text p { font-size: 0.92rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 26px; }
+  .rf-note { display: block; font-size: 0.75rem; color: var(--text-mid); opacity: 0.75; margin-top: 18px; font-style: italic; }
+  .rf-topics { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .rf-topics a {
+    display: flex; flex-direction: column; gap: 6px; height: 100%;
+    padding: 16px 18px; border-radius: 14px; background: var(--sand);
+    text-decoration: none; color: var(--text-dark);
+    font-family: 'Lora', serif; font-size: 0.95rem; line-height: 1.35;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+  .rf-topics a:hover { transform: translateY(-2px); background: #EFE5D8; }
+  .rf-topics a span { font-family: 'DM Sans', sans-serif; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); }
+  .rf-topics a.tc span { color: var(--terracotta); }
+  @media (max-width: 900px) {
+    .resources-feature { grid-template-columns: 1fr; padding: 32px 24px; gap: 28px; margin-top: 56px; }
+  }
+  @media (max-width: 520px) { .rf-topics { grid-template-columns: 1fr; } }
+
   /* ---- HERO TOOLS HINT ---- */
   .hero-tools-hint {
     display: flex;
@@ -983,6 +1014,7 @@
     <li><a href="#personas">Work</a></li>
     <li><a href="#counseling">Counseling</a></li>
     <li><a href="#tools">Tools</a></li>
+    <li><a href="#therapy-resources">Resources</a></li>
     <li><a href="#blog">Writing</a></li>
     <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
   </ul>
@@ -1377,6 +1409,25 @@
     </p>
     <a href="#contact" class="btn-secondary">Interested in collaborating? →</a>
   </div>
+
+  <!-- THERAPY RESOURCES -->
+  <div class="resources-feature reveal" id="therapy-resources">
+    <div class="rf-text">
+      <div class="section-label">Therapy Resources</div>
+      <h3>A psychoeducation <em>library</em></h3>
+      <p>One-page guides that explain emotions, anxiety, relationships, and growth in plain language grounded in research. Read them online, download a PDF, or print one for session.</p>
+      <a href="resources/" class="btn-primary">Explore the Library →</a>
+      <span class="rf-note">For education and self-reflection; not a substitute for individualized mental health care.</span>
+    </div>
+    <ul class="rf-topics">
+      <li><a href="resources/resource.html?id=brain-and-emotions"><span>Mind &amp; Body</span>How the Brain Creates &amp; Regulates Emotions</a></li>
+      <li><a href="resources/resource.html?id=anxiety-cycle"><span>Mind &amp; Body</span>Understanding the Anxiety Cycle</a></li>
+      <li><a href="resources/resource.html?id=understanding-ocd"><span>Mind &amp; Body</span>Understanding OCD: Obsessions &amp; Compulsions</a></li>
+      <li><a href="resources/resource.html?id=four-horsemen" class="tc"><span>Relationships</span>The Four Horsemen &amp; Their Antidotes</a></li>
+      <li><a href="resources/resource.html?id=attachment-styles" class="tc"><span>Relationships</span>Attachment Styles in Relationships</a></li>
+      <li><a href="resources/resource.html?id=values-vs-goals"><span>Identity &amp; Meaning</span>Values vs. Goals</a></li>
+    </ul>
+  </div>
 </section>
 
 
@@ -1499,6 +1550,7 @@
   <div class="footer-links">
     <a href="#about">About</a>
     <a href="#counseling">Counseling</a>
+    <a href="resources/">Therapy Resources</a>
     <a href="#blog">Writing</a>
   </div>
   <div class="footer-copy">© 2026 Woohee (Elise) Kwak · Made with care</div>

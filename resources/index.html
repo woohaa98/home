@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Therapy Resources · Woohee (Elise) Kwak</title>
+<meta name="description" content="A free psychoeducation library: clear, evidence-informed one-page guides on emotions, anxiety, relationships, identity, and growth. Read online, download, or print.">
+<link rel="preload" href="assets/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/style.css">
+<!-- Privacy: no analytics, cookies, forms, or tracking on this page. Search runs in the browser only. -->
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="preview-banner" id="preview-banner" hidden>Preview mode: showing drafts marked “In review.” Drafts are hidden from public visitors.</div>
+
+<nav class="site-nav" aria-label="Site">
+  <a class="nav-logo" href="../">Woohee (Elise) Kwak</a>
+  <ul class="nav-links">
+    <li class="hide-sm"><a href="../#about">About</a></li>
+    <li class="hide-sm"><a href="../#counseling">Counseling</a></li>
+    <li><a href="../#tools">Tools</a></li>
+    <li><a href="./" aria-current="page">Resources</a></li>
+  </ul>
+</nav>
+
+<main id="main" class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Tools · Psychoeducation Library</p>
+    <h1>Therapy <em>Resources</em></h1>
+    <p class="lede">One-page guides that explain how the mind, body, and relationships work, in plain language grounded in research. Use them in session, share them, or explore them on your own.</p>
+    <ul class="philosophy" aria-label="Guiding philosophy">
+      <li>Understand what's happening within you.</li>
+      <li>Respond with compassion.</li>
+      <li>Choose how you want to move forward.</li>
+    </ul>
+  </header>
+
+  <div class="controls" role="search">
+    <label class="search">
+      <span class="sr-only">Search resources</span>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input id="search" type="search" placeholder="Search topics, like anxiety or couples" autocomplete="off" aria-describedby="result-count">
+    </label>
+    <div class="filters" id="filters" role="group" aria-label="Filter by category"></div>
+    <p class="result-count" id="result-count" aria-live="polite"></p>
+  </div>
+
+  <div id="library"></div>
+
+  <footer class="disclaimer">
+    <p data-disclaimer></p>
+    <p>If you are in crisis in the U.S., call or text 988 (Suicide &amp; Crisis Lifeline), or call 911.</p>
+    <p>Nothing you search or click here is stored or tracked.</p>
+  </footer>
+</main>
+
+<script src="assets/library.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
