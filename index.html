@@ -560,7 +560,7 @@
   #blog { background: var(--warm-white); }
   .blog-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
   .blog-card {
@@ -572,7 +572,9 @@
     display: flex; flex-direction: column;
   }
   .blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
-  .blog-card.featured { grid-row: span 1; }
+  .blog-card.featured { grid-column: 1 / -1; padding: 40px 44px; }
+  .blog-card.featured h4 { font-size: 1.45rem; }
+  .blog-card.featured p { font-size: 0.95rem; max-width: 68ch; }
   .blog-meta {
     display: flex; align-items: center; gap: 10px;
     margin-bottom: 16px;
@@ -1461,10 +1463,43 @@
   <div class="reveal" style="margin-bottom: 56px;">
     <div class="section-label">Writing</div>
     <h2 class="section-title">Thoughts at the intersection.</h2>
-    <p class="section-sub">I write about consciousness, meaning, mental health, and what it means to be a whole human in a demanding world. Published on Substack.</p>
+    <p class="section-sub">I write about consciousness, meaning, mental health, work, and what it means to be a whole human in a demanding world. Published on Substack.</p>
   </div>
   <div class="blog-grid">
     <div class="blog-card featured reveal">
+      <div class="blog-meta">
+        <span class="blog-cat cat-pm">Work · Attachment</span>
+        <span class="blog-date">Latest · Oct 29, 2026</span>
+      </div>
+      <h4>Don't Detach from Your Work. Attach Securely</h4>
+      <p>What attachment theory might teach us about burnout, belonging, and work in the age of AI. The answer isn't caring less about work; it's engaging from security rather than fear.</p>
+      <a href="https://woohee.substack.com/p/dont-detach-from-your-work-attach" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
+    </div>
+    <div class="blog-card reveal">
+      <div class="blog-meta">
+        <span class="blog-cat cat-pm">Work · Freedom</span>
+      </div>
+      <h4>The Exit Package I Missed, and What It Taught Me About Freedom</h4>
+      <p>A month after I left Microsoft to pursue counseling, the company announced a voluntary exit package. On regret, the pull of security, and choosing to live with intention rather than fear.</p>
+      <a href="https://woohee.substack.com/p/the-exit-package-i-missed-and-what" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
+    </div>
+    <div class="blog-card reveal">
+      <div class="blog-meta">
+        <span class="blog-cat cat-pm">Work · Values</span>
+      </div>
+      <h4>Should I Stay or Should I Go?</h4>
+      <p>When work feels stuck, is it my circumstances that need to change, or something in me? The inner work behind choices that are truly ours.</p>
+      <a href="https://woohee.substack.com/p/should-i-stay-or-should-i-go" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
+    </div>
+    <div class="blog-card reveal">
+      <div class="blog-meta">
+        <span class="blog-cat cat-pm">Work · Identity</span>
+      </div>
+      <h4>Who Are We When We Don't Have a Job?</h4>
+      <p>On the hunger to hit the high note again, and what actually fills it. Losing a role can open a way back to who we are beyond our work.</p>
+      <a href="https://woohee.substack.com/p/who-are-we-when-we-dont-have-a-job" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
+    </div>
+    <div class="blog-card reveal">
       <div class="blog-meta">
         <span class="blog-cat cat-counseling">Existential</span>
 
