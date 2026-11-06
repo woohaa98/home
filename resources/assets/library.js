@@ -234,6 +234,40 @@ window.RESOURCE_LIBRARY = {
         "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). <em>Acceptance and commitment therapy: The process and practice of mindful change</em> (2nd ed.). Guilford Press.",
         "Wilson, K. G., & Murrell, A. R. (2004). Values work in acceptance and commitment therapy. In S. C. Hayes, V. M. Follette, & M. M. Linehan (Eds.), <em>Mindfulness and acceptance</em> (pp. 120–151). Guilford Press."
       ]
+    },
+    /* ---------------------------------------------------------- 7 */
+    {
+      id: "perfectionism",
+      category: "growth",
+      status: "published",
+      lastReviewed: "2026-11-05",
+      title: "Perfectionism & Fear of Failure",
+      description: "How the pursuit of flawless can drown out your inner guide, and how to move from fear-driven striving toward living by what matters to you.",
+      framework: "Draws on cognitive behavioral models of perfectionism, Acceptance and Commitment Therapy (ACT), and self-compassion research",
+      tags: ["perfectionism", "fear of failure", "self-criticism", "inner critic", "procrastination", "burnout", "achievement", "people-pleasing", "imposter", "values", "self-compassion", "ACT", "CBT", "inner guide"],
+      what: "Perfectionism is more than high standards. It's the belief that your worth depends on getting things exactly right, with harsh self-judgment when you don't. Healthy striving pulls you toward what you care about; perfectionism pushes you away from what you fear, and can drown out your inner sense of what matters.",
+      diagram: "diagrams/perfectionism.svg",
+      diagramAlt: "One starting point, a moment that matters, splits into two paths. The perfectionist voice says it has to be flawless, leads to fear-driven effort such as over-preparing, procrastinating, or avoiding, then to feeling not good enough, and loops back as the bar rises again. The inner guide asks what matters to me here, leads to a good-enough step done with care, then to learning and freedom, with the message I'm enough while I grow.",
+      diagramCaption: "An original illustration. Most people move between both voices; the aim is to notice which one is steering.",
+      why: [
+        "Perfectionism often begins as protection. If love or belonging seemed to depend on achievement, being flawless became a way to stay safe. Research separates high standards from perfectionistic concerns (fear of mistakes, worry about judgment, self-criticism); the concerns are most linked to anxiety, depression, and burnout.",
+        "The standard keeps moving: wins get discounted, mistakes feel like proof of inadequacy, and the bar rises. Choices come from “How do I avoid failing?” instead of “What matters to me?”, and the inner guide grows quiet."
+      ],
+      note: { label: "Normal or a concern?", text: "Caring about quality is healthy. Perfectionism becomes a concern when it fuels ongoing anxiety, procrastination, burnout, or strained relationships. It responds well to therapy." },
+      help: [
+        { title: "Name the perfectionist voice", text: "When “it has to be perfect” shows up, notice it: “There's the perfectionist part.” Stepping back from the thought gives you room to choose." },
+        { title: "Ask your inner guide", text: "Trade “What would be flawless?” for “What matters to me here, and what's a good-enough step toward it?” Values give direction without demanding perfection." },
+        { title: "Practice good enough", text: "Try small experiments: send the email after one review, set a time limit, share a draft. Notice what happens, and meet discomfort with kindness." }
+      ],
+      reflection: "If you trusted that you were already enough, what would you do differently this week?",
+      takeaway: "You were never meant to be flawless, only true to what matters to you.",
+      references: [
+        "Curran, T., & Hill, A. P. (2019). Perfectionism is increasing over time: A meta-analysis of birth cohort differences from 1989 to 2016. <em>Psychological Bulletin, 145</em>(4), 410–429.",
+        "Galloway, R., Watson, H., Greene, D., Shafran, R., & Egan, S. J. (2022). The efficacy of randomised controlled trials of cognitive behaviour therapy for perfectionism: A systematic review and meta-analysis. <em>Cognitive Behaviour Therapy, 51</em>(2), 170–184.",
+        "Ong, C. W., Lee, E. B., Krafft, J., Terry, C. L., Barrett, T. S., Levin, M. E., & Twohig, M. P. (2019). A randomized controlled trial of acceptance and commitment therapy for clinical perfectionism. <em>Journal of Obsessive-Compulsive and Related Disorders, 22</em>, 100444.",
+        "Shafran, R., Cooper, Z., & Fairburn, C. G. (2002). Clinical perfectionism: A cognitive-behavioural analysis. <em>Behaviour Research and Therapy, 40</em>(7), 773–791.",
+        "Stoeber, J., & Otto, K. (2006). Positive conceptions of perfectionism: Approaches, evidence, challenges. <em>Personality and Social Psychology Review, 10</em>(4), 295–319."
+      ]
     }
   ],
 
@@ -253,7 +287,6 @@ window.RESOURCE_LIBRARY = {
     { category: "awareness",     title: "Self-Compassion vs. Self-Criticism" },
     { category: "awareness",     title: "Mindfulness & Cognitive Defusion" },
     { category: "awareness",     title: "Somatic Awareness & Grounding" },
-    { category: "growth",        title: "Perfectionism & Fear of Failure" },
     { category: "growth",        title: "Rumination vs. Problem-Solving" },
     { category: "growth",        title: "Understanding Burnout" },
     { category: "growth",        title: "Psychological Flexibility (ACT)" }
