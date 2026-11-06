@@ -841,6 +841,14 @@
   .tool-link:hover { gap: 10px; opacity: 0.85; }
 
 
+  /* ---- SELF SPACE LINKS ---- */
+  .ss-link { color: var(--terracotta); text-decoration: underline; text-decoration-color: rgba(196,113,74,0.35); text-underline-offset: 3px; transition: text-decoration-color 0.2s; }
+  .ss-link:hover { text-decoration-color: var(--terracotta); }
+  .ss-link strong { color: inherit; }
+  .persona-card-links { display: flex; flex-wrap: wrap; column-gap: 24px; }
+  .booking-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+  .booking-actions .ss-link { font-size: 0.88rem; }
+
   /* ---- BOOKING ---- */
   .booking-box { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--divider); display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
   .booking-box p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.7; margin: 0; }
@@ -1196,7 +1204,7 @@
       I grew up in Seoul and moved to the US in my early twenties. Starting over in a new world shaped how I listen, what I notice, and why I care so much about the stories people carry.
     </p>
     <p style="font-size: 0.95rem; color: var(--text-mid); line-height: 1.8;">
-      After 20 years in tech as a Product Manager building customer experience and data platforms, I'm now an intern therapist at Self Space Seattle while I complete my Master's in Clinical Mental Health Counseling at Seattle University. I know high-pressure work cultures from the inside, and what it means to live between cultures. I see adults, teens, and couples in English and Korean, with an <strong>integrative, relational, and person-centered approach</strong>, and I'm committed to using AI in care thoughtfully, to extend the therapeutic relationship, never replace it.
+      After 20 years in tech as a Product Manager building customer experience and data platforms, I'm now an intern therapist at <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="ss-link">Self Space Seattle</a> while I complete my Master's in Clinical Mental Health Counseling at Seattle University. I know high-pressure work cultures from the inside, and what it means to live between cultures. I see adults, teens, and couples in English and Korean, with an <strong>integrative, relational, and person-centered approach</strong>, and I'm committed to using AI in care thoughtfully, to extend the therapeutic relationship, never replace it.
     </p>
     <div class="about-stats">
       <div class="stat-card">
@@ -1230,7 +1238,7 @@
         <svg fill="none" viewBox="0 0 24 24" stroke="#C4714A" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
       </div>
       <h3>Mental Health Counseling</h3>
-      <p>Intern therapist at <strong>Self Space Seattle</strong>, seeing clients in Kirkland and virtually while I work toward licensure as an LMHC. My approach is <strong>integrative, relational, and person-centered</strong>, drawing on ACT, Gestalt, CBT, mindfulness, and somatic-informed practices, with Gottman Method training for couples. I work with adults, teens, and couples, in English and Korean.</p>
+      <p>Intern therapist at <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="ss-link"><strong>Self Space Seattle</strong></a>, seeing clients in Kirkland and virtually while I work toward licensure as an LMHC. My approach is <strong>integrative, relational, and person-centered</strong>, drawing on ACT, Gestalt, CBT, mindfulness, and somatic-informed practices, with Gottman Method training for couples. I work with adults, teens, and couples, in English and Korean.</p>
       <div class="persona-skills">
         <span class="skill-chip chip-terra">Integrative &amp; Relational</span>
         <span class="skill-chip chip-terra">ACT · Gestalt · CBT</span>
@@ -1239,7 +1247,10 @@
         <span class="skill-chip chip-terra">Couples (Gottman)</span>
         <span class="skill-chip chip-terra">English &amp; Korean</span>
       </div>
-      <a href="#counseling" class="persona-card-link link-terra">View Services →</a>
+      <div class="persona-card-links">
+        <a href="#counseling" class="persona-card-link link-terra">View Services →</a>
+        <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="persona-card-link link-terra">Self Space Profile ↗</a>
+      </div>
     </div>
     <div class="persona-card pm reveal">
       <div class="persona-icon icon-sage">
@@ -1350,7 +1361,10 @@
       </div>
       <div class="booking-box">
         <p><strong>Now seeing clients at Self Space Seattle.</strong> Kirkland office and virtual sessions · $90 per 50-minute session, individual or couples.</p>
-        <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="btn-primary">Book a Session →</a>
+        <div class="booking-actions">
+          <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="btn-primary">Book a Session →</a>
+          <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="ss-link">View my Self Space profile ↗</a>
+        </div>
       </div>
     </div>
   </div>
