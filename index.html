@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Woohee (Elise) Kwak — PM & Counselor</title>
+<title>Woohee (Elise) Kwak · PM & Counselor</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -560,7 +560,7 @@
   #blog { background: var(--warm-white); }
   .blog-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
   .blog-card {
@@ -572,7 +572,9 @@
     display: flex; flex-direction: column;
   }
   .blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
-  .blog-card.featured { grid-row: span 1; }
+  .blog-card.featured { grid-column: 1 / -1; padding: 40px 44px; }
+  .blog-card.featured h4 { font-size: 1.45rem; }
+  .blog-card.featured p { font-size: 0.95rem; max-width: 68ch; }
   .blog-meta {
     display: flex; align-items: center; gap: 10px;
     margin-bottom: 16px;
@@ -841,6 +843,19 @@
   .tool-link:hover { gap: 10px; opacity: 0.85; }
 
 
+  /* ---- SELF SPACE LINKS ---- */
+  .ss-link { color: var(--terracotta); text-decoration: underline; text-decoration-color: rgba(196,113,74,0.35); text-underline-offset: 3px; transition: text-decoration-color 0.2s; }
+  .ss-link:hover { text-decoration-color: var(--terracotta); }
+  .ss-link strong { color: inherit; }
+  .persona-card-links { display: flex; flex-wrap: wrap; column-gap: 24px; }
+  .booking-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+  .booking-actions .ss-link { font-size: 0.88rem; }
+
+  /* ---- BOOKING ---- */
+  .booking-box { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--divider); display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+  .booking-box p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.7; margin: 0; }
+  .booking-box strong { color: var(--text-dark); }
+
   /* ---- THERAPY RESOURCES ---- */
   .resources-feature {
     max-width: 1100px; margin: 80px auto 0;
@@ -1042,32 +1057,32 @@
       <!-- Base wash -->
       <rect width="1440" height="900" fill="#FDFAF6"/>
 
-      <!-- Large sage wash — upper left -->
+      <!-- Large sage wash: upper left -->
       <ellipse cx="200" cy="180" rx="420" ry="320" fill="rgba(122,158,135,0.13)" filter="url(#blur3)"/>
 
-      <!-- Terracotta bloom — right side -->
+      <!-- Terracotta bloom: right side -->
       <ellipse cx="1200" cy="320" rx="380" ry="300" fill="rgba(196,113,74,0.11)" filter="url(#blur3)"/>
 
-      <!-- Soft sand wash — lower center -->
+      <!-- Soft sand wash: lower center -->
       <ellipse cx="720" cy="780" rx="500" ry="220" fill="rgba(232,213,196,0.22)" filter="url(#blur3)"/>
 
-      <!-- Organic blob 1 — sage, mid left -->
+      <!-- Organic blob 1: sage, mid left -->
       <path d="M 80 400 C 140 320, 280 280, 340 370 C 400 460, 320 560, 220 550 C 120 540, 40 480, 80 400 Z"
             fill="rgba(122,158,135,0.18)" filter="url(#blur2)"/>
 
-      <!-- Organic blob 2 — terracotta, upper right -->
+      <!-- Organic blob 2: terracotta, upper right -->
       <path d="M 1100 80 C 1200 60, 1340 120, 1360 220 C 1380 320, 1280 380, 1180 340 C 1080 300, 1020 200, 1100 80 Z"
             fill="rgba(196,113,74,0.14)" filter="url(#blur2)"/>
 
-      <!-- Organic blob 3 — warm cream, center -->
+      <!-- Organic blob 3: warm cream, center -->
       <path d="M 600 200 C 680 140, 820 160, 860 260 C 900 360, 820 440, 700 420 C 580 400, 540 300, 600 200 Z"
             fill="rgba(232,213,196,0.28)" filter="url(#blur1)"/>
 
-      <!-- Organic blob 4 — sage, lower right -->
+      <!-- Organic blob 4: sage, lower right -->
       <path d="M 1200 620 C 1280 560, 1400 580, 1420 680 C 1440 780, 1340 840, 1240 800 C 1140 760, 1120 680, 1200 620 Z"
             fill="rgba(122,158,135,0.12)" filter="url(#blur2)"/>
 
-      <!-- Fine detail — small terracotta wisps -->
+      <!-- Fine detail: small terracotta wisps -->
       <ellipse cx="440" cy="680" rx="140" ry="80" fill="rgba(196,113,74,0.09)" filter="url(#blur4)"/>
       <ellipse cx="980" cy="160" rx="100" ry="60" fill="rgba(122,158,135,0.11)" filter="url(#blur4)"/>
       <ellipse cx="1300" cy="780" rx="120" ry="70" fill="rgba(196,113,74,0.08)" filter="url(#blur4)"/>
@@ -1089,7 +1104,7 @@
       <h1>Where <em>tech, culture,</em><br>and healing converge.</h1>
 
       <p class="hero-sub">
-        I'm Woohee (Elise) Kwak — a Korean immigrant, tech product leader with 20 years of experience, training as a Licensed Clinical Mental Health Counselor (LMHC), and becoming a Certified Yin Yoga teacher. My work lives at the intersection of <em>Human-Centered AI in Mental Health</em>, <em>somatic-based healing</em>, and <em>Ethical Innovation in Counseling</em>.
+        I'm Woohee (Elise) Kwak: a Korean immigrant, tech product leader with 20 years of experience, an intern therapist at Self Space Seattle on the path to becoming a Licensed Mental Health Counselor (LMHC), and a Certified Yin Yoga teacher. My work lives at the intersection of <em>Human-Centered AI in Mental Health</em>, <em>somatic-based healing</em>, and <em>Ethical Innovation in Counseling</em>.
       </p>
 
       <div class="hero-actions">
@@ -1114,8 +1129,8 @@
         <div class="hero-caption-tag">
           <span class="ct-icon">🧠</span>
           <div class="ct-text">
-            <strong>LMHC in Training</strong>
-            <span>Specializing in tech professionals & somatic healing</span>
+            <strong>Intern Therapist · Self Space</strong>
+            <span>Adults, teens &amp; couples · English &amp; Korean</span>
           </div>
         </div>
         <div class="hero-caption-tag">
@@ -1129,7 +1144,7 @@
           <span class="ct-icon">🌿</span>
           <div class="ct-text">
             <strong>Yin Yoga · Somatic</strong>
-            <span>Certified teacher, coming Summer 2025</span>
+            <span>Certified Yin Yoga teacher</span>
           </div>
         </div>
       </div>
@@ -1188,10 +1203,10 @@
     <div class="section-label">About Me</div>
     <h2 class="section-title">Twenty years of tech.<br>A lifetime of listening.</h2>
     <p class="section-sub">
-      I grew up in Seoul and moved to the US in my early twenties — carrying with me a deep cultural rootedness and the disorienting, clarifying experience of starting over in a new world. That journey shaped everything: how I listen, what I notice, and why I care so much about the stories people carry inside them.
+      I grew up in Seoul and moved to the US in my early twenties. Starting over in a new world shaped how I listen, what I notice, and why I care so much about the stories people carry.
     </p>
     <p style="font-size: 0.95rem; color: var(--text-mid); line-height: 1.8;">
-      I've spent 20 years in tech as a Product Manager — building customer experience and data platforms, driving personalization, predictive modeling, and product-led growth. Now I'm training to become a Licensed Mental Health Counselor (LMHC), rooted in an <strong>existential-humanistic, narrative approach</strong>. I have deep, firsthand empathy for high-pressure professional environments — the always-on culture, identity wrapped up in performance, the quiet erosion of inner agency. And I understand intimately what it means to navigate between cultures, to translate not just language but whole ways of being, and how profoundly that shapes identity and belonging. I'm especially drawn to adults navigating identity questions, career transitions, and existential reevaluation — and committed to integrating AI into care thoughtfully and ethically, to extend the therapeutic relationship, never replace it.
+      After 20 years in tech as a Product Manager building customer experience and data platforms, I'm now an intern therapist at <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="ss-link">Self Space Seattle</a> while I complete my Master's in Clinical Mental Health Counseling at Seattle University. I know high-pressure work cultures from the inside, and what it means to live between cultures. I see adults, teens, and couples in English and Korean, with an <strong>integrative, relational, and person-centered approach</strong>, and I'm committed to using AI in care thoughtfully, to extend the therapeutic relationship, never replace it.
     </p>
     <div class="about-stats">
       <div class="stat-card">
@@ -1200,11 +1215,11 @@
       </div>
       <div class="stat-card">
         <div class="stat-num" style="color: var(--sage);">Now</div>
-        <div class="stat-label">Pursuing Counseling Licensure</div>
+        <div class="stat-label">Intern Therapist at Self Space Seattle</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num" style="color: #8A73A7;">Soon</div>
-        <div class="stat-label">Certified Yin Yoga Teacher</div>
+        <div class="stat-num" style="color: #8A73A7;">2</div>
+        <div class="stat-label">Languages in Session: English &amp; Korean</div>
       </div>
     </div>
   </div>
@@ -1217,7 +1232,7 @@
   <div class="personas-header reveal">
     <div class="section-label">What I Do</div>
     <h2 class="section-title">Three callings, one person.</h2>
-    <p class="section-sub" style="text-align: center;">Rare expertise spanning tech leadership, clinical psychology, somatic healing, and ethical AI — each path deepening the others, all in service of the whole person.</p>
+    <p class="section-sub" style="text-align: center;">Rare expertise spanning tech leadership, clinical psychology, somatic healing, and ethical AI, each path deepening the others, all in service of the whole person.</p>
   </div>
   <div class="personas-grid">
     <div class="persona-card counselor reveal">
@@ -1225,16 +1240,19 @@
         <svg fill="none" viewBox="0 0 24 24" stroke="#C4714A" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
       </div>
       <h3>Mental Health Counseling</h3>
-      <p>Training as a Licensed Mental Health Counselor (LMHC), rooted in an <strong>existential-humanistic, narrative approach</strong>. I work with adults navigating high-pressure professional environments, identity and existential concerns, and later-stage career transitions — helping people reconnect with their inner agency and author a more meaningful story.</p>
+      <p>Intern therapist at <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="ss-link"><strong>Self Space Seattle</strong></a>, seeing clients in Kirkland and virtually while I work toward licensure as an LMHC. My approach is <strong>integrative, relational, and person-centered</strong>, drawing on ACT, Gestalt, CBT, mindfulness, and somatic-informed practices, with Gottman Method training for couples. I work with adults, teens, and couples, in English and Korean.</p>
       <div class="persona-skills">
-        <span class="skill-chip chip-terra">Existential-Humanistic</span>
-        <span class="skill-chip chip-terra">Narrative Therapy</span>
+        <span class="skill-chip chip-terra">Integrative &amp; Relational</span>
+        <span class="skill-chip chip-terra">ACT · Gestalt · CBT</span>
         <span class="skill-chip chip-terra">Anxiety & Burnout</span>
-        <span class="skill-chip chip-terra">Identity & Meaning</span>
-        <span class="skill-chip chip-terra">Career Transitions</span>
-        <span class="skill-chip chip-terra">Tech Professionals</span>
+        <span class="skill-chip chip-terra">Identity &amp; Belonging</span>
+        <span class="skill-chip chip-terra">Couples (Gottman)</span>
+        <span class="skill-chip chip-terra">English &amp; Korean</span>
       </div>
-      <a href="#counseling" class="persona-card-link link-terra">View Services →</a>
+      <div class="persona-card-links">
+        <a href="#counseling" class="persona-card-link link-terra">View Services →</a>
+        <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="persona-card-link link-terra">Self Space Profile ↗</a>
+      </div>
     </div>
     <div class="persona-card pm reveal">
       <div class="persona-icon icon-sage">
@@ -1254,12 +1272,12 @@
     </div>
 
     <div class="persona-card yoga reveal">
-      <span class="coming-soon-badge">Coming Summer 2025</span>
+      
       <div class="persona-icon icon-plum">
         <svg fill="none" viewBox="0 0 24 24" stroke="#8A73A7" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3c0 0-4 4-4 8s4 8 4 8m0-16c0 0 4 4 4 8s-4 8-4 8M3 12h18"/></svg>
       </div>
       <h3>Yin Yoga & Somatic Healing</h3>
-      <p>Becoming a Certified Yin Yoga teacher this summer, with a deep passion for somatic-based healing. I believe the body holds what the mind cannot always name — and that stillness, breath, and slow-held poses can unlock what talk alone cannot reach. I'm weaving this into an integrated mind-body approach to care.</p>
+      <p>A Certified Yin Yoga teacher with a deep passion for somatic-based healing. I believe the body holds what the mind cannot always name, and that stillness, breath, and slow-held poses can unlock what talk alone cannot reach. I'm weaving this into an integrated mind-body approach to care.</p>
       <div class="persona-skills">
         <span class="skill-chip chip-plum">Yin Yoga</span>
         <span class="skill-chip chip-plum">Somatic Healing</span>
@@ -1267,7 +1285,7 @@
         <span class="skill-chip chip-plum">Trauma-Informed</span>
         <span class="skill-chip chip-plum">Yoga + Therapy</span>
       </div>
-      <a href="#contact" class="persona-card-link link-plum">Get Notified →</a>
+      <a href="#contact" class="persona-card-link link-plum">Get in Touch →</a>
     </div>
   </div>
 </section>
@@ -1280,67 +1298,74 @@
     <div>
       <div class="section-label reveal">Counseling Services</div>
       <h2 class="section-title reveal">A space to reclaim<br>your own story.</h2>
-      <p class="section-sub reveal">Rooted in an existential-humanistic, narrative approach — I help adults reconnect with their inner agency, explore what truly matters, and author a life that feels authentically theirs. With 20 years inside the tech world, I understand the invisible pressures that make this hard.</p>
+      <p class="section-sub reveal">Warm, reflective, and collaborative. I help adults, teens, and couples slow down, reconnect with themselves and each other, and move toward a life that feels authentically theirs. With 20 years inside the tech world, I understand the invisible pressures that make this hard.</p>
       <div class="services-grid reveal">
         <div class="service-card">
           <h4><span class="service-num">01</span> High-Pressure Professionals</h4>
-          <p>For adults navigating anxiety, stress, and burnout in demanding work environments. I bring firsthand understanding of performance-driven cultures — the pressure to perform, the cost of constant context-switching, the struggle to honor your inner life while meeting external expectations.</p>
+          <p>For adults navigating burnout, perfectionism, and career transitions in demanding work environments. I bring firsthand understanding of performance-driven cultures: the pressure to perform, the cost of constant context-switching, the struggle to honor your inner life while meeting external expectations.</p>
         </div>
         <div class="service-card">
-          <h4><span class="service-num">02</span> Identity & Existential Concerns</h4>
-          <p>For those sitting with deeper questions — about meaning, values, purpose, and who they are beyond their role. Drawing on existential-humanistic and narrative approaches, we explore what you want your story to say, especially during periods of transition or disorientation.</p>
+          <h4><span class="service-num">02</span> Identity, Belonging &amp; Culture</h4>
+          <p>For adults and teens sitting with questions about who they are, where they belong, and how to hold cultural identity and family expectations. Having lived between Korea and the U.S. myself, I know how much this shapes a person. Sessions are available in English or Korean.</p>
         </div>
         <div class="service-card">
-          <h4><span class="service-num">03</span> Career Lifespan & Late-Stage Transitions</h4>
-          <p>For professionals in later stages of their career — experiencing disengagement, reevaluating professional identity, or preparing for retirement. I offer a thoughtful, non-prescriptive space to process what's ending and what might be beginning.</p>
+          <h4><span class="service-num">03</span> Couples</h4>
+          <p>For couples seeking deeper connection and better communication. Trained in the Gottman Method, I help partners understand the patterns that keep them stuck, repair after conflict, and turn back toward each other.</p>
         </div>
         <div class="service-card">
-          <h4><span class="service-num">04</span> Anxiety, Stress & Burnout</h4>
-          <p>Grounded in an existential-humanistic lens, we work not just to manage symptoms but to understand what your anxiety or exhaustion is trying to tell you — and what it reveals about the values and pressures shaping your life.</p>
+          <h4><span class="service-num">04</span> Anxiety, Low Mood &amp; Grief</h4>
+          <p>For anxiety, panic, depression, grief, and emotional overwhelm. We work not just to manage symptoms but to understand what your feelings are telling you, with practical tools from ACT, CBT, and mindfulness.</p>
         </div>
         <div class="service-card" style="border-color: #C4B8D8; background: linear-gradient(135deg, #f5f2fa 0%, #fff 100%);">
-          <h4><span class="service-num" style="color:#8A73A7;">05</span> Somatic & Yin Yoga Integration <span style="font-size:0.65rem; background:rgba(138,115,167,0.12); color:#8A73A7; border-radius:100px; padding:3px 8px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; vertical-align:middle; margin-left:6px;">Summer 2025</span></h4>
-          <p>Drawing on Yin Yoga and somatic-based healing, I offer an integrated mind-body approach to care — for clients who sense that stress, trauma, or emotion lives not just in their thoughts, but in their bodies.</p>
+          <h4><span class="service-num" style="color:#8A73A7;">05</span> Somatic & Yin Yoga Integration</h4>
+          <p>Drawing on Yin Yoga and somatic-based healing, I offer an integrated mind-body approach to care for clients who sense that stress, trauma, or emotion lives not just in their thoughts, but in their bodies.</p>
         </div>
         <div class="service-card" style="border-color: var(--sage); background: linear-gradient(135deg, #f4f8f5 0%, #fff 100%);">
           <h4><span class="service-num" style="color:var(--sage);">06</span> Human-Centered AI in Mental Health</h4>
-          <p>Consulting for practitioners, product teams, and organizations exploring <em>Integrative Mental Health &amp; Technology</em> — building tools that expand access and continuity of care, grounded in <em>Ethical Innovation in Counseling</em>.</p>
+          <p>Consulting for practitioners, product teams, and organizations exploring <em>Integrative Mental Health &amp; Technology</em>, building tools that expand access and continuity of care, grounded in <em>Ethical Innovation in Counseling</em>.</p>
         </div>
       </div>
     </div>
     <div class="approach-box reveal">
       <div class="section-label">My Approach</div>
-      <h3>Existential-Humanistic.<br>Narrative. Somatic-Informed.</h3>
-      <p>My primary theoretical foundation is <strong>existential-humanistic</strong> — I believe you are the author of your own story, and that real change comes from reconnecting with your capacity for choice, meaning, and agency. I integrate <strong>narrative therapy</strong> to help you examine the stories that have shaped you, and identify which ones are truly yours.</p>
-      <p>I'm particularly drawn to the intersection of inner life and outer pressure — how performance-driven cultures can quietly erode a person's sense of self, and how counseling can be a space to reclaim it. My 20 years in tech means I speak your language, and my commitment to <strong>Ethical Innovation in Counseling</strong> means I'm thoughtful about how AI can extend — never replace — the human relationship at the center of care.</p>
+      <h3>Integrative. Relational.<br>Somatic-Informed.</h3>
+      <p>My approach is <strong>integrative, relational, and person-centered</strong>. I believe real change grows in a relationship where you feel safe, seen, and free to be yourself. I draw on <strong>ACT, Gestalt, CBT, and mindfulness</strong>, along with somatic-informed practices, and use the <strong>Gottman Method</strong> with couples. Together we slow down, notice what's really going on, and reconnect with what matters to you.</p>
+      <p>I'm particularly drawn to the intersection of inner life and outer pressure: how performance-driven cultures can quietly erode a person's sense of self, and how counseling can be a space to reclaim it. My 20 years in tech means I speak your language, and my commitment to <strong>Ethical Innovation in Counseling</strong> means I'm thoughtful about how AI can extend, never replace, the human relationship at the center of care.</p>
       <div class="approach-pillars">
         <div class="pillar">
           <div class="pillar-icon">✍️</div>
           <div class="pillar-text">
             <h5>You are the author</h5>
-            <p>Rooted in narrative therapy, we examine the stories shaping your life — and ask which ones you actually chose, and which ones you want to keep.</p>
+            <p>We look at the stories shaping your life and ask which ones you actually chose, and which ones you want to keep.</p>
           </div>
         </div>
         <div class="pillar">
           <div class="pillar-icon">🧭</div>
           <div class="pillar-text">
             <h5>Inner agency over performance</h5>
-            <p>I help you distinguish between what you truly value and what you've internalized from high-pressure environments — so you can act from the inside out.</p>
+            <p>I help you distinguish between what you truly value and what you've internalized from high-pressure environments, so you can act from the inside out.</p>
           </div>
         </div>
         <div class="pillar">
           <div class="pillar-icon">🔍</div>
           <div class="pillar-text">
             <h5>Meaning, not just symptom relief</h5>
-            <p>We work existentially — exploring what your anxiety, burnout, or restlessness is revealing about your deeper needs, values, and sense of purpose.</p>
+            <p>We explore what your anxiety, burnout, or restlessness is revealing about your deeper needs, values, and sense of purpose.</p>
           </div>
         </div>
         <div class="pillar">
           <div class="pillar-icon">🌿</div>
           <div class="pillar-text">
             <h5>Body as a doorway</h5>
-            <p>Informed by somatic healing and Yin Yoga, I recognize that the body holds what words can't always reach — and we work with the whole person, not just the mind.</p>
+            <p>Informed by somatic healing and Yin Yoga, I recognize that the body holds what words can't always reach, and we work with the whole person, not just the mind.</p>
           </div>
+        </div>
+      </div>
+      <div class="booking-box">
+        <p><strong>Now seeing clients at Self Space Seattle.</strong> Kirkland office and virtual sessions · $90 per 50-minute session, individual or couples.</p>
+        <div class="booking-actions">
+          <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="btn-primary">Book a Session →</a>
+          <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="ss-link">View my Self Space profile ↗</a>
         </div>
       </div>
     </div>
@@ -1357,7 +1382,7 @@
     <div class="section-label">Interactive Tools</div>
     <h2 class="section-title">Prototypes for the<br>examined mind.</h2>
     <p class="section-sub" style="max-width: 560px; margin: 0 auto;">
-      Experimental tools built at the intersection of clinical practice and Human-Centered AI — designed to extend reflection, self-awareness, and care beyond the therapy hour.
+      Experimental tools built at the intersection of clinical practice and Human-Centered AI, designed to extend reflection, self-awareness, and care beyond the therapy hour.
     </p>
   </div>
 
@@ -1367,7 +1392,7 @@
       <div class="tool-icon tc">🪞</div>
       <span class="tool-tag tc">Identity</span>
       <h4>Parts of Me</h4>
-      <p>A guided reflection experience to help you examine the roles, values, and stories that shape how you see yourself — and how you want to. Draws on narrative therapy and values-based inquiry.</p>
+      <p>A guided reflection experience to help you examine the roles, values, and stories that shape how you see yourself, and how you want to. Draws on narrative therapy and values-based inquiry.</p>
       <div class="tool-method">Narrative Therapy · Values Clarification</div>
       <a href="https://ifs-explorer.vercel.app/" class="tool-link tc" target="_blank" rel="noopener">Try the Tool →</a>
     </div>
@@ -1376,7 +1401,7 @@
       <div class="tool-icon sg">🌧️</div>
       <span class="tool-tag sg">Mindfulness</span>
       <h4>RAIN Micropractice</h4>
-      <p>A gentle, step-by-step guide through the RAIN mindfulness technique — Recognize, Allow, Investigate, Nurture. Designed for high-stress moments when you need grounding in under 5 minutes.</p>
+      <p>A gentle, step-by-step guide through the RAIN mindfulness technique: Recognize, Allow, Investigate, Nurture. Designed for high-stress moments when you need grounding in under 5 minutes.</p>
       <div class="tool-method">RAIN · Mindful Self-Compassion (MSC)</div>
       <a href="#" class="tool-link sg">Try the Tool →</a>
     </div>
@@ -1386,7 +1411,7 @@
       <span class="tool-tag tc">Burnout</span>
       <span style="position:absolute; top:16px; right:16px; font-size:0.68rem; font-weight:600; letter-spacing:0.08em; color:var(--text-mid); text-transform:uppercase;">Coming Soon</span>
       <h4>Burnout Self-Assessment</h4>
-      <p>A thoughtful, research-informed self-assessment for tech professionals to understand their burnout profile across emotional exhaustion, depersonalization, and sense of efficacy — with personalized next steps.</p>
+      <p>A thoughtful, research-informed self-assessment for tech professionals to understand their burnout profile across emotional exhaustion, depersonalization, and sense of efficacy, with personalized next steps.</p>
       <div class="tool-method">Maslach Burnout Inventory (adapted) · CBT</div>
       <span class="tool-link tc" style="cursor:default;">Coming Soon</span>
     </div>
@@ -1396,7 +1421,7 @@
       <span class="tool-tag sg">Values</span>
       <span style="position:absolute; top:16px; right:16px; font-size:0.68rem; font-weight:600; letter-spacing:0.08em; color:var(--text-mid); text-transform:uppercase;">Coming Soon</span>
       <h4>Values Clarification Exercise</h4>
-      <p>An interactive exercise to help you surface, rank, and make meaning from your core values — especially useful during career transitions, major decisions, or moments of inner conflict.</p>
+      <p>An interactive exercise to help you surface, rank, and make meaning from your core values, especially useful during career transitions, major decisions, or moments of inner conflict.</p>
       <div class="tool-method">Acceptance & Commitment Therapy (ACT)</div>
       <span class="tool-link sg" style="cursor:default;">Coming Soon</span>
     </div>
@@ -1405,7 +1430,7 @@
 
   <div style="text-align:center; margin-top: 56px;" class="reveal">
     <p style="font-size: 0.88rem; color: var(--text-mid); max-width: 480px; margin: 0 auto 20px; line-height: 1.8;">
-      These tools are prototypes in active development — built with care, grounded in evidence, and designed to complement (never replace) professional support.
+      These tools are prototypes in active development, built with care, grounded in evidence, and designed to complement (never replace) professional support.
     </p>
     <a href="#contact" class="btn-secondary">Interested in collaborating? →</a>
   </div>
@@ -1438,16 +1463,49 @@
   <div class="reveal" style="margin-bottom: 56px;">
     <div class="section-label">Writing</div>
     <h2 class="section-title">Thoughts at the intersection.</h2>
-    <p class="section-sub">I write about consciousness, meaning, mental health, and what it means to be a whole human in a demanding world. Published on Substack.</p>
+    <p class="section-sub">I write about consciousness, meaning, mental health, work, and what it means to be a whole human in a demanding world. Published on Substack.</p>
   </div>
   <div class="blog-grid">
     <div class="blog-card featured reveal">
+      <div class="blog-meta">
+        <span class="blog-cat cat-pm">Work · Attachment</span>
+        <span class="blog-date">Latest · Oct 29, 2026</span>
+      </div>
+      <h4>Don't Detach from Your Work. Attach Securely</h4>
+      <p>What attachment theory might teach us about burnout, belonging, and work in the age of AI. The answer isn't caring less about work; it's engaging from security rather than fear.</p>
+      <a href="https://woohee.substack.com/p/dont-detach-from-your-work-attach" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
+    </div>
+    <div class="blog-card reveal">
+      <div class="blog-meta">
+        <span class="blog-cat cat-pm">Work · Freedom</span>
+      </div>
+      <h4>The Exit Package I Missed, and What It Taught Me About Freedom</h4>
+      <p>A month after I left Microsoft to pursue counseling, the company announced a voluntary exit package. On regret, the pull of security, and choosing to live with intention rather than fear.</p>
+      <a href="https://woohee.substack.com/p/the-exit-package-i-missed-and-what" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
+    </div>
+    <div class="blog-card reveal">
+      <div class="blog-meta">
+        <span class="blog-cat cat-pm">Work · Values</span>
+      </div>
+      <h4>Should I Stay or Should I Go?</h4>
+      <p>When work feels stuck, is it my circumstances that need to change, or something in me? The inner work behind choices that are truly ours.</p>
+      <a href="https://woohee.substack.com/p/should-i-stay-or-should-i-go" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
+    </div>
+    <div class="blog-card reveal">
+      <div class="blog-meta">
+        <span class="blog-cat cat-pm">Work · Identity</span>
+      </div>
+      <h4>Who Are We When We Don't Have a Job?</h4>
+      <p>On the hunger to hit the high note again, and what actually fills it. Losing a role can open a way back to who we are beyond our work.</p>
+      <a href="https://woohee.substack.com/p/who-are-we-when-we-dont-have-a-job" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
+    </div>
+    <div class="blog-card reveal">
       <div class="blog-meta">
         <span class="blog-cat cat-counseling">Existential</span>
 
       </div>
       <h4>When Self-Love Ends, Love Begins</h4>
-      <p>Self-love, as we usually practice it, is ego-referenced — it tightens the walls around the self rather than opening us to something larger. This essay traces four inner movements — awareness, understanding, acceptance, and release — through which love becomes possible at all.</p>
+      <p>Self-love, as we usually practice it, is ego-referenced: it tightens the walls around the self rather than opening us to something larger. This essay traces four inner movements (awareness, understanding, acceptance, and release) through which love becomes possible at all.</p>
       <a href="https://woohee.substack.com/p/when-self-love-ends-love-begins" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
     </div>
     <div class="blog-card reveal">
@@ -1456,7 +1514,7 @@
 
       </div>
       <h4>Breathing with the Unknown: Consciousness and the Shape of Meaning</h4>
-      <p>When the structures that once organized our sense of purpose fall away, what remains? Drawing on <em>Cast Away</em>, attachment theory, and cosmology — a reflection on meaning, fear, and learning to live without guarantees.</p>
+      <p>When the structures that once organized our sense of purpose fall away, what remains? Drawing on <em>Cast Away</em>, attachment theory, and cosmology: a reflection on meaning, fear, and learning to live without guarantees.</p>
       <a href="https://woohee.substack.com/p/breathing-with-the-unknown-consciousness" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
     </div>
     <div class="blog-card reveal">
@@ -1465,7 +1523,7 @@
 
       </div>
       <h4>Attunement: The Human Foundation We Cannot Outsource to AI</h4>
-      <p>Why nervous system balance matters for clarity, longevity, and the future we are shaping — and why our capacity to feel, attune, and transform that into meaningful connection is something no AI can replicate.</p>
+      <p>Why nervous system balance matters for clarity, longevity, and the future we are shaping, and why our capacity to feel, attune, and transform that into meaningful connection is something no AI can replicate.</p>
       <a href="https://woohee.substack.com/p/attunement-the-human-foundation-we" target="_blank" rel="noopener" class="blog-read">Read on Substack →</a>
     </div>
   </div>
@@ -1484,7 +1542,7 @@
     <div class="contact-info reveal">
       <div class="section-label">Get in Touch</div>
       <h2>Let's start a <em>conversation.</em></h2>
-      <p>Whether you're exploring therapy, interested in product collaboration, or just want to connect — I'd love to hear from you. No pressure, no scripts.</p>
+      <p>Whether you're exploring therapy, interested in product collaboration, or just want to connect, I'd love to hear from you. No pressure, no scripts.</p>
       <div class="contact-ways">
         <a href="/cdn-cgi/l/email-protection#22554d4d4a474749554349624d57564e4d4d490c414d4f" class="contact-way">
           <div class="cw-icon">
@@ -1493,6 +1551,15 @@
           <div>
             <div class="cw-label">Email</div>
             <div class="cw-value"><span class="__cf_email__" data-cfemail="12657d7d7a777779657379527d67667e7d7d793c717d7f">[email&#160;protected]</span></div>
+          </div>
+        </a>
+        <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="contact-way">
+          <div class="cw-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          </div>
+          <div>
+            <div class="cw-label">Counseling at Self Space Seattle</div>
+            <div class="cw-value">elise@selfspaceseattle.com · (206) 414-8918 ext. 36</div>
           </div>
         </a>
         <a href="https://www.linkedin.com/in/wooheekwak/" target="_blank" class="contact-way">
@@ -1545,7 +1612,7 @@
 <footer>
   <div>
     <div class="footer-name">Woohee (Elise) Kwak</div>
-    <div class="footer-tagline">Product Manager · Counselor-in-Training (LMHC) (in training)</div>
+    <div class="footer-tagline">Product Leader · Intern Therapist · Yin Yoga Teacher</div>
   </div>
   <div class="footer-links">
     <a href="#about">About</a>
