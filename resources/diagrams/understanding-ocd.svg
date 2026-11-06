@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" width="600" height="340" id="dg-ocd">
+  <title>The OCD cycle and how ERP interrupts it</title>
+  <style>
+    #dg-ocd text { font-family: "DM Sans", Helvetica, Arial, sans-serif; fill: #2A2F35; }
+    #dg-ocd .h { font-size: 16px; font-weight: 600; }
+    #dg-ocd .s { font-size: 13px; fill: #5A6370; }
+    #dg-ocd .c { font-family: Lora, Georgia, serif; font-style: italic; font-size: 16px; fill: #3D4A5C; }
+    #dg-ocd .g { font-size: 18px; font-weight: 600; fill: #fff; }
+    #dg-ocd .gs { font-size: 13.5px; fill: #fff; }
+    #dg-ocd .gn { font-size: 12px; font-weight: 600; fill: #476B56; }
+  </style>
+  <defs>
+    <marker id="dgo-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9" fill="none" stroke="#476B56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <ellipse cx="225" cy="170" rx="150" ry="120" fill="none" stroke="#E8A882" stroke-width="2"/>
+  <g fill="#C4714A">
+    <path d="M-6 -6L6 0L-6 6Z" transform="translate(331 85.1) rotate(45)"/>
+    <path d="M-6 -6L6 0L-6 6Z" transform="translate(119 254.9) rotate(225)"/>
+    <path d="M-6 -6L6 0L-6 6Z" transform="translate(119 85.1) rotate(315)"/>
+  </g>
+  <!-- the link ERP targets -->
+  <circle cx="331" cy="254.9" r="13" fill="#fff" stroke="#476B56" stroke-width="2"/>
+  <path d="M325 249L337 261M337 249L325 261" stroke="#476B56" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M346 258 C 400 290, 440 290, 452 268" fill="none" stroke="#476B56" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#dgo-g)"/>
+
+  <text x="225" y="165" text-anchor="middle" class="c">The OCD cycle</text>
+  <text x="225" y="186" text-anchor="middle" class="s">relief teaches the</text>
+  <text x="225" y="203" text-anchor="middle" class="s">ritual is “needed”</text>
+
+  <g>
+    <rect x="145" y="22" width="160" height="58" rx="14" fill="#fff" stroke="#E8A882" stroke-width="1.6"/>
+    <text x="225" y="46" text-anchor="middle" class="h">Obsession</text>
+    <text x="225" y="66" text-anchor="middle" class="s">unwanted thought or urge</text>
+
+    <rect x="295" y="141" width="160" height="58" rx="14" fill="#fff" stroke="#E8A882" stroke-width="1.6"/>
+    <text x="375" y="165" text-anchor="middle" class="h">Distress &amp; doubt</text>
+    <text x="375" y="185" text-anchor="middle" class="s">anxiety, “not right”</text>
+
+    <rect x="145" y="260" width="160" height="58" rx="14" fill="#FBF0EA" stroke="#C4714A" stroke-width="1.6"/>
+    <text x="225" y="284" text-anchor="middle" class="h">Compulsion</text>
+    <text x="225" y="304" text-anchor="middle" class="s">visible or mental ritual</text>
+
+    <rect x="-5" y="141" width="160" height="58" rx="14" fill="#fff" stroke="#E8A882" stroke-width="1.6" transform="translate(10 0)"/>
+    <text x="85" y="165" text-anchor="middle" class="h">Brief relief</text>
+    <text x="85" y="185" text-anchor="middle" class="s">then doubt returns</text>
+  </g>
+
+  <!-- ERP panel -->
+  <rect x="462" y="22" width="134" height="296" rx="16" fill="#476B56"/>
+  <text x="529" y="54" text-anchor="middle" class="g">ERP</text>
+  <text x="529" y="74" text-anchor="middle" class="gs" style="font-size:12px;fill:#D5E4DA">with a trained</text>
+  <text x="529" y="90" text-anchor="middle" class="gs" style="font-size:12px;fill:#D5E4DA">therapist</text>
+  <g>
+    <circle cx="482" cy="122" r="9" fill="#fff"/><text x="482" y="126" text-anchor="middle" class="gn">1</text>
+    <text x="498" y="126" class="gs">Face the</text><text x="498" y="143" class="gs">trigger</text>
+    <circle cx="482" cy="178" r="9" fill="#fff"/><text x="482" y="182" text-anchor="middle" class="gn">2</text>
+    <text x="498" y="182" class="gs">Resist the</text><text x="498" y="199" class="gs">ritual</text>
+    <circle cx="482" cy="234" r="9" fill="#fff"/><text x="482" y="238" text-anchor="middle" class="gn">3</text>
+    <text x="498" y="238" class="gs">Let distress</text><text x="498" y="255" class="gs">rise and fall</text>
+  </g>
+  <path d="M476 274H582" stroke="#7A9E87" stroke-width="1"/>
+  <text x="529" y="294" text-anchor="middle" class="gs" style="font-style:italic">“I can live with</text>
+  <text x="529" y="310" text-anchor="middle" class="gs" style="font-style:italic">uncertainty.”</text>
+</svg>

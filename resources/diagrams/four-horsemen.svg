@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 382" width="600" height="382" id="dg-4h">
+  <title>The Four Horsemen and their antidotes</title>
+  <style>
+    #dg-4h text { font-family: "DM Sans", Helvetica, Arial, sans-serif; fill: #2A2F35; }
+    #dg-4h .lab { font-size: 11.5px; font-weight: 600; letter-spacing: 1.6px; }
+    #dg-4h .h { font-size: 16px; font-weight: 600; }
+    #dg-4h .e { font-size: 13.5px; fill: #5A6370; }
+    #dg-4h .q { font-family: Lora, Georgia, serif; font-style: italic; font-size: 13.5px; }
+  </style>
+  <defs>
+    <marker id="dg4-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1L9 5L1 9" fill="none" stroke="#476B56" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text x="12" y="18" class="lab" style="fill:#9A5232">HORSEMAN</text>
+  <text x="328" y="18" class="lab" style="fill:#476B56">ANTIDOTE</text>
+
+  <!-- row 1 -->
+  <rect x="4" y="30" width="270" height="78" rx="14" fill="#FBF0EA"/>
+  <text x="20" y="55" class="h">Criticism</text>
+  <text x="20" y="76" class="q" style="fill:#7A4A33">“You never think about</text>
+  <text x="20" y="94" class="q" style="fill:#7A4A33">anyone but yourself.”</text>
+  <path d="M280 69H316" stroke="#476B56" stroke-width="1.8" fill="none" marker-end="url(#dg4-a)"/>
+  <rect x="322" y="30" width="274" height="78" rx="14" fill="#EEF4F0"/>
+  <text x="338" y="55" class="h">Gentle start-up</text>
+  <text x="338" y="76" class="q" style="fill:#2F4F3D">“I felt hurt when plans changed.</text>
+  <text x="338" y="94" class="q" style="fill:#2F4F3D">Can we check in first next time?”</text>
+
+  <!-- row 2 -->
+  <rect x="4" y="118" width="270" height="78" rx="14" fill="#FBF0EA"/>
+  <text x="20" y="143" class="h">Contempt</text>
+  <text x="20" y="164" class="e">Mockery, eye-rolling, disgust:</text>
+  <text x="20" y="182" class="q" style="fill:#7A4A33">“Wow, you can't handle anything.”</text>
+  <path d="M280 157H316" stroke="#476B56" stroke-width="1.8" fill="none" marker-end="url(#dg4-a)"/>
+  <rect x="322" y="118" width="274" height="78" rx="14" fill="#EEF4F0"/>
+  <text x="338" y="143" class="h">Appreciation &amp; respect</text>
+  <text x="338" y="164" class="q" style="fill:#2F4F3D">“I know this week's been a lot.</text>
+  <text x="338" y="182" class="q" style="fill:#2F4F3D">Thank you for handling dinner.”</text>
+
+  <!-- row 3 -->
+  <rect x="4" y="206" width="270" height="78" rx="14" fill="#FBF0EA"/>
+  <text x="20" y="231" class="h">Defensiveness</text>
+  <text x="20" y="252" class="e">Excuses or counterattack:</text>
+  <text x="20" y="270" class="q" style="fill:#7A4A33">“Well, I wouldn't have to if you...”</text>
+  <path d="M280 245H316" stroke="#476B56" stroke-width="1.8" fill="none" marker-end="url(#dg4-a)"/>
+  <rect x="322" y="206" width="274" height="78" rx="14" fill="#EEF4F0"/>
+  <text x="338" y="231" class="h">Take responsibility</text>
+  <text x="338" y="252" class="q" style="fill:#2F4F3D">“You're right, I forgot. I'm sorry.</text>
+  <text x="338" y="270" class="q" style="fill:#2F4F3D">I'll set a reminder.”</text>
+
+  <!-- row 4 -->
+  <rect x="4" y="294" width="270" height="78" rx="14" fill="#FBF0EA"/>
+  <text x="20" y="319" class="h">Stonewalling</text>
+  <text x="20" y="340" class="e">Shutting down, going silent,</text>
+  <text x="20" y="358" class="e">turning away</text>
+  <path d="M280 333H316" stroke="#476B56" stroke-width="1.8" fill="none" marker-end="url(#dg4-a)"/>
+  <rect x="322" y="294" width="274" height="78" rx="14" fill="#EEF4F0"/>
+  <text x="338" y="319" class="h">Physiological self-soothing</text>
+  <text x="338" y="340" class="q" style="fill:#2F4F3D">“I'm flooded. Can we take 20</text>
+  <text x="338" y="358" class="q" style="fill:#2F4F3D">minutes and come back to this?”</text>
+</svg>
