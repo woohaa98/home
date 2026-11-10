@@ -268,6 +268,41 @@ window.RESOURCE_LIBRARY = {
         "Shafran, R., Cooper, Z., & Fairburn, C. G. (2002). Clinical perfectionism: A cognitive-behavioural analysis. <em>Behaviour Research and Therapy, 40</em>(7), 773–791.",
         "Stoeber, J., & Otto, K. (2006). Positive conceptions of perfectionism: Approaches, evidence, challenges. <em>Personality and Social Psychology Review, 10</em>(4), 295–319."
       ]
+    },
+
+    /* ---------------------------------------------------------- 8 */
+    {
+      id: "turning-toward-emotions",
+      category: "awareness",
+      status: "published",
+      lastReviewed: "2026-11-09",
+      title: "Turning Toward Difficult Emotions",
+      description: "For anyone who tends to think feelings away, numb them, or not know what to do with them: how to notice, name, and allow emotions with self-compassion.",
+      framework: "Draws on emotion regulation research, Acceptance and Commitment Therapy (ACT), and self-compassion research (Kristin Neff)",
+      tags: ["emotions", "feelings", "emotional awareness", "self-compassion", "avoidance", "numbing", "distraction", "intellectualizing", "suppression", "alexithymia", "naming feelings", "acceptance", "mindfulness", "body", "kindness"],
+      what: "Many of us learned to handle uncomfortable feelings by thinking about them, pushing them away, or reaching for something that brings quick relief: scrolling, snacking, shopping, working, one more episode. Turning toward emotions means noticing, naming, and allowing what you feel, with kindness, so the feeling can move through you and tell you what you need.",
+      diagram: "diagrams/turning-toward-emotions.svg",
+      diagramAlt: "An uncomfortable feeling, such as sadness, shame, loneliness, or anger, leads three ways. Thinking it away means analyzing and explaining. Pushing it away means numbing or distracting by scrolling, snacking, shopping, or working. Both bring quick relief, but the feeling stays underneath and often returns, sometimes louder. Turning toward it has four steps: notice it in your body, name it, make room for it, and meet it with kindness. Then the feeling rises, peaks, and passes like a wave.",
+      diagramCaption: "An original illustration. Thinking and distraction aren't bad; they become a problem when they're the only ways we meet our feelings.",
+      why: [
+        "If feelings were ignored, judged, or felt unsafe growing up, staying in your head, staying busy, or reaching for comfort made sense. It kept you going. Some people also find it hard to tell what they feel or put it into words, a trait researchers call alexithymia. That's a skill that can grow, not a flaw.",
+        "The cost is that avoided feelings rarely leave. Research links habitually suppressing emotions to more negative feelings, less positive ones, and less closeness with others. Feelings that are allowed tend to rise, peak, and ease, and self-compassion makes it safer to stay with them."
+      ],
+      note: { label: "Normal or a concern?", text: "Everyone distracts themselves sometimes. It's worth a closer look when avoidance is your main way of coping, when numbing habits are hard to stop, or when you feel cut off from yourself or others. If feelings bring up overwhelming memories, go slowly, with support." },
+      help: [
+        { title: "Find it in your body", text: "Pause and ask where you feel it: a tight chest, heavy shoulders, a knot in your stomach. Describe the sensation before you explain it." },
+        { title: "Name it, then make room", text: "Put it into words, as specifically as you can: “disappointed,” not just “bad.” Then breathe and let it be there for a minute, without fixing it." },
+        { title: "Meet it with kindness", text: "Try a hand on your heart and the words you'd offer a friend: “This is hard. It makes sense I feel this way. I'm not alone in it.”" }
+      ],
+      reflection: "Which feeling do you most often move away from, and what do you usually reach for instead?",
+      takeaway: "You don't have to fix a feeling to move through it; you just have to let yourself feel it, kindly.",
+      references: [
+        "Gross, J. J., & John, O. P. (2003). Individual differences in two emotion regulation processes: Implications for affect, relationships, and well-being. <em>Journal of Personality and Social Psychology, 85</em>(2), 348–362.",
+        "Hayes, S. C., Wilson, K. G., Gifford, E. V., Follette, V. M., & Strosahl, K. (1996). Experiential avoidance and behavioral disorders: A functional dimensional approach to diagnosis and treatment. <em>Journal of Consulting and Clinical Psychology, 64</em>(6), 1152–1168.",
+        "Lieberman, M. D., Eisenberger, N. I., Crockett, M. J., Tom, S. M., Pfeifer, J. H., & Way, B. M. (2007). Putting feelings into words: Affect labeling disrupts amygdala activity in response to affective stimuli. <em>Psychological Science, 18</em>(5), 421–428.",
+        "MacBeth, A., & Gumley, A. (2012). Exploring compassion: A meta-analysis of the association between self-compassion and psychopathology. <em>Clinical Psychology Review, 32</em>(6), 545–552.",
+        "Neff, K. D. (2003). Self-compassion: An alternative conceptualization of a healthy attitude toward oneself. <em>Self and Identity, 2</em>(2), 85–101."
+      ]
     }
   ],
 
