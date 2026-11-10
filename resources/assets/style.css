@@ -159,6 +159,23 @@ a { color: var(--terracotta-ink); }
 .card .badge { position: absolute; top: 18px; right: 18px; z-index: 1; }
 .no-results { text-align: center; color: var(--text-mid); padding: 48px 0; }
 
+/* ---------- For Therapists ---------- */
+.crosslink { margin: 18px 0 0; font-size: .92rem; }
+.crosslink a { color: var(--terracotta-ink); }
+.tools { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
+.tool { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 28px; background: #fff; border: 1px solid var(--divider); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+.tool-thumb { display: block; border-radius: 12px; overflow: hidden; border: 1px solid var(--divider); align-self: start; transition: transform .25s; }
+.tool-thumb:hover { transform: translateY(-2px); }
+.tool-thumb img { width: 100%; height: auto; }
+.tool-body { min-width: 0; display: flex; flex-direction: column; }
+.tool h3 { font-family: var(--serif); font-weight: 500; font-size: 1.45rem; line-height: 1.25; margin: 0 0 10px; }
+.tool .card-tag { color: var(--sage-ink); }
+.tool .desc { color: var(--text-mid); font-size: .95rem; margin: 0 0 14px; }
+.tool-parts { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+.tool-parts li { font-size: .78rem; background: var(--sage-wash); color: var(--sage-ink); padding: 4px 10px; border-radius: 100px; }
+.tool .framework { font-size: .8rem; color: var(--slate-mid); margin: 0 0 18px; }
+@media (max-width: 640px) { .tool { grid-template-columns: 1fr; gap: 18px; } .tool-thumb { max-width: 240px; } }
+
 /* =============================================================
    RESOURCE PAGE (screen)
    ============================================================= */
