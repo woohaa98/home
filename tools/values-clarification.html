@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Values Clarification Exercise · Woohee (Elise) Kwak</title>
+<meta name="description" content="Discover what matters most to you, rank your core values, put them in your own words, and see which kinds of work might fit. With journal prompts to keep reflecting.">
+<!-- Privacy: no analytics, tracking, or data requests. Answers are saved only in this browser on this device, and can be erased at any time. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #9A5232; --accent-hover: #84452A; --accent-soft: #FBF0EA;
+  --sage: #476B56; --sage-soft: #EEF4F0; --sand: #F5EFE6; --slate: #3D4A5C; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 820px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 44px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 6vw, 46px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; text-wrap: balance; }
+h1 em, .q em { color: var(--accent); font-style: italic; }
+.lede { color: var(--muted); max-width: 60ch; margin: 0 0 30px; }
+
+/* progress */
+.steps { display: flex; gap: 6px; list-style: none; padding: 0; margin: 0 0 8px; }
+.steps li { flex: 1; height: 4px; border-radius: 4px; background: var(--line); transition: background .3s; }
+.steps li.on { background: var(--accent); }
+.step-name { font-size: 13px; color: var(--muted); margin: 0 0 26px; letter-spacing: .02em; }
+
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(25px, 4.4vw, 31px); line-height: 1.22; margin: 0 0 8px; outline: none; text-wrap: balance; }
+.hint { color: var(--muted); font-size: 15px; margin: 0 0 22px; max-width: 62ch; }
+.sub-q { font-weight: 600; margin: 28px 0 8px; }
+
+/* stage choices */
+.stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 640px) { .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 400px) { .stages { grid-template-columns: 1fr; } }
+.pick { appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; transition: border-color .2s, background-color .2s; min-height: 48px; }
+.pick:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.pick[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.pick strong { display: block; font-weight: 600; font-size: 15px; }
+.pick small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; line-height: 1.4; }
+
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 13px 15px; line-height: 1.55; resize: vertical; }
+textarea { min-height: 110px; }
+textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(154,82,50,.14); }
+.write-hint { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+
+/* values grid */
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; margin: 0 0 14px; }
+.counter { font-size: 14px; color: var(--muted); }
+.counter b { color: var(--ink); }
+.values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 700px) { .values { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .values { grid-template-columns: 1fr; } }
+.val { appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px 12px 14px; display: flex; gap: 10px; align-items: flex-start; transition: border-color .2s, background-color .2s, transform .2s; }
+.val:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.val[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.val .box { flex: none; width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--line); margin-top: 2px; display: grid; place-items: center; transition: all .2s; }
+.val[aria-pressed="true"] .box { background: var(--accent); border-color: var(--accent); }
+.val .box svg { width: 11px; height: 11px; opacity: 0; }
+.val[aria-pressed="true"] .box svg { opacity: 1; }
+.val b { display: block; font-weight: 600; font-size: 15px; }
+.val small { display: block; color: var(--muted); font-size: 13px; line-height: 1.4; margin-top: 1px; }
+.add-own { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.add-own input { flex: 1 1 220px; }
+
+/* rank list */
+.rank { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; counter-reset: r; }
+.rank li { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; box-shadow: var(--shadow); }
+.rank .num { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-family: var(--font-display); font-size: 17px; }
+.rank li:nth-child(n+2) .num { background: var(--accent-soft); color: var(--accent); }
+.rank .txt { flex: 1; min-width: 0; }
+.rank .txt b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 18px; }
+.rank .txt small { color: var(--muted); font-size: 13px; }
+.rank .moves { display: flex; gap: 6px; }
+.icon-btn { appearance: none; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; display: grid; place-items: center; color: var(--ink); }
+.icon-btn:hover:not(:disabled) { border-color: var(--ink); }
+.icon-btn:disabled { opacity: .3; cursor: default; }
+.icon-btn svg { width: 16px; height: 16px; }
+
+/* define */
+.define { display: grid; gap: 18px; }
+.def-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; box-shadow: var(--shadow); }
+.def-card h3 { font-family: var(--font-display); font-weight: 500; font-size: 21px; margin: 0 0 2px; display: flex; align-items: baseline; gap: 10px; }
+.def-card h3 span { font-family: var(--font-body); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.def-card .meaning { color: var(--muted); font-size: 14px; margin: 0 0 14px; }
+.def-card label { display: block; font-weight: 500; font-size: 15px; margin: 0 0 6px; }
+.living { margin-top: 16px; }
+.living input[type=range] { width: 100%; accent-color: var(--accent); }
+.living .ends { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--muted); }
+.living output { font-family: var(--font-display); color: var(--accent); font-size: 18px; margin-left: 6px; }
+
+/* fields */
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 600px) { .fields { grid-template-columns: 1fr; } }
+.field { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
+.field b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 17.5px; margin-bottom: 4px; }
+.field .ex { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 3px 10px; }
+.look { margin: 24px 0 0; padding: 18px 20px; background: var(--sage-soft); border-radius: 16px; }
+.look h3 { margin: 0 0 8px; font-size: 15px; font-weight: 600; color: var(--sage); }
+.look ul { margin: 0; padding-left: 20px; }
+.look li { margin: 4px 0; }
+.explore-links { display: flex; flex-wrap: wrap; gap: 10px 20px; margin: 14px 0 0; font-size: 14.5px; }
+.caveat { font-size: 13.5px; color: var(--muted); margin: 14px 0 0; }
+
+/* journal & summary */
+.summary { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 4px); box-shadow: var(--shadow); padding: clamp(22px, 5vw, 38px); }
+.summary h3 { font-family: var(--font-display); font-weight: 400; font-size: 22px; margin: 0 0 14px; }
+.sum-values { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 12px; }
+.sum-values li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; }
+.sum-values .num { width: 30px; height: 30px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-family: var(--font-display); }
+.sum-values b { font-family: var(--font-display); font-weight: 500; font-size: 17px; }
+.sum-values p { margin: 2px 0 0; color: var(--muted); font-size: 14.5px; }
+.bar { height: 6px; background: var(--sand); border-radius: 6px; margin-top: 6px; overflow: hidden; max-width: 260px; }
+.bar i { display: block; height: 100%; background: var(--sage); border-radius: 6px; }
+.sum-block { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.sum-block h4 { margin: 0 0 6px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.sum-block p { margin: 0; white-space: pre-wrap; }
+.prompts { display: grid; gap: 18px; margin-top: 8px; }
+.prompt label { display: block; font-family: var(--font-display); font-size: 18px; line-height: 1.4; margin: 0 0 8px; }
+.saved { font-size: 13px; color: var(--sage); }
+
+.nav { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 30px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+.spacer { flex: 1; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .45s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
+
+@media print {
+  @page { size: Letter; margin: 0.6in; }
+  body { background: #fff; font-size: 11pt; }
+  .topbar, header, .steps, .step-name, .nav, .disclaimer, section:not(#s-journal), #j-intro, .no-print { display: none !important; }
+  #s-journal { display: block !important; }
+  .summary { box-shadow: none; border: 0; padding: 0; }
+  .prompt textarea { border: 0; padding: 0; min-height: 0; resize: none; overflow: visible; }
+  .prompt textarea:placeholder-shown { min-height: 1.2in; border-bottom: 1px solid #ccc; }
+  .prompt { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Values</p>
+      <h1>Values <em>Clarification</em> Exercise</h1>
+      <p class="lede">For anyone figuring out what's next: choosing a path before or during college, starting out, or feeling stuck in a career. Discover what matters most to you, put it in your own words, and see which kinds of work might fit. Takes about 15 to 20 minutes, and you can stop and come back.</p>
+    </header>
+
+    <ol class="steps" id="steps" aria-hidden="true"></ol>
+    <p class="step-name" id="step-name"></p>
+
+    <!-- 1. Start -->
+    <section id="s-start" aria-labelledby="q-start">
+      <h2 class="q" id="q-start" tabindex="-1">Where are you <em>right now</em>?</h2>
+      <p class="hint">This shapes the reflection questions you'll get at the end. Choose what fits best.</p>
+      <div class="stages" id="stages" role="group" aria-label="Your stage"></div>
+
+      <p class="sub-q"><label for="peak">Warm-up: think of a time you felt most alive, proud, or like yourself. What were you doing, and who were you with?</label></p>
+      <textarea id="peak" data-save="peak" placeholder="Write a few lines, or skip for now. There are no wrong answers."></textarea>
+      <p class="write-hint">Tip: on a phone, you can tap the microphone on your keyboard to speak instead of type.</p>
+    </section>
+
+    <!-- 2. Choose -->
+    <section id="s-choose" hidden aria-labelledby="q-choose">
+      <h2 class="q" id="q-choose" tabindex="-1">Which values <em>speak to you</em>?</h2>
+      <p class="hint">Choose every value that feels important to how you want to live and work. Go with your gut; you'll narrow down next. Aim for about 8 to 15.</p>
+      <div class="toolbar">
+        <span class="counter" id="choose-count" aria-live="polite"></span>
+        <button type="button" class="btn-text" id="clear-choices">Clear choices</button>
+      </div>
+      <div class="values" id="values"></div>
+      <div class="add-own">
+        <label class="sr-only" for="own-value">Add your own value</label>
+        <input type="text" id="own-value" maxlength="30" placeholder="Missing something? Add your own value">
+        <button type="button" class="btn btn-ghost" id="add-own">Add</button>
+      </div>
+    </section>
+
+    <!-- 3. Top five -->
+    <section id="s-top" hidden aria-labelledby="q-top">
+      <h2 class="q" id="q-top" tabindex="-1">If you could keep only <em>five</em>…</h2>
+      <p class="hint">Which values would you hold on to, even when life gets busy or choices get hard? It's okay if this feels difficult. That's part of the clarity.</p>
+      <div class="toolbar"><span class="counter" id="top-count" aria-live="polite"></span></div>
+      <div class="values" id="top-values"></div>
+    </section>
+
+    <!-- 4. Rank -->
+    <section id="s-rank" hidden aria-labelledby="q-rank">
+      <h2 class="q" id="q-rank" tabindex="-1">Put them in <em>order</em></h2>
+      <p class="hint">Use the arrows to move the value that matters most to the top. When two values compete, which would you choose?</p>
+      <ol class="rank" id="rank"></ol>
+    </section>
+
+    <!-- 5. Define -->
+    <section id="s-define" hidden aria-labelledby="q-define">
+      <h2 class="q" id="q-define" tabindex="-1">Make them <em>yours</em></h2>
+      <p class="hint">The same word can mean very different things to different people. Describe each value in your own words, then notice how fully you're living it right now.</p>
+      <div class="define" id="define"></div>
+    </section>
+
+    <!-- 6. Work -->
+    <section id="s-work" hidden aria-labelledby="q-work">
+      <h2 class="q" id="q-work" tabindex="-1">Where your values might <em>fit at work</em></h2>
+      <p class="hint">Based on your top values, here are fields to explore. These are starting points for curiosity, not a verdict. The same value can be lived in many different jobs.</p>
+      <div class="fields" id="fields"></div>
+      <div class="look">
+        <h3>What to look for in a workplace</h3>
+        <ul id="look"></ul>
+      </div>
+      <p class="sub-q"><label for="field-reflect">Which of these sparks curiosity? Does anything surprise you, or feel like a clear no?</label></p>
+      <textarea id="field-reflect" data-save="fieldReflect" placeholder="Write what comes up."></textarea>
+      <div class="explore-links">
+        <a href="https://www.mynextmove.org/" target="_blank" rel="noopener">Explore careers on My Next Move ↗</a>
+        <a href="https://www.onetonline.org/" target="_blank" rel="noopener">Search occupations on O*NET OnLine ↗</a>
+      </div>
+      <p class="caveat">Both are free career resources from the U.S. Department of Labor.</p>
+    </section>
+
+    <!-- 7. Journal -->
+    <section id="s-journal" hidden aria-labelledby="q-journal">
+      <div id="j-intro">
+        <h2 class="q" id="q-journal" tabindex="-1">Your values, <em>in your words</em></h2>
+        <p class="hint">Here's what you've discovered. Below are journal prompts chosen for you. Write now, or save them and come back over the next few days.</p>
+      </div>
+      <article class="summary">
+        <h3>My core values</h3>
+        <ol class="sum-values" id="sum-values"></ol>
+        <div class="sum-block" id="sum-peak" hidden><h4>When I feel most like myself</h4><p></p></div>
+        <div class="sum-block" id="sum-fields"><h4>Fields to explore</h4><p></p></div>
+        <div class="sum-block" id="sum-field-reflect" hidden><h4>What sparked my curiosity</h4><p></p></div>
+        <div class="sum-block">
+          <h4>Journal prompts</h4>
+          <div class="prompts" id="prompts"></div>
+        </div>
+      </article>
+      <p class="caveat no-print">Your writing is saved only in this browser on this device. <span class="saved" id="saved-note" aria-live="polite"></span></p>
+    </section>
+
+    <div class="nav">
+      <button type="button" class="btn btn-ghost" id="back">← Back</button>
+      <button type="button" class="btn btn-primary" id="next">Next</button>
+      <span class="status" id="nav-status" aria-live="polite"></span>
+      <span class="spacer"></span>
+      <span id="end-actions" hidden style="display:flex;flex-wrap:wrap;gap:10px">
+        <button type="button" class="btn btn-primary" id="copy">Copy everything</button>
+        <button type="button" class="btn btn-ghost" id="download">Download (.txt)</button>
+        <button type="button" class="btn btn-ghost" id="print">Print</button>
+      </span>
+    </div>
+    <div class="nav" style="margin-top:12px">
+      <button type="button" class="btn-text" id="erase">Erase my answers and start over</button>
+      <span class="status" id="erase-confirm" hidden>Erase everything? <button type="button" class="btn-text" id="erase-yes" style="color:var(--accent)">Yes, erase</button> <button type="button" class="btn-text" id="erase-no">Keep</button></span>
+    </div>
+  </main>
+
+  <footer class="disclaimer">
+    <p>A self-reflection tool, not a substitute for professional career counseling or mental health care.</p>
+    <p>Your answers are saved only in this browser on this device so you can come back later. Nothing is sent anywhere. Use “Erase my answers” on a shared computer.</p>
+    <p>Grounded in values work from Acceptance and Commitment Therapy (ACT) and in career-development research on work values.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     CONTENT. Edit freely.
+     Each value: [name, short meaning, fields to explore, what to look for at work]
+     ------------------------------------------------------------------ */
+  const VALUES = [
+    ["Achievement","accomplishing meaningful goals",["Sales & business development","Consulting","Law","Entrepreneurship"],"clear goals and visible results"],
+    ["Adventure","new experiences and challenges",["Travel & hospitality","Journalism","Outdoor & environmental work","Emergency services"],"variety, travel, or fast-changing work"],
+    ["Authenticity","being true to who you are",["Fine & applied arts","Counseling & psychology","Coaching","Entrepreneurship","Mission-driven organizations"],"a culture where you don't have to hide who you are"],
+    ["Autonomy","freedom to make your own choices",["Entrepreneurship","Freelance & independent work","Research & science","Skilled trades & craft"],"control over how and when you work"],
+    ["Balance","time for work, rest, and the people you love",["Government & public sector","Education","Flexible & remote roles"],"predictable hours and respect for time off"],
+    ["Beauty","appreciating and creating beautiful things",["Design","Architecture","Fine & applied arts","Culinary arts"],"attention to craft and aesthetics"],
+    ["Belonging","being part of a community",["Community organizations","Education","Nonprofits","Team-based companies"],"close-knit teams and a sense of shared identity"],
+    ["Collaboration","working closely with others toward a shared goal",["Product & project teams","Healthcare","Film & media production","Research & science"],"teamwork over solo work"],
+    ["Compassion","caring for others who are struggling",["Healthcare","Social work","Counseling & psychology","Veterinary care"],"direct contact with people you can help"],
+    ["Contribution","making a difference beyond yourself",["Nonprofits","Public health","Public policy","Education"],"a clear link between your work and its impact"],
+    ["Creativity","making new things or ideas",["Design","Writing & media","Marketing","Product & engineering R&D"],"room to experiment and make something new"],
+    ["Curiosity","exploring, questioning, and learning",["Research & science","Journalism","Data analysis","Academia"],"constant learning and open questions"],
+    ["Family","caring for and being present with family",["Education","Family & child services","Family business","Flexible & remote roles"],"flexibility and family-friendly policies"],
+    ["Fairness","equity and doing what's right",["Law","Advocacy","Public policy","Human resources"],"ethical leadership and fair treatment"],
+    ["Financial security","stability and freedom from money worries",["Finance","Engineering","Healthcare","Technology","Skilled trades & craft"],"steady income, benefits, and clear pay growth"],
+    ["Growth","becoming more of who you can be",["Consulting","Startups","Education","Coaching"],"mentorship, feedback, and room to stretch"],
+    ["Health","caring for body and mind",["Healthcare","Fitness & wellness","Nutrition","Public health"],"a workplace that supports your well-being"],
+    ["Honesty","truthfulness and transparency",["Journalism","Research & science","Auditing & compliance"],"open, transparent communication"],
+    ["Humor & play","fun, lightness, and joy",["Entertainment","Game design","Recreation","Education for young people"],"a warm, playful team culture"],
+    ["Influence","shaping decisions and outcomes",["Public policy","Communications","Law","Management & leadership"],"a seat at the table where decisions get made"],
+    ["Leadership","guiding and inspiring others",["Management & leadership","Entrepreneurship","Coaching","Project management"],"chances to lead people and projects"],
+    ["Mastery","becoming deeply skilled at something",["Skilled trades & craft","Engineering","Medicine","Music & performing arts","Software"],"depth over breadth, and time to hone a craft"],
+    ["Nature","connection to the natural world",["Environmental science","Agriculture","Parks & conservation","Outdoor education"],"time outdoors or work that protects nature"],
+    ["Order","clarity, structure, and predictability",["Accounting","Operations & logistics","Data management","Library & information science"],"clear processes and well-defined roles"],
+    ["Purpose","work that feels meaningful",["Mission-driven organizations","Healthcare","Education","Social enterprise"],"a mission you believe in"],
+    ["Recognition","being respected and appreciated for your work",["Music & performing arts","Sales & business development","Writing & media","Academia"],"visible work and credit for contributions"],
+    ["Relationships","close, caring connections",["Education","Counseling & psychology","Client services","Healthcare"],"daily contact with people and lasting relationships"],
+    ["Responsibility","being dependable and trusted",["Healthcare","Public safety","Operations & logistics","Finance"],"meaningful accountability"],
+    ["Security","stability and predictability",["Government & public sector","Healthcare","Utilities","Established companies"],"job stability and clear expectations"],
+    ["Service","helping others directly",["Healthcare","Education","Social work","Travel & hospitality"],"hands-on work that serves people"],
+    ["Spirituality","connection to something larger than yourself",["Chaplaincy & faith-based work","Counseling & psychology","Wellness & contemplative practice","Nonprofits"],"space for meaning, reflection, and your beliefs"],
+    ["Sustainability","caring for the planet and the future",["Environmental science","Renewable energy","Urban planning","Sustainable business"],"work that leaves things better than you found them"],
+    ["Tradition & heritage","honoring culture and roots",["Cultural organizations & museums","History & humanities","Language & translation","Community organizations"],"respect for culture and community"],
+    ["Variety","change and different kinds of tasks",["Consulting","Event planning","Journalism","Emergency services"],"new projects and people on a regular basis"],
+    ["Wisdom","deep understanding and good judgment",["Academia","Counseling & psychology","Mentoring","Research & science"],"time to think and reflect deeply"]
+  ];
+
+  const STAGES = [
+    { id: "pre", name: "Before college", sub: "exploring what to study or do next" },
+    { id: "college", name: "In college", sub: "choosing a major or a direction" },
+    { id: "grad", name: "Recently graduated", sub: "looking for a first role" },
+    { id: "early", name: "Early in my career", sub: "a few years in, still finding my fit" },
+    { id: "stuck", name: "Feeling stuck", sub: "established, but something's missing" },
+    { id: "change", name: "Changing direction", sub: "considering a new field or chapter" }
+  ];
+
+  const STAGE_PROMPTS = {
+    pre: ["Which classes, activities, or projects make time disappear for you? What do they have in common?", "If you could spend a whole summer learning anything, what would it be, and why?"],
+    college: ["Which courses or projects made you lose track of time? Which of your values did they touch?", "Who has a job you're curious about? What three questions would you ask them over coffee?"],
+    grad: ["Beyond a paycheck, what do you want your first job to give you?", "What would make your first year of work feel like a success, in your own terms?"],
+    early: ["When in your current work do you feel most like yourself? When do you feel least like yourself?", "What would you want more of in your next role, and what would you want less of?"],
+    stuck: ["Which of your values has your work been neglecting, and what has that cost you?", "What would a “good enough” change look like in the next six months, not a perfect one?"],
+    change: ["What are you moving toward, not just away from?", "What strengths and experiences will you carry with you into whatever comes next?"]
+  };
+
+  /* ------------------------------------------------------------------ */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const KEY = "wk-values-clarification-v1";
+  const SECTIONS = ["s-start","s-choose","s-top","s-rank","s-define","s-work","s-journal"];
+  const STEP_NAMES = ["Where you are","Choose values","Top five","Rank","Make them yours","Fields to explore","Reflect"];
+  const CHECK = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  const blank = () => ({ step: 0, stage: "", peak: "", custom: [], chosen: [], top: [], ranked: [], defs: {}, living: {}, fieldReflect: "", journal: {} });
+  let S = load();
+
+  function load() {
+    try { const raw = localStorage.getItem(KEY); if (raw) return Object.assign(blank(), JSON.parse(raw)); } catch (_) {}
+    return blank();
+  }
+  let saveTimer = null;
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      try { localStorage.setItem(KEY, JSON.stringify(S)); if ($("saved-note")) $("saved-note").textContent = "Saved."; } catch (_) {}
+    }, 300);
+  }
+  const allValues = () => VALUES.map((v) => v[0]).concat(S.custom);
+  const info = (name) => VALUES.find((v) => v[0] === name) || [name, "your own value", [], ""];
+
+  /* progress */
+  $("steps").innerHTML = SECTIONS.map(() => "<li></li>").join("");
+
+  function go(i) {
+    S.step = Math.max(0, Math.min(SECTIONS.length - 1, i)); save();
+    SECTIONS.forEach((id, k) => ($(id).hidden = k !== S.step));
+    [...$("steps").children].forEach((li, k) => li.classList.toggle("on", k <= S.step));
+    $("step-name").textContent = `Step ${S.step + 1} of ${SECTIONS.length} · ${STEP_NAMES[S.step]}`;
+    ({ 0: renderStart, 1: renderChoose, 2: renderTop, 3: renderRank, 4: renderDefine, 5: renderWork, 6: renderJournal })[S.step]();
+    $(SECTIONS[S.step]).classList.remove("fade-in"); void $(SECTIONS[S.step]).offsetWidth; $(SECTIONS[S.step]).classList.add("fade-in");
+    $("back").hidden = S.step === 0;
+    $("next").hidden = S.step === SECTIONS.length - 1;
+    $("end-actions").hidden = S.step !== SECTIONS.length - 1;
+    updateNext();
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    const h = $(SECTIONS[S.step]).querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true });
+  }
+
+  function updateNext() {
+    let ok = true, msg = "";
+    if (S.step === 1) { ok = S.chosen.length >= 5; msg = ok ? "" : "Choose at least 5 to continue."; }
+    if (S.step === 2) { ok = S.top.length === 5 || (S.chosen.length < 5 && S.top.length === S.chosen.length); msg = ok ? "" : `Choose ${5 - S.top.length} more.`; }
+    $("next").disabled = !ok;
+    $("nav-status").textContent = msg;
+    $("next").textContent = S.step === SECTIONS.length - 2 ? "See my reflection" : "Next";
+  }
+
+  /* 1. start */
+  function renderStart() {
+    $("stages").innerHTML = STAGES.map((s) => `<button type="button" class="pick" data-stage="${s.id}" aria-pressed="${S.stage === s.id}"><strong>${s.name}</strong><small>${s.sub}</small></button>`).join("");
+    $("peak").value = S.peak;
+  }
+  $("stages").addEventListener("click", (e) => {
+    const b = e.target.closest(".pick"); if (!b) return;
+    S.stage = S.stage === b.dataset.stage ? "" : b.dataset.stage; save(); renderStart();
+    $("stages").querySelector(`[data-stage="${b.dataset.stage}"]`).focus();
+  });
+
+  /* text autosave */
+  document.addEventListener("input", (e) => {
+    const t = e.target;
+    if (t.dataset.save) { S[t.dataset.save] = t.value; save(); }
+    if (t.dataset.def) { S.defs[t.dataset.def] = t.value; save(); }
+    if (t.dataset.live) { S.living[t.dataset.live] = +t.value; t.closest(".living").querySelector("output").value = t.value; save(); }
+    if (t.dataset.journal) { S.journal[t.dataset.journal] = t.value; save(); }
+  });
+
+  /* 2. choose */
+  function valButton(name, pressed, group) {
+    const v = info(name);
+    return `<button type="button" class="val" data-v="${esc(name)}" data-group="${group}" aria-pressed="${pressed}"><span class="box">${CHECK}</span><span><b>${esc(name)}</b><small>${esc(v[1])}</small></span></button>`;
+  }
+  function renderChoose() {
+    $("values").innerHTML = allValues().map((n) => valButton(n, S.chosen.includes(n), "choose")).join("");
+    $("choose-count").innerHTML = `<b>${S.chosen.length}</b> chosen`;
+  }
+  $("values").addEventListener("click", (e) => {
+    const b = e.target.closest(".val"); if (!b) return;
+    const n = b.dataset.v;
+    S.chosen = S.chosen.includes(n) ? S.chosen.filter((x) => x !== n) : S.chosen.concat(n);
+    S.top = S.top.filter((x) => S.chosen.includes(x)); S.ranked = S.ranked.filter((x) => S.top.includes(x));
+    b.setAttribute("aria-pressed", String(S.chosen.includes(n)));
+    $("choose-count").innerHTML = `<b>${S.chosen.length}</b> chosen`; save(); updateNext();
+  });
+  $("clear-choices").addEventListener("click", () => { S.chosen = []; S.top = []; S.ranked = []; save(); renderChoose(); updateNext(); });
+  function addOwn() {
+    const v = $("own-value").value.trim().replace(/\s+/g, " ");
+    if (!v) return;
+    const name = v.charAt(0).toUpperCase() + v.slice(1);
+    if (!allValues().some((x) => x.toLowerCase() === name.toLowerCase())) S.custom.push(name);
+    const match = allValues().find((x) => x.toLowerCase() === name.toLowerCase());
+    if (!S.chosen.includes(match)) S.chosen.push(match);
+    $("own-value").value = ""; save(); renderChoose(); updateNext();
+  }
+  $("add-own").addEventListener("click", addOwn);
+  $("own-value").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addOwn(); } });
+
+  /* 3. top five */
+  function renderTop() {
+    if (S.chosen.length <= 5) S.top = S.chosen.slice();
+    $("top-values").innerHTML = S.chosen.map((n) => valButton(n, S.top.includes(n), "top")).join("");
+    $("top-count").innerHTML = S.chosen.length <= 5
+      ? `You chose ${S.chosen.length}, so all of them carry forward.`
+      : `<b>${S.top.length}</b> of 5 chosen`;
+  }
+  $("top-values").addEventListener("click", (e) => {
+    const b = e.target.closest(".val"); if (!b) return;
+    const n = b.dataset.v;
+    if (S.top.includes(n)) S.top = S.top.filter((x) => x !== n);
+    else if (S.top.length < 5) S.top = S.top.concat(n);
+    else { $("nav-status").textContent = "You've chosen 5. Tap one to remove it first."; return; }
+    S.ranked = S.ranked.filter((x) => S.top.includes(x)); save(); renderTop(); updateNext();
+    $("top-values").querySelector(`[data-v="${CSS.escape(n)}"]`).focus();
+  });
+
+  /* 4. rank */
+  const UP = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 12V4M4 8l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const DOWN = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4v8M4 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function renderRank(focus) {
+    S.ranked = S.ranked.filter((x) => S.top.includes(x)).concat(S.top.filter((x) => !S.ranked.includes(x)));
+    save();
+    $("rank").innerHTML = S.ranked.map((n, i) => `<li><span class="num" aria-hidden="true">${i + 1}</span><span class="txt"><b>${esc(n)}</b><small>${esc(info(n)[1])}</small></span><span class="moves"><button type="button" class="icon-btn" data-move="-1" data-i="${i}" aria-label="Move ${esc(n)} up" ${i === 0 ? "disabled" : ""}>${UP}</button><button type="button" class="icon-btn" data-move="1" data-i="${i}" aria-label="Move ${esc(n)} down" ${i === S.ranked.length - 1 ? "disabled" : ""}>${DOWN}</button></span></li>`).join("");
+    if (focus) { const el = $("rank").querySelector(focus); if (el && !el.disabled) el.focus(); else { const alt = $("rank").querySelectorAll(".icon-btn:not(:disabled)")[0]; if (alt) alt.focus(); } }
+  }
+  $("rank").addEventListener("click", (e) => {
+    const b = e.target.closest(".icon-btn"); if (!b) return;
+    const i = +b.dataset.i, d = +b.dataset.move, j = i + d;
+    [S.ranked[i], S.ranked[j]] = [S.ranked[j], S.ranked[i]];
+    renderRank(`[data-i="${j}"][data-move="${d}"]`);
+    $("nav-status").textContent = `${S.ranked[j]} moved to number ${j + 1}.`;
+  });
+
+  /* 5. define */
+  function renderDefine() {
+    $("define").innerHTML = S.ranked.map((n, i) => {
+      const live = S.living[n] ?? 5;
+      return `<div class="def-card"><h3><span>#${i + 1}</span>${esc(n)}</h3><p class="meaning">${esc(info(n)[1])}</p>
+        <label for="def-${i}">What does ${esc(n.toLowerCase())} mean to you, in your own words?</label>
+        <textarea id="def-${i}" data-def="${esc(n)}" placeholder="For me, ${esc(n.toLowerCase())} means…">${esc(S.defs[n] || "")}</textarea>
+        <div class="living"><label for="live-${i}">How fully are you living this value right now?<output for="live-${i}">${live}</output></label>
+        <input type="range" id="live-${i}" min="0" max="10" step="1" value="${live}" data-live="${esc(n)}">
+        <div class="ends"><span>not at all</span><span>fully</span></div></div></div>`;
+    }).join("");
+    S.ranked.forEach((n) => { if (S.living[n] === undefined) S.living[n] = 5; }); save();
+  }
+
+  /* 6. work */
+  function fieldScores() {
+    const score = {}, why = {};
+    S.ranked.forEach((n, i) => {
+      const w = 5 - i;
+      info(n)[2].forEach((f) => { score[f] = (score[f] || 0) + w; (why[f] = why[f] || []).push(n); });
+    });
+    // Fields shared by several of your values rank higher; then make sure each top value is represented.
+    Object.keys(score).forEach((f) => { if (why[f].length > 1) score[f] += 3 * (why[f].length - 1); });
+    const sorted = Object.keys(score).sort((a, b) => score[b] - score[a] || why[b].length - why[a].length);
+    const picked = [];
+    S.ranked.forEach((n) => { const f = sorted.find((x) => why[x].includes(n) && !picked.includes(x)); if (f) picked.push(f); });
+    sorted.forEach((f) => { if (picked.length < 8 && !picked.includes(f)) picked.push(f); });
+    return picked.sort((a, b) => score[b] - score[a]).map((f) => ({ f, why: why[f] }));
+  }
+  function renderWork() {
+    const list = fieldScores();
+    $("fields").innerHTML = list.length
+      ? list.map(({ f, why }) => `<div class="field"><b>${esc(f)}</b><p class="ex">Connects to</p><div class="tags">${why.map((v) => `<span class="tag">${esc(v)}</span>`).join("")}</div></div>`).join("")
+      : `<p class="hint">Your values are your own, so there's no ready-made list here. Use the links below to explore fields, and notice which ones match what you wrote.</p>`;
+    $("look").innerHTML = S.ranked.map((n) => info(n)[3] ? `<li><strong>${esc(n)}:</strong> ${esc(info(n)[3])}</li>` : "").join("") || "<li>Notice which settings let you live your values day to day.</li>";
+    $("field-reflect").value = S.fieldReflect;
+  }
+
+  /* 7. journal */
+  function prompts() {
+    const r = S.ranked, out = [];
+    if (r[0]) out.push(["top", `Write about a moment when you lived ${r[0].toLowerCase()} fully. What made it possible?`]);
+    const gaps = r.map((n) => [n, S.living[n] ?? 5]).sort((a, b) => a[1] - b[1]);
+    if (gaps[0] && gaps[0][1] <= 6) out.push(["gap", `${gaps[0][0]} matters to you, but you rated it ${gaps[0][1]} out of 10 in your life right now. What's one small way to make more room for it this month?`]);
+    if (r[0] && r[1]) out.push(["tension", `When ${r[0].toLowerCase()} and ${r[1].toLowerCase()} pull you in different directions, which do you choose, and how does that feel?`]);
+    (STAGE_PROMPTS[S.stage] || ["What would you want your work to give you, beyond a paycheck?", "What are you moving toward, not just away from?"]).forEach((p, i) => out.push(["stage" + i, p]));
+    out.push(["future", "Imagine yourself five years from now, living your top values. Describe an ordinary Tuesday."]);
+    return out;
+  }
+  function renderJournal() {
+    $("sum-values").innerHTML = S.ranked.map((n, i) => {
+      const live = S.living[n] ?? 5, def = (S.defs[n] || "").trim();
+      return `<li><span class="num">${i + 1}</span><div><b>${esc(n)}</b>${def ? `<p>${esc(def)}</p>` : (S.custom.includes(n) ? "" : `<p>${esc(info(n)[1])}</p>`)}<div class="bar" title="Living it now: ${live} of 10"><i style="width:${live * 10}%"></i></div><p style="font-size:12.5px">Living it now: ${live} of 10</p></div></li>`;
+    }).join("");
+    const peak = S.peak.trim(); $("sum-peak").hidden = !peak; $("sum-peak").querySelector("p").textContent = peak;
+    const fl = fieldScores().map((x) => x.f); $("sum-fields").hidden = !fl.length; $("sum-fields").querySelector("p").textContent = fl.join(" · ");
+    const fr = S.fieldReflect.trim(); $("sum-field-reflect").hidden = !fr; $("sum-field-reflect").querySelector("p").textContent = fr;
+    $("prompts").innerHTML = prompts().map(([k, p], i) => `<div class="prompt"><label for="j-${i}">${esc(p)}</label><textarea id="j-${i}" data-journal="${k}" placeholder="Write freely. You can come back to this.">${esc(S.journal[k] || "")}</textarea></div>`).join("");
+    $("saved-note").textContent = "";
+  }
+
+  /* export */
+  function exportText() {
+    const L = ["MY VALUES CLARIFICATION", ""];
+    const st = STAGES.find((s) => s.id === S.stage); if (st) L.push(`Where I am: ${st.name}`, "");
+    if (S.peak.trim()) L.push("When I feel most like myself:", S.peak.trim(), "");
+    L.push("My core values:");
+    S.ranked.forEach((n, i) => { L.push(`${i + 1}. ${n} (living it now: ${S.living[n] ?? 5}/10)`); if ((S.defs[n] || "").trim()) L.push(`   ${S.defs[n].trim()}`); });
+    L.push("");
+    const fl = fieldScores(); if (fl.length) { L.push("Fields to explore:"); fl.forEach(({ f, why }) => L.push(`- ${f} (${why.join(", ")})`)); L.push(""); }
+    if (S.fieldReflect.trim()) L.push("What sparked my curiosity:", S.fieldReflect.trim(), "");
+    L.push("Journal:");
+    prompts().forEach(([k, p]) => { L.push("", p); L.push((S.journal[k] || "").trim() || "(not yet written)"); });
+    L.push("", "Values Clarification Exercise · wooheekwak.me");
+    return L.join("\n");
+  }
+  $("copy").addEventListener("click", async () => {
+    const t = exportText(); let ok = false;
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(t); ok = true; } } catch (_) {}
+    if (!ok) { const ta = document.createElement("textarea"); ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { ok = document.execCommand("copy"); } catch (_) {} ta.remove(); }
+    $("nav-status").textContent = ok ? "Copied. Paste it into your notes or journal." : "Couldn't copy automatically. Try Download instead.";
+  });
+  $("download").addEventListener("click", () => {
+    const blob = new Blob([exportText()], { type: "text/plain;charset=utf-8" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "my-values-reflection.txt";
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    $("nav-status").textContent = "Downloaded.";
+  });
+  $("print").addEventListener("click", () => window.print());
+
+  /* erase */
+  $("erase").addEventListener("click", () => { $("erase-confirm").hidden = false; $("erase").hidden = true; $("erase-no").focus(); });
+  $("erase-no").addEventListener("click", () => { $("erase-confirm").hidden = true; $("erase").hidden = false; });
+  $("erase-yes").addEventListener("click", () => {
+    try { localStorage.removeItem(KEY); } catch (_) {}
+    S = blank(); $("erase-confirm").hidden = true; $("erase").hidden = false; go(0);
+    $("nav-status").textContent = "Your answers were erased.";
+  });
+
+  /* nav */
+  $("next").addEventListener("click", () => go(S.step + 1));
+  $("back").addEventListener("click", () => go(S.step - 1));
+
+  go(S.step || 0);
+})();
+</script>
+</body>
+</html>
