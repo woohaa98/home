@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Name the Feeling · Woohee (Elise) Kwak</title>
+<meta name="description" content="Find the right word for what you're feeling, then take a few gentle minutes to sit with it.">
+<!-- Privacy: this page makes no analytics, tracking, or data requests. Nothing you choose or type leaves the browser. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 54ch; margin: 0 0 40px; }
+
+.progress { display: flex; gap: 6px; margin: 0 0 26px; padding: 0; list-style: none; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; padding: 0; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; }
+
+/* family tiles */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
+.tile {
+  appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer;
+  display: flex; gap: 14px; align-items: flex-start; width: 100%;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px; box-shadow: var(--shadow); transition: border-color .25s, background-color .25s, transform .25s;
+}
+.tile:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); transform: translateY(-1px); }
+.tile .icon { font-size: 22px; line-height: 1; margin-top: 2px; }
+.tile strong { display: block; font-weight: 600; font-size: 15.5px; }
+.tile span.sub { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; }
+.tile.unsure { border-style: dashed; box-shadow: none; background: transparent; }
+
+/* word choices */
+.words { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 540px) { .words { grid-template-columns: 1fr; } }
+.word { position: relative; }
+.word input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.word label {
+  display: block; height: 100%; cursor: pointer; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 16px; padding: 14px 16px; transition: border-color .2s, background-color .2s;
+}
+.word label:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.word input:focus-visible + label { outline: 2px solid var(--focus); outline-offset: 3px; }
+.word input:checked + label { border-color: var(--accent); background: var(--accent-soft); }
+.word b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 18px; }
+.word small { display: block; color: var(--muted); font-size: 13.5px; line-height: 1.45; margin-top: 2px; }
+.own { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.own label { font-size: 14.5px; color: var(--muted); }
+.own input { font: inherit; padding: 11px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); min-width: 0; flex: 1 1 200px; }
+.own input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.15); }
+
+/* intensity */
+.scale { margin-top: 28px; padding: 18px 20px; background: var(--sand); border-radius: 16px; }
+.scale label { font-weight: 500; display: block; margin-bottom: 8px; }
+.scale input[type=range] { width: 100%; accent-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+.scale output { font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+/* guide */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(26px, 6vw, 48px); }
+.feeling-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 18px; }
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.guide-text { font-size: 17px; max-width: 56ch; margin: 0 0 14px; }
+.say { font-family: var(--font-display); font-style: italic; font-size: clamp(22px, 4.2vw, 30px); line-height: 1.35; margin: 6px 0 18px; }
+.say::before { content: "“"; color: var(--warm); } .say::after { content: "”"; color: var(--warm); }
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; padding: 0; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 9px 15px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 18px; }
+.safety strong { color: var(--warm-ink); }
+
+.breathe-box { display: grid; place-items: center; gap: 14px; padding: 18px 0 6px; text-align: center; }
+.orb { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #F6FAF7, var(--accent-soft) 60%, #D5E4DA); border: 1px solid #B8D4C0; transform: scale(.7); transition: transform 4s ease-in-out; }
+.orb.in { transform: scale(1); transition-duration: 4s; }
+.orb.out { transform: scale(.7); transition-duration: 6s; }
+.breath-cue { font-family: var(--font-display); font-size: 22px; min-height: 1.4em; margin: 0; }
+.breath-count { font-size: 13.5px; color: var(--muted); margin: 0; }
+
+.summary { display: grid; gap: 12px; margin: 6px 0 0; }
+.summary div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.summary dd { margin: 0; }
+@media (max-width: 480px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.closing { color: var(--muted); font-size: 14.5px; margin: 22px 0 0; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Emotional Awareness</p>
+      <h1>Name the <em>Feeling</em></h1>
+      <p class="lede">Finding the right word for a feeling can help it settle. Choose what's closest, find the word that fits, then take a few gentle minutes to sit with it.</p>
+    </header>
+
+    <ol class="progress" id="progress" aria-hidden="true"><li></li><li></li><li></li></ol>
+
+    <!-- 1. Family -->
+    <section id="s-family" aria-labelledby="q-family">
+      <h2 class="q" id="q-family" tabindex="-1">How are you <em>feeling</em> right now?</h2>
+      <p class="hint">Pick whatever is closest. You'll find more precise words next.</p>
+      <div class="grid" id="families"></div>
+    </section>
+
+    <!-- 1b. Not sure: body -->
+    <section id="s-body" hidden aria-labelledby="q-body">
+      <h2 class="q" id="q-body" tabindex="-1">What do you notice in your <em>body</em>?</h2>
+      <p class="hint">Sometimes the body knows before the mind does. Choose what feels closest.</p>
+      <div class="grid" id="bodycues"></div>
+      <div class="actions"><button type="button" class="btn btn-text" data-go="family">← Back</button></div>
+    </section>
+
+    <!-- 2. Word -->
+    <section id="s-word" hidden aria-labelledby="q-word">
+      <form id="word-form" novalidate>
+        <fieldset>
+          <legend class="q" id="q-word" tabindex="-1"></legend>
+          <p class="hint" id="word-hint">Read through slowly. Choose the one that fits best, or that you most want to name.</p>
+          <div class="words" id="words"></div>
+        </fieldset>
+        <div class="own">
+          <label for="own-word">Or use your own word:</label>
+          <input id="own-word" type="text" maxlength="40" autocomplete="off" placeholder="e.g. unsettled">
+        </div>
+        <div class="scale">
+          <label for="before">How strong is it right now? <output id="before-out" for="before">5</output></label>
+          <input id="before" type="range" min="0" max="10" step="1" value="5">
+          <div class="ends"><span>barely there</span><span>very strong</span></div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn btn-primary" id="word-go" disabled>Sit With This Feeling</button>
+          <button type="button" class="btn btn-text" data-go="family">Choose a different feeling</button>
+          <span class="status" id="word-status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+
+    <!-- 3. Guide -->
+    <section id="s-guide" hidden aria-labelledby="g-title">
+      <article class="card">
+        <p class="feeling-pill" id="g-pill"></p>
+        <p class="safety" id="g-safety" hidden><strong>You deserve support.</strong> If you're feeling hopeless or having thoughts of harming yourself, please reach out now. In the U.S., call or text <strong>988</strong> (Suicide &amp; Crisis Lifeline). Elsewhere, contact your local emergency number.</p>
+        <p class="step-label" id="g-step"></p>
+        <h2 class="q" id="g-title" tabindex="-1"></h2>
+        <div id="g-body"></div>
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="g-next">Next</button>
+        <button type="button" class="btn btn-text" id="g-back">← Back</button>
+      </div>
+    </section>
+
+    <!-- 4. Close -->
+    <section id="s-close" hidden aria-labelledby="c-title">
+      <article class="card fade-in">
+        <p class="feeling-pill" id="c-pill"></p>
+        <h2 class="q" id="c-title" tabindex="-1">Thank you for staying with it.</h2>
+        <div class="scale" style="margin-top:18px">
+          <label for="after">How strong is it now? <output id="after-out" for="after">5</output></label>
+          <input id="after" type="range" min="0" max="10" step="1" value="5">
+          <div class="ends"><span>barely there</span><span>very strong</span></div>
+        </div>
+        <p class="closing" id="c-change">Feelings don't have to shrink to be met. Whatever changed, or didn't, is okay.</p>
+        <dl class="summary" id="c-summary" style="margin-top:22px"></dl>
+        <p class="closing">You can come back to this feeling, or to this page, whenever you need.</p>
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="copy">Copy My Reflection</button>
+        <button type="button" class="btn btn-ghost" id="restart">Start Again</button>
+        <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="disclaimer">
+    <p>A self-reflection tool, not a substitute for professional mental health care.</p>
+    <p>If you are in crisis in the U.S., call or text 988, or call 911.</p>
+    <p>Your choices stay on your device. Nothing is saved, tracked, or sent anywhere.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     Feeling families, words, and gentle guidance.
+     Edit freely: each word is [word, short plain-language meaning].
+     ------------------------------------------------------------------ */
+  const FAMILIES = [
+    { id: "sad", icon: "🌧️", name: "Sad", sub: "low, heavy, missing something",
+      words: [["disappointed","things didn't turn out as you hoped"],["lonely","wanting connection that isn't there"],["grieving","missing someone or something you've lost"],["heartbroken","a deep ache from loss or rejection"],["discouraged","losing confidence or motivation"],["regretful","wishing something had gone differently"],["homesick","longing for a place or people"],["melancholy","a quiet, lingering sadness"],["hopeless","feeling like nothing will get better"]],
+      insight: "Sadness often shows up when something or someone that matters is missing or has changed. It's a sign of what you care about.",
+      needs: ["Comfort","Time","Connection","Rest","Room to grieve","A good cry"],
+      kind: "It makes sense that I feel {w}. This mattered to me. I can be gentle with myself while it hurts.",
+      step: "Reach out to someone who feels safe, or wrap yourself in something warm for a few minutes." },
+    { id: "anxious", icon: "🌀", name: "Anxious", sub: "worried, on edge, unsettled",
+      words: [["worried","thinking about what might go wrong"],["nervous","jittery about what's coming"],["overwhelmed","too much at once"],["uneasy","a sense that something is off"],["insecure","unsure of yourself or your place"],["dread","a heavy feeling that something bad is coming"],["pressured","pushed to meet expectations"],["vulnerable","exposed and easily hurt"],["restless","unable to settle"]],
+      insight: "Anxiety is your mind and body preparing for something uncertain. It's trying to protect you, even when it overestimates the danger.",
+      needs: ["Safety","Grounding","Reassurance","Information","A plan","Rest"],
+      kind: "It's understandable that I feel {w}. I don't have to solve everything right now. I'm here, in this moment.",
+      step: "Feel your feet on the floor and name five things you can see around you." },
+    { id: "angry", icon: "🔥", name: "Angry", sub: "frustrated, irritated, fed up",
+      words: [["frustrated","blocked from what you want or need"],["irritated","small things getting under your skin"],["resentful","holding on to being treated unfairly"],["betrayed","trust was broken"],["impatient","wanting things to move faster"],["jealous","afraid of losing someone or something to another"],["envious","wanting what someone else has"],["indignant","stirred up by something unjust"],["bitter","anger that has settled in over time"]],
+      insight: "Anger often signals that a boundary was crossed, a need wasn't met, or something feels unfair. It carries energy to protect what matters.",
+      needs: ["To be heard","Fairness","A boundary","Space","Respect","Movement"],
+      kind: "My feeling of being {w} makes sense. Something important to me feels threatened. I can honor it without letting it take over.",
+      step: "Move your body for a few minutes, or write down what you wish you could say. You don't have to send it." },
+    { id: "hurt", icon: "💔", name: "Hurt", sub: "let down, rejected, unseen",
+      words: [["rejected","pushed away or not chosen"],["left out","not included"],["unappreciated","your efforts went unnoticed"],["misunderstood","not seen for who you are"],["dismissed","your feelings were brushed aside"],["let down","someone didn't come through"],["criticized","judged or found lacking"],["invisible","as if no one really sees you"]],
+      insight: "Hurt often appears when you wanted to feel seen, valued, or cared for, and didn't. It shows how much connection matters to you.",
+      needs: ["To be seen","Reassurance","Repair","Kindness","Connection","Space"],
+      kind: "It hurts to feel {w}. My feelings matter, and I deserve care, including from myself.",
+      step: "Write down what you wish someone understood about you right now." },
+    { id: "ashamed", icon: "🍂", name: "Ashamed", sub: "embarrassed, guilty, not enough",
+      words: [["embarrassed","awkward, wishing no one had seen"],["guilty","believing you did something wrong"],["inadequate","feeling not good enough"],["humiliated","lowered in front of others"],["self-conscious","very aware of how you come across"],["exposed","something private was seen"],["foolish","feeling you should have known better"],["unworthy","feeling you don't deserve good things"]],
+      insight: "Shame and its relatives often carry the fear that you're not okay as you are. They can also point to your values and your wish to belong.",
+      needs: ["Acceptance","Compassion","Perspective","Forgiveness","Belonging","Privacy"],
+      kind: "Feeling {w} doesn't make me less worthy. Everyone stumbles. I can treat myself the way I'd treat a friend.",
+      step: "Ask yourself what you'd say to a close friend in your situation, then say it to yourself." },
+    { id: "tired", icon: "🌫️", name: "Tired or numb", sub: "drained, flat, far away",
+      words: [["exhausted","deeply worn out"],["depleted","running on empty"],["burned out","worn down by ongoing stress"],["numb","hard to feel much at all"],["disconnected","far from yourself or others"],["flat","nothing feels very interesting"],["foggy","hard to think clearly"],["empty","a hollow feeling inside"]],
+      insight: "Exhaustion and numbness can be your system turning the volume down after carrying too much for too long. It may be asking you to slow down.",
+      needs: ["Rest","Gentleness","Nourishment","Fewer demands","Quiet","Comfort"],
+      kind: "It's okay that I feel {w}. I've been carrying a lot. I'm allowed to rest before everything is done.",
+      step: "Take one thing off today's list, or rest for ten minutes without your phone." },
+    { id: "good", icon: "🌤️", name: "Good", sub: "calm, grateful, light", pleasant: true,
+      words: [["calm","settled and at ease"],["content","enough, just as things are"],["grateful","thankful for something or someone"],["relieved","a weight has lifted"],["hopeful","looking forward to what's possible"],["proud","pleased with something you did"],["joyful","bright, full happiness"],["loved","cared for and held"],["connected","close to others or the world"],["curious","open and interested"],["excited","energized about what's ahead"],["peaceful","quiet inside"]],
+      insight: "Pleasant feelings deserve attention too. Lingering with them a little longer helps them sink in.",
+      needs: ["People","Rest","Nature","Accomplishment","Kindness","Something new"],
+      kind: "I can let myself enjoy feeling {w}. This moment counts.",
+      step: "Take a mental snapshot of this moment, or tell someone about it." }
+  ];
+
+  const BODY_CUES = [
+    { icon: "🪨", name: "Heavy or low", sub: "slow, sinking, tearful", fam: "sad" },
+    { icon: "⚡", name: "Tight or racing", sub: "fluttery stomach, fast heart, shallow breath", fam: "anxious" },
+    { icon: "🌡️", name: "Hot or tense", sub: "clenched jaw or fists, wanting to push", fam: "angry" },
+    { icon: "🫧", name: "Achy in the chest", sub: "a lump in the throat, tender", fam: "hurt" },
+    { icon: "🙈", name: "Wanting to hide", sub: "face warm, shrinking, looking away", fam: "ashamed" },
+    { icon: "🔋", name: "Drained or blank", sub: "heavy limbs, foggy, hard to feel", fam: "tired" },
+    { icon: "☀️", name: "Light or open", sub: "warm, relaxed, easy breath", fam: "good" }
+  ];
+
+  const BODY_PLACES = ["Chest","Throat","Stomach","Shoulders","Jaw","Head","Hands","Whole body","Not sure"];
+  const SAFETY_WORDS = ["hopeless","empty","unworthy"];
+
+  /* ------------------------------------------------------------------ */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const state = { fam: null, word: "", before: 5, place: "", need: "", viaBody: false };
+  let guideIndex = 0, breathTimer = null;
+
+  function show(id) {
+    ["s-family","s-body","s-word","s-guide","s-close"].forEach((s) => ($(s).hidden = s !== id));
+    const stage = { "s-family": 1, "s-body": 1, "s-word": 2, "s-guide": 3, "s-close": 3 }[id];
+    [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i < stage));
+    const h = $(id).querySelector("[tabindex='-1']");
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    if (h) h.focus({ preventScroll: true });
+  }
+  document.addEventListener("click", (e) => { const b = e.target.closest("[data-go]"); if (b) show("s-" + b.dataset.go); });
+
+  /* 1. families */
+  $("families").innerHTML = FAMILIES.map((f) =>
+    `<button type="button" class="tile" data-fam="${f.id}"><span class="icon" aria-hidden="true">${f.icon}</span><span><strong>${f.name}</strong><span class="sub">${f.sub}</span></span></button>`
+  ).join("") + `<button type="button" class="tile unsure" data-unsure><span class="icon" aria-hidden="true">🤔</span><span><strong>I'm not sure</strong><span class="sub">start with what you notice in your body</span></span></button>`;
+  $("families").addEventListener("click", (e) => {
+    const t = e.target.closest(".tile"); if (!t) return;
+    if (t.hasAttribute("data-unsure")) { show("s-body"); return; }
+    state.viaBody = false; openWords(t.dataset.fam);
+  });
+
+  /* 1b. body cues */
+  $("bodycues").innerHTML = BODY_CUES.map((c) =>
+    `<button type="button" class="tile" data-fam="${c.fam}"><span class="icon" aria-hidden="true">${c.icon}</span><span><strong>${c.name}</strong><span class="sub">${c.sub}</span></span></button>`
+  ).join("");
+  $("bodycues").addEventListener("click", (e) => {
+    const t = e.target.closest(".tile"); if (!t) return;
+    state.viaBody = true; openWords(t.dataset.fam);
+  });
+
+  /* 2. words */
+  function openWords(famId) {
+    const f = FAMILIES.find((x) => x.id === famId); state.fam = f; state.word = "";
+    $("q-word").innerHTML = state.viaBody
+      ? `These words <em>might</em> fit what you're noticing`
+      : `Which word fits <em>best</em>?`;
+    $("word-hint").textContent = state.viaBody
+      ? "Based on what you noticed, here are some words to consider. Choose the one that fits, or go back and try another."
+      : "Read through slowly. Choose the one that fits best, or that you most want to name.";
+    $("words").innerHTML = f.words.map(([w, m], i) =>
+      `<div class="word"><input type="radio" name="w" id="w${i}" value="${esc(w)}"><label for="w${i}"><b>${esc(w)}</b><small>${esc(m)}</small></label></div>`
+    ).join("");
+    $("own-word").value = ""; $("before").value = 5; $("before-out").value = 5;
+    updateWordBtn(); show("s-word");
+  }
+  function chosenWord() {
+    const own = $("own-word").value.trim();
+    if (own) return own.toLowerCase();
+    const r = document.querySelector('input[name="w"]:checked');
+    return r ? r.value : "";
+  }
+  function updateWordBtn() {
+    const w = chosenWord();
+    $("word-go").disabled = !w;
+    $("word-status").textContent = w ? `You chose “${w}.”` : "Choose a word, or type your own.";
+  }
+  $("words").addEventListener("change", () => { $("own-word").value = ""; updateWordBtn(); });
+  $("own-word").addEventListener("input", () => {
+    if ($("own-word").value.trim()) document.querySelectorAll('input[name="w"]').forEach((r) => (r.checked = false));
+    updateWordBtn();
+  });
+  $("before").addEventListener("input", () => ($("before-out").value = $("before").value));
+  $("word-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    state.word = chosenWord(); if (!state.word) return;
+    state.before = +$("before").value; state.place = ""; state.need = "";
+    guideIndex = 0; renderGuide(); show("s-guide");
+  });
+
+  /* 3. guide */
+  function steps() {
+    const f = state.fam, w = esc(state.word), pleasant = !!f.pleasant;
+    const placeChips = `<div class="chipset" data-pick="place">${BODY_PLACES.map((p) => `<button type="button" class="chip" aria-pressed="${state.place === p}">${p}</button>`).join("")}</div>`;
+    const needChips = `<div class="chipset" data-pick="need">${f.needs.map((n) => `<button type="button" class="chip" aria-pressed="${state.need === n}">${n}</button>`).join("")}</div>`;
+    const list = [
+      { label: "Name it", title: "Say it gently to yourself",
+        body: `<p class="say">Right now, I'm feeling ${w}.</p><p class="guide-text">Out loud or silently. Naming a feeling, as specifically as you can, often helps it settle a little.</p>` },
+      { label: "Notice it", title: `Where do you feel it in your body?`,
+        body: `<p class="guide-text">Take a moment to scan from head to toe. If you find it, you might rest a hand there.</p>${placeChips}` },
+      { label: pleasant ? "Breathe it in" : "Breathe with it", title: pleasant ? "Let it fill you a little more" : "Let your breath keep you company",
+        breathe: true,
+        body: `<div class="breathe-box"><div class="orb" id="orb" aria-hidden="true"></div><p class="breath-cue" id="cue" aria-live="polite">Ready when you are</p><p class="breath-count" id="bcount">Three slow breaths, about 30 seconds</p><button type="button" class="btn btn-ghost" id="bstart">Start breathing</button></div>` },
+      pleasant
+        ? { label: "Savor it", title: "Stay with it a little longer",
+            body: `<p class="say">I can let ${w} be here. I don't have to rush past it.</p><p class="guide-text">Notice what it feels like to let a good feeling stay. There's nothing to do with it except enjoy it.</p>` }
+        : { label: "Make room", title: "You don't have to fix it right now",
+            body: `<p class="say">${cap(w)} is here. I can let it be here for a moment, like weather passing through.</p><p class="guide-text">If you notice an urge to push it away, explain it, or distract yourself, that's okay. See if you can soften around it, just a little.</p>` },
+      { label: "Listen", title: pleasant ? "What helped bring this feeling?" : `What might ${w} be telling you?`,
+        body: `<p class="guide-text">${esc(f.insight)}</p><p class="guide-text" style="margin-top:16px"><strong>${pleasant ? "What helped?" : "What might you need right now?"}</strong> Choose one, if any fits.</p>${needChips}` },
+      { label: "Offer kindness", title: "Speak to yourself as you would to a friend",
+        body: `<p class="say">${esc(f.kind.replace("{w}", state.word))}</p><p class="guide-text">Read it once more, slowly. You might place a hand on your heart.</p>` }
+    ];
+    return list;
+  }
+  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+  function renderGuide() {
+    stopBreath();
+    const list = steps(), s = list[guideIndex];
+    $("g-pill").textContent = `Feeling ${state.word}`;
+    $("g-safety").hidden = !SAFETY_WORDS.includes(state.word);
+    $("g-step").textContent = `Step ${guideIndex + 1} of ${list.length} · ${s.label}`;
+    $("g-title").textContent = s.title;
+    $("g-body").innerHTML = s.body;
+    $("g-body").classList.remove("fade-in"); void $("g-body").offsetWidth; $("g-body").classList.add("fade-in");
+    $("g-next").textContent = guideIndex === list.length - 1 ? "Finish" : (s.breathe ? "Next (or skip)" : "Next");
+    $("g-back").textContent = guideIndex === 0 ? "← Choose a different word" : "← Back";
+    if (s.breathe) $("bstart").addEventListener("click", startBreath);
+    $("g-title").focus({ preventScroll: true });
+  }
+  $("g-body").addEventListener("click", (e) => {
+    const c = e.target.closest(".chip"); if (!c) return;
+    const key = c.parentElement.dataset.pick, val = c.textContent;
+    state[key] = state[key] === val ? "" : val;
+    c.parentElement.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", String(state[key] === x.textContent)));
+  });
+  $("g-next").addEventListener("click", () => {
+    if (guideIndex < steps().length - 1) { guideIndex++; renderGuide(); window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); }
+    else finish();
+  });
+  $("g-back").addEventListener("click", () => {
+    stopBreath();
+    if (guideIndex === 0) show("s-word"); else { guideIndex--; renderGuide(); }
+  });
+
+  /* breathing: 4s in, 6s out, 3 rounds */
+  function startBreath() {
+    const orb = $("orb"), cue = $("cue"), count = $("bcount"), btn = $("bstart");
+    btn.hidden = true; let round = 0;
+    const cycle = () => {
+      if (round >= 3) { cue.textContent = "Well done"; count.textContent = "Notice how you feel now"; orb.className = "orb"; return; }
+      round++; count.textContent = `Breath ${round} of 3`;
+      cue.textContent = "Breathe in…"; orb.className = "orb in";
+      breathTimer = setTimeout(() => {
+        cue.textContent = "and slowly out…"; orb.className = "orb out";
+        breathTimer = setTimeout(cycle, 6000);
+      }, 4000);
+    };
+    cycle();
+  }
+  function stopBreath() { if (breathTimer) clearTimeout(breathTimer); breathTimer = null; }
+
+  /* 4. close */
+  function finish() {
+    stopBreath();
+    const f = state.fam;
+    $("c-pill").textContent = `Feeling ${state.word}`;
+    $("after").value = state.before; $("after-out").value = state.before;
+    renderSummary(); show("s-close");
+  }
+  function renderSummary() {
+    const f = state.fam, rows = [
+      ["Feeling", state.word],
+      ["Strength", `${state.before} before · ${$("after").value} now`],
+      state.place ? ["Felt in", state.place] : null,
+      state.need ? [f.pleasant ? "What helped" : "What I need", state.need] : null,
+      ["Kind words", f.kind.replace("{w}", state.word)],
+      ["One small step", f.step]
+    ].filter(Boolean);
+    $("c-summary").innerHTML = rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("");
+  }
+  $("after").addEventListener("input", () => { $("after-out").value = $("after").value; renderSummary(); });
+
+  function reflectionText() {
+    const f = state.fam;
+    return [
+      "Name the Feeling",
+      "",
+      `Feeling: ${state.word}`,
+      `Strength: ${state.before} before, ${$("after").value} now`,
+      state.place ? `Felt in: ${state.place}` : null,
+      state.need ? `${f.pleasant ? "What helped" : "What I need"}: ${state.need}` : null,
+      `Kind words: ${f.kind.replace("{w}", state.word)}`,
+      `One small step: ${f.step}`,
+      "",
+      "wooheekwak.me"
+    ].filter((x) => x !== null).join("\n");
+  }
+  $("copy").addEventListener("click", async () => {
+    const text = reflectionText(); let ok = false;
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); ok = true; } } catch (_) {}
+    if (!ok) {
+      const ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select(); try { ok = document.execCommand("copy"); } catch (_) {} document.body.removeChild(ta);
+    }
+    $("copy-status").textContent = ok ? "Copied." : "Couldn't copy automatically. You can select the text above.";
+  });
+  $("restart").addEventListener("click", () => { Object.assign(state, { fam: null, word: "", before: 5, place: "", need: "", viaBody: false }); show("s-family"); });
+})();
+</script>
+</body>
+</html>
