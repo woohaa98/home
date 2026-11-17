@@ -165,8 +165,25 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
 
+/* session mode (link shared by a therapist) */
+.session-banner { display: flex; gap: 12px; align-items: flex-start; background: var(--accent-soft, #EEF4F0); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: -12px 0 28px; font-size: 14.5px; }
+.session-banner b { display: block; color: var(--accent, #476B56); font-weight: 600; }
+.session-banner p { margin: 0; }
+.session-save { margin-top: 28px; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 24px 24px 20px; }
+.session-save h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px; margin: 0 0 4px; }
+.session-save .sub { color: var(--muted); font-size: 14.5px; margin: 0 0 18px; }
+.session-save ol { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 16px; }
+.session-save ol > li { counter-increment: s; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; }
+.session-save ol > li::before { content: counter(s); width: 28px; height: 28px; border-radius: 50%; background: var(--accent, #476B56); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 600; }
+.session-save label, .session-save .lbl { display: block; font-weight: 500; margin-bottom: 6px; }
+.session-save input[type=text] { width: 100%; max-width: 320px; font: inherit; font-size: 16px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink); }
+.session-save .tip { font-size: 13.5px; color: var(--muted); margin: 8px 0 0; }
+.session-save .btn { margin-top: 2px; }
+.print-head { display: none; }
 @media print {
   @page { size: Letter; margin: 0.6in; }
+  .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
+  .print-head b { display: block; font-size: 13pt; color: #000; }
   body { background: #fff; font-size: 11pt; }
   .topbar, header, .steps, .step-name, .nav, .disclaimer, section:not(#s-journal), #j-intro, .no-print { display: none !important; }
   #s-journal { display: block !important; }
@@ -203,6 +220,12 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <h1>Values <em>Clarification</em> Exercise</h1>
       <p class="lede">For anyone figuring out what's next: choosing a path before or during college, starting out, or feeling stuck in a career. Discover what matters most to you, put it in your own words, and see which kinds of work might fit. Takes about 15 to 20 minutes, and you can stop and come back.</p>
     </header>
+
+    <div class="session-banner no-print" id="session-banner" role="note" hidden>
+      <span aria-hidden="true">🌿</span>
+      <div><b>Shared by your therapist, Elise Kwak</b>
+      <p>Take your time; your progress saves on this device so you can come back. At the end, you'll save a summary to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div>
+    </div>
 
     <ol class="steps" id="steps" aria-hidden="true"></ol>
     <p class="step-name" id="step-name"></p>
@@ -280,6 +303,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <h2 class="q" id="q-journal" tabindex="-1">Your values, <em>in your words</em></h2>
         <p class="hint">Here's what you've discovered. Below are journal prompts chosen for you. Write now, or save them and come back over the next few days.</p>
       </div>
+      <div class="print-head" id="print-head" hidden><b>Values Clarification · Session summary</b><span id="ph-line"></span></div>
       <article class="summary">
         <h3>My core values</h3>
         <ol class="sum-values" id="sum-values"></ol>
@@ -292,6 +316,26 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         </div>
       </article>
       <p class="caveat no-print">Your writing is saved only in this browser on this device. <span class="saved" id="saved-note" aria-live="polite"></span></p>
+
+      <div class="session-save no-print" id="session-save" hidden>
+        <h3>Save this for your next session with Elise</h3>
+        <p class="sub">Write as much as you like in the journal above first. You can always come back and save again.</p>
+        <ol>
+          <li><div>
+            <label for="client-name">Your first name <span style="font-weight:400;color:var(--muted)">(optional, shown on the summary)</span></label>
+            <input type="text" id="client-name" maxlength="40" autocomplete="given-name">
+          </div></li>
+          <li><div>
+            <span class="lbl">Save your summary as a PDF</span>
+            <button type="button" class="btn btn-primary" id="save-pdf">Save as PDF</button>
+            <p class="tip">A print window opens. Choose <b>Save as PDF</b> as the destination. On iPhone or iPad, tap the Share icon in that window, then <b>Save to Files</b>.</p>
+          </div></li>
+          <li><div>
+            <span class="lbl">Share it the way Elise suggested</span>
+            <p class="tip" style="margin-top:0">Upload the PDF through your Self Space client portal, or bring it to your session on your phone or on paper. Please don't send it by regular email, since email isn't private.</p>
+          </div></li>
+        </ol>
+      </div>
     </section>
 
     <div class="nav">
@@ -402,6 +446,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 
   const blank = () => ({ step: 0, stage: "", peak: "", custom: [], chosen: [], top: [], ranked: [], defs: {}, living: {}, fieldReflect: "", journal: {} });
   let S = load();
+
+  /* session mode: a therapist shared this link (?from=elise). Remembered on this device. */
+  const SESSION_KEY = "wk-values-session";
+  let session = false;
+  try {
+    if (new URLSearchParams(location.search).get("from") === "elise") localStorage.setItem(SESSION_KEY, "elise");
+    session = localStorage.getItem(SESSION_KEY) === "elise";
+  } catch (_) { session = new URLSearchParams(location.search).get("from") === "elise"; }
+  try { const n = localStorage.getItem(SESSION_KEY + "-name"); if (n) document.getElementById("client-name").value = n; } catch (_) {}
 
   function load() {
     try { const raw = localStorage.getItem(KEY); if (raw) return Object.assign(blank(), JSON.parse(raw)); } catch (_) {}
@@ -593,6 +646,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   /* export */
   function exportText() {
     const L = ["MY VALUES CLARIFICATION", ""];
+    if (session) { const n = $("client-name").value.trim(); L.splice(1, 0, `${n ? "From " + n + " · " : ""}For a session with Elise Kwak · ${new Date().toLocaleDateString()}`); }
     const st = STAGES.find((s) => s.id === S.stage); if (st) L.push(`Where I am: ${st.name}`, "");
     if (S.peak.trim()) L.push("When I feel most like myself:", S.peak.trim(), "");
     L.push("My core values:");
@@ -619,11 +673,24 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   });
   $("print").addEventListener("click", () => window.print());
 
+  /* session save */
+  function preparePrintHead() {
+    const name = $("client-name").value.trim();
+    const date = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    $("print-head").hidden = !session;
+    $("ph-line").textContent = `${name ? "From " + name + " · " : ""}For a session with Elise Kwak · ${date}`;
+  }
+  $("client-name").addEventListener("input", (e) => { try { localStorage.setItem(SESSION_KEY + "-name", e.target.value.trim()); } catch (_) {} });
+  $("save-pdf").addEventListener("click", () => { preparePrintHead(); window.print(); });
+  window.addEventListener("beforeprint", preparePrintHead);
+  if (session) { $("session-banner").hidden = false; $("session-save").hidden = false; }
+
   /* erase */
   $("erase").addEventListener("click", () => { $("erase-confirm").hidden = false; $("erase").hidden = true; $("erase-no").focus(); });
   $("erase-no").addEventListener("click", () => { $("erase-confirm").hidden = true; $("erase").hidden = false; });
   $("erase-yes").addEventListener("click", () => {
-    try { localStorage.removeItem(KEY); } catch (_) {}
+    try { localStorage.removeItem(KEY); localStorage.removeItem(SESSION_KEY + "-name"); } catch (_) {}
+    $("client-name").value = "";
     S = blank(); $("erase-confirm").hidden = true; $("erase").hidden = false; go(0);
     $("nav-status").textContent = "Your answers were erased.";
   });
