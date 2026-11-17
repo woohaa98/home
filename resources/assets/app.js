@@ -153,6 +153,20 @@
       '<footer class="sheet-foot"><p>' + esc(LIB.disclaimer) + "</p><p>Woohee (Elise) Kwak · wooheekwak.me/resources</p></footer>" +
       '<p class="review-meta">Last reviewed ' + esc(r.lastReviewed) + (r.status === "review" ? " · Draft in review" : "") + "</p>";
 
+    /* Related interactive tools (web only; not part of the printed page or PDF) */
+    var relTools = (r.tools || []).map(function (t) { return LIB.tools && LIB.tools[t]; }).filter(Boolean);
+    if (relTools.length) {
+      var rel = document.createElement("section");
+      rel.className = "related-tools no-print";
+      rel.setAttribute("aria-labelledby", "rt-h");
+      rel.innerHTML = '<p class="eyebrow">Interactive Tools</p><h2 id="rt-h">Try it in practice</h2>' +
+        '<p class="rt-sub">A guided exercise that puts this guide into practice. Private by design: nothing you enter leaves your device.</p>' +
+        '<ul class="rt-list">' + relTools.map(function (t) {
+          return '<li><a href="' + esc(t.href) + '"><b>' + esc(t.title) + "</b><span>" + esc(t.blurb) + "</span><em>Open the tool →</em></a></li>";
+        }).join("") + "</ul>";
+      sheet.parentNode.insertBefore(rel, sheet.nextSibling);
+    }
+
     /* Inline the SVG so it uses the page fonts and scales crisply.
        Falls back to the <img> already in place if this fails. */
     var holder = document.getElementById("diagram");
