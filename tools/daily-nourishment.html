@@ -139,6 +139,19 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
   *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
 }
 </style>
+<style>
+.rel { margin-top: 48px; }
+.rel-eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #5A6370; margin: 0 0 6px; }
+.rel h2 { font-family: "Lora", Georgia, serif; font-weight: 400; font-size: 24px; line-height: 1.2; margin: 0 0 6px; color: #2A2F35; }
+.rel-sub { font-size: 14.5px; color: #5A6370; margin: 0 0 16px; }
+.rel-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.rel-list a { display: block; height: 100%; text-decoration: none; color: #2A2F35; background: #FFFFFF; border: 1px solid #E8DDD0; border-radius: 16px; padding: 14px 16px; transition: border-color .2s, transform .2s; }
+.rel-list a:hover { border-color: #476B56; transform: translateY(-1px); }
+.rel-list b { display: block; font-weight: 600; font-size: 15px; line-height: 1.35; }
+.rel-list span { display: block; font-size: 13.5px; color: #5A6370; margin-top: 3px; }
+.rel-list em { display: block; font-style: normal; font-size: 13px; color: #476B56; font-weight: 500; margin-top: 8px; }
+@media print { .rel { display: none !important; } }
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -192,6 +205,15 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         <button type="button" class="btn btn-ghost" id="restart">Start Again</button>
         <span class="status" id="copy-status" role="status" aria-live="polite"></span>
       </div>
+    </section>
+    <section class="rel" aria-labelledby="rel-h">
+      <p class="rel-eyebrow">Therapy Resources</p>
+      <h2 id="rel-h">Related reading</h2>
+      <p class="rel-sub">One-page guides that explain the ideas behind this tool. Each one can be downloaded or printed.</p>
+      <ul class="rel-list">
+      <li><a href="../resources/resource.html?id=brain-and-emotions"><b>How the Brain Creates &amp; Regulates Emotions</b><span>Why emotions are built from body signals, meaning, and past experience.</span><em>Read the guide →</em></a></li>
+      <li><a href="../resources/resource.html?id=turning-toward-emotions"><b>Turning Toward Difficult Emotions</b><span>How to notice, name, and allow emotions with self-compassion.</span><em>Read the guide →</em></a></li>
+      </ul>
     </section>
   </main>
 

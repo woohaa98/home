@@ -28,11 +28,22 @@ window.RESOURCE_LIBRARY = {
       blurb: "Understanding the habits of mind that keep us stuck, and how flexibility helps." }
   ],
 
+  /* Interactive tools on the site. Each guide below can list related tools by id. */
+  tools: {
+    "values-clarification": { title: "Values Clarification Exercise", href: "../tools/values-clarification.html", blurb: "Find, rank, and put your core values into your own words." },
+    "daily-nourishment":    { title: "Daily Nourishment Check-In", href: "../tools/daily-nourishment.html", blurb: "A quick check-in on what's filling you up and what's draining you." },
+    "name-the-feeling":     { title: "Name the Feeling", href: "../tools/name-the-feeling.html", blurb: "Find the right word for what you feel, then sit with it gently." },
+    "parts-of-me":          { title: "Parts of Me", href: "../tools/parts-of-me.html", blurb: "Get to know a protective part of you: what it fears and what it needs." },
+    "rain-micropractice":   { title: "RAIN Micropractice", href: "../tools/rain-micropractice.html", blurb: "Five minutes to Recognize, Allow, Investigate, and Nurture a hard feeling." },
+    "ride-the-wave":        { title: "Ride the Wave", href: "../tools/ride-the-wave.html", blurb: "Notice the trigger, the urge, and stay with the feeling instead of reacting." }
+  },
+
   resources: [
 
     /* ---------------------------------------------------------- 1 */
     {
       id: "brain-and-emotions",
+      tools: ["name-the-feeling", "daily-nourishment"],
       category: "mind-body",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -67,6 +78,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 2 */
     {
       id: "anxiety-cycle",
+      tools: ["ride-the-wave", "rain-micropractice"],
       category: "mind-body",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -101,6 +113,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 3 */
     {
       id: "understanding-ocd",
+      tools: ["ride-the-wave"],
       category: "mind-body",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -136,6 +149,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 4 */
     {
       id: "four-horsemen",
+      tools: ["name-the-feeling"],
       category: "relationships",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -170,6 +184,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 5 */
     {
       id: "attachment-styles",
+      tools: ["parts-of-me"],
       category: "relationships",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -205,6 +220,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 6 */
     {
       id: "values-vs-goals",
+      tools: ["values-clarification"],
       category: "identity",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -238,6 +254,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 7 */
     {
       id: "perfectionism",
+      tools: ["parts-of-me", "values-clarification"],
       category: "growth",
       status: "published",
       lastReviewed: "2026-11-05",
@@ -273,6 +290,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 8 */
     {
       id: "turning-toward-emotions",
+      tools: ["name-the-feeling", "rain-micropractice"],
       category: "awareness",
       status: "published",
       lastReviewed: "2026-11-09",

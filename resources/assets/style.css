@@ -242,6 +242,18 @@ a { color: var(--terracotta-ink); }
    ============================================================= */
 @page { size: Letter; margin: 0.45in 0.5in 0.45in; }
 
+/* Related tools (resource page, screen only) */
+.related-tools { max-width: 860px; margin: 40px auto 0; padding: 26px 0 0; border-top: 1px solid var(--divider); }
+.related-tools .eyebrow { margin: 0 0 6px; }
+.related-tools h2 { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; line-height: 1.2; margin: 0 0 6px; }
+.related-tools .rt-sub { color: var(--text-mid); font-size: .95rem; margin: 0 0 16px; }
+.rt-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.rt-list a { display: block; height: 100%; text-decoration: none; color: var(--text-dark); background: #fff; border: 1px solid var(--divider); border-radius: 16px; padding: 16px 18px; transition: border-color .2s, transform .2s; }
+.rt-list a:hover { border-color: var(--sage-ink); transform: translateY(-1px); }
+.rt-list b { display: block; font-weight: 600; }
+.rt-list span { display: block; font-size: .9rem; color: var(--text-mid); margin-top: 3px; }
+.rt-list em { display: block; font-style: normal; font-size: .85rem; font-weight: 500; color: var(--sage-ink); margin-top: 8px; }
+
 @media print {
   :root { --shadow: none; }
   html, body { background: #fff !important; }
