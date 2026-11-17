@@ -698,6 +698,8 @@
     transition: background 0.2s, transform 0.2s;
     margin-top: 4px;
   }
+  .form-note { font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; margin: 14px 0 0; }
+  .form-note.is-error { color: #9A5232; font-weight: 500; }
   .form-submit:hover { background: #B05F3A; transform: translateY(-1px); }
 
   /* ---- FOOTER ---- */
@@ -1505,13 +1507,13 @@
       <h2>Let's start a <em>conversation.</em></h2>
       <p>Whether you're exploring therapy, interested in product collaboration, or just want to connect, I'd love to hear from you. No pressure, no scripts.</p>
       <div class="contact-ways">
-        <a href="/cdn-cgi/l/email-protection#22554d4d4a474749554349624d57564e4d4d490c414d4f" class="contact-way">
+        <a href="mailto:wooheekwak@outlook.com" class="contact-way">
           <div class="cw-icon">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           </div>
           <div>
             <div class="cw-label">Email</div>
-            <div class="cw-value"><span class="__cf_email__" data-cfemail="12657d7d7a777779657379527d67667e7d7d793c717d7f">[email&#160;protected]</span></div>
+            <div class="cw-value">wooheekwak@outlook.com</div>
           </div>
         </a>
         <a href="https://www.selfspaceseattle.com/therapists/elise-kwak" target="_blank" rel="noopener" class="contact-way">
@@ -1534,25 +1536,21 @@
         </a>
       </div>
     </div>
-    <div class="contact-form reveal">
+    <form class="contact-form reveal" id="contact-form" novalidate>
       <h3>Send a message</h3>
       <div class="form-row">
         <div class="form-group">
-          <label>First name</label>
-          <input type="text" placeholder="Jamie">
+          <label for="cf-first">First name</label>
+          <input id="cf-first" name="first" type="text" placeholder="Jamie" autocomplete="given-name" required>
         </div>
         <div class="form-group">
-          <label>Last name</label>
-          <input type="text" placeholder="Chen">
+          <label for="cf-last">Last name</label>
+          <input id="cf-last" name="last" type="text" placeholder="Chen" autocomplete="family-name">
         </div>
       </div>
       <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="you@example.com">
-      </div>
-      <div class="form-group">
-        <label>I'm reaching out about...</label>
-        <select>
+        <label for="cf-topic">I'm reaching out about...</label>
+        <select id="cf-topic" name="topic">
           <option value="">Select one</option>
           <option>Counseling / Therapy</option>
           <option>Product collaboration</option>
@@ -1561,11 +1559,12 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Message</label>
-        <textarea rows="4" placeholder="Tell me what's on your mind..."></textarea>
+        <label for="cf-msg">Message</label>
+        <textarea id="cf-msg" name="message" rows="4" placeholder="Tell me what's on your mind..." required></textarea>
       </div>
-      <button class="form-submit">Send Message →</button>
-    </div>
+      <button type="submit" class="form-submit">Send Message →</button>
+      <p class="form-note" id="cf-note" role="status" aria-live="polite">This opens your email app with your message ready to send to wooheekwak@outlook.com. Nothing is stored on this site. For counseling, please keep personal health details for our first conversation.</p>
+    </form>
   </div>
 </section>
 
@@ -1595,4 +1594,29 @@
   <div class="footer-copy">© 2026 Woohee (Elise) Kwak · Made with care</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728
+<script>
+(function () {
+  var form = document.getElementById("contact-form");
+  if (!form) return;
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var note = document.getElementById("cf-note");
+    var first = form.first.value.trim(), last = form.last.value.trim();
+    var topic = form.topic.value, msg = form.message.value.trim();
+    if (!first || !msg) {
+      note.textContent = "Please add your first name and a message.";
+      note.classList.add("is-error");
+      (first ? form.message : form.first).focus();
+      return;
+    }
+    note.classList.remove("is-error");
+    var name = (first + " " + last).trim();
+    var subject = (topic ? topic + ": " : "") + "Message from " + name;
+    var body = msg + "\n\n" + name;
+    window.location.href = "mailto:wooheekwak@outlook.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    note.textContent = "Your email app should open with the message ready. If it doesn't, you can email wooheekwak@outlook.com directly.";
+  });
+})();
+</script>
+</body>
+</html>
