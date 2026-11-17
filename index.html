@@ -156,6 +156,7 @@
     .hero-photo-caption { max-width: 100%; }
     .hero-tools-hint { justify-content: center; }
     .hero-actions { justify-content: center; }
+    .hero-tools { text-align: center; }
     .persona-tags { justify-content: center; }
   }
   .hero-bg {
@@ -217,6 +218,11 @@
     display: flex; gap: 16px; flex-wrap: wrap;
     animation: fadeUp 0.7s 0.3s ease both;
   }
+  .hero-tools { margin: 26px 0 0; font-size: 0.88rem; line-height: 1.9; color: var(--text-mid); animation: fadeUp 0.7s 0.4s ease both; }
+  .hero-tools span { letter-spacing: 0.04em; }
+  .hero-tools a { color: var(--text-mid); text-decoration: underline; text-decoration-color: rgba(90,99,112,0.3); text-underline-offset: 3px; transition: color 0.2s, text-decoration-color 0.2s; }
+  .hero-tools a:hover { color: var(--terracotta); text-decoration-color: var(--terracotta); }
+  .hero-tools a.more { color: var(--terracotta); text-decoration-color: rgba(196,113,74,0.35); white-space: nowrap; }
   .btn-primary {
     background: var(--terracotta);
     color: white;
@@ -1118,6 +1124,7 @@
       <div class="hero-actions">
         <a href="#personas" class="btn-primary">Explore My Work →</a>
       </div>
+      <p class="hero-tools"><span>Free tools to try:</span> <a href="tools/name-the-feeling.html">Name the Feeling</a> · <a href="tools/ride-the-wave.html">Ride the Wave</a> · <a href="tools/values-clarification.html">Values Clarification</a> · <a href="#tools" class="more">All tools &amp; guides →</a></p>
 
     </div>
 
