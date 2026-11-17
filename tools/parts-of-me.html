@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parts of Me · Woohee (Elise) Kwak</title>
+<meta name="description" content="A gentle, IFS-informed reflection to get to know a protective part of you: what it does, what it fears, and what it needs.">
+<!-- Privacy: this page makes no analytics, tracking, or data requests. Nothing you choose or type leaves the browser. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 22px; }
+.progress { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+.ground-btn { appearance: none; font: inherit; font-size: 13.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--accent); white-space: nowrap; transition: border-color .2s; }
+.ground-btn:hover { border-color: var(--accent); }
+.grounding { display: flex; gap: 14px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: 0 0 22px; }
+.grounding strong { display: block; color: var(--accent); font-weight: 600; }
+.grounding p { margin: 0; font-size: 14.5px; }
+.grounding .x { appearance: none; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; margin-left: auto; padding: 0 4px; }
+
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
+
+.options { display: grid; gap: 10px; }
+.options.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .options.two { grid-template-columns: 1fr; } }
+.opt {
+  appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 15px 18px;
+  transition: border-color .2s, background-color .2s;
+}
+.opt:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 20px; line-height: 1.2; }
+.opt b { display: block; font-weight: 600; font-size: 15.5px; }
+.opt small { display: block; color: var(--muted); font-size: 14px; margin-top: 1px; }
+.opt.dashed { border-style: dashed; }
+.group-name { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+.group-name:first-child { margin-top: 0; }
+
+.field { margin-top: 16px; }
+.field > label { display: block; font-weight: 500; margin-bottom: 8px; }
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 16px; line-height: 1.6; padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); resize: vertical; }
+textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.15); }
+::placeholder { color: #8C939C; }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.scale { margin-top: 26px; padding: 18px 20px; background: var(--sand); border-radius: 16px; }
+.scale label { font-weight: 500; display: block; margin-bottom: 8px; }
+.scale input[type=range] { width: 100%; accent-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.scale output { font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+.note { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 14px 0 0; }
+.note strong { color: var(--warm-ink); }
+
+.prompt-card { background: var(--sand); border-radius: 16px; padding: 18px 20px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.subcount { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+.reflection { display: flex; gap: 14px; align-items: flex-start; border-left: 3px solid var(--warm); background: var(--surface); border-radius: 0 14px 14px 0; padding: 14px 18px; margin: 16px 0 0; box-shadow: var(--shadow); }
+.reflection .mark { color: var(--warm); font-size: 18px; line-height: 1.5; }
+.reflection p { margin: 0; font-family: var(--font-display); font-size: 17px; line-height: 1.55; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(24px, 6vw, 44px); }
+.welcome-list { margin: 0 0 18px; padding-left: 20px; }
+.welcome-list li { margin-bottom: 6px; }
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 20px; }
+.safety strong { color: var(--warm-ink); }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-weight: 500; }
+.check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+
+.part-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 16px; }
+.summary { display: grid; gap: 12px; margin: 6px 0 0; }
+.summary div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.summary dd { margin: 0; white-space: pre-wrap; }
+@media (max-width: 520px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+@media print {
+  body { background: #fff; }
+  .topbar, header, .toolbar, .grounding, .actions, .disclaimer, .no-print { display: none !important; }
+  .card { box-shadow: none; border: 0; padding: 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Identity &amp; Inner Parts</p>
+      <h1>Parts of <em>Me</em></h1>
+      <p class="lede">A gentle reflection for getting to know one part of you: the one that pushes, protects, numbs, or doubts. Not to fix it, but to understand what it's been trying to do for you.</p>
+    </header>
+
+    <div class="toolbar">
+      <ol class="progress" id="progress" aria-hidden="true"></ol>
+      <button type="button" class="ground-btn" id="ground-btn" aria-expanded="false" aria-controls="grounding">🌿 Ground me</button>
+    </div>
+    <div class="grounding fade-in" id="grounding" hidden role="note">
+      <div>
+        <strong>Grounding pause</strong>
+        <p>Feel your feet on the floor. Let your breath slow down, a little longer on the out-breath. Look around and name three things you can see. You can stop here at any time.</p>
+      </div>
+      <button type="button" class="x" id="ground-close" aria-label="Close grounding pause">×</button>
+    </div>
+
+    <section id="stage" aria-live="off"></section>
+  </main>
+
+  <footer class="disclaimer">
+    <p>A self-guided reflection inspired by Internal Family Systems (IFS), developed by Richard C. Schwartz. It is not therapy and is not affiliated with the IFS Institute.</p>
+    <p>If you are in crisis in the U.S., call or text 988, or call 911.</p>
+    <p>Your answers stay on your device. Nothing is saved, tracked, or sent anywhere.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     Content. Edit freely.
+     ------------------------------------------------------------------ */
+  const TOPICS = [
+    "A repeating pattern in my behavior",
+    "A difficult decision",
+    "Burnout or exhaustion",
+    "Conflict in a relationship",
+    "Identity or a life transition",
+    "Something else"
+  ];
+
+  const CATEGORIES = [
+    { id: "manager",     icon: "🛡️", label: "Something that tries to stay in control", sub: "planning, pushing, criticizing, pleasing" },
+    { id: "firefighter", icon: "🔥", label: "Something that reacts when it's all too much", sub: "numbing, avoiding, snapping, shutting down" },
+    { id: "identity",    icon: "🌱", label: "Something about identity or change", sub: "doubting, longing, holding on, emerging" },
+    { id: "unsure",      icon: "✦",  label: "I'm not sure", sub: "see all the parts together" }
+  ];
+
+  const GROUP_NAMES = { manager: "Parts that try to stay in control", firefighter: "Parts that react when overwhelmed", identity: "Parts about identity or change" };
+
+  const PARTS = {
+    manager: [
+      ["perfectionist", "The Perfectionist", "pushes you to get everything right"],
+      ["achiever", "The High Achiever", "driven to succeed and perform"],
+      ["critic", "The Inner Critic", "points out mistakes to prevent failure"],
+      ["pleaser", "The People Pleaser", "wants others to feel happy with you"],
+      ["responsible", "The Responsible One", "carries everyone's burden"],
+      ["planner", "The Planner", "needs certainty and structure"],
+      ["strong", "The Strong One", "avoids showing vulnerability"],
+      ["caretaker", "The Caretaker", "takes care of others before yourself"]
+    ],
+    firefighter: [
+      ["procrastinator", "The Procrastinator", "avoids what feels heavy or scary"],
+      ["numbing", "The Numbing Part", "scrolls, eats, works, or distracts"],
+      ["defender", "The Angry Defender", "reacts quickly to protect you"],
+      ["shutdown", "The Shutdown Part", "withdraws or goes quiet"],
+      ["rebel", "The Rebel", "resists expectations or pressure"],
+      ["saboteur", "The Self-Saboteur", "derails things when they get intense"]
+    ],
+    identity: [
+      ["doubter", "The Doubter", "questions your abilities or direction"],
+      ["burnedout", "The Burned-Out One", "feels tired and depleted"],
+      ["ambitious", "The Ambitious One", "wants more growth and impact"],
+      ["visionary", "The Visionary", "imagines a different future"],
+      ["riskaverse", "The Risk-Averse Part", "fears change or instability"],
+      ["oldself", "The Old Version of Me", "attached to who you used to be"],
+      ["emerging", "The Emerging Self", "senses something new unfolding"]
+    ]
+  };
+
+  const BODY_PLACES = ["Chest", "Throat", "Stomach", "Shoulders", "Jaw", "Head", "Back", "Hands", "Whole body", "Hard to say"];
+
+  const QUESTIONS = [
+    { key: "q1", label: "What it fears", q: (p) => `What does ${p} seem afraid would happen if it didn't do its job?` },
+    { key: "q2", label: "What it protects", q: () => "What is it trying to protect you from?" },
+    { key: "q3", label: "How long it's served", q: () => "How long do you sense it's been doing this role?" },
+    { key: "q4", label: "What it needs", q: () => "What does it need you, your calmer and wiser Self, to understand?" }
+  ];
+
+  // Gentle, pre-written reflections. Each honors the part's intent and ends with an open question.
+  const REFLECTIONS = {
+    q1: [
+      "That fear makes a lot of sense from where {p} stands. It has been bracing for something it believes would really hurt. What might help it feel even a little less on guard right now?",
+      "It sounds like {p} carries a real worry, and its effort is a way of trying to keep that from coming true. If it could set the worry down for a moment, what would it want to do instead?",
+      "There's care inside that fear. {p} works this hard because something feels like it's at stake. How does it feel to hear its fear named out loud?"
+    ],
+    q2: [
+      "So {p} has been standing between you and something painful. That's a protective job, even if the way it does it is costly at times. What do you notice toward it as you see this?",
+      "It's trying to keep you from being hurt in a way that once felt too much. That protection came from somewhere real. What would it need to trust that you can handle a little more now?",
+      "That's a lot for one part to guard against. It makes sense it hasn't wanted to step back. How does your body respond as you acknowledge what it protects?"
+    ],
+    q3: [
+      "Parts often take on their roles early, when they were the best option available. {p} may still be working as if things are the way they were then. What might it want to know about who you are today?",
+      "That's a long time to carry a job. It's okay if it feels tired, or stuck in an old pattern. What would you like {p} to know about your life now?",
+      "Sometimes just noticing how long a part has been working brings a little tenderness toward it. What do you feel toward {p} as you sense its history?"
+    ],
+    q4: [
+      "That's an important request, and it's worth taking in slowly. {p} has been waiting to be understood, not managed. What could you offer it, even in a small way, this week?",
+      "It sounds like {p} is asking to be seen for its effort. Simply hearing this can soften things. How does it respond as you let it know you heard it?",
+      "Listening to what a part needs is a kind of care. You don't have to act on everything right away. What feels like one small way to honor this?"
+    ],
+    thanks: [
+      "Thank you for offering {p} that appreciation. Parts often relax a little when their hard work is seen. What do you notice in your body now?",
+      "Whatever its response was, even uncertainty, is welcome. Building trust with a part can take time. What would you like to say to it before you close?",
+      "Appreciation can be a new experience for a part that has worked without thanks. Is there anything else it wants you to know right now?"
+    ]
+  };
+
+  const EXPERIMENTS = {
+    manager: [
+      "Once this week, when {p} speaks up, pause and say inwardly: \"I see you. Thank you. I've got this one.\" Notice what happens.",
+      "Choose one small task and let it be good enough instead of perfect. Notice how {p} responds, and thank it for caring.",
+      "Take two minutes each evening to ask {p}: \"What were you worried about today?\" Just listen."
+    ],
+    firefighter: [
+      "The next time {p} steps in, pause for three slow breaths first. You can still choose what to do afterward.",
+      "When {p} shows up this week, get curious about the feeling that came just before it. Name that feeling, gently.",
+      "Write down one moment this week when {p} appeared, and what it might have been protecting you from."
+    ],
+    identity: [
+      "Spend ten minutes this week doing something {p} would welcome, and notice how it feels.",
+      "Write a short note from {p} to you, beginning: \"What I want you to know is...\"",
+      "Each day, notice one moment when {p} is present, and simply name it: \"There's {p}.\""
+    ]
+  };
+
+  /* ------------------------------------------------------------------ */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const STEPS = 8;
+  const blank = () => ({ agree: false, topic: "", topicCustom: "", category: "", part: "", partCustom: "", bodyPlaces: [], body: "", blend: 5,
+                         q1: "", q2: "", q3: "", q4: "", appreciation: "", experiment: "", experimentCustom: "" });
+  let d = blank();
+  let step = 0, sub = 0;
+  const shown = {};          // which reflections have been revealed, by key
+  const pickIdx = {};        // which reflection variant was chosen, by key
+
+  $("progress").innerHTML = "<li></li>".repeat(STEPS);
+
+  const allParts = () => Object.entries(PARTS).flatMap(([g, list]) => list.map(([id, label, desc]) => ({ g, id, label, desc })));
+  const partName = () => d.part === "custom" ? (d.partCustom.trim() || "this part") : (allParts().find((p) => p.id === d.part)?.label || "this part");
+  const partGroup = () => allParts().find((p) => p.id === d.part)?.g || (d.category && d.category !== "unsure" ? d.category : "manager");
+  const fill = (t) => t.replaceAll("{p}", partName());
+  const topicText = () => d.topic === "Something else" ? d.topicCustom.trim() : d.topic;
+  const experimentText = () => d.experiment === "custom" ? d.experimentCustom.trim() : (d.experiment ? fill(d.experiment) : "");
+
+  function reflectionFor(key) {
+    const list = REFLECTIONS[key];
+    if (pickIdx[key] == null) pickIdx[key] = Math.floor(Math.random() * list.length);
+    return fill(list[pickIdx[key]]);
+  }
+
+  /* ---------- views ---------- */
+  function opt(attrs, pressed, inner, extra = "") {
+    return `<button type="button" class="opt ${extra}" ${attrs} aria-pressed="${pressed}">${inner}</button>`;
+  }
+  function reflectBlock(key) {
+    if (!shown[key]) return "";
+    return `<div class="reflection fade-in" role="note"><span class="mark" aria-hidden="true">✦</span><p>${esc(reflectionFor(key))}</p></div>`;
+  }
+  function nav(nextLabel, enabled, back = true) {
+    return `<div class="actions">
+      <button type="button" class="btn btn-primary" data-act="next" ${enabled ? "" : "disabled"}>${nextLabel}</button>
+      ${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}
+    </div>`;
+  }
+
+  const views = {
+    0: () => `
+      <article class="card fade-in">
+        <p class="step-label">Welcome</p>
+        <h2 class="q" tabindex="-1">A space to <em>meet yourself</em></h2>
+        <p class="hint">In Internal Family Systems (IFS), we all have many parts, and none of them are bad. Many are protectors working hard, often in old ways, to keep us safe. Underneath them is a calmer, curious Self that can listen.</p>
+        <ul class="welcome-list">
+          <li>About 10 to 15 minutes, eight short steps.</li>
+          <li>You can pause, breathe, or stop at any moment. The 🌿 button is always there.</li>
+          <li>This is a self-guided reflection, not therapy. Go only as deep as feels okay.</li>
+        </ul>
+        <p class="safety"><strong>If you're in crisis or feel unsafe,</strong> please reach out to a mental health professional or a crisis line before continuing. In the U.S., call or text <strong>988</strong>.</p>
+        <label class="check"><input type="checkbox" data-field="agree" ${d.agree ? "checked" : ""}> I understand, and I'd like to continue.</label>
+      </article>
+      ${nav("Begin", d.agree, false)}`,
+
+    1: () => `
+      <p class="step-label">Step 1 of 7 · What you're exploring</p>
+      <h2 class="q" tabindex="-1">What feels most <em>present</em> right now?</h2>
+      <p class="hint">Choose the theme that's asking for attention today.</p>
+      <div class="options two">
+        ${TOPICS.map((t) => opt(`data-set="topic" data-val="${esc(t)}"`, d.topic === t, `<span><b>${esc(t)}</b></span>`)).join("")}
+      </div>
+      ${d.topic === "Something else" ? `<div class="field"><label for="topicCustom">In a few words, what's present for you?</label><input type="text" id="topicCustom" data-field="topicCustom" maxlength="120" value="${esc(d.topicCustom)}"></div>` : ""}
+      ${nav("Continue", d.topic && (d.topic !== "Something else" || d.topicCustom.trim()))}`,
+
+    2: () => `
+      <p class="step-label">Step 2 of 7 · Name the energy</p>
+      <h2 class="q" tabindex="-1">When you think about this, what kind of <em>energy</em> shows up?</h2>
+      <p class="hint">Go with your first instinct. There's no wrong answer.</p>
+      <div class="options">
+        ${CATEGORIES.map((c) => opt(`data-set="category" data-val="${c.id}"`, d.category === c.id,
+          `<span class="icon" aria-hidden="true">${c.icon}</span><span><b>${esc(c.label)}</b><small>${esc(c.sub)}</small></span>`, c.id === "unsure" ? "dashed" : "")).join("")}
+      </div>
+      ${nav("Continue", d.category)}`,
+
+    3: () => {
+      const groups = d.category === "unsure" ? Object.keys(PARTS) : [d.category];
+      return `
+      <p class="step-label">Step 3 of 7 · Meet the part</p>
+      <h2 class="q" tabindex="-1">Which of these feels most <em>familiar</em>?</h2>
+      <p class="hint">Choose the one that resonates, or name your own. Many people give their parts a name, an image, or a nickname.</p>
+      ${groups.map((g) => `
+        ${groups.length > 1 ? `<p class="group-name">${esc(GROUP_NAMES[g])}</p>` : ""}
+        <div class="options two">
+          ${PARTS[g].map(([id, label, desc]) => opt(`data-set="part" data-val="${id}"`, d.part === id, `<span><b>${esc(label)}</b><small>${esc(desc)}</small></span>`)).join("")}
+        </div>`).join("")}
+      <div class="options" style="margin-top:10px">
+        ${opt('data-set="part" data-val="custom"', d.part === "custom", "<span><b>I'll name my own</b><small>in my own words</small></span>", "dashed")}
+      </div>
+      ${d.part === "custom" ? `<div class="field"><label for="partCustom">What would you call this part?</label><input type="text" id="partCustom" data-field="partCustom" maxlength="60" placeholder="e.g. The Worrier, Little Me, The Wall" value="${esc(d.partCustom)}"></div>` : ""}
+      ${nav("Continue", d.part && (d.part !== "custom" || d.partCustom.trim()))}`;
+    },
+
+    4: () => `
+      <p class="step-label">Step 4 of 7 · Unblending</p>
+      <h2 class="q" tabindex="-1">Getting a little <em>space</em> from ${esc(partName())}</h2>
+      <p class="hint">Take one slow breath before you answer. You're the one noticing this part, which means you're more than it.</p>
+      <div class="field">
+        <label id="body-l">Where do you feel this part in your body?</label>
+        <div class="chipset" role="group" aria-labelledby="body-l">
+          ${BODY_PLACES.map((b) => `<button type="button" class="chip" data-toggle="bodyPlaces" data-val="${esc(b)}" aria-pressed="${d.bodyPlaces.includes(b)}">${esc(b)}</button>`).join("")}
+        </div>
+        <textarea rows="2" data-field="body" aria-label="Describe the sensation (optional)" placeholder="Optional: what is it like? e.g. a tight knot, heat, heaviness">${esc(d.body)}</textarea>
+      </div>
+      <div class="scale">
+        <label for="blend">How blended (merged) do you feel with this part right now? <output id="blend-out" for="blend">${d.blend}</output></label>
+        <input id="blend" type="range" min="0" max="10" step="1" value="${d.blend}" data-field="blend">
+        <div class="ends"><span>0 · I can see it clearly</span><span>10 · it feels like me</span></div>
+      </div>
+      <p class="note" id="blend-note" ${d.blend >= 7 ? "" : "hidden"}><strong>You're quite blended right now, and that's okay.</strong> See if the part would be willing to give you just a little room, even 5 percent. You might imagine it sitting beside you instead of in front of you. If it won't, that's important information too; you can pause here.</p>
+      ${nav("Continue", d.bodyPlaces.length || d.body.trim())}`,
+
+    5: () => {
+      const cur = QUESTIONS[sub];
+      const val = d[cur.key];
+      const last = sub === QUESTIONS.length - 1;
+      return `
+      <p class="step-label">Step 5 of 7 · Getting to know ${esc(partName())}</p>
+      <h2 class="q" tabindex="-1">Stay <em>curious</em></h2>
+      <p class="subcount">Question ${sub + 1} of ${QUESTIONS.length}</p>
+      <p class="prompt-card">${esc(cur.q(partName()))}</p>
+      <textarea rows="4" data-field="${cur.key}" aria-label="${esc(cur.q(partName()))}" placeholder="Take your time. A word or two is enough.">${esc(val)}</textarea>
+      <div id="reflect-slot">${reflectBlock(cur.key)}</div>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="next" ${val.trim() ? "" : "disabled"}>${last ? "Continue to Appreciation" : "Next Question"}</button>
+        <button type="button" class="btn btn-ghost" data-act="reflect" ${val.trim() && !shown[cur.key] ? "" : "hidden"}>✦ Reflect with me</button>
+        <button type="button" class="btn btn-text" data-act="back">← Back</button>
+      </div>`;
+    },
+
+    6: () => `
+      <p class="step-label">Step 6 of 7 · Appreciation</p>
+      <h2 class="q" tabindex="-1">Thank ${esc(partName())} for its <em>care</em></h2>
+      <p class="hint">This part has been working hard for you, maybe for a long time. See if you can offer it a moment of genuine appreciation, even for the intention behind what it does.</p>
+      <div class="field">
+        <label for="appreciation">How does it respond when you thank it?</label>
+        <textarea id="appreciation" rows="4" data-field="appreciation" placeholder="e.g. It softened a little. It didn't trust me yet. It felt surprised.">${esc(d.appreciation)}</textarea>
+      </div>
+      <div id="reflect-slot">${reflectBlock("thanks")}</div>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="next" ${d.appreciation.trim() ? "" : "disabled"}>See My Reflection</button>
+        <button type="button" class="btn btn-ghost" data-act="reflect" ${d.appreciation.trim() && !shown.thanks ? "" : "hidden"}>✦ Reflect with me</button>
+        <button type="button" class="btn btn-text" data-act="back">← Back</button>
+      </div>`,
+
+    7: () => {
+      const exps = EXPERIMENTS[partGroup()];
+      const rows = [
+        ["Part explored", partName()],
+        ["Situation", topicText()],
+        ["In my body", [d.bodyPlaces.join(", "), d.body.trim()].filter(Boolean).join(". ")],
+        ["How blended", `${d.blend} of 10`],
+        ...QUESTIONS.map((q) => [q.label, d[q.key].trim()]),
+        ["Its response to thanks", d.appreciation.trim()]
+      ].filter((r) => r[1]);
+      return `
+      <article class="card fade-in">
+        <p class="step-label">Step 7 of 7 · Your reflection</p>
+        <p class="part-pill">${esc(partName())}</p>
+        <h2 class="q" tabindex="-1">Your Parts of Me <em>card</em></h2>
+        <p class="hint">A record of today's exploration. You can copy it, print it, or bring it to a session.</p>
+        <dl class="summary">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}
+          <div id="exp-row" ${experimentText() ? "" : "hidden"}><dt>A small experiment</dt><dd id="exp-val">${esc(experimentText())}</dd></div>
+        </dl>
+        <div class="field no-print" style="margin-top:22px">
+          <label id="exp-l">Choose one small experiment for this week</label>
+          <div class="options" role="group" aria-labelledby="exp-l">
+            ${exps.map((e) => opt(`data-set="experiment" data-val="${esc(e)}" data-keep`, d.experiment === e, `<span><small style="color:var(--ink);font-size:15px">${esc(fill(e))}</small></span>`)).join("")}
+            ${opt('data-set="experiment" data-val="custom" data-keep', d.experiment === "custom", "<span><b>My own experiment</b></span>", "dashed")}
+          </div>
+          ${d.experiment === "custom" ? `<input type="text" style="margin-top:10px" data-field="experimentCustom" maxlength="160" aria-label="Your own experiment" placeholder="One small thing to try" value="${esc(d.experimentCustom)}">` : ""}
+        </div>
+        <p class="closing-line">Notice your breath. You are more than any single part.</p>
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="copy">Copy My Reflection</button>
+        <button type="button" class="btn btn-ghost" data-act="print">Print</button>
+        <button type="button" class="btn btn-ghost" data-act="restart">Start Again</button>
+        <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>`;
+    }
+  };
+
+  let lastView = -1;
+  function render(focus = true) {
+    const same = lastView === step * 10 + sub;
+    lastView = step * 10 + sub;
+    $("stage").innerHTML = views[step]();
+    if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
+    [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i <= step));
+    if (focus) {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      const h = $("stage").querySelector("[tabindex='-1']");
+      if (h) h.focus({ preventScroll: true });
+    }
+  }
+
+  // Keep buttons in sync while typing, without re-rendering (so focus stays in the field).
+  function syncControls() {
+    const next = $("stage").querySelector('[data-act="next"]');
+    const refl = $("stage").querySelector('[data-act="reflect"]');
+    const ok = {
+      0: () => d.agree,
+      1: () => d.topic && (d.topic !== "Something else" || d.topicCustom.trim()),
+      2: () => d.category,
+      3: () => d.part && (d.part !== "custom" || d.partCustom.trim()),
+      4: () => d.bodyPlaces.length || d.body.trim(),
+      5: () => d[QUESTIONS[sub].key].trim(),
+      6: () => d.appreciation.trim()
+    }[step];
+    if (next && ok) next.disabled = !ok();
+    if (refl) {
+      const key = step === 5 ? QUESTIONS[sub].key : "thanks";
+      const val = step === 5 ? d[key] : d.appreciation;
+      refl.hidden = !val.trim() || !!shown[key];
+    }
+    if (step === 7) {
+      const t = experimentText();
+      $("exp-row").hidden = !t;
+      $("exp-val").textContent = t;
+    }
+  }
+
+  /* ---------- events ---------- */
+  $("stage").addEventListener("input", (e) => {
+    const f = e.target.dataset.field;
+    if (!f) return;
+    if (f === "agree") d.agree = e.target.checked;
+    else if (f === "blend") {
+      d.blend = +e.target.value;
+      $("blend-out").textContent = d.blend;
+      $("blend-note").hidden = d.blend < 7;
+    } else {
+      d[f] = e.target.value;
+      // Editing an answer invites a fresh reflection.
+      const key = step === 5 ? QUESTIONS[sub].key : step === 6 ? "thanks" : null;
+      if (key && shown[key] && (f === key || (key === "thanks" && f === "appreciation"))) {
+        shown[key] = false; pickIdx[key] = null;
+        $("reflect-slot").innerHTML = "";
+      }
+    }
+    syncControls();
+  });
+
+  $("stage").addEventListener("click", (e) => {
+    const setBtn = e.target.closest("[data-set]");
+    if (setBtn) {
+      const k = setBtn.dataset.set, v = setBtn.dataset.val;
+      if (k === "category" && d.category !== v) { d.part = ""; }
+      d[k] = v;
+      const keep = "keep" in setBtn.dataset;
+      render(false);
+      if (keep || k) {
+        const again = [...$("stage").querySelectorAll(`[data-set="${k}"]`)].find((b) => b.dataset.val === v);
+        const input = $("stage").querySelector(`[data-field="${k}Custom"]`);
+        (v === "custom" || v === "Something else") && input ? input.focus() : again && again.focus();
+      }
+      return;
+    }
+    const tog = e.target.closest("[data-toggle]");
+    if (tog) {
+      const list = d[tog.dataset.toggle], v = tog.dataset.val;
+      const i = list.indexOf(v);
+      i >= 0 ? list.splice(i, 1) : list.push(v);
+      tog.setAttribute("aria-pressed", i < 0);
+      syncControls();
+      return;
+    }
+    const act = e.target.closest("[data-act]")?.dataset.act;
+    if (!act) return;
+    if (act === "next") {
+      if (step === 5 && sub < QUESTIONS.length - 1) { sub++; }
+      else { step = Math.min(step + 1, STEPS - 1); }
+      render();
+    } else if (act === "back") {
+      if (step === 5 && sub > 0) { sub--; }
+      else { step = Math.max(step - 1, 0); if (step === 5) sub = QUESTIONS.length - 1; }
+      render();
+    } else if (act === "reflect") {
+      const key = step === 5 ? QUESTIONS[sub].key : "thanks";
+      shown[key] = true;
+      $("reflect-slot").innerHTML = reflectBlock(key);
+      syncControls();
+    } else if (act === "copy") {
+      copyReflection();
+    } else if (act === "print") {
+      window.print();
+    } else if (act === "restart") {
+      d = blank(); step = 0; sub = 0;
+      Object.keys(shown).forEach((k) => delete shown[k]);
+      Object.keys(pickIdx).forEach((k) => delete pickIdx[k]);
+      render();
+    }
+  });
+
+  function copyReflection() {
+    const row = (k, v) => (v ? `${k}: ${v}` : null);
+    const text = [
+      "Parts of Me · my reflection",
+      "",
+      row("Part explored", partName()),
+      row("Situation", topicText()),
+      row("In my body", [d.bodyPlaces.join(", "), d.body.trim()].filter(Boolean).join(". ")),
+      row("How blended", `${d.blend} of 10`),
+      ...QUESTIONS.map((q) => row(q.label, d[q.key].trim())),
+      row("Its response to thanks", d.appreciation.trim()),
+      row("A small experiment", experimentText()),
+      "",
+      "You are more than any single part."
+    ].filter((l) => l !== null).join("\n");
+    const done = (msg) => { $("copy-status").textContent = msg; };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => done("Copied."), () => fallback());
+    } else fallback();
+    function fallback() {
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done("Copied."); } catch { done("Couldn't copy. You can select the text and copy it."); }
+      ta.remove();
+    }
+  }
+
+  /* ---------- grounding ---------- */
+  function setGround(open) {
+    $("grounding").hidden = !open;
+    $("ground-btn").setAttribute("aria-expanded", open);
+  }
+  $("ground-btn").addEventListener("click", () => setGround($("grounding").hidden));
+  $("ground-close").addEventListener("click", () => { setGround(false); $("ground-btn").focus(); });
+
+  render(false);
+})();
+</script>
+</body>
+</html>

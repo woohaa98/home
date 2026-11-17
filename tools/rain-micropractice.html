@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAIN Micropractice · Woohee (Elise) Kwak</title>
+<meta name="description" content="A gentle five-minute RAIN practice: Recognize, Allow, Investigate, Nurture. For moments when you need to meet a hard feeling with kindness.">
+<!-- Privacy: this page makes no analytics, tracking, or data requests. Nothing you choose or type leaves the browser. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+  /* per-step colors (text-safe on white and on their soft tint) */
+  --r: #3D4A5C; --r-soft: #ECEFF3;
+  --a: #9A5232; --a-soft: #FBF0EA;
+  --i: #7D5A1E; --i-soft: #F7EFDF;
+  --n: #476B56; --n-soft: #EEF4F0;
+  --step: var(--accent); --step-soft: var(--accent-soft);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 22px; }
+.progress { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+.sound-btn { appearance: none; font: inherit; font-size: 13.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--muted); white-space: nowrap; transition: all .2s; }
+.sound-btn:hover { border-color: var(--accent); color: var(--ink); }
+.sound-btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(24px, 6vw, 44px); }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+
+/* landing */
+.letters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 6px 0 24px; padding: 0; list-style: none; }
+@media (max-width: 520px) { .letters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.letters li { border-radius: 16px; padding: 14px 14px 12px; background: var(--c-soft); }
+.letters b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 30px; line-height: 1; color: var(--c); }
+.letters span { display: block; font-weight: 600; font-size: 14.5px; margin-top: 8px; }
+.letters small { display: block; color: var(--muted); font-size: 13px; line-height: 1.4; }
+.meta { color: var(--muted); font-size: 14px; margin: 0; }
+
+/* breath orb */
+.breathe-box { display: grid; place-items: center; gap: 10px; padding: 8px 0 6px; text-align: center; }
+.orb { width: 108px; height: 108px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #FFFFFF, var(--step-soft) 60%, color-mix(in srgb, var(--step) 22%, var(--step-soft))); border: 1px solid color-mix(in srgb, var(--step) 30%, var(--line)); transform: scale(.72); transition: transform 4s ease-in-out; }
+.orb.in { transform: scale(1); transition-duration: 4s; }
+.orb.out { transform: scale(.72); transition-duration: 6s; }
+.breath-cue { font-family: var(--font-display); font-size: 19px; min-height: 1.4em; margin: 0; color: var(--muted); }
+
+/* step */
+.step-head { display: flex; align-items: center; gap: 16px; margin: 0 0 18px; }
+.badge { width: 58px; height: 58px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--step-soft); color: var(--step); font-family: var(--font-display); font-weight: 500; font-size: 28px; }
+.step-head .tag { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--step); font-weight: 600; margin: 0; }
+.step-head h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 5vw, 36px); line-height: 1.1; margin: 2px 0 0; outline: none; }
+.timer { margin-left: auto; position: relative; width: 64px; height: 64px; flex: none; }
+.timer svg { transform: rotate(-90deg); display: block; }
+.timer .t-num { position: absolute; inset: 0; display: grid; place-items: center; font-size: 14px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timer-note { font-size: 12.5px; color: var(--muted); text-align: right; margin: -10px 0 14px; }
+
+.instruction { border-left: 3px solid var(--step); background: var(--step-soft); border-radius: 0 16px 16px 0; padding: 16px 18px; margin: 0 0 20px; }
+.instruction p { margin: 0; font-size: 17px; }
+.instruction p + p { font-family: var(--font-display); font-style: italic; color: var(--muted); font-size: 16px; margin-top: 4px; }
+
+.panel { background: var(--sand); border-radius: 18px; padding: 18px 16px; margin: 0 0 16px; }
+.panel-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-align: center; margin: 0 0 8px; }
+.body-svg { display: block; margin: 0 auto; width: 170px; height: auto; }
+.body-svg .zone { cursor: pointer; outline: none; }
+.body-svg .zone .hit { fill: transparent; }
+.body-svg .zone .dot { fill: transparent; stroke: transparent; transition: fill .2s, stroke .2s; }
+.body-svg .zone:hover .dot { fill: color-mix(in srgb, var(--step) 14%, transparent); }
+.body-svg .zone:focus-visible .dot { stroke: var(--focus); stroke-width: 1.5; stroke-dasharray: 3 2; }
+.body-svg .zone[aria-pressed="true"] .dot { fill: color-mix(in srgb, var(--step) 35%, transparent); stroke: var(--step); stroke-width: 1.5; }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; justify-content: flex-start; }
+.panel .chipset { justify-content: center; margin: 10px 0 0; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--step); }
+.chip[aria-pressed="true"] { background: var(--step); border-color: var(--step); color: #fff; }
+.chip.static { cursor: default; min-height: 0; padding: 4px 12px; font-size: 13.5px; background: var(--surface); border-color: color-mix(in srgb, var(--step) 40%, var(--line)); }
+.sub-label { font-weight: 500; margin: 6px 0 8px; }
+
+.affirm { appearance: none; font: inherit; color: inherit; width: 100%; text-align: left; cursor: pointer; display: flex; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; margin: 0 0 14px; transition: all .2s; }
+.affirm .box { width: 22px; height: 22px; flex: none; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; color: #fff; font-size: 12px; transition: all .2s; }
+.affirm span:last-child { font-family: var(--font-display); font-style: italic; font-size: 17px; }
+.affirm[aria-pressed="true"] { border-color: var(--step); background: var(--step-soft); }
+.affirm[aria-pressed="true"] .box { background: var(--step); border-color: var(--step); }
+
+textarea { width: 100%; font: inherit; font-size: 16px; line-height: 1.6; padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); resize: vertical; display: block; }
+textarea:focus { outline: none; border-color: var(--step); box-shadow: 0 0 0 3px color-mix(in srgb, var(--step) 18%, transparent); }
+::placeholder { color: #8C939C; }
+.optional { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+/* closing */
+.after-say { font-family: var(--font-display); font-style: italic; font-size: clamp(22px, 4.2vw, 28px); line-height: 1.35; margin: 4px 0 18px; }
+.after-say::before { content: "“"; color: var(--warm); } .after-say::after { content: "”"; color: var(--warm); }
+.summary { display: grid; gap: 12px; margin: 18px 0 0; }
+.summary div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; padding-top: 2px; font-weight: 600; }
+.summary dd { margin: 0; white-space: pre-wrap; }
+@media (max-width: 480px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.closing { color: var(--muted); font-size: 14.5px; margin: 18px 0 0; }
+
+.about { margin-top: 40px; font-size: 14.5px; color: var(--muted); }
+.about h2 { font-family: var(--font-display); font-weight: 400; font-size: 22px; color: var(--ink); margin: 0 0 8px; }
+.about p { margin: 0 0 10px; max-width: 62ch; }
+
+.disclaimer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Mindfulness</p>
+      <h1>RAIN <em>Micropractice</em></h1>
+      <p class="lede">A five-minute practice for meeting a hard feeling with kindness instead of fighting it. Four gentle steps: Recognize, Allow, Investigate, Nurture.</p>
+    </header>
+
+    <div class="toolbar">
+      <ol class="progress" id="progress" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol>
+      <button type="button" class="sound-btn" id="sound" aria-pressed="false">🔕 Sound off</button>
+    </div>
+
+    <section id="stage"></section>
+
+    <section class="about" id="about" aria-labelledby="about-h">
+      <h2 id="about-h">About RAIN</h2>
+      <p>RAIN was first described by meditation teacher Michele McDonald and later adapted by psychologist and teacher Tara Brach, whose version ends with Nurture. It's widely used in mindfulness and self-compassion practice as a way to pause, make room for a feeling, and respond to yourself with care.</p>
+      <p>There's no right way to do it. You can write, or simply notice. If a step feels like too much, skip it, slow down, or stop.</p>
+    </section>
+  </main>
+
+  <footer class="disclaimer">
+    <p>A self-reflection practice, not a substitute for professional mental health care.</p>
+    <p>If you are in crisis in the U.S., call or text 988, or call 911.</p>
+    <p>Your answers stay on your device. Nothing is saved, tracked, or sent anywhere. Ambient sound is generated in your browser.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     Steps. Edit freely.
+     ------------------------------------------------------------------ */
+  const STEPS = [
+    { key: "R", label: "Recognize", tagline: "Pause and notice", color: "--r", duration: 60,
+      instruction: "What are you feeling right now?",
+      sub: "Name it simply, the way you'd say it to a friend. Then notice where it lives in your body.",
+      placeholder: "e.g. anxious, tight, overwhelmed, sad", bodyMap: true },
+    { key: "A", label: "Allow", tagline: "Let it be here", color: "--a", duration: 75,
+      instruction: "You don't have to fix this or push it away.",
+      sub: "Can you let this feeling be here, just for now, the way the sky lets weather pass through?",
+      placeholder: "What happens when you let it be here?", breath: true,
+      affirmation: "Yes, I can let this be here for now." },
+    { key: "I", label: "Investigate", tagline: "Get curious, with kindness", color: "--i", duration: 90,
+      instruction: "Get gently curious about what's underneath.",
+      sub: "Not to analyze, but to understand. Choose a question if it helps.",
+      placeholder: "What's really going on underneath?",
+      prompts: ["What triggered this?", "What am I believing right now?", "What am I afraid of?", "What does this part of me most need?"] },
+    { key: "N", label: "Nurture", tagline: "Offer yourself care", color: "--n", duration: 75,
+      instruction: "Offer yourself what you most need right now.",
+      sub: "Imagine speaking to the part of you that's hurting, the way you would to someone you love.",
+      placeholder: "What would you say to yourself, or what do you need?",
+      gestures: ["Hand on heart", "Hand on belly", "Hold your own hand", "A gentle hug", "Soften your face"],
+      phrases: ["It's okay to feel this.", "This is hard, and I'm not alone.", "I'm here with you.", "May I be kind to myself.", "I've got you."] }
+  ];
+
+  const BODY_ZONES = [
+    ["head","Head",100,36,22,22],["throat","Throat",100,67,11,9],["chest","Chest",100,102,26,20],
+    ["stomach","Stomach",100,140,20,14],["belly","Belly",100,168,18,13],
+    ["l_shoulder","Left shoulder",65,90,14,12],["r_shoulder","Right shoulder",135,90,14,12],
+    ["l_arm","Left arm",52,130,11,22],["r_arm","Right arm",148,130,11,22],
+    ["l_hand","Left hand",48,172,11,12],["r_hand","Right hand",152,172,11,12],
+    ["hips","Hips",100,198,24,12],["l_thigh","Left thigh",80,232,12,20],["r_thigh","Right thigh",120,232,12,20],
+    ["l_knee","Left knee",79,264,10,9],["r_knee","Right knee",121,264,10,9],
+    ["l_leg","Left lower leg",78,293,9,18],["r_leg","Right lower leg",122,293,9,18],
+    ["l_foot","Left foot",77,325,13,8],["r_foot","Right foot",123,325,13,8]
+  ].map(([id, label, cx, cy, rx, ry]) => ({ id, label, cx, cy, rx, ry }));
+
+  /* ------------------------------------------------------------------ */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const blank = () => STEPS.map(() => ({ text: "", body: [], affirmed: false, prompt: "", gestures: [], phrases: [] }));
+  let entries = blank();
+  let screen = "landing", idx = 0;
+  let breathTimer = null, tickTimer = null;
+
+  /* ---------- breath ---------- */
+  function startBreath() {
+    stopBreath();
+    const orb = $("orb"), cue = $("cue");
+    if (!orb) return;
+    let inhale = true;
+    const phase = () => {
+      orb.classList.toggle("in", inhale); orb.classList.toggle("out", !inhale);
+      cue.textContent = inhale ? "Breathe in" : "Breathe out, slowly";
+      breathTimer = setTimeout(() => { inhale = !inhale; phase(); }, inhale ? 4000 : 6000);
+    };
+    requestAnimationFrame(phase);
+  }
+  function stopBreath() { clearTimeout(breathTimer); breathTimer = null; }
+
+  /* ---------- timer ring ---------- */
+  function startTimer(duration) {
+    clearInterval(tickTimer);
+    const ring = $("ring"), num = $("tnum");
+    if (!ring) return;
+    const C = 2 * Math.PI * 27;
+    ring.style.strokeDasharray = C;
+    let left = duration;
+    const draw = () => {
+      ring.style.strokeDashoffset = C * (left / duration);
+      num.textContent = left > 0 ? (left >= 60 ? `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}` : left) : "✓";
+    };
+    draw();
+    tickTimer = setInterval(() => { left = Math.max(0, left - 1); draw(); if (!left) clearInterval(tickTimer); }, 1000);
+  }
+
+  /* ---------- views ---------- */
+  function landing() {
+    return `
+      <article class="card fade-in" style="--step:var(--n);--step-soft:var(--n-soft)">
+        <p class="step-label">≈ 5 minutes · 4 steps</p>
+        <h2 class="q" tabindex="-1">Meet whatever you're <em>feeling</em></h2>
+        <p class="hint">Find a comfortable position. You can keep your eyes open and read along, or pause between steps and close them.</p>
+        <ul class="letters">
+          ${STEPS.map((s) => `<li style="--c:var(${s.color});--c-soft:var(${s.color}-soft)"><b>${s.key}</b><span>${s.label}</span><small>${esc(s.tagline)}</small></li>`).join("")}
+        </ul>
+        <div class="breathe-box" aria-hidden="true"><div class="orb" id="orb"></div><p class="breath-cue" id="cue"></p></div>
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="start">Begin</button>
+        <span class="status">Optional: turn on soft ambient sound above.</span>
+      </div>`;
+  }
+
+  function bodyMap(e) {
+    const sil = 'fill="#FFFFFF" stroke="#D9CCBC" stroke-width="1.2"';
+    return `
+      <div class="panel">
+        <p class="panel-label" id="bm-l">Tap where you feel it</p>
+        <svg class="body-svg" viewBox="0 0 200 338" role="group" aria-labelledby="bm-l">
+          <ellipse cx="100" cy="36" rx="24" ry="26" ${sil}/>
+          <rect x="91" y="60" width="18" height="14" rx="5" ${sil}/>
+          <path d="M68 74 Q60 88 59 106 Q57 132 61 158 Q65 176 72 190 L128 190 Q135 176 139 158 Q143 132 141 106 Q140 88 132 74 Z" ${sil}/>
+          <path d="M72 190 Q70 200 68 212 L132 212 Q130 200 128 190 Z" ${sil}/>
+          <path d="M68 78 Q51 94 45 118 Q41 143 43 166 L56 166 Q57 143 59 117 Q64 95 76 80 Z" ${sil}/>
+          <path d="M132 78 Q149 94 155 118 Q159 143 157 166 L144 166 Q143 143 141 117 Q136 95 124 80 Z" ${sil}/>
+          <ellipse cx="49" cy="172" rx="12" ry="14" ${sil}/>
+          <ellipse cx="151" cy="172" rx="12" ry="14" ${sil}/>
+          <path d="M72 212 Q68 235 66 262 Q64 290 66 318 L88 318 Q90 290 90 262 Q90 236 88 212 Z" ${sil}/>
+          <path d="M112 212 Q110 236 110 262 Q110 290 112 318 L134 318 Q136 290 134 262 Q132 235 128 212 Z" ${sil}/>
+          <ellipse cx="77" cy="325" rx="14" ry="9" ${sil}/>
+          <ellipse cx="123" cy="325" rx="14" ry="9" ${sil}/>
+          ${BODY_ZONES.map((z) => `
+            <g class="zone" tabindex="0" role="button" data-zone="${z.id}" aria-label="${z.label}" aria-pressed="${e.body.includes(z.id)}">
+              <ellipse class="hit" cx="${z.cx}" cy="${z.cy}" rx="${Math.max(z.rx + 3, 12)}" ry="${Math.max(z.ry + 3, 12)}"/>
+              <ellipse class="dot" cx="${z.cx}" cy="${z.cy}" rx="${z.rx}" ry="${z.ry}"/>
+            </g>`).join("")}
+        </svg>
+        <div class="chipset" id="bm-chips" aria-live="polite">${bodyChips(e)}</div>
+      </div>`;
+  }
+  const bodyChips = (e) => e.body.map((id) => `<span class="chip static">${BODY_ZONES.find((z) => z.id === id).label}</span>`).join("");
+
+  function stepView() {
+    const s = STEPS[idx], e = entries[idx];
+    const last = idx === STEPS.length - 1;
+    return `
+      <article class="card fade-in" style="--step:var(${s.color});--step-soft:var(${s.color}-soft)">
+        <div class="step-head">
+          <div class="badge" aria-hidden="true">${s.key}</div>
+          <div>
+            <p class="tag"><span class="sr-only">Step ${idx + 1} of 4: </span>${esc(s.tagline)}</p>
+            <h2 tabindex="-1">${s.label}</h2>
+          </div>
+          <div class="timer" role="timer" aria-label="Suggested time for this step">
+            <svg width="64" height="64" aria-hidden="true">
+              <circle cx="32" cy="32" r="27" fill="none" stroke="var(--line)" stroke-width="4"/>
+              <circle id="ring" cx="32" cy="32" r="27" fill="none" stroke="var(--step)" stroke-width="4" stroke-linecap="round" style="transition:stroke-dashoffset 1s linear"/>
+            </svg>
+            <span class="t-num" id="tnum" aria-hidden="true"></span>
+          </div>
+        </div>
+        <p class="timer-note">The timer is only a guide. Take the time you need.</p>
+
+        <div class="instruction"><p>${esc(s.instruction)}</p><p>${esc(s.sub)}</p></div>
+
+        ${s.bodyMap ? bodyMap(e) : ""}
+
+        ${s.breath ? `<div class="panel"><div class="breathe-box" aria-hidden="true"><div class="orb" id="orb"></div><p class="breath-cue" id="cue"></p></div></div>` : ""}
+
+        ${s.affirmation ? `<button type="button" class="affirm" data-act="affirm" aria-pressed="${e.affirmed}"><span class="box" aria-hidden="true">✓</span><span>${esc(s.affirmation)}</span></button>` : ""}
+
+        ${s.prompts ? `<div class="chipset" role="group" aria-label="Questions to explore">${s.prompts.map((p) => `<button type="button" class="chip" data-prompt="${esc(p)}" aria-pressed="${e.prompt === p}">${esc(p)}</button>`).join("")}</div>` : ""}
+
+        ${s.gestures ? `
+          <p class="sub-label" id="g-l">A soothing gesture, if it feels okay</p>
+          <div class="chipset" role="group" aria-labelledby="g-l">${s.gestures.map((g) => `<button type="button" class="chip" data-multi="gestures" data-val="${esc(g)}" aria-pressed="${e.gestures.includes(g)}">${esc(g)}</button>`).join("")}</div>
+          <p class="sub-label" id="p-l">Words that might help</p>
+          <div class="chipset" role="group" aria-labelledby="p-l">${s.phrases.map((p) => `<button type="button" class="chip" data-multi="phrases" data-val="${esc(p)}" aria-pressed="${e.phrases.includes(p)}">${esc(p)}</button>`).join("")}</div>` : ""}
+
+        <textarea id="entry" rows="3" aria-label="${esc(s.instruction)}" placeholder="${esc(e.prompt || s.placeholder)}">${esc(e.text)}</textarea>
+        <p class="optional">Optional. Noticing quietly is just as valid as writing.</p>
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="next">${last ? "Complete the Practice" : "Continue"}</button>
+        <button type="button" class="btn btn-text" data-act="back">← Back</button>
+      </div>`;
+  }
+
+  function closingView() {
+    const rows = STEPS.map((s, i) => {
+      const e = entries[i];
+      const bits = [];
+      if (e.body.length) bits.push("Felt in: " + e.body.map((id) => BODY_ZONES.find((z) => z.id === id).label.toLowerCase()).join(", "));
+      if (e.affirmed) bits.push(s.affirmation);
+      if (e.prompt && e.text.trim()) bits.push(e.prompt);
+      if (e.text.trim()) bits.push(e.text.trim());
+      if (e.gestures.length) bits.push(e.gestures.join(", "));
+      if (e.phrases.length) bits.push(e.phrases.map((p) => `“${p}”`).join(" "));
+      return { s, text: bits.join("\n") };
+    }).filter((r) => r.text);
+    return `
+      <article class="card fade-in" style="--step:var(--n);--step-soft:var(--n-soft)">
+        <p class="step-label">After the RAIN</p>
+        <h2 class="q" tabindex="-1">Rest here for a <em>moment</em></h2>
+        <p class="hint">Notice the space you're in now, compared with when you began. You were the one noticing the feeling the whole time.</p>
+        <p class="after-say">I am having this feeling. It does not define me.</p>
+        <div class="breathe-box" aria-hidden="true"><div class="orb" id="orb"></div><p class="breath-cue" id="cue"></p></div>
+        ${rows.length ? `<dl class="summary">${rows.map((r) => `<div><dt style="color:var(${r.s.color})">${r.s.label}</dt><dd>${esc(r.text)}</dd></div>`).join("")}</dl>` : ""}
+        <p class="closing">You gave yourself a few minutes of compassionate attention. That matters.</p>
+      </article>
+      <div class="actions">
+        ${rows.length ? '<button type="button" class="btn btn-primary" data-act="copy">Copy My Reflection</button>' : ""}
+        <button type="button" class="btn ${rows.length ? "btn-ghost" : "btn-primary"}" data-act="restart">Practice Again</button>
+        <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>`;
+  }
+
+  function render(focus = true) {
+    stopBreath(); clearInterval(tickTimer);
+    $("stage").innerHTML = screen === "landing" ? landing() : screen === "step" ? stepView() : closingView();
+    const on = screen === "landing" ? 0 : screen === "step" ? idx + 1 : 5;
+    [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i < on));
+    $("about").hidden = screen !== "landing";
+    if ($("orb")) startBreath();
+    if (screen === "step") startTimer(STEPS[idx].duration);
+    if (focus) {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      const h = $("stage").querySelector("[tabindex='-1']");
+      if (h) h.focus({ preventScroll: true });
+    }
+  }
+
+  /* ---------- events ---------- */
+  function toggleZone(g) {
+    const e = entries[idx], id = g.dataset.zone, i = e.body.indexOf(id);
+    i >= 0 ? e.body.splice(i, 1) : e.body.push(id);
+    g.setAttribute("aria-pressed", i < 0);
+    $("bm-chips").innerHTML = bodyChips(e);
+  }
+
+  $("stage").addEventListener("input", (ev) => { if (ev.target.id === "entry") entries[idx].text = ev.target.value; });
+  $("stage").addEventListener("keydown", (ev) => {
+    const g = ev.target.closest?.("[data-zone]");
+    if (g && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); toggleZone(g); }
+  });
+  $("stage").addEventListener("click", (ev) => {
+    const zone = ev.target.closest("[data-zone]");
+    if (zone) { toggleZone(zone); return; }
+    const e = entries[idx];
+    const pr = ev.target.closest("[data-prompt]");
+    if (pr) {
+      e.prompt = e.prompt === pr.dataset.prompt ? "" : pr.dataset.prompt;
+      $("stage").querySelectorAll("[data-prompt]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.prompt === e.prompt));
+      $("entry").placeholder = e.prompt || STEPS[idx].placeholder;
+      return;
+    }
+    const multi = ev.target.closest("[data-multi]");
+    if (multi) {
+      const list = e[multi.dataset.multi], v = multi.dataset.val, i = list.indexOf(v);
+      i >= 0 ? list.splice(i, 1) : list.push(v);
+      multi.setAttribute("aria-pressed", i < 0);
+      return;
+    }
+    const act = ev.target.closest("[data-act]")?.dataset.act;
+    if (!act) return;
+    if (act === "start") { screen = "step"; idx = 0; render(); }
+    else if (act === "affirm") { e.affirmed = !e.affirmed; ev.target.closest("[data-act]").setAttribute("aria-pressed", e.affirmed); }
+    else if (act === "next") { if (idx < STEPS.length - 1) idx++; else screen = "done"; render(); }
+    else if (act === "back") { if (idx === 0) screen = "landing"; else idx--; render(); }
+    else if (act === "restart") { entries = blank(); idx = 0; screen = "landing"; render(); }
+    else if (act === "copy") copyReflection();
+  });
+
+  function copyReflection() {
+    const text = ["RAIN practice · my reflection", ""].concat(
+      [...$("stage").querySelectorAll(".summary div")].map((d) => `${d.querySelector("dt").textContent}\n${d.querySelector("dd").textContent}\n`),
+      ["I am having this feeling. It does not define me."]
+    ).join("\n");
+    const done = (msg) => { $("copy-status").textContent = msg; };
+    const fallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done("Copied."); } catch { done("Couldn't copy. You can select the text and copy it."); }
+      ta.remove();
+    };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done("Copied."), fallback);
+    else fallback();
+  }
+
+  /* ---------- ambient sound (generated in the browser; no files, no network) ---------- */
+  function createAmbientSound() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const t = ctx.currentTime, nodes = [];
+    const master = ctx.createGain(); master.gain.setValueAtTime(0, t);
+    const comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -24; comp.knee.value = 30; comp.ratio.value = 4; comp.attack.value = 0.3; comp.release.value = 1.0;
+    master.connect(comp); comp.connect(ctx.destination);
+
+    const len = ctx.sampleRate * 4, irBuf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let ch = 0; ch < 2; ch++) { const dd = irBuf.getChannelData(ch); for (let i = 0; i < len; i++) dd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+    const reverb = ctx.createConvolver(); reverb.buffer = irBuf;
+    const wet = ctx.createGain(); wet.gain.value = 0.55; reverb.connect(wet); wet.connect(master);
+
+    function pad(freq, vol, pan, lfoRate) {
+      const osc = ctx.createOscillator(); osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, t); osc.frequency.setTargetAtTime(freq * 1.0008, t, 20);
+      const lpf = ctx.createBiquadFilter(); lpf.type = "lowpass"; lpf.frequency.value = freq * 2.8; lpf.Q.value = 0.5;
+      const g = ctx.createGain(); g.gain.setValueAtTime(vol, t);
+      const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = lfoRate; lg.gain.value = vol * 0.3;
+      lfo.connect(lg); lg.connect(g.gain); lfo.start(t);
+      const p = ctx.createStereoPanner(); p.pan.value = pan;
+      osc.connect(lpf); lpf.connect(g); g.connect(p); p.connect(master); g.connect(reverb);
+      osc.start(t); nodes.push(osc, lfo);
+    }
+    function pink(vol) {
+      const n = ctx.sampleRate * 4, buf = ctx.createBuffer(1, n, ctx.sampleRate), dd = buf.getChannelData(0);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < n; i++) {
+        const w = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + w * 0.0555179; b1 = 0.99332 * b1 + w * 0.0750759; b2 = 0.969 * b2 + w * 0.153852;
+        b3 = 0.8665 * b3 + w * 0.3104856; b4 = 0.55 * b4 + w * 0.5329522; b5 = -0.7616 * b5 - w * 0.016898;
+        dd[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * 0.5362) * 0.11; b6 = w * 0.115926;
+      }
+      const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
+      const lpf = ctx.createBiquadFilter(); lpf.type = "lowpass"; lpf.frequency.value = 320; lpf.Q.value = 0.3;
+      const g = ctx.createGain(); g.gain.value = vol;
+      src.connect(lpf); lpf.connect(g); g.connect(master); src.start(t); nodes.push(src);
+    }
+    pad(110, 0.018, 0, 0.04); pad(165, 0.012, -0.25, 0.06); pad(220, 0.010, 0.25, 0.05); pad(275, 0.007, -0.15, 0.07); pad(330, 0.005, 0.15, 0.08);
+    pink(0.006);
+
+    const ramp = (v, s) => { const now = ctx.currentTime; master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value, now); master.gain.linearRampToValueAtTime(v, now + s); };
+    return {
+      fadeIn() { if (ctx.state === "suspended") ctx.resume(); ramp(1, 5); },
+      fadeOut() { ramp(0, 3); }
+    };
+  }
+  let audio = null, soundOn = false;
+  $("sound").addEventListener("click", () => {
+    soundOn = !soundOn;
+    try {
+      if (soundOn) { if (!audio) audio = createAmbientSound(); audio.fadeIn(); }
+      else if (audio) audio.fadeOut();
+    } catch { soundOn = false; }
+    $("sound").setAttribute("aria-pressed", soundOn);
+    $("sound").textContent = soundOn ? "🔔 Sound on" : "🔕 Sound off";
+  });
+
+  render(false);
+})();
+</script>
+</body>
+</html>
