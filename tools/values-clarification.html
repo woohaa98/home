@@ -223,7 +223,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 
     <div class="session-banner no-print" id="session-banner" role="note" hidden>
       <span aria-hidden="true">🌿</span>
-      <div><b>Shared by your therapist, Elise Kwak</b>
+      <div><b>Shared by your therapist, <span class="th-name">Elise Kwak</span></b>
       <p>Take your time; your progress saves on this device so you can come back. At the end, you'll save a summary to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div>
     </div>
 
@@ -318,7 +318,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <p class="caveat no-print">Your writing is saved only in this browser on this device. <span class="saved" id="saved-note" aria-live="polite"></span></p>
 
       <div class="session-save no-print" id="session-save" hidden>
-        <h3>Save this for your next session with Elise</h3>
+        <h3>Save this for your next session with <span class="th-name">Elise Kwak</span></h3>
         <p class="sub">Write as much as you like in the journal above first. You can always come back and save again.</p>
         <ol>
           <li><div>
@@ -332,7 +332,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
           </div></li>
           <li><div>
             <span class="lbl">Bring it to your next session</span>
-            <p class="tip" style="margin-top:0">Bring the printout, or open the PDF on your phone. If you and Elise have agreed to use email, you can send the PDF to <a href="mailto:elise@selfspaceseattle.com">elise@selfspaceseattle.com</a>. Email isn't fully private, so only send what you're comfortable sharing that way.</p>
+            <p class="tip" style="margin-top:0">Bring the printout, or open the PDF on your phone.<span id="th-email-line"> If you and <span class="th-name">Elise Kwak</span> have agreed to use email, you can send the PDF to <a id="th-email" href="mailto:elise@selfspaceseattle.com">elise@selfspaceseattle.com</a>. Email isn't fully private, so only send what you're comfortable sharing that way.</span></p>
           </div></li>
         </ol>
       </div>
@@ -447,13 +447,33 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const blank = () => ({ step: 0, stage: "", peak: "", custom: [], chosen: [], top: [], ranked: [], defs: {}, living: {}, fieldReflect: "", journal: {} });
   let S = load();
 
-  /* session mode: a therapist shared this link (?from=elise). Remembered on this device. */
+  /* session mode: a therapist shared this link (?from=Name&reply=email, or ?from=elise). Remembered on this device. */
   const SESSION_KEY = "wk-values-session";
-  let session = false;
-  try {
-    if (new URLSearchParams(location.search).get("from") === "elise") localStorage.setItem(SESSION_KEY, "elise");
-    session = localStorage.getItem(SESSION_KEY) === "elise";
-  } catch (_) { session = new URLSearchParams(location.search).get("from") === "elise"; }
+  const PRESETS = { elise: { name: "Elise Kwak", reply: "elise@selfspaceseattle.com" } };
+  let therapist = null;
+  (function () {
+    const q = new URLSearchParams(location.search);
+    const from = (q.get("from") || "").trim().slice(0, 60);
+    let t = null;
+    if (from) {
+      t = PRESETS[from.toLowerCase()] || { name: from, reply: "" };
+      const reply = (q.get("reply") || "").trim().slice(0, 120);
+      if (reply && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(reply)) t = { name: t.name, reply };
+      try { localStorage.setItem(SESSION_KEY, JSON.stringify(t)); } catch (_) {}
+    } else {
+      try {
+        const raw = localStorage.getItem(SESSION_KEY);
+        if (raw === "elise") t = PRESETS.elise; else if (raw) t = JSON.parse(raw);
+      } catch (_) {}
+    }
+    therapist = t && t.name ? t : null;
+  })();
+  const session = !!therapist;
+  if (session) {
+    document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; });
+    if (therapist.reply) { $("th-email").textContent = therapist.reply; $("th-email").href = "mailto:" + therapist.reply; }
+    else $("th-email-line").hidden = true;
+  }
   try { const n = localStorage.getItem(SESSION_KEY + "-name"); if (n) document.getElementById("client-name").value = n; } catch (_) {}
 
   function load() {
@@ -646,7 +666,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   /* export */
   function exportText() {
     const L = ["MY VALUES CLARIFICATION", ""];
-    if (session) { const n = $("client-name").value.trim(); L.splice(1, 0, `${n ? "From " + n + " · " : ""}For a session with Elise Kwak · ${new Date().toLocaleDateString()}`); }
+    if (session) { const n = $("client-name").value.trim(); L.splice(1, 0, `${n ? "From " + n + " · " : ""}For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`); }
     const st = STAGES.find((s) => s.id === S.stage); if (st) L.push(`Where I am: ${st.name}`, "");
     if (S.peak.trim()) L.push("When I feel most like myself:", S.peak.trim(), "");
     L.push("My core values:");
@@ -678,7 +698,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const name = $("client-name").value.trim();
     const date = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
     $("print-head").hidden = !session;
-    $("ph-line").textContent = `${name ? "From " + name + " · " : ""}For a session with Elise Kwak · ${date}`;
+    $("ph-line").textContent = `${name ? "From " + name + " · " : ""}For a session with ${session ? therapist.name : ""} · ${date}`;
   }
   $("client-name").addEventListener("input", (e) => { try { localStorage.setItem(SESSION_KEY + "-name", e.target.value.trim()); } catch (_) {} });
   $("save-pdf").addEventListener("click", () => { preparePrintHead(); window.print(); });
