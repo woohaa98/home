@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For Therapists · Woohee (Elise) Kwak</title>
+<meta name="description" content="A free toolkit for counselors and therapists: share interactive tools with clients, print expressive arts worksheets with facilitator guides, and hand out one-page psychoeducation guides.">
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../resources/assets/style.css">
+<!-- Privacy: no analytics, cookies, or tracking. The share form never sends data anywhere; it only builds a link and opens your own email app. -->
+</head>
+<body class="clinician">
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="site-nav" aria-label="Site">
+  <a class="nav-logo" href="../">Woohee (Elise) Kwak</a>
+  <ul class="nav-links">
+    <li class="hide-sm"><a href="../#counseling">Counseling</a></li>
+    <li class="hide-sm"><a href="../#tools">Tools</a></li>
+    <li class="hide-sm"><a href="../resources/">Resources</a></li>
+    <li><a href="./" aria-current="page">For Therapists</a></li>
+  </ul>
+</nav>
+
+<header class="clin-hero">
+  <div class="wrap">
+    <p class="eyebrow">For Therapists &amp; Counselors</p>
+    <h1>A toolkit for your <em>practice</em></h1>
+    <p class="lede">Free resources for the work between and within sessions: interactive tools you can send to clients, printable expressive arts worksheets with facilitator guides, and one-page handouts you can share. Built by a counselor, for counselors.</p>
+    <ul class="clin-jump" aria-label="On this page">
+      <li><a href="#share"><span>01</span>Share a tool with a client</a></li>
+      <li><a href="#worksheets"><span>02</span>Expressive arts worksheets</a></li>
+      <li><a href="#handouts"><span>03</span>Client handouts</a></li>
+      <li><a href="#using"><span>04</span>Using these with clients</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <section class="category clin-section share" id="share" aria-labelledby="cat-share">
+    <div class="category-head"><span class="category-letter" aria-hidden="true">01</span><h2 id="cat-share">Share a Tool with a Client</h2></div>
+    <p class="category-blurb">Pick a tool, add your client's email, and your own email app opens with a ready-to-send message and link. When your client opens it, the tool shows that it came from you. The Values Clarification Exercise also ends with a session summary they can print or save as a PDF to bring to your next session.</p>
+
+    <form class="share-form" id="share-form" novalidate>
+      <fieldset class="share-tools">
+        <legend>1. Choose a tool</legend>
+        <div class="share-grid" id="share-grid"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. About you</legend>
+        <div class="share-row">
+          <div class="share-field">
+            <label for="sh-name">Your name, as your client knows you</label>
+            <input id="sh-name" type="text" maxlength="60" autocomplete="name" placeholder="e.g. Elise Kwak" required>
+          </div>
+          <div class="share-field">
+            <label for="sh-reply">Your work email <span>(optional, where they can send results)</span></label>
+            <input id="sh-reply" type="email" maxlength="120" autocomplete="email" placeholder="you@yourpractice.com">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Your client</legend>
+        <div class="share-row">
+          <div class="share-field">
+            <label for="sh-client">Client's email</label>
+            <input id="sh-client" type="email" maxlength="120" autocomplete="off" placeholder="client@example.com" required>
+          </div>
+          <div class="share-field">
+            <label for="sh-first">Client's first name <span>(optional, for the greeting)</span></label>
+            <input id="sh-first" type="text" maxlength="40" autocomplete="off">
+          </div>
+        </div>
+        <div class="share-field">
+          <label for="sh-msg">Message</label>
+          <textarea id="sh-msg" rows="13"></textarea>
+          <p class="share-hint">Edit freely. The link is added automatically. <button type="button" class="btn-quiet linkish" id="sh-reset">Reset message</button></p>
+        </div>
+      </fieldset>
+
+      <div class="share-actions">
+        <button type="submit" class="btn btn-primary">Open in My Email</button>
+        <button type="button" class="btn btn-secondary" id="sh-copy-link">Copy Link</button>
+        <button type="button" class="btn btn-secondary" id="sh-copy-msg">Copy Message</button>
+        <span class="share-status" id="sh-status" role="status" aria-live="polite"></span>
+      </div>
+      <p class="share-link-preview">Link: <code id="sh-link"></code></p>
+      <p class="share-privacy">Nothing you type here is sent or stored by this website. Your name and work email are remembered only in this browser so you don't have to retype them; your client's details are not saved. Send from your work email, and before using email with clients, let them know it isn't fully private and get their OK, per your practice's policy.</p>
+    </form>
+  </section>
+
+  <section class="category clin-section" id="worksheets" aria-labelledby="cat-expressive">
+    <div class="category-head"><span class="category-letter" aria-hidden="true">02</span><h2 id="cat-expressive">Expressive Arts Worksheets</h2></div>
+    <p class="category-blurb">Visual, hands-on exercises that help clients explore identity, values, and what's shaping their lives. Each one is a conversation starter, not an assessment.</p>
+
+    <ul class="tools">
+      <li class="tool">
+        <a class="tool-thumb" href="../resources/therapist-tools/inner-landscape-worksheet.pdf" target="_blank" rel="noopener" aria-label="Open the My Inner Landscape worksheet (PDF)">
+          <img src="../resources/therapist-tools/inner-landscape-worksheet.jpg" alt="" width="480" height="621" loading="lazy">
+        </a>
+        <div class="tool-body">
+          <p class="card-tag">Adults · 35 to 40 minutes</p>
+          <h3>My Inner Landscape</h3>
+          <p class="desc">A tree map for exploring where someone comes from, what they need, what they stand for, how they spend their life, who sustains them, what weighs on them, and who they're becoming. Especially useful for life transitions, burnout, and identity work.</p>
+          <ul class="tool-parts" aria-label="Parts of the tree">
+            <li>Roots</li><li>Soil</li><li>Trunk</li><li>Branches</li><li>Leaves</li><li>New growth</li><li>Weather</li><li>Falling leaves</li>
+          </ul>
+          <p class="framework">Draws on expressive arts, narrative practice, and ACT values work</p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="../resources/therapist-tools/inner-landscape-worksheet.pdf" target="_blank" rel="noopener">Worksheet (PDF)</a>
+            <a class="btn btn-secondary" href="../resources/therapist-tools/inner-landscape-guide.pdf" target="_blank" rel="noopener">Facilitator guide (PDF)</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="tool">
+        <a class="tool-thumb" href="../resources/therapist-tools/inner-world-worksheet.pdf" target="_blank" rel="noopener" aria-label="Open the My Inner World worksheet (PDF)">
+          <img src="../resources/therapist-tools/inner-world-worksheet.jpg" alt="" width="480" height="621" loading="lazy">
+        </a>
+        <div class="tool-body">
+          <p class="card-tag">Teens · 20 to 30 minutes</p>
+          <h3>My Inner World</h3>
+          <p class="desc">A gentle tree map for teens to share where they come from, their strengths, what they enjoy, who they feel okay around, what they hope for, and what's weighing on them. Designed to lower the spotlight for quiet or hesitant teens.</p>
+          <ul class="tool-parts" aria-label="Parts of the tree">
+            <li>Roots</li><li>Trunk</li><li>Branches</li><li>Leaves</li><li>New growth</li><li>Clouds</li>
+          </ul>
+          <p class="framework">Draws on expressive arts and narrative practice</p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="../resources/therapist-tools/inner-world-worksheet.pdf" target="_blank" rel="noopener">Worksheet (PDF)</a>
+            <a class="btn btn-secondary" href="../resources/therapist-tools/inner-world-guide.pdf" target="_blank" rel="noopener">Facilitator guide (PDF)</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="category clin-section" id="handouts" aria-labelledby="cat-handouts">
+    <div class="category-head"><span class="category-letter" aria-hidden="true">03</span><h2 id="cat-handouts">Client Handouts</h2></div>
+    <p class="category-blurb">One-page psychoeducation guides, each with a diagram, practical strategies, reflection questions, and references. Print one for session, or send the link. Clients can also browse the full <a href="../resources/">library</a> on their own.</p>
+    <ul class="handout-list" id="handout-list"></ul>
+  </section>
+
+  <section class="category clin-section" id="using" aria-labelledby="cat-using">
+    <div class="category-head"><span class="category-letter" aria-hidden="true">04</span><h2 id="cat-using">Using These with Clients</h2></div>
+    <div class="using-grid">
+      <div><h3>Invite, don't assign</h3><p>Offer tools as an experiment. "Want to try this before next time?" leaves room to say no, and a skipped exercise is useful information too.</p></div>
+      <div><h3>Follow their meaning</h3><p>Worksheets and summaries are conversation starters, not assessments. Ask what stood out rather than interpreting answers for them.</p></div>
+      <div><h3>Privacy by design</h3><p>The interactive tools keep everything on the client's device. Nothing is sent to this site. Clients bring results to session, or email them if you've both agreed to that.</p></div>
+      <div><h3>Within your scope</h3><p>Use these alongside your clinical judgment and your practice's policies. They are not crisis tools; share crisis resources (like 988 in the U.S.) as needed.</p></div>
+    </div>
+  </section>
+
+  <footer class="disclaimer">
+    <p>Both tree maps are inspired by the Tree of Life approach developed by Ncazelo Ncube and David Denborough (Dulwich Centre). The worksheets, guides, and tools are original. You're welcome to print and use them with clients; please keep the credit line.</p>
+    <p>These materials support clinical conversation and are not standardized assessments. Use them within your scope of practice and adapt them to each client.</p>
+    <p><a href="../resources/">Looking for something for yourself? Browse the Therapy Resources library →</a></p>
+  </footer>
+</main>
+<script src="../resources/assets/library.js"></script>
+<script>
+(function () {
+  var LIB = window.RESOURCE_LIBRARY;
+  if (!LIB) return;
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+  var cats = {}; (LIB.categories || []).forEach(function (c) { cats[c.id] = c.title; });
+  var items = (LIB.resources || []).filter(function (r) { return r.status === "published"; });
+  document.getElementById("handout-list").innerHTML = items.map(function (r) {
+    var tools = (r.tools || []).map(function (t) { return LIB.tools && LIB.tools[t]; }).filter(Boolean);
+    return '<li class="handout"><div class="handout-body"><p class="card-tag">' + esc(cats[r.category] || "") + '</p>' +
+      '<h3>' + esc(r.title) + '</h3><p class="desc">' + esc(r.description || "") + '</p>' +
+      (tools.length ? '<p class="pairs">Pairs with: ' + tools.map(function (t) { return '<a href="' + esc(t.href.replace("../tools/", "../tools/")) + '">' + esc(t.title) + '</a>'; }).join(", ") + '</p>' : "") +
+      '</div><div class="card-actions"><a class="btn btn-secondary" href="../resources/resource.html?id=' + encodeURIComponent(r.id) + '">View</a>' +
+      '<a class="btn btn-primary" href="../resources/pdf/' + encodeURIComponent(r.id) + '.pdf" target="_blank" rel="noopener">PDF</a></div></li>';
+  }).join("");
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+  var TOOLS = [
+    { id: "values-clarification", title: "Values Clarification Exercise", blurb: "Values, priorities, and fields to explore", summary: true, mins: "15 to 20 minutes",
+      intro: "Here's a values exercise I'd love for you to try before our next session. It helps you find and rank what matters most to you, put it in your own words, and see which kinds of work might fit." },
+    { id: "name-the-feeling", title: "Name the Feeling", blurb: "Emotion words and a gentle way to sit with a feeling", mins: "5 to 10 minutes",
+      intro: "Here's a short tool for those moments when something feels big but hard to name. It helps you find the right word for the feeling and then gently stay with it." },
+    { id: "ride-the-wave", title: "Ride the Wave", blurb: "Panic, OCD, and anxiety: notice the urge and stay with it", mins: "10 to 15 minutes",
+      intro: "Here's the practice we talked about for when anxiety or the urge to do something hits. It walks you through the cycle and helps you ride the wave instead of reacting." },
+    { id: "rain-micropractice", title: "RAIN Micropractice", blurb: "Recognize, Allow, Investigate, Nurture", mins: "about 5 minutes",
+      intro: "Here's a short mindfulness practice for meeting a hard feeling with kindness: Recognize, Allow, Investigate, and Nurture." },
+    { id: "parts-of-me", title: "Parts of Me", blurb: "Get to know a protective part (IFS-informed)", mins: "10 to 15 minutes",
+      intro: "Here's a gentle reflection for getting to know one part of you, like the inner critic or the part that pushes, and what it's trying to protect." },
+    { id: "daily-nourishment", title: "Daily Nourishment Check-In", blurb: "What's filling you up and what's draining you", mins: "a few minutes",
+      intro: "Here's a quick daily check-in on what's nourishing you and what's draining you. It can be a nice way to notice patterns between sessions." }
+  ];
+  var KEY = "wk-share-therapist";
+  var $ = function (id) { return document.getElementById(id); };
+  var tool = TOOLS[0], edited = false;
+
+  $("share-grid").innerHTML = TOOLS.map(function (t, i) {
+    return '<label class="share-tool"><input type="radio" name="sh-tool" value="' + t.id + '"' + (i === 0 ? " checked" : "") + '>' +
+      '<span><b>' + t.title + '</b><small>' + t.blurb + '</small>' + (t.summary ? '<em>Includes a session summary</em>' : "") + '</span></label>';
+  }).join("");
+
+  try { var saved = JSON.parse(localStorage.getItem(KEY) || "{}"); if (saved.name) $("sh-name").value = saved.name; if (saved.reply) $("sh-reply").value = saved.reply; } catch (e) {}
+  var pre = new URLSearchParams(location.search).get("tool");
+  if (pre) { var m = TOOLS.filter(function (t) { return t.id === pre; })[0]; if (m) { tool = m; document.querySelector('input[value="' + m.id + '"]').checked = true; } }
+
+  var validEmail = function (v) { return /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(v); };
+  function link() {
+    var name = $("sh-name").value.trim(), reply = $("sh-reply").value.trim();
+    var u = new URL("../tools/" + tool.id + ".html", location.href);
+    if (name) u.searchParams.set("from", name);
+    if (reply && validEmail(reply)) u.searchParams.set("reply", reply);
+    return u.toString();
+  }
+  function draft() {
+    var first = $("sh-first").value.trim(), name = $("sh-name").value.trim();
+    var lines = ["Hi" + (first ? " " + first : "") + ",", "", tool.intro + " It takes " + tool.mins + ", and your answers stay on your own device.", "", "[link]", ""];
+    if (tool.summary) {
+      lines.push("When you finish, you'll see a \"Save this for your next session\" box at the end. Please print it or save it as a PDF and bring it with you, or open it on your phone." +
+        ($("sh-reply").value.trim() ? " You can also email it to me at " + $("sh-reply").value.trim() + ", but regular email isn't fully private, so only share what you're comfortable sending that way." : ""), "");
+    } else {
+      lines.push("There's nothing to send back. Just notice what comes up, and we can talk about it next time if you'd like.", "");
+    }
+    lines.push("There are no right or wrong answers. Go at your own pace.", "", "Warmly,", name || "");
+    return lines.join("\n");
+  }
+  function refresh() {
+    if (!edited) $("sh-msg").value = draft();
+    $("sh-link").textContent = link();
+  }
+  function body() { return $("sh-msg").value.replace("[link]", link()) + ($("sh-msg").value.indexOf("[link]") < 0 ? "\n\n" + link() : ""); }
+  function remember() { try { localStorage.setItem(KEY, JSON.stringify({ name: $("sh-name").value.trim(), reply: $("sh-reply").value.trim() })); } catch (e) {} }
+  function status(t, err) { $("sh-status").textContent = t; $("sh-status").classList.toggle("is-error", !!err); }
+
+  $("share-grid").addEventListener("change", function (e) { tool = TOOLS.filter(function (t) { return t.id === e.target.value; })[0]; refresh(); });
+  ["sh-name", "sh-reply", "sh-first"].forEach(function (id) { $(id).addEventListener("input", function () { if (id !== "sh-first") remember(); refresh(); }); });
+  $("sh-msg").addEventListener("input", function () { edited = true; });
+  $("share-form").addEventListener("input", function () { if ($("sh-status").classList.contains("is-error")) status(""); });
+  $("sh-reset").addEventListener("click", function () { edited = false; refresh(); });
+
+  $("share-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var client = $("sh-client").value.trim();
+    if (!$("sh-name").value.trim()) { status("Please add your name so your client knows who it's from.", true); $("sh-name").focus(); return; }
+    if (!validEmail(client)) { status("Please add a valid email address for your client.", true); $("sh-client").focus(); return; }
+    var subject = tool.title + ": something to try before our next session";
+    window.location.href = "mailto:" + encodeURIComponent(client).replace(/%40/g, "@") + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body());
+    status("Your email app should open with the message ready. Review it, then send.");
+  });
+  function copy(text, ok) {
+    var done = function () { status(ok); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+    function fallback() { var t = document.createElement("textarea"); t.value = text; t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); done(); } catch (e) { status("Couldn't copy automatically.", true); } t.remove(); }
+  }
+  $("sh-copy-link").addEventListener("click", function () { if (!$("sh-name").value.trim()) { status("Add your name first so the link shows it's from you.", true); $("sh-name").focus(); return; } copy(link(), "Link copied."); });
+  $("sh-copy-msg").addEventListener("click", function () { copy(body(), "Message copied. Paste it into an email to your client."); });
+  refresh();
+})();
+</script>
+</body>
+</html>

@@ -739,6 +739,14 @@
   .footer-explore a:hover { color: white; }
   footer .footer-copy { order: 4; }
 
+  .tools-therapist-note { font-size: 0.85rem; color: var(--text-mid); margin: 14px 0 0; }
+  .tools-therapist-note a { color: var(--slate); font-weight: 500; text-underline-offset: 3px; }
+  .therapist-band { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px 28px; align-items: center; margin-top: 28px; padding: 22px 28px; background: var(--slate); color: #F3EFE8; border-radius: 20px; text-decoration: none; transition: transform 0.25s, box-shadow 0.25s; }
+  .therapist-band:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(61,74,92,0.25); }
+  .tb-eyebrow { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #B8D4C0; font-weight: 500; }
+  .tb-text { font-size: 0.95rem; color: rgba(243,239,232,0.88); line-height: 1.6; }
+  .tb-cta { font-weight: 500; color: #fff; white-space: nowrap; }
+  @media (max-width: 760px) { .therapist-band { grid-template-columns: 1fr; padding: 20px 22px; } }
   /* ---- SCROLL ANIMATIONS ---- */
   .reveal {
     opacity: 1;
@@ -1331,6 +1339,7 @@
     <p class="section-sub" style="max-width: 560px; margin: 0 auto;">
       Experimental tools built at the intersection of clinical practice and Human-Centered AI, designed to extend reflection, self-awareness, and care beyond the therapy hour.
     </p>
+    <p class="tools-therapist-note">Are you a therapist? <a href="therapists/#share">Send any of these to a client →</a></p>
   </div>
 
   <div class="tools-grid">
@@ -1398,10 +1407,9 @@
     <div class="rf-text">
       <div class="section-label">Therapy Resources</div>
       <h3>A psychoeducation <em>library</em></h3>
-      <p>One-page guides that explain emotions, anxiety, relationships, and growth in plain language grounded in research. Read them online, download a PDF, or print one for session.</p>
+      <p>One-page guides that explain emotions, anxiety, relationships, and growth in plain language grounded in research. Read them online, download a PDF, or bring one to a session.</p>
       <div class="rf-actions">
         <a href="resources/" class="btn-primary">Explore the Library →</a>
-        <a href="resources/for-therapists.html" class="rf-therapists">For therapists: expressive arts worksheets →</a>
       </div>
       <span class="rf-note">For education and self-reflection; not a substitute for individualized mental health care.</span>
     </div>
@@ -1416,6 +1424,13 @@
       <li><a href="resources/resource.html?id=perfectionism" class="tc"><span>Personal Growth</span>Perfectionism &amp; Fear of Failure</a></li>
     </ul>
   </div>
+
+  <!-- FOR THERAPISTS -->
+  <a class="therapist-band reveal" href="therapists/">
+    <span class="tb-eyebrow">For therapists &amp; counselors</span>
+    <span class="tb-text">Share these tools with clients, print expressive arts worksheets with facilitator guides, and hand out one-page guides.</span>
+    <span class="tb-cta">Open the toolkit →</span>
+  </a>
 </section>
 
 
@@ -1579,6 +1594,7 @@
     <a href="#counseling">Counseling</a>
     <a href="#tools">Tools</a>
     <a href="resources/">Therapy Resources</a>
+    <a href="therapists/">For Therapists</a>
     <a href="#blog">Writing</a>
   </div>
   <div class="footer-explore">
