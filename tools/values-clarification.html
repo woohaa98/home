@@ -180,6 +180,39 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .session-save .tip { font-size: 13.5px; color: var(--muted); margin: 8px 0 0; }
 .session-save .btn { margin-top: 2px; }
 .print-head { display: none; }
+/* tap-first additions */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; text-align: left; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.optional-line { margin-top: 4px; }
+.optional-line summary { cursor: pointer; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; list-style: none; padding: 6px 0; }
+.optional-line summary::-webkit-details-marker { display: none; }
+.optional-line[open] summary { margin-bottom: 8px; }
+.optional-line input[type=text] { margin-top: 2px; }
+.def-card .pick-label { display: block; font-weight: 500; font-size: 15px; margin: 0 0 8px; }
+.stage-note { display: inline-block; font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 4px 12px; margin: 0 0 12px; }
+.field .react { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+.field .react .chip { font-size: 13.5px; padding: 6px 12px; min-height: 36px; }
+.field.is-yes { border-color: var(--accent); }
+.field.is-no { background: var(--sand); }
+.field.is-no b, .field.is-no .tags { opacity: .55; }
+.next-steps { margin: 24px 0 0; }
+.next-steps h3 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
+.next-steps p { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
+.next-steps .chip { border-radius: 14px; }
+.deeper { margin-top: 26px; }
+.deeper > h3 { font-family: var(--font-display); font-weight: 400; font-size: 22px; margin: 0 0 4px; }
+.deeper > p { color: var(--muted); font-size: 14.5px; margin: 0 0 14px; }
+.deeper .prompt textarea { min-height: 80px; }
+.more-prompts { margin-top: 14px; }
+.more-prompts summary { cursor: pointer; color: var(--muted); font-size: 14.5px; text-decoration: underline; text-underline-offset: 3px; }
+.more-prompts[open] summary { margin-bottom: 14px; }
+.sum-block ul { margin: 0; padding-left: 20px; }
+.sum-block li { margin: 2px 0; }
+.sum-stage { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
+.sum-stage b { color: var(--ink); font-weight: 500; }
+.sum-q { font-family: var(--font-display); font-style: italic; color: var(--muted); margin: 10px 0 2px !important; }
 @media print {
   @page { size: Letter; margin: 0.6in; }
   .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
@@ -218,7 +251,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <header>
       <p class="eyebrow">Interactive Tools · Values</p>
       <h1>Values <em>Clarification</em> Exercise</h1>
-      <p class="lede">For anyone figuring out what's next: choosing a path before or during college, starting out, or feeling stuck in a career. Discover what matters most to you, put it in your own words, and see which kinds of work might fit. Takes about 15 to 20 minutes, and you can stop and come back.</p>
+      <p class="lede">For anyone figuring out what's next: choosing a path before or during college, starting out, or feeling stuck in a career. Discover what matters most to you, make it your own, and see which kinds of work might fit. Mostly tapping, with optional writing. Takes about 10 to 15 minutes, and you can stop and come back.</p>
     </header>
 
     <div class="session-banner no-print" id="session-banner" role="note" hidden>
@@ -233,12 +266,17 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <!-- 1. Start -->
     <section id="s-start" aria-labelledby="q-start">
       <h2 class="q" id="q-start" tabindex="-1">Where are you <em>right now</em>?</h2>
-      <p class="hint">This shapes the reflection questions you'll get at the end. Choose what fits best.</p>
+      <p class="hint">Your answer tailors the rest of the exercise: the questions, the fields to explore, and the next steps you'll see.</p>
       <div class="stages" id="stages" role="group" aria-label="Your stage"></div>
 
-      <p class="sub-q"><label for="peak">Warm-up: think of a time you felt most alive, proud, or like yourself. What were you doing, and who were you with?</label></p>
-      <textarea id="peak" data-save="peak" placeholder="Write a few lines, or skip for now. There are no wrong answers."></textarea>
-      <p class="write-hint">Tip: on a phone, you can tap the microphone on your keyboard to speak instead of type.</p>
+      <p class="sub-q" id="peak-q">Warm-up: when do you feel most alive, proud, or like yourself?</p>
+      <p class="write-hint" style="margin:-4px 0 10px">Tap any that fit.</p>
+      <div class="chips" id="peak-picks" role="group" aria-labelledby="peak-q"></div>
+      <details class="optional-line" id="peak-more">
+        <summary>Add a few words (optional)</summary>
+        <label class="sr-only" for="peak">A moment you felt most like yourself</label>
+        <input type="text" id="peak" data-save="peak" maxlength="200" placeholder="e.g. Running the robotics club booth at the fair">
+      </details>
     </section>
 
     <!-- 2. Choose -->
@@ -275,21 +313,30 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <!-- 5. Define -->
     <section id="s-define" hidden aria-labelledby="q-define">
       <h2 class="q" id="q-define" tabindex="-1">Make them <em>yours</em></h2>
-      <p class="hint">The same word can mean very different things to different people. Describe each value in your own words, then notice how fully you're living it right now.</p>
+      <p class="hint">The same word can mean very different things to different people. For each value, tap what it means to you, then notice how fully you're living it right now.</p>
       <div class="define" id="define"></div>
     </section>
 
     <!-- 6. Work -->
     <section id="s-work" hidden aria-labelledby="q-work">
+      <p class="stage-note" id="work-stage" hidden></p>
       <h2 class="q" id="q-work" tabindex="-1">Where your values might <em>fit at work</em></h2>
-      <p class="hint">Based on your top values, here are fields to explore. These are starting points for curiosity, not a verdict. The same value can be lived in many different jobs.</p>
+      <p class="hint" id="work-hint"></p>
       <div class="fields" id="fields"></div>
       <div class="look">
-        <h3>What to look for in a workplace</h3>
+        <h3 id="look-h">What to look for in a workplace</h3>
         <ul id="look"></ul>
       </div>
-      <p class="sub-q"><label for="field-reflect">Which of these sparks curiosity? Does anything surprise you, or feel like a clear no?</label></p>
-      <textarea id="field-reflect" data-save="fieldReflect" placeholder="Write what comes up."></textarea>
+      <div class="next-steps">
+        <h3>Pick a next step or two</h3>
+        <p id="steps-hint">Small, concrete steps help values turn into choices.</p>
+        <div class="chips" id="next-steps" role="group" aria-label="Next steps"></div>
+      </div>
+      <details class="optional-line" id="fr-more">
+        <summary>Add a note about what sparked your curiosity (optional)</summary>
+        <label class="sr-only" for="field-reflect">What sparked your curiosity</label>
+        <input type="text" id="field-reflect" data-save="fieldReflect" maxlength="240" placeholder="e.g. Surprised that design showed up twice">
+      </details>
       <div class="explore-links">
         <a href="https://www.mynextmove.org/" target="_blank" rel="noopener">Explore careers on My Next Move ↗</a>
         <a href="https://www.onetonline.org/" target="_blank" rel="noopener">Search occupations on O*NET OnLine ↗</a>
@@ -301,25 +348,35 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <section id="s-journal" hidden aria-labelledby="q-journal">
       <div id="j-intro">
         <h2 class="q" id="q-journal" tabindex="-1">Your values, <em>in your words</em></h2>
-        <p class="hint">Here's what you've discovered. Below are journal prompts chosen for you. Write now, or save them and come back over the next few days.</p>
+        <p class="hint">Here's your summary. If you'd like to go deeper, there are a couple of optional prompts below it. Anything you write there is added to your summary.</p>
       </div>
       <div class="print-head" id="print-head" hidden><b>Values Clarification · Session summary</b><span id="ph-line"></span></div>
       <article class="summary">
+        <p class="sum-stage" id="sum-stage" hidden><span>Where I am:</span> <b></b></p>
         <h3>My core values</h3>
         <ol class="sum-values" id="sum-values"></ol>
         <div class="sum-block" id="sum-peak" hidden><h4>When I feel most like myself</h4><p></p></div>
-        <div class="sum-block" id="sum-fields"><h4>Fields to explore</h4><p></p></div>
+        <div class="sum-block" id="sum-fields"><h4>Fields to explore</h4><div></div></div>
         <div class="sum-block" id="sum-field-reflect" hidden><h4>What sparked my curiosity</h4><p></p></div>
-        <div class="sum-block">
-          <h4>Journal prompts</h4>
-          <div class="prompts" id="prompts"></div>
-        </div>
+        <div class="sum-block" id="sum-steps" hidden><h4>My next steps</h4><ul></ul></div>
+        <div class="sum-block" id="sum-journal" hidden><h4>In my own words</h4><div></div></div>
+        <div class="sum-block" id="sum-later" hidden><h4>To reflect on later</h4><ul></ul></div>
       </article>
+
+      <div class="deeper no-print">
+        <h3>Go deeper (optional)</h3>
+        <p>A sentence or two is plenty. Skip anything that doesn't fit.</p>
+        <div class="prompts" id="prompts"></div>
+        <details class="more-prompts" id="more-prompts">
+          <summary>More prompts</summary>
+          <div class="prompts" id="prompts-more"></div>
+        </details>
+      </div>
       <p class="caveat no-print">Your writing is saved only in this browser on this device. <span class="saved" id="saved-note" aria-live="polite"></span></p>
 
       <div class="session-save no-print" id="session-save" hidden>
         <h3>Save this for your next session with <span class="th-name">Elise Kwak</span></h3>
-        <p class="sub">Write as much as you like in the journal above first. You can always come back and save again.</p>
+        <p class="sub">Your summary includes everything you tapped and anything you wrote. You can always come back and save again.</p>
         <ol>
           <li><div>
             <label for="client-name">Your first name <span style="font-weight:400;color:var(--muted)">(optional, shown on the summary)</span></label>
@@ -426,6 +483,83 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     { id: "change", name: "Changing direction", sub: "considering a new field or chapter" }
   ];
 
+  /* How each value might be meant. Tap one or more on the "Make them yours" step. */
+  const MEANINGS = {
+    "Achievement": ["Reaching goals I set for myself", "Seeing real results from my work", "Being excellent at what I do"],
+    "Adventure": ["Trying new things, even scary ones", "Travel and new places", "Taking bold chances"],
+    "Authenticity": ["Saying what I really think", "Living by my own standards, not others'", "Being the same person everywhere"],
+    "Autonomy": ["Deciding how I spend my time", "Choosing my own path", "Working without being micromanaged"],
+    "Balance": ["Time to rest, not just work", "Being present with the people I love", "Not letting one part of life take over"],
+    "Beauty": ["Making beautiful things", "Being surrounded by beauty", "Care and craft in the details"],
+    "Belonging": ["Being accepted as I am", "Being part of a team or community", "Having people who have my back"],
+    "Collaboration": ["Building things with others", "Shared wins over solo wins", "Learning from different perspectives"],
+    "Compassion": ["Easing others' pain", "Kindness, including toward myself", "Being there when people struggle"],
+    "Contribution": ["Leaving things better than I found them", "Work that helps beyond me", "Giving back to my community"],
+    "Creativity": ["Making something new", "Solving problems in original ways", "Expressing myself"],
+    "Curiosity": ["Always learning", "Asking questions and exploring ideas", "Understanding how things work"],
+    "Family": ["Being present for my family", "Providing for the people I love", "Honoring where I come from"],
+    "Fairness": ["Everyone gets a fair chance", "Speaking up when something is wrong", "Treating people equally"],
+    "Financial security": ["Not worrying about money", "Saving for the future", "Being able to support others"],
+    "Growth": ["Becoming a better version of me", "Stretching beyond my comfort zone", "Learning from mistakes"],
+    "Health": ["Taking care of my body", "Protecting my mental health", "Energy for the things I love"],
+    "Honesty": ["Telling the truth, even when it's hard", "Being open and transparent", "Being honest with myself"],
+    "Humor & play": ["Not taking life too seriously", "Laughing with others", "Making room for fun"],
+    "Influence": ["Shaping important decisions", "Changing how people think", "Having my voice heard"],
+    "Leadership": ["Helping others do their best", "Taking charge when it's needed", "Setting a direction for others"],
+    "Mastery": ["Being really good at one thing", "Practicing a craft over time", "Depth over breadth"],
+    "Nature": ["Time outdoors", "Protecting the natural world", "Feeling connected to living things"],
+    "Order": ["Knowing what to expect", "Clear plans and structure", "Things in their place"],
+    "Purpose": ["Knowing why I do what I do", "Work that matters to me", "Being part of something bigger"],
+    "Recognition": ["Being appreciated for my work", "Earning respect", "Having my efforts seen"],
+    "Relationships": ["Deep, lasting friendships", "Feeling close to people", "Making time for people I care about"],
+    "Responsibility": ["Others can count on me", "Following through on commitments", "Owning my choices"],
+    "Security": ["Stability I can count on", "Feeling safe", "Knowing what's ahead"],
+    "Service": ["Helping people directly", "Being useful to others", "Showing up for people in need"],
+    "Spirituality": ["Connection to something larger", "Living by my faith or beliefs", "Quiet, meaning, and reflection"],
+    "Sustainability": ["Caring for the planet", "Thinking about future generations", "Using resources wisely"],
+    "Tradition & heritage": ["Honoring my culture", "Keeping traditions alive", "Staying connected to my roots"],
+    "Variety": ["No two days the same", "Trying many different things", "Changing things up often"],
+    "Wisdom": ["Seeing the bigger picture", "Making thoughtful decisions", "Learning from experience"]
+  };
+
+  /* Warm-up moments to tap. */
+  const MOMENTS = ["Making or building something", "Helping someone through a hard time", "Figuring out a tough problem", "Learning something new",
+    "Leading or organizing people", "Creating art, music, or writing", "Being outdoors or active", "Teaching or explaining",
+    "Performing or competing", "Working toward a goal with a team", "Fixing or improving how things work", "Caring for family or friends"];
+
+  /* Everything that changes with the stage someone picks on step 1. */
+  const STAGE_INFO = {
+    "": { warm: "Warm-up: when do you feel most alive, proud, or like yourself?", choose: "Choose every value that feels important to how you want to live and work.",
+      living: "How fully are you living this value right now?", workTitle: "Fields to explore", work: "Based on your top values, here are fields to explore. These are starting points for curiosity, not a verdict. The same value can be lived in many different jobs.",
+      look: "What to look for in a workplace",
+      steps: ["Look up one field below on My Next Move", "Talk with someone who works in a field that sparked curiosity", "Try one small experiment, like a class or volunteering", "Notice this week when you're living a top value"] },
+    pre: { warm: "Warm-up: in school or outside it, when do you feel most like yourself?", choose: "Choose every value that feels important to who you want to be, in school, with friends, and in a future job.",
+      living: "How much does this value show up in your life right now?", workTitle: "Paths to explore", work: "Here are fields you could explore through classes, clubs, summer programs, or a future major. You don't need to choose one now. These are starting points for curiosity.",
+      look: "What to look for in a school, program, or first job",
+      steps: ["Try one class, club, or summer program in a field below", "Ask an adult in one of these fields what a normal day is like", "Notice which school subjects let you live your top values", "Look up a field on My Next Move with a parent, counselor, or friend"] },
+    college: { warm: "Warm-up: in classes, clubs, jobs, or life outside school, when do you feel most like yourself?", choose: "Choose every value that feels important to how you want to live and work after college.",
+      living: "How much does this value show up in your life right now?", workTitle: "Majors and fields to explore", work: "Here are fields to explore through electives, clubs, internships, or conversations. They're starting points for curiosity, not a verdict on your major.",
+      look: "What to look for in an internship or first job",
+      steps: ["Take one elective or join one club connected to a field below", "Have a 20-minute conversation with someone in a field that interests you", "Look for an internship or campus job to test one of these fields", "Bring this summary to your campus career center"] },
+    grad: { warm: "Warm-up: thinking about school, internships, or jobs, when did you feel most like yourself?", choose: "Choose every value that feels important for your first job and the life around it.",
+      living: "How much does this value show up in your life and job search right now?", workTitle: "Roles and fields for your first job", work: "Use these fields and your top values to filter job postings and prepare interview questions. Your first job doesn't have to be forever; it's a chance to learn what fits.",
+      look: "What to look for in a first job",
+      steps: ["Read five job postings in one field and notice which mention your top values", "Prepare one interview question about each of your top two values", "Reach out to one alum or contact working in a field below", "Decide which value is a must-have and which are nice-to-have"] },
+    early: { warm: "Warm-up: at work or outside it, when do you feel most like yourself these days?", choose: "Choose every value that feels important to how you want to live and work over the next few years.",
+      living: "How fully do your current work and life let you live this value?", workTitle: "Fields to explore", work: "Some of these may be close to what you already do. Small changes inside your current role count too, not just new jobs.",
+      look: "What to look for in your next role",
+      steps: ["Compare your current role with your top values and name the biggest gap", "Try one small change at work that makes more room for a top value", "Talk to someone a few years ahead of you in a field below", "Look for a stretch project or skill that moves you toward a better fit"] },
+    stuck: { warm: "Warm-up: looking back over your career and life, when did you feel most alive or proud?", choose: "Choose every value that feels important to you now, not just the ones your current work rewards.",
+      living: "How fully do your current work and life let you live this value?", workTitle: "Possibilities to explore", work: "Before a big change, notice whether smaller shifts could bring your values back in. These fields are possibilities to get curious about, not instructions.",
+      look: "What would need to be true at work",
+      steps: ["Name the value your work most neglects, and one small way to make room for it", "Try a low-risk experiment: a class, volunteering, or a side project", "Talk with someone whose work you admire about how they got there", "Share this summary with someone you trust and ask what they notice"] },
+    change: { warm: "Warm-up: across your life so far, when have you felt most like yourself?", choose: "Choose every value that feels important for your next chapter.",
+      living: "How fully are you living this value right now?", workTitle: "Fields for your next chapter", work: "Notice which fields fit your values and the strengths you'll bring with you. Test a direction before you leap.",
+      look: "What to look for in your next chapter",
+      steps: ["List three strengths you'll carry into whatever comes next", "Test a field before committing: a short course, volunteering, or a project", "Have conversations with two people working in a field below", "Choose one next step for the next 30 days"] }
+  };
+  const SI = () => STAGE_INFO[S.stage] || STAGE_INFO[""];
+
   const STAGE_PROMPTS = {
     pre: ["Which classes, activities, or projects make time disappear for you? What do they have in common?", "If you could spend a whole summer learning anything, what would it be, and why?"],
     college: ["Which courses or projects made you lose track of time? Which of your values did they touch?", "Who has a job you're curious about? What three questions would you ask them over coffee?"],
@@ -444,7 +578,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const STEP_NAMES = ["Where you are","Choose values","Top five","Rank","Make them yours","Fields to explore","Reflect"];
   const CHECK = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-  const blank = () => ({ step: 0, stage: "", peak: "", custom: [], chosen: [], top: [], ranked: [], defs: {}, living: {}, fieldReflect: "", journal: {} });
+  const blank = () => ({ step: 0, stage: "", peak: "", peakPicks: [], custom: [], chosen: [], top: [], ranked: [], defs: {}, meanings: {}, living: {}, fieldReflect: "", reactions: {}, nextSteps: [], journal: {} });
   let S = load();
 
   /* session mode: a therapist shared this link (?from=Name&reply=email, or ?from=elise). Remembered on this device. */
@@ -521,7 +655,16 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   function renderStart() {
     $("stages").innerHTML = STAGES.map((s) => `<button type="button" class="pick" data-stage="${s.id}" aria-pressed="${S.stage === s.id}"><strong>${s.name}</strong><small>${s.sub}</small></button>`).join("");
     $("peak").value = S.peak;
+    if (S.peak.trim()) $("peak-more").open = true;
+    $("peak-q").textContent = SI().warm;
+    $("peak-picks").innerHTML = MOMENTS.map((m) => `<button type="button" class="chip" data-peak="${esc(m)}" aria-pressed="${S.peakPicks.includes(m)}">${esc(m)}</button>`).join("");
   }
+  $("peak-picks").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-peak]"); if (!b) return;
+    const m = b.dataset.peak;
+    S.peakPicks = S.peakPicks.includes(m) ? S.peakPicks.filter((x) => x !== m) : S.peakPicks.concat(m);
+    b.setAttribute("aria-pressed", String(S.peakPicks.includes(m))); save();
+  });
   $("stages").addEventListener("click", (e) => {
     const b = e.target.closest(".pick"); if (!b) return;
     S.stage = S.stage === b.dataset.stage ? "" : b.dataset.stage; save(); renderStart();
@@ -534,7 +677,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (t.dataset.save) { S[t.dataset.save] = t.value; save(); }
     if (t.dataset.def) { S.defs[t.dataset.def] = t.value; save(); }
     if (t.dataset.live) { S.living[t.dataset.live] = +t.value; t.closest(".living").querySelector("output").value = t.value; save(); }
-    if (t.dataset.journal) { S.journal[t.dataset.journal] = t.value; save(); }
+    if (t.dataset.journal) { S.journal[t.dataset.journal] = t.value; save(); clearTimeout(window.__sumT); window.__sumT = setTimeout(renderSummary, 400); }
   });
 
   /* 2. choose */
@@ -543,6 +686,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     return `<button type="button" class="val" data-v="${esc(name)}" data-group="${group}" aria-pressed="${pressed}"><span class="box">${CHECK}</span><span><b>${esc(name)}</b><small>${esc(v[1])}</small></span></button>`;
   }
   function renderChoose() {
+    $("s-choose").querySelector(".hint").textContent = SI().choose + " Go with your gut; you'll narrow down next. Aim for about 8 to 15.";
     $("values").innerHTML = allValues().map((n) => valButton(n, S.chosen.includes(n), "choose")).join("");
     $("choose-count").innerHTML = `<b>${S.chosen.length}</b> chosen`;
   }
@@ -606,15 +750,26 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   function renderDefine() {
     $("define").innerHTML = S.ranked.map((n, i) => {
       const live = S.living[n] ?? 5;
+      const opts = MEANINGS[n] || [], picked = S.meanings[n] || [], own = S.defs[n] || "";
       return `<div class="def-card"><h3><span>#${i + 1}</span>${esc(n)}</h3><p class="meaning">${esc(info(n)[1])}</p>
-        <label for="def-${i}">What does ${esc(n.toLowerCase())} mean to you, in your own words?</label>
-        <textarea id="def-${i}" data-def="${esc(n)}" placeholder="For me, ${esc(n.toLowerCase())} means…">${esc(S.defs[n] || "")}</textarea>
-        <div class="living"><label for="live-${i}">How fully are you living this value right now?<output for="live-${i}">${live}</output></label>
+        ${opts.length ? `<span class="pick-label" id="m-l-${i}">For me, ${esc(n.toLowerCase())} means…</span>
+        <div class="chips" role="group" aria-labelledby="m-l-${i}">${opts.map((o) => `<button type="button" class="chip" data-mean="${esc(n)}" data-opt="${esc(o)}" aria-pressed="${picked.includes(o)}">${esc(o)}</button>`).join("")}</div>` : ""}
+        <details class="optional-line"${own.trim() || !opts.length ? " open" : ""}><summary>${opts.length ? "Or say it in your own words (optional)" : "What it means to you (optional)"}</summary>
+        <label class="sr-only" for="def-${i}">What ${esc(n.toLowerCase())} means to you</label>
+        <input type="text" id="def-${i}" data-def="${esc(n)}" maxlength="160" placeholder="For me, ${esc(n.toLowerCase())} means…" value="${esc(own)}"></details>
+        <div class="living"><label for="live-${i}">${esc(SI().living)}<output for="live-${i}">${live}</output></label>
         <input type="range" id="live-${i}" min="0" max="10" step="1" value="${live}" data-live="${esc(n)}">
         <div class="ends"><span>not at all</span><span>fully</span></div></div></div>`;
     }).join("");
     S.ranked.forEach((n) => { if (S.living[n] === undefined) S.living[n] = 5; }); save();
   }
+  $("define").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-mean]"); if (!b) return;
+    const n = b.dataset.mean, o = b.dataset.opt, cur = S.meanings[n] || [];
+    S.meanings[n] = cur.includes(o) ? cur.filter((x) => x !== o) : cur.concat(o);
+    b.setAttribute("aria-pressed", String(S.meanings[n].includes(o))); save();
+  });
+  const meaningText = (n) => [...(S.meanings[n] || []), (S.defs[n] || "").trim()].filter(Boolean).join("; ");
 
   /* 6. work */
   function fieldScores() {
@@ -631,35 +786,78 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     sorted.forEach((f) => { if (picked.length < 8 && !picked.includes(f)) picked.push(f); });
     return picked.sort((a, b) => score[b] - score[a]).map((f) => ({ f, why: why[f] }));
   }
+  const REACT = [["yes", "Curious"], ["maybe", "Maybe"], ["no", "Not for me"]];
   function renderWork() {
+    const si = SI(), st = STAGES.find((x) => x.id === S.stage);
+    $("work-stage").hidden = !st; if (st) $("work-stage").textContent = "For you: " + st.name.toLowerCase();
+    $("q-work").innerHTML = esc(si.workTitle).replace(/(explore|job|chapter)$/i, "<em>$1</em>");
+    $("work-hint").textContent = si.work + " Tap how each one feels.";
+    $("look-h").textContent = si.look;
     const list = fieldScores();
     $("fields").innerHTML = list.length
-      ? list.map(({ f, why }) => `<div class="field"><b>${esc(f)}</b><p class="ex">Connects to</p><div class="tags">${why.map((v) => `<span class="tag">${esc(v)}</span>`).join("")}</div></div>`).join("")
-      : `<p class="hint">Your values are your own, so there's no ready-made list here. Use the links below to explore fields, and notice which ones match what you wrote.</p>`;
+      ? list.map(({ f, why }) => { const r = S.reactions[f] || ""; return `<div class="field${r === "yes" ? " is-yes" : r === "no" ? " is-no" : ""}"><b>${esc(f)}</b><p class="ex">Connects to</p><div class="tags">${why.map((v) => `<span class="tag">${esc(v)}</span>`).join("")}</div>
+          <div class="react" role="group" aria-label="How does ${esc(f)} feel?">${REACT.map(([k, l]) => `<button type="button" class="chip" data-field="${esc(f)}" data-r="${k}" aria-pressed="${r === k}">${l}</button>`).join("")}</div></div>`; }).join("")
+      : `<p class="hint">Your values are your own, so there's no ready-made list here. Use the links below to explore fields, and notice which ones match what matters to you.</p>`;
     $("look").innerHTML = S.ranked.map((n) => info(n)[3] ? `<li><strong>${esc(n)}:</strong> ${esc(info(n)[3])}</li>` : "").join("") || "<li>Notice which settings let you live your values day to day.</li>";
+    $("next-steps").innerHTML = si.steps.map((t) => `<button type="button" class="chip" data-step="${esc(t)}" aria-pressed="${S.nextSteps.includes(t)}">${esc(t)}</button>`).join("");
     $("field-reflect").value = S.fieldReflect;
+    if (S.fieldReflect.trim()) $("fr-more").open = true;
   }
+  $("fields").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-r]"); if (!b) return;
+    const f = b.dataset.field, k = b.dataset.r;
+    S.reactions[f] = S.reactions[f] === k ? "" : k; save();
+    const card = b.closest(".field");
+    card.querySelectorAll("[data-r]").forEach((x) => x.setAttribute("aria-pressed", String(S.reactions[f] === x.dataset.r)));
+    card.classList.toggle("is-yes", S.reactions[f] === "yes"); card.classList.toggle("is-no", S.reactions[f] === "no");
+  });
+  $("next-steps").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-step]"); if (!b) return;
+    const t = b.dataset.step;
+    S.nextSteps = S.nextSteps.includes(t) ? S.nextSteps.filter((x) => x !== t) : S.nextSteps.concat(t);
+    b.setAttribute("aria-pressed", String(S.nextSteps.includes(t))); save();
+  });
 
   /* 7. journal */
   function prompts() {
     const r = S.ranked, out = [];
-    if (r[0]) out.push(["top", `Write about a moment when you lived ${r[0].toLowerCase()} fully. What made it possible?`]);
+    if (r[0]) out.push(["top", `Think of a moment when you lived ${r[0].toLowerCase()} fully. What made it possible?`]);
+    const sp = STAGE_PROMPTS[S.stage] || ["What would you want your work to give you, beyond a paycheck?", "What are you moving toward, not just away from?"];
+    out.push(["stage0", sp[0]]);
     const gaps = r.map((n) => [n, S.living[n] ?? 5]).sort((a, b) => a[1] - b[1]);
     if (gaps[0] && gaps[0][1] <= 6) out.push(["gap", `${gaps[0][0]} matters to you, but you rated it ${gaps[0][1]} out of 10 in your life right now. What's one small way to make more room for it this month?`]);
     if (r[0] && r[1]) out.push(["tension", `When ${r[0].toLowerCase()} and ${r[1].toLowerCase()} pull you in different directions, which do you choose, and how does that feel?`]);
-    (STAGE_PROMPTS[S.stage] || ["What would you want your work to give you, beyond a paycheck?", "What are you moving toward, not just away from?"]).forEach((p, i) => out.push(["stage" + i, p]));
+    out.push(["stage1", sp[1]]);
     out.push(["future", "Imagine yourself five years from now, living your top values. Describe an ordinary Tuesday."]);
     return out;
   }
-  function renderJournal() {
+  function renderSummary() {
+    const st = STAGES.find((x) => x.id === S.stage);
+    $("sum-stage").hidden = !st; if (st) $("sum-stage").querySelector("b").textContent = `${st.name}, ${st.sub}`;
     $("sum-values").innerHTML = S.ranked.map((n, i) => {
-      const live = S.living[n] ?? 5, def = (S.defs[n] || "").trim();
+      const live = S.living[n] ?? 5, def = meaningText(n);
       return `<li><span class="num">${i + 1}</span><div><b>${esc(n)}</b>${def ? `<p>${esc(def)}</p>` : (S.custom.includes(n) ? "" : `<p>${esc(info(n)[1])}</p>`)}<div class="bar" title="Living it now: ${live} of 10"><i style="width:${live * 10}%"></i></div><p style="font-size:12.5px">Living it now: ${live} of 10</p></div></li>`;
     }).join("");
-    const peak = S.peak.trim(); $("sum-peak").hidden = !peak; $("sum-peak").querySelector("p").textContent = peak;
-    const fl = fieldScores().map((x) => x.f); $("sum-fields").hidden = !fl.length; $("sum-fields").querySelector("p").textContent = fl.join(" · ");
+    const peak = [S.peakPicks.join(" · "), S.peak.trim()].filter(Boolean).join("\n"); $("sum-peak").hidden = !peak; $("sum-peak").querySelector("p").textContent = peak;
+    const fs = fieldScores(), curious = fs.filter((x) => S.reactions[x.f] === "yes").map((x) => x.f), maybe = fs.filter((x) => S.reactions[x.f] === "maybe").map((x) => x.f), no = fs.filter((x) => S.reactions[x.f] === "no").map((x) => x.f);
+    const rest = fs.filter((x) => !S.reactions[x.f]).map((x) => x.f);
+    const rows = [["Curious about", curious], ["Maybe", maybe], ["Not for me", no], [curious.length || maybe.length || no.length ? "Not yet sorted" : "", rest]].filter((r) => r[1].length);
+    $("sum-fields").hidden = !fs.length;
+    $("sum-fields").querySelector("div").innerHTML = rows.map(([k, v]) => `<p>${k ? `<strong>${esc(k)}:</strong> ` : ""}${esc(v.join(" · "))}</p>`).join("");
     const fr = S.fieldReflect.trim(); $("sum-field-reflect").hidden = !fr; $("sum-field-reflect").querySelector("p").textContent = fr;
-    $("prompts").innerHTML = prompts().map(([k, p], i) => `<div class="prompt"><label for="j-${i}">${esc(p)}</label><textarea id="j-${i}" data-journal="${k}" placeholder="Write freely. You can come back to this.">${esc(S.journal[k] || "")}</textarea></div>`).join("");
+    $("sum-steps").hidden = !S.nextSteps.length; $("sum-steps").querySelector("ul").innerHTML = S.nextSteps.map((t) => `<li>${esc(t)}</li>`).join("");
+    const ps = prompts(), done = ps.filter(([k]) => (S.journal[k] || "").trim()), todo = ps.filter(([k]) => !(S.journal[k] || "").trim());
+    $("sum-journal").hidden = !done.length;
+    $("sum-journal").querySelector("div").innerHTML = done.map(([k, p]) => `<p class="sum-q">${esc(p)}</p><p>${esc(S.journal[k].trim())}</p>`).join("");
+    $("sum-later").hidden = !todo.length; $("sum-later").querySelector("ul").innerHTML = todo.slice(0, 3).map(([, p]) => `<li>${esc(p)}</li>`).join("");
+  }
+  function renderJournal() {
+    renderSummary();
+    const ps = prompts();
+    const box = ([k, p], i) => `<div class="prompt"><label for="j-${i}">${esc(p)}</label><textarea id="j-${i}" data-journal="${k}" placeholder="Optional. A sentence or two is plenty.">${esc(S.journal[k] || "")}</textarea></div>`;
+    $("prompts").innerHTML = ps.slice(0, 2).map(box).join("");
+    $("prompts-more").innerHTML = ps.slice(2).map((x, i) => box(x, i + 2)).join("");
+    if (ps.slice(2).some(([k]) => (S.journal[k] || "").trim())) $("more-prompts").open = true;
     $("saved-note").textContent = "";
   }
 
@@ -668,14 +866,16 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const L = ["MY VALUES CLARIFICATION", ""];
     if (session) { const n = $("client-name").value.trim(); L.splice(1, 0, `${n ? "From " + n + " · " : ""}For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`); }
     const st = STAGES.find((s) => s.id === S.stage); if (st) L.push(`Where I am: ${st.name}`, "");
-    if (S.peak.trim()) L.push("When I feel most like myself:", S.peak.trim(), "");
+    if (S.peakPicks.length || S.peak.trim()) { L.push("When I feel most like myself:"); if (S.peakPicks.length) L.push(S.peakPicks.join(" · ")); if (S.peak.trim()) L.push(S.peak.trim()); L.push(""); }
     L.push("My core values:");
-    S.ranked.forEach((n, i) => { L.push(`${i + 1}. ${n} (living it now: ${S.living[n] ?? 5}/10)`); if ((S.defs[n] || "").trim()) L.push(`   ${S.defs[n].trim()}`); });
+    S.ranked.forEach((n, i) => { L.push(`${i + 1}. ${n} (living it now: ${S.living[n] ?? 5}/10)`); const m = meaningText(n); if (m) L.push(`   ${m}`); });
     L.push("");
-    const fl = fieldScores(); if (fl.length) { L.push("Fields to explore:"); fl.forEach(({ f, why }) => L.push(`- ${f} (${why.join(", ")})`)); L.push(""); }
+    const lab = { yes: "curious", maybe: "maybe", no: "not for me" };
+    const fl = fieldScores(); if (fl.length) { L.push("Fields to explore:"); fl.forEach(({ f, why }) => L.push(`- ${f} (${why.join(", ")})${S.reactions[f] ? " · " + lab[S.reactions[f]] : ""}`)); L.push(""); }
     if (S.fieldReflect.trim()) L.push("What sparked my curiosity:", S.fieldReflect.trim(), "");
-    L.push("Journal:");
-    prompts().forEach(([k, p]) => { L.push("", p); L.push((S.journal[k] || "").trim() || "(not yet written)"); });
+    if (S.nextSteps.length) { L.push("My next steps:"); S.nextSteps.forEach((t) => L.push(`- ${t}`)); L.push(""); }
+    const written = prompts().filter(([k]) => (S.journal[k] || "").trim());
+    if (written.length) { L.push("In my own words:"); written.forEach(([k, p]) => { L.push("", p, S.journal[k].trim()); }); L.push(""); }
     L.push("", "Values Clarification Exercise · wooheekwak.me");
     return L.join("\n");
   }
