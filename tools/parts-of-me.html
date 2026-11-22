@@ -136,6 +136,35 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .message-card { margin: 22px 0 0; background: var(--accent-soft); border-radius: 16px; padding: 18px 20px; }
 .message-card .mc-label { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
 .message-card .mc-text { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.mc-text .s { transition: background-color .3s, color .3s; border-radius: 6px; padding: 0 2px; }
+.mc-text .s.on { background: #fff; color: var(--accent); box-shadow: 0 0 0 3px #fff; }
+.voice { margin-top: 16px; padding-top: 14px; border-top: 1px solid #CFE0D4; }
+.mver { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.voice-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.vbtn { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; background: #fff; border: 1px solid #CFE0D4; color: var(--accent); border-radius: 999px; padding: 9px 16px; min-height: 42px; transition: all .2s; }
+.vbtn:hover:not(:disabled) { border-color: var(--accent); }
+.vbtn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+.vbtn:disabled { opacity: .45; cursor: not-allowed; }
+.vbtn.stop { color: var(--muted); }
+.voice-cue { min-height: 1.5em; margin: 10px 0 0; font-family: var(--font-display); font-style: italic; color: var(--accent); }
+.voice-note { font-size: 13.5px; color: var(--muted); margin: 8px 0 0; }
+.voice-pick { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; font-size: 14px; }
+.voice-pick select { font: inherit; font-size: 14.5px; padding: 7px 10px; border: 1px solid #CFE0D4; border-radius: 10px; background: #fff; color: var(--ink); max-width: 100%; }
+.voice-pick .btn-text { padding: 6px 4px; }
+.voice-help { margin-top: 8px; font-size: 13.5px; color: var(--muted); }
+.voice-help summary { cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 4px 0; }
+.voice-help p { margin: 6px 0; }
+.keep { margin-top: 16px; background: #fff; border-radius: 14px; padding: 14px 16px; }
+.keep-h { margin: 0; font-weight: 600; font-size: 15px; }
+.keep-sub { margin: 2px 0 10px; font-size: 14px; color: var(--muted); }
+.keep-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.keep .btn { padding: 11px 18px; min-height: 42px; font-size: 14.5px; }
+.remind { display: inline-flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14.5px; }
+.remind input { font: inherit; font-size: 15px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); }
+.keep-tip { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; }
+.photo-box { margin-top: 12px; }
+.photo-box img { display: block; width: 100%; max-width: 240px; height: auto; margin: 0 auto; border-radius: 16px; border: 1px solid var(--line); }
+.privacy-line { font-size: 13.5px; color: var(--muted); margin: -20px 0 28px; }
 .closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
 
 .disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
@@ -178,6 +207,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <p class="eyebrow">Interactive Tools · Identity &amp; Inner Parts</p>
       <h1>Parts of <em>Me</em></h1>
       <p class="lede">A gentle reflection for getting to know one part of you: the one that pushes, protects, numbs, or doubts. Not to fix it, but to understand what it's been trying to do for you.</p>
+      <p class="privacy-line">Your answers stay on this device. Nothing is saved, tracked, or sent anywhere.</p>
     </header>
 
     <div class="toolbar">
@@ -399,7 +429,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const bits = [`I see you, ${P}.`];
     if (f.length) bits.push(`I know you're afraid that ${listText(f.map(low))}.`);
     if (pr.length) bits.push(`Thank you for trying to protect me from ${listText(pr.map(low))}.`);
-    if (n.length) bits.push(`I hear that you need ${listText(n.map(low))}.`);
+    const you = (t) => low(t).replace("it's not alone", "you're not alone");
+    if (n.length) bits.push(`I hear that you need ${listText(n.map(you))}.`);
     bits.push("I'm here, and we can figure this out together.");
     return bits.join(" ");
   }
@@ -545,12 +576,13 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
           <div id="exp-row" ${experimentText() ? "" : "hidden"}><dt>A small experiment</dt><dd id="exp-val">${esc(experimentText())}</dd></div>
         </dl>
         <div class="message-card">
-          <p class="mc-label">Something you can say to ${esc(partName())} when it shows up</p>
-          <p class="mc-text">${esc(messageToPart())}</p>
+          <p class="mc-label">Something you can say to ${esc(midName())} when it shows up</p>
+          <p class="mc-text">${msgHTML()}</p>
+          ${voicePanel()}
         </div>
         <div class="field no-print" style="margin-top:22px">
           <label id="exp-l">Choose one small experiment for this week</label>
-          <p class="pick-hint" style="margin-top:-2px">${d.a4.length ? "The first ones come from what " + esc(partName()) + " said it needs." : "Small and specific works best."}</p>
+          <p class="pick-hint" style="margin-top:-2px">${d.a4.length ? "The first ones come from what " + esc(midName()) + " said it needs." : "Small and specific works best."}</p>
           <div class="options" role="group" aria-labelledby="exp-l">
             ${exps.map((e) => opt(`data-set="experiment" data-val="${esc(e)}" data-keep`, d.experiment === e, `<span><small style="color:var(--ink);font-size:15px">${esc(fill(e))}</small></span>`)).join("")}
             ${opt('data-set="experiment" data-val="custom" data-keep', d.experiment === "custom", "<span><b>My own experiment</b></span>", "dashed")}
@@ -561,6 +593,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       </article>
       <div class="actions">
         <button type="button" class="btn btn-primary" data-act="copy">Copy My Reflection</button>
+        <button type="button" class="btn btn-ghost" data-act="email">Email to Myself</button>
         <button type="button" class="btn btn-ghost" data-act="print">Print</button>
         <button type="button" class="btn btn-ghost" data-act="restart">Start Again</button>
         <span class="status" id="copy-status" role="status" aria-live="polite"></span>
@@ -568,11 +601,230 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     }
   };
 
+
+  /* ---------------- Hear it, say it, keep it ----------------
+     Voice uses only voices built into this device (localService), so the words never leave it.
+     The lock screen photo and calendar reminder are made on the device and saved by the person. */
+  let mver = "full";
+  const shortMessage = () => `I see you, ${partName().replace(/^The /, "")}. Thank you for working so hard to protect me. I'm here, and you're not alone.`;
+  const currentMessage = () => (mver === "short" ? shortMessage() : messageToPart());
+  const sentences = (t) => t.match(/[^.!?]+[.!?]+/g)?.map((x) => x.trim()) || [t];
+  const synth = window.speechSynthesis;
+  let localVoice = null, playToken = 0;
+  // Only voices that run on this device. Higher-quality ("Premium", "Enhanced", "Natural") voices rank first.
+  let chosenVoice = null; // kept only for this visit, not saved
+  function localVoices() {
+    if (!synth) return [];
+    const score = (v) => (/premium/i.test(v.name) ? 100 : 0) + (/enhanced|natural|neural/i.test(v.name) ? 60 : 0)
+      + (/^(Ava|Zoe|Samantha|Allison|Susan|Nicky|Serena|Kate|Karen|Moira|Tessa|Evan|Nathan|Tom|Daniel|Aaron|Jenny|Aria|Libby|Sonia)/i.test(v.name) ? 20 : 0)
+      + (/en[-_]US/i.test(v.lang) ? 5 : 0) - (/compact|eloquence|grandma|grandpa|bad news|bells|bubbles|zarvox|whisper|trinoids|organ|cellos|jester|albert|fred|junior|ralph|kathy|superstar|boing|wobble|rocko|shelley|reed|sandy|flo|eddy/i.test(v.name) ? 200 : 0);
+    return synth.getVoices().filter((v) => v.localService && /^en/i.test(v.lang)).sort((a, b) => score(b) - score(a)).filter((v) => score(v) > -100);
+  }
+  function pickVoice() {
+    const vs = localVoices();
+    return vs.find((v) => chosenVoice && v.name === chosenVoice) || vs[0] || null;
+  }
+  if (synth) { localVoice = pickVoice(); synth.addEventListener?.("voiceschanged", () => { localVoice = pickVoice(); updateVoiceUI(); }); }
+  const wait = (ms, tok) => new Promise((res) => setTimeout(() => res(tok === playToken), ms));
+  // Speak phrase by phrase with small breaths at commas, the way a person reads something tender.
+  function speakOne(text, tok) {
+    return new Promise((res) => {
+      if (!localVoice || tok !== playToken) return res(tok === playToken);
+      const u = new SpeechSynthesisUtterance(text);
+      u.voice = localVoice; u.lang = localVoice.lang; u.rate = 0.88; u.pitch = 0.96; u.volume = 1;
+      u.onend = u.onerror = () => res(tok === playToken);
+      synth.speak(u);
+    });
+  }
+  async function speak(text, tok) {
+    const phrases = text.split(/(?<=,)\s+/);
+    for (let i = 0; i < phrases.length; i++) {
+      if (!(await speakOne(phrases[i], tok))) return false;
+      if (i < phrases.length - 1 && !(await wait(260, tok))) return false;
+    }
+    return tok === playToken;
+  }
+  function markSentence(i) {
+    document.querySelectorAll(".mc-text .s").forEach((el, j) => el.classList.toggle("on", j === i));
+  }
+  function cue(t) { const c = $("voice-cue"); if (c) c.textContent = t; }
+  function stopVoice() {
+    playToken++; if (synth) synth.cancel(); markSentence(-1); cue("");
+    document.querySelectorAll("[data-voice]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+  }
+  async function play(mode, btn) {
+    stopVoice(); const tok = ++playToken; btn.setAttribute("aria-pressed", "true");
+    const ss = sentences(currentMessage());
+    const rounds = mode === "repeat" ? 3 : 1;
+    for (let r = 0; r < rounds; r++) {
+      if (rounds > 1) cue(`Round ${r + 1} of 3. Let the words land.`);
+      for (let i = 0; i < ss.length; i++) {
+        markSentence(i);
+        if (mode === "echo") {
+          cue("Listen…");
+          if (localVoice) { if (!(await speak(ss[i], tok))) return; } else if (!(await wait(1200, tok))) return;
+          cue("Now you say it, slowly, out loud or in your mind.");
+          if (!(await wait(1800 + ss[i].split(" ").length * 420, tok))) return;
+        } else {
+          if (localVoice) { if (!(await speak(ss[i], tok))) return; } else if (!(await wait(2500, tok))) return;
+          if (!(await wait(700, tok))) return;
+        }
+      }
+      if (r < rounds - 1) { markSentence(-1); cue("Breathe in… and out."); if (!(await wait(4000, tok))) return; }
+    }
+    markSentence(-1);
+    cue(mode === "echo" ? "Take a breath. Notice how it felt to say that to yourself." : "Take a breath and notice how that feels.");
+    btn.setAttribute("aria-pressed", "false");
+  }
+  function updateVoiceUI() {
+    const note = $("voice-note"); if (!note) return;
+    const ok = !!localVoice, vs = localVoices();
+    document.querySelectorAll('[data-voice="listen"],[data-voice="repeat"]').forEach((b) => { b.disabled = !ok; });
+    note.hidden = ok;
+    $("voice-pick").hidden = vs.length < 2;
+    $("voice-sel").innerHTML = vs.map((v) => `<option value="${esc(v.name)}"${localVoice && v.name === localVoice.name ? " selected" : ""}>${esc(v.name.replace(/\s*\(English.*?\)/, ""))}${/premium|enhanced|natural/i.test(v.name) ? "" : ""}</option>`).join("");
+  }
+  function voicePanel() {
+    return `<div class="voice no-print">
+      <div class="mver" role="group" aria-label="Message length">
+        <button type="button" class="chip" data-mver="full" aria-pressed="${mver === "full"}">Full message</button>
+        <button type="button" class="chip" data-mver="short" aria-pressed="${mver === "short"}">Short version</button>
+      </div>
+      <div class="voice-btns">
+        <button type="button" class="vbtn" data-voice="listen" aria-pressed="false"><span aria-hidden="true">▶</span> Listen</button>
+        <button type="button" class="vbtn" data-voice="repeat" aria-pressed="false"><span aria-hidden="true">↻</span> Listen 3 times</button>
+        <button type="button" class="vbtn" data-voice="echo" aria-pressed="false"><span aria-hidden="true">🗣</span> Say it with me</button>
+        <button type="button" class="vbtn stop" data-voice="stop"><span aria-hidden="true">■</span> Stop</button>
+      </div>
+      <p class="voice-cue" id="voice-cue" aria-live="polite"></p>
+      <div class="voice-pick" id="voice-pick" hidden>
+        <label for="voice-sel">Voice</label>
+        <select id="voice-sel"></select>
+        <button type="button" class="btn-text" id="voice-try">Try it</button>
+      </div>
+      <details class="voice-help">
+        <summary>Want a more natural voice?</summary>
+        <p><b>iPhone or iPad:</b> Settings › Accessibility › Spoken Content › Voices › English. Download a voice marked <i>Enhanced</i> or <i>Premium</i> (Ava, Zoe, and Evan sound especially natural), then reopen this page.</p>
+        <p><b>Mac:</b> System Settings › Accessibility › Spoken Content › System Voice › Manage Voices, and download an Enhanced or Premium voice.</p>
+        <p><b>Windows:</b> Settings › Time &amp; Language › Speech › Manage voices › Add voices.</p>
+        <p>These voices run on your own device, so your words stay private.</p>
+      </details>
+      <p class="voice-note" id="voice-note" hidden>This browser doesn't have a built-in voice that works on the device, so listening is off to keep your words private. "Say it with me" still works: read each line slowly as it lights up.</p>
+      <div class="keep">
+        <p class="keep-h">Keep it with you</p>
+        <p class="keep-sub">New ways of relating to a part grow with repetition. A few seconds a day helps.</p>
+        <div class="keep-row">
+          <button type="button" class="btn btn-ghost" data-keep-act="photo">📱 Save as lock screen</button>
+          <span class="remind"><label for="remind-time">⏰ Daily reminder at</label>
+            <input type="time" id="remind-time" value="08:00">
+            <button type="button" class="btn btn-ghost" data-keep-act="ics">Add to calendar</button></span>
+        </div>
+        <p class="keep-tip" id="keep-tip" aria-live="polite"></p>
+        <div class="photo-box" id="photo-box" hidden>
+          <img id="photo-img" alt="Lock screen image with your message to ${esc(partName())}.">
+          <div class="keep-row" style="justify-content:center;margin-top:12px">
+            <button type="button" class="btn btn-primary" id="photo-share" hidden>Save to Photos</button>
+            <a class="btn btn-ghost" id="photo-dl" download="message-to-my-part.png" style="text-decoration:none;display:inline-flex;align-items:center">Download</a>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+  const msgHTML = () => sentences(currentMessage()).map((t) => `<span class="s">${esc(t)}</span>`).join(" ");
+
+  $("stage").addEventListener("change", (e) => {
+    if (e.target.id !== "voice-sel") return;
+    stopVoice(); localVoice = localVoices().find((v) => v.name === e.target.value) || localVoice;
+    chosenVoice = localVoice.name;
+  });
+  function wrapLines(ctx, text, maxW) {
+    const out = []; let line = "";
+    text.split(/\s+/).forEach((w) => { const t = line ? line + " " + w : w; if (ctx.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; });
+    out.push(line); return out;
+  }
+  async function makeLockScreen() {
+    try { await Promise.all(['italic 400 60px "Lora"', '600 30px "DM Sans"', '400 30px "DM Sans"'].map((f) => document.fonts.load(f))); } catch (_) {}
+    const W = 1080, H = 1920, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+    const ctx = cv.getContext("2d");
+    const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#EEF4F0"); g.addColorStop(1, "#FDFAF6");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    const text = currentMessage();
+    let size = 64; ctx.font = `italic 400 ${size}px "Lora"`;
+    let lines = wrapLines(ctx, text, W - 200);
+    while (lines.length * size * 1.45 > 900 && size > 38) { size -= 4; ctx.font = `italic 400 ${size}px "Lora"`; lines = wrapLines(ctx, text, W - 200); }
+    const lh = size * 1.45, block = lines.length * lh;
+    let y = Math.max(720, 760 + (900 - block) / 2);
+    ctx.textAlign = "center"; ctx.textBaseline = "top";
+    ctx.font = '600 28px "DM Sans"'; ctx.fillStyle = "#476B56";
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "5px";
+    ctx.fillText(("To my " + partName().replace(/^The /, "")).toUpperCase(), W / 2, y - 90);
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    ctx.fillStyle = "#C4714A"; ctx.fillRect(W / 2 - 40, y - 40, 80, 3);
+    ctx.font = `italic 400 ${size}px "Lora"`; ctx.fillStyle = "#2A2F35";
+    lines.forEach((ln, i) => ctx.fillText(ln, W / 2, y + i * lh));
+    ctx.font = '400 26px "DM Sans"'; ctx.fillStyle = "#5A6370";
+    ctx.fillText("Parts of Me · wooheekwak.me", W / 2, H - 150);
+    return new Promise((res) => cv.toBlob(res, "image/png"));
+  }
+  let photoUrl = null;
+  async function savePhoto() {
+    const blob = await makeLockScreen().catch(() => null);
+    if (!blob) { $("keep-tip").textContent = "Couldn't make the image on this device."; return; }
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    photoUrl = URL.createObjectURL(blob);
+    $("photo-img").src = photoUrl; $("photo-dl").href = photoUrl;
+    let file = null, can = false;
+    try { file = new File([blob], "message-to-my-part.png", { type: "image/png" }); can = !!(navigator.canShare && navigator.canShare({ files: [file] })); } catch (_) {}
+    $("photo-share").hidden = !can;
+    $("photo-share").onclick = async () => { try { await navigator.share({ files: [file] }); } catch (_) {} };
+    $("photo-box").hidden = false;
+    $("keep-tip").textContent = can
+      ? "Tap Save to Photos, then set it as your lock screen in Settings › Wallpaper. You can also press and hold the image."
+      : "Download it, or press and hold (or right-click) the image to save it. Then set it as your lock screen.";
+  }
+  function icsEscape(t) { return t.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n"); }
+  function fold(line) { const out = []; while (line.length > 74) { out.push(line.slice(0, 74)); line = " " + line.slice(74); } out.push(line); return out.join("\r\n"); }
+  function saveIcs() {
+    const [hh, mm] = ($("remind-time").value || "08:00").split(":").map(Number);
+    const start = new Date(); start.setHours(hh, mm, 0, 0); if (start < new Date()) start.setDate(start.getDate() + 1);
+    const p2 = (n) => String(n).padStart(2, "0");
+    const local = `${start.getFullYear()}${p2(start.getMonth() + 1)}${p2(start.getDate())}T${p2(hh)}${p2(mm)}00`;
+    const now = new Date(), stamp = `${now.getUTCFullYear()}${p2(now.getUTCMonth() + 1)}${p2(now.getUTCDate())}T${p2(now.getUTCHours())}${p2(now.getUTCMinutes())}00Z`;
+    const name = partName().replace(/^The /, "");
+    const body = `${currentMessage()}\n\nTake one breath. Say it slowly, out loud or in your mind.`;
+    const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//wooheekwak.me//Parts of Me//EN", "CALSCALE:GREGORIAN", "BEGIN:VEVENT",
+      `UID:${Date.now()}-${Math.random().toString(36).slice(2)}@wooheekwak.me`, `DTSTAMP:${stamp}`, `DTSTART:${local}`, "DURATION:PT5M", "RRULE:FREQ=DAILY;COUNT=21",
+      `SUMMARY:${icsEscape("A moment with my " + name)}`, `DESCRIPTION:${icsEscape(body)}`,
+      "BEGIN:VALARM", "ACTION:DISPLAY", "TRIGGER:PT0M", `DESCRIPTION:${icsEscape("A moment with my " + name)}`, "END:VALARM",
+      "END:VEVENT", "END:VCALENDAR"].map(fold).join("\r\n");
+    const url = URL.createObjectURL(new Blob([lines], { type: "text/calendar" }));
+    const a = document.createElement("a"); a.href = url; a.download = "parts-of-me-reminder.ics"; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    $("keep-tip").textContent = `A daily reminder for the next 21 days was created. Open the file to add it to your calendar; your calendar keeps it, not this site.`;
+  }
+
+  $("stage").addEventListener("click", (e) => {
+    const v = e.target.closest("[data-voice]");
+    if (v) { if (v.dataset.voice === "stop") stopVoice(); else if (v.getAttribute("aria-pressed") === "true") stopVoice(); else play(v.dataset.voice, v); return; }
+    const mv = e.target.closest("[data-mver]");
+    if (mv) {
+      stopVoice(); mver = mv.dataset.mver;
+      document.querySelectorAll("[data-mver]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.mver === mver));
+      const t = document.querySelector(".mc-text"); if (t) t.innerHTML = msgHTML();
+      $("photo-box") && ($("photo-box").hidden = true); return;
+    }
+    if (e.target.id === "voice-try") { stopVoice(); const tok = ++playToken; speak("I see you. I'm here with you.", tok); return; }
+    const k = e.target.closest("[data-keep-act]");
+    if (k) { k.dataset.keepAct === "photo" ? savePhoto() : saveIcs(); }
+  });
+
   let lastView = -1;
   function render(focus = true) {
     const same = lastView === step * 10 + sub;
     lastView = step * 10 + sub;
+    if (typeof stopVoice === "function") stopVoice();
     $("stage").innerHTML = views[step]();
+    if (step === 7) updateVoiceUI();
     if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
     [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i <= step));
     if (focus) {
@@ -668,6 +920,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       render();
     } else if (act === "copy") {
       copyReflection();
+    } else if (act === "email") {
+      emailReflection();
     } else if (act === "print") {
       window.print();
     } else if (act === "restart") {
@@ -678,9 +932,9 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     }
   });
 
-  function copyReflection() {
+  function reflectionText() {
     const row = (k, v) => (v ? `${k}: ${v}` : null);
-    const text = [
+    return [
       "Parts of Me · my reflection",
       "",
       row("Part explored", partName()),
@@ -692,10 +946,18 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       row("A small experiment", experimentText()),
       "",
       "Something I can say to " + partName() + ":",
-      messageToPart(),
+      currentMessage(),
       "",
       "You are more than any single part."
     ].filter((l) => l !== null).join("\n");
+  }
+  function emailReflection() {
+    const subject = "My Parts of Me card: " + partName();
+    window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(reflectionText());
+    $("copy-status").textContent = "Your email app should open. Add your own address and send.";
+  }
+  function copyReflection() {
+    const text = reflectionText();
     const done = (msg) => { $("copy-status").textContent = msg; };
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(text).then(() => done("Copied."), () => fallback());
