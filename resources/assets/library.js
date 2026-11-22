@@ -34,7 +34,7 @@ window.RESOURCE_LIBRARY = {
     "daily-nourishment":    { title: "Daily Nourishment Check-In", href: "../tools/daily-nourishment.html", blurb: "A quick check-in on what's filling you up and what's draining you." },
     "meet-the-feeling":     { title: "Meet the Feeling", href: "../tools/meet-the-feeling.html", blurb: "Name a feeling, find it in your body, ease that place, and let it pass." },
     "parts-of-me":          { title: "Parts of Me", href: "../tools/parts-of-me.html", blurb: "Get to know a protective part of you: what it fears and what it needs." },
-    "ride-the-wave":        { title: "Ride the Wave", href: "../tools/ride-the-wave.html", blurb: "Notice the trigger, the urge, and stay with the feeling instead of reacting." }
+    "ride-the-wave":        { title: "Ride the Wave", href: "../tools/ride-the-wave.html", blurb: "Notice the trigger, the urge, and stay with the feeling instead of reacting." },
     "untangle-the-pattern": { title: "Untangle the Pattern", href: "../tools/untangle-the-pattern.html", blurb: "See how a rigid thought drives a habit, then reframe it and test one small step." },
   },
 
