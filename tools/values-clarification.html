@@ -179,6 +179,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .session-save input[type=text] { width: 100%; max-width: 320px; font: inherit; font-size: 16px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink); }
 .session-save .tip { font-size: 13.5px; color: var(--muted); margin: 8px 0 0; }
 .session-save .btn { margin-top: 2px; }
+.share-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .print-head { display: none; }
 /* tap-first additions */
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
@@ -398,7 +399,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <p class="caveat no-print">Your writing is saved only in this browser on this device. <span class="saved" id="saved-note" aria-live="polite"></span></p>
 
       <div class="session-save no-print" id="session-save" hidden>
-        <h3>Save this for your next session with <span class="th-name">Elise Kwak</span></h3>
+        <h3>Share this with <span class="th-name">Elise Kwak</span></h3>
         <p class="sub">Your summary includes everything you tapped and anything you wrote. You can always come back and save again.</p>
         <ol>
           <li><div>
@@ -406,13 +407,13 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
             <input type="text" id="client-name" maxlength="40" autocomplete="given-name">
           </div></li>
           <li><div>
-            <span class="lbl">Print it, or save it as a PDF</span>
-            <button type="button" class="btn btn-primary" id="save-pdf">Print or Save as PDF</button>
-            <p class="tip">A print window opens. Pick your printer, or choose <b>Save as PDF</b> as the destination. On iPhone or iPad, tap the Share icon in that window, then <b>Save to Files</b>.</p>
-          </div></li>
-          <li><div>
-            <span class="lbl">Bring it to your next session</span>
-            <p class="tip" style="margin-top:0">Bring the printout, or open the PDF on your phone.<span id="th-email-line"> If you and <span class="th-name">Elise Kwak</span> have agreed to use email, you can send the PDF to <a id="th-email" href="mailto:elise@selfspaceseattle.com">elise@selfspaceseattle.com</a>. Email isn't fully private, so only send what you're comfortable sharing that way.</span></p>
+            <span class="lbl">Share it</span>
+            <div class="share-row">
+              <button type="button" class="btn btn-primary" id="email-th">Email It</button>
+              <button type="button" class="btn btn-ghost" id="save-pdf">Print or Save as PDF</button>
+            </div>
+            <p class="tip"><b>Email It</b> opens your own email app with your reflection already written in the message<span id="th-email-line">, addressed to <span class="th-name">Elise Kwak</span> (<span id="th-email">elise@selfspaceseattle.com</span>)</span>. You can change who it goes to, or add anyone, before you press send. Email isn't fully private, so only send what you're comfortable sharing that way.</p>
+            <p class="tip"><b>Print or Save as PDF</b> opens a print window. Choose <b>Save as PDF</b> as the destination to keep a copy, then bring it or open it on your phone in session.</p>
           </div></li>
         </ol>
       </div>
@@ -424,9 +425,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <span class="status" id="nav-status" aria-live="polite"></span>
       <span class="spacer"></span>
       <span id="end-actions" hidden style="display:flex;flex-wrap:wrap;gap:10px">
-        <button type="button" class="btn btn-primary" id="copy">Copy everything</button>
+        <button type="button" class="btn btn-primary" id="email">Email It</button>
+        <button type="button" class="btn btn-ghost" id="print">Print or Save as PDF</button>
+        <button type="button" class="btn btn-ghost" id="copy">Copy</button>
         <button type="button" class="btn btn-ghost" id="download">Download (.txt)</button>
-        <button type="button" class="btn btn-ghost" id="print">Print</button>
       </span>
     </div>
     <div class="nav" style="margin-top:12px">
@@ -657,7 +659,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const session = !!therapist;
   if (session) {
     document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; });
-    if (therapist.reply) { $("th-email").textContent = therapist.reply; $("th-email").href = "mailto:" + therapist.reply; }
+    if (therapist.reply) { $("th-email").textContent = therapist.reply; }
     else $("th-email-line").hidden = true;
   }
   try { const n = localStorage.getItem(SESSION_KEY + "-name"); if (n) document.getElementById("client-name").value = n; } catch (_) {}
@@ -984,7 +986,6 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const L = ["MY VALUES CLARIFICATION", ""];
     if (session) { const n = $("client-name").value.trim(); L.splice(1, 0, `${n ? "From " + n + " · " : ""}For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`); }
     const st = STAGES.find((s) => s.id === S.stage); if (st) L.push(`Where I am: ${st.name}`, "");
-    if (S.peakPicks.length || S.peak.trim()) { L.push("When I feel most like myself:"); if (S.peakPicks.length) L.push(S.peakPicks.join(" · ")); if (S.peak.trim()) L.push(S.peak.trim()); L.push(""); }
     const r = insights();
     if (r) {
       L.push("WHAT MY VALUES ARE TELLING ME", "", `“${r.compass}”`, "", r.gapText, r.gapSoft, "");
@@ -992,6 +993,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       if (r.tension) L.push("A tension to hold: " + r.tension, "");
       L.push("One small step this week: " + r.step, "", "A question to carry: " + r.question, "", "THE DETAILS", "");
     }
+    if (S.peakPicks.length || S.peak.trim()) { L.push("When I feel most like myself:"); if (S.peakPicks.length) L.push(S.peakPicks.join(" · ")); if (S.peak.trim()) L.push(S.peak.trim()); L.push(""); }
     L.push("My core values:");
     S.ranked.forEach((n, i) => { L.push(`${i + 1}. ${n} (living it now: ${S.living[n] ?? 5}/10)`); const m = meaningText(n); if (m) L.push(`   ${m}`); });
     L.push("");
@@ -1027,8 +1029,21 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   }
   $("client-name").addEventListener("input", (e) => { try { localStorage.setItem(SESSION_KEY + "-name", e.target.value.trim()); } catch (_) {} });
   $("save-pdf").addEventListener("click", () => { preparePrintHead(); window.print(); });
+  /* Email: opens the person's own email app with the reflection in the body. They choose who it goes to. */
+  async function emailIt(to) {
+    const name = session ? $("client-name").value.trim() : "";
+    const subject = "My values reflection" + (name ? " · from " + name : "");
+    const body = exportText();
+    const url = `mailto:${to ? encodeURIComponent(to) : ""}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    let copied = false;
+    if (url.length > 1900) { try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(body); copied = true; } } catch (_) {} }
+    window.location.href = url;
+    $("nav-status").textContent = copied ? "Opening your email app. Your reflection is also copied, so if the message looks cut off, just paste it in." : "Opening your email app. Add who it's for, then press send.";
+  }
+  $("email").addEventListener("click", () => emailIt(""));
+  $("email-th").addEventListener("click", () => emailIt(therapist && therapist.reply ? therapist.reply : ""));
   window.addEventListener("beforeprint", preparePrintHead);
-  if (session) { $("session-banner").hidden = false; $("session-save").hidden = false; }
+  if (session) { $("session-banner").hidden = false; $("session-save").hidden = false; $("email").hidden = true; $("print").hidden = true; }
 
   /* erase */
   $("erase").addEventListener("click", () => { $("erase-confirm").hidden = false; $("erase").hidden = true; $("erase-no").focus(); });
