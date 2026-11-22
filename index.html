@@ -739,6 +739,9 @@
   .footer-explore a:hover { color: white; }
   footer .footer-copy { order: 4; }
 
+  .tools-about { max-width: 640px; margin: 22px auto 0; text-align: center; }
+  .tools-about p { font-size: 0.95rem; line-height: 1.75; color: var(--text-mid); margin: 0 0 12px; }
+  .tools-about .tools-care { font-size: 0.85rem; font-style: italic; color: var(--slate-mid); margin: 0; }
   .tools-therapist-note { font-size: 0.85rem; color: var(--text-mid); margin: 14px 0 0; }
   .tools-therapist-note a { color: var(--slate); font-weight: 500; text-underline-offset: 3px; }
   .therapist-band { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px 28px; align-items: center; margin-top: 28px; padding: 22px 28px; background: var(--slate); color: #F3EFE8; border-radius: 20px; text-decoration: none; transition: transform 0.25s, box-shadow 0.25s; }
@@ -1350,10 +1353,14 @@
   <div class="tools-header reveal">
     <div class="section-label">Interactive Tools</div>
     <h2 class="section-title">Prototypes for the<br>examined mind.</h2>
-    <p class="section-sub" style="max-width: 560px; margin: 0 auto;">
-      Experimental tools built at the intersection of clinical practice and Human-Centered AI, designed to extend reflection, self-awareness, and care beyond the therapy hour.
+    <p class="section-sub" style="max-width: 700px; margin: 0 auto;">
+      Free, thoughtfully designed tools for inner exploration and emotional well-being.
     </p>
-    <p class="tools-therapist-note">Are you a therapist? <a href="therapists/#share">Send any of these to a client →</a></p>
+    <div class="tools-about">
+      <p>Self-guided tools grounded in psychotherapy and informed by clinical practice. Built with the help of AI, though no AI ever reads your answers. Always free, and always evolving.</p>
+      <p class="tools-care">Meant to support reflection and complement, not replace, professional mental health care.</p>
+    </div>
+    <p class="tools-therapist-note">Are you a therapist? <a href="therapists/#share">Send any of these to a client →</a> · Have feedback? <a href="mailto:wooheekwak@outlook.com?subject=Feedback%20on%20the%20tools&amp;body=Which%20tool%3A%0A%0AWhat%20helped%3A%0A%0AWhat%20was%20confusing%20or%20could%20be%20better%3A%0A%0A%28Please%20leave%20out%20personal%20or%20health%20details.%29%0A">Tell me →</a></p>
   </div>
 
   <div class="finder reveal" id="finder">
