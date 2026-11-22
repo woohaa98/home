@@ -36,7 +36,7 @@ window.RESOURCE_LIBRARY = {
     "parts-of-me":          { title: "Parts of Me", href: "../tools/parts-of-me.html", blurb: "Get to know a protective part of you: what it fears and what it needs." },
     "ride-the-wave":        { title: "Ride the Wave", href: "../tools/ride-the-wave.html", blurb: "For OCD, panic, and urges: let the urge rise and fall without acting on it." },
     "untangle-the-pattern": { title: "Untangle the Pattern", href: "../tools/untangle-the-pattern.html", blurb: "See how a rigid thought drives a habit, then reframe it and test one small step." },
-    "small-steps":          { title: "Small Steps", href: "../tools/small-steps.html", blurb: "Behavioral activation: plan a few small activities and see what lifts your mood." },
+    "small-steps":          { title: "Small Steps", href: "../tools/small-steps.html", blurb: "Behavioral activation: pick 1 to 3 small steps for today, matched to your energy." },
     "kind-boundaries":      { title: "Kind Boundaries", href: "../tools/kind-boundaries.html", blurb: "Build a clear, kind way to say no or ask for what you need (DEAR MAN)." },
     "gentle-start-up":      { title: "Gentle Start-Up", href: "../tools/gentle-start-up.html", blurb: "For couples: raise a concern with I feel… about… I need…, plus repair phrases." },
   },
