@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meet the Feeling · Woohee (Elise) Kwak</title>
+<meta name="description" content="Name what you feel, find it in your body, ease that place with a short guided exercise, and let the feeling pass in its own time. Based on the RAIN practice.">
+<!-- Privacy: this page makes no analytics, tracking, or data requests. Voice uses on-device voices only. Nothing is saved. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 22px; }
+.progress { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+.ground-btn { appearance: none; font: inherit; font-size: 13.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--accent); white-space: nowrap; transition: border-color .2s; }
+.ground-btn:hover { border-color: var(--accent); }
+.grounding { display: flex; gap: 14px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: 0 0 22px; }
+.grounding strong { display: block; color: var(--accent); font-weight: 600; }
+.grounding p { margin: 0; font-size: 14.5px; }
+.grounding .x { appearance: none; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; margin-left: auto; padding: 0 4px; }
+
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
+
+.options { display: grid; gap: 10px; }
+.options.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .options.two { grid-template-columns: 1fr; } }
+.opt {
+  appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 15px 18px;
+  transition: border-color .2s, background-color .2s;
+}
+.opt:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 20px; line-height: 1.2; }
+.opt b { display: block; font-weight: 600; font-size: 15.5px; }
+.opt small { display: block; color: var(--muted); font-size: 14px; margin-top: 1px; }
+.opt.dashed { border-style: dashed; }
+.group-name { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+.group-name:first-child { margin-top: 0; }
+
+.field { margin-top: 16px; }
+.field > label { display: block; font-weight: 500; margin-bottom: 8px; }
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 16px; line-height: 1.6; padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); resize: vertical; }
+textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.15); }
+::placeholder { color: #8C939C; }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.scale { margin-top: 26px; padding: 18px 20px; background: var(--sand); border-radius: 16px; }
+.scale label { font-weight: 500; display: block; margin-bottom: 8px; }
+.scale input[type=range] { width: 100%; accent-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.scale output { font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+.note { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 14px 0 0; }
+.note strong { color: var(--warm-ink); }
+
+.prompt-card { background: var(--sand); border-radius: 16px; padding: 18px 20px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.subcount { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+.reflection { display: flex; gap: 14px; align-items: flex-start; border-left: 3px solid var(--warm); background: var(--surface); border-radius: 0 14px 14px 0; padding: 14px 18px; margin: 16px 0 0; box-shadow: var(--shadow); }
+.reflection .mark { color: var(--warm); font-size: 18px; line-height: 1.5; }
+.reflection p { margin: 0; font-family: var(--font-display); font-size: 17px; line-height: 1.55; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(24px, 6vw, 44px); }
+.welcome-list { margin: 0 0 18px; padding-left: 20px; }
+.welcome-list li { margin-bottom: 6px; }
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 20px; }
+.safety strong { color: var(--warm-ink); }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-weight: 500; }
+.check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+
+.part-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 16px; }
+.summary { display: grid; gap: 12px; margin: 6px 0 0; }
+.summary div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.summary dd { margin: 0; white-space: pre-wrap; }
+@media (max-width: 520px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.pick-hint { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.answers { margin-bottom: 6px; }
+.own-words { margin: 8px 0 0; }
+.own-words summary { cursor: pointer; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; list-style: none; }
+.own-words summary::-webkit-details-marker { display: none; }
+.own-words[open] summary { margin-bottom: 8px; }
+.message-card { margin: 22px 0 0; background: var(--accent-soft); border-radius: 16px; padding: 18px 20px; }
+.message-card .mc-label { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.message-card .mc-text { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.mc-text .s { transition: background-color .3s, color .3s; border-radius: 6px; padding: 0 2px; }
+.mc-text .s.on { background: #fff; color: var(--accent); box-shadow: 0 0 0 3px #fff; }
+.voice { margin-top: 16px; padding-top: 14px; border-top: 1px solid #CFE0D4; }
+.mver { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.voice-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.vbtn { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; background: #fff; border: 1px solid #CFE0D4; color: var(--accent); border-radius: 999px; padding: 9px 16px; min-height: 42px; transition: all .2s; }
+.vbtn:hover:not(:disabled) { border-color: var(--accent); }
+.vbtn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+.vbtn:disabled { opacity: .45; cursor: not-allowed; }
+.vbtn.stop { color: var(--muted); }
+.voice-cue { min-height: 1.5em; margin: 10px 0 0; font-family: var(--font-display); font-style: italic; color: var(--accent); }
+.voice-note { font-size: 13.5px; color: var(--muted); margin: 8px 0 0; }
+.voice-pick { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; font-size: 14px; }
+.voice-pick select { font: inherit; font-size: 14.5px; padding: 7px 10px; border: 1px solid #CFE0D4; border-radius: 10px; background: #fff; color: var(--ink); max-width: 100%; }
+.voice-pick .btn-text { padding: 6px 4px; }
+.voice-help { margin-top: 8px; font-size: 13.5px; color: var(--muted); }
+.voice-help summary { cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 4px 0; }
+.voice-help p { margin: 6px 0; }
+.keep { margin-top: 16px; background: #fff; border-radius: 14px; padding: 14px 16px; }
+.keep-h { margin: 0; font-weight: 600; font-size: 15px; }
+.keep-sub { margin: 2px 0 10px; font-size: 14px; color: var(--muted); }
+.keep-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.keep .btn { padding: 11px 18px; min-height: 42px; font-size: 14.5px; }
+.remind { display: inline-flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14.5px; }
+.remind input { font: inherit; font-size: 15px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); }
+.keep-tip { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; }
+.photo-box { margin-top: 12px; }
+.photo-box img { display: block; width: 100%; max-width: 240px; height: auto; margin: 0 auto; border-radius: 16px; border: 1px solid var(--line); }
+.privacy-line { font-size: 13.5px; color: var(--muted); margin: -20px 0 28px; }
+.closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+@media print {
+  body { background: #fff; }
+  .topbar, header, .toolbar, .grounding, .actions, .disclaimer, .no-print { display: none !important; }
+  .card { box-shadow: none; border: 0; padding: 0; }
+}
+
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 18px; }
+.safety strong { color: var(--warm-ink); }
+.opt.bal { background: #F2F8F3; border-color: #CFE0D4; }
+.opt.bal:hover { border-color: var(--accent); background: #EAF3EC; }
+.opt.bal[aria-pressed="true"] { background: #DDEDE1; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.12); }
+
+/* ---- Meet the Feeling ---- */
+.privacy-line { font-size: 13.5px; color: var(--muted); margin: -20px 0 28px; }
+.rain { display: flex; gap: 6px; flex: 1; align-items: center; margin: 0; padding: 0; list-style: none; }
+.rain li { flex: 1; display: grid; justify-items: center; gap: 4px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.rain li b { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-size: 15px; font-weight: 500; background: var(--surface); border: 1px solid var(--line); color: var(--muted); transition: all .3s; }
+.rain li.done b { background: var(--accent-soft); border-color: #CFE0D4; color: var(--accent); }
+.rain li.now b { background: var(--accent); border-color: var(--accent); color: #fff; }
+.rain li.now { color: var(--accent); font-weight: 600; }
+@media (max-width: 480px) { .rain li span { display: none; } }
+.voice-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: -10px 0 18px; font-size: 14px; color: var(--muted); }
+.voice-row select { font: inherit; font-size: 14.5px; padding: 6px 10px; border: 1px solid #CFE0D4; border-radius: 10px; background: #fff; color: var(--ink); max-width: 100%; }
+.voice-row .btn-text { padding: 4px; }
+.voice-help { flex-basis: 100%; font-size: 13.5px; }
+.voice-help summary { cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 2px 0; }
+.voice-help p { margin: 6px 0; }
+.toggles { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.tgl { appearance: none; font: inherit; font-size: 13px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; color: var(--muted); white-space: nowrap; }
+.tgl[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.tgl:disabled { opacity: .45; cursor: not-allowed; }
+
+.fam-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 520px) { .fam-grid { grid-template-columns: 1fr; } }
+.wordgrid { display: flex; flex-wrap: wrap; gap: 8px; }
+.word { appearance: none; font: inherit; cursor: pointer; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 10px 14px; transition: all .2s; max-width: 100%; }
+.word b { display: block; font-weight: 600; font-size: 15px; }
+.word small { display: block; color: var(--muted); font-size: 13px; }
+.word[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+.feeling-pill { display: inline-flex; gap: 6px; align-items: center; background: var(--warm-soft); color: var(--warm-ink); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 14px; }
+
+.bodywrap { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 560px) { .bodywrap { grid-template-columns: 1fr; justify-items: center; } }
+.body-svg { width: 180px; height: auto; display: block; }
+.body-svg .zone { cursor: pointer; outline: none; }
+.body-svg .zone .hit { fill: transparent; }
+.body-svg .zone .dot { fill: transparent; stroke: transparent; transition: fill .25s; }
+.body-svg .zone:hover .dot { fill: rgba(196,113,74,.15); }
+.body-svg .zone:focus-visible .dot { stroke: var(--focus); stroke-dasharray: 3 2; }
+.body-svg .zone.on .dot { fill: rgba(196,113,74,.45); stroke: #C4714A; stroke-width: 1.2; }
+.region-list { display: grid; gap: 8px; width: 100%; }
+.region-list .chip { text-align: left; }
+
+.allow { appearance: none; font: inherit; color: inherit; width: 100%; text-align: left; cursor: pointer; display: flex; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; margin: 18px 0 0; }
+.allow .box { width: 22px; height: 22px; flex: none; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; color: #fff; font-size: 12px; }
+.allow span:last-child { font-family: var(--font-display); font-style: italic; font-size: 17px; }
+.allow[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.allow[aria-pressed="true"] .box { background: var(--accent); border-color: var(--accent); }
+
+/* soothe player */
+.player { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 22px; align-items: center; }
+@media (max-width: 560px) { .player { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
+.mini-body { width: 130px; height: auto; }
+.mini-body .rg { fill: rgba(196,113,74,0); transition: fill .4s; }
+.mini-body .rg.on { fill: rgba(196,113,74,.5); animation: glow 3s ease-in-out infinite; }
+@keyframes glow { 0%,100% { fill: rgba(196,113,74,.25); } 50% { fill: rgba(196,113,74,.6); } }
+.orb-wrap { display: grid; place-items: center; height: 120px; }
+.orb { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff, var(--accent-soft) 60%, #CFE0D4); border: 1px solid #B8D4C0; transform: scale(.7); transition: transform 1s ease-in-out; }
+.p-title { font-family: var(--font-display); font-size: 22px; margin: 0 0 4px; }
+.p-step { font-size: 18px; line-height: 1.45; min-height: 3em; margin: 6px 0 10px; }
+.p-bar { height: 6px; background: var(--sand); border-radius: 4px; overflow: hidden; }
+.p-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s linear; }
+.p-count { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+.p-ctrl { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+@media (max-width: 560px) { .p-ctrl { justify-content: center; } }
+.vbtn { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; background: #fff; border: 1px solid #CFE0D4; color: var(--accent); border-radius: 999px; padding: 9px 16px; min-height: 42px; }
+.vbtn[aria-pressed="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
+.done-msg { margin: 16px 0 0; background: var(--accent-soft); border-radius: 14px; padding: 12px 16px; }
+
+.need-insight { background: var(--sand); border-radius: 14px; padding: 14px 16px; margin: 0 0 16px; font-size: 15px; }
+.gesture-row { margin-top: 16px; }
+
+/* let it pass */
+.sky { position: relative; overflow: hidden; border-radius: 24px; min-height: 520px; padding-top: 170px !important; background: linear-gradient(180deg, #DDE8E1 0%, #EEF4F0 55%, #FDFAF6 100%); padding: 30px 26px 26px; display: flex; flex-direction: column; }
+.cloud { position: absolute; top: 56px; left: -40%; white-space: nowrap; font-family: var(--font-display); font-style: italic; font-size: clamp(28px, 6vw, 42px); color: #476B56; background: rgba(255,255,255,.85); padding: 18px 34px; border-radius: 999px; box-shadow: 0 10px 40px rgba(71,107,86,.15); animation: drift 48s linear forwards; }
+.cloud::before, .cloud::after { content: ""; position: absolute; background: rgba(255,255,255,.85); border-radius: 50%; }
+.cloud::before { width: 60px; height: 60px; top: -26px; left: 26px; }
+.cloud::after { width: 80px; height: 80px; top: -38px; right: 30px; }
+@keyframes drift { 0% { left: -40%; opacity: 0; } 10% { opacity: 1; } 75% { opacity: .9; } 100% { left: 110%; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cloud { animation: none; left: 50%; transform: translateX(-50%); opacity: .8; } }
+.pass-lines { margin-top: auto; display: grid; gap: 10px; position: relative; z-index: 1; }
+.pass-lines p { margin: 0; font-family: var(--font-display); font-size: clamp(18px, 3.6vw, 22px); line-height: 1.5; color: var(--ink); opacity: 0; transform: translateY(6px); transition: opacity 2.4s ease, transform 2.4s ease; }
+.pass-lines p.in { opacity: 1; transform: none; }
+.pass-breath { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; margin-top: 18px; color: var(--accent); font-size: 14.5px; }
+.pass-breath .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); opacity: .5; animation: pb 10s ease-in-out infinite; }
+@keyframes pb { 0%,100% { transform: scale(.7); opacity: .35; } 40% { transform: scale(1.5); opacity: .8; } }
+.after { margin-top: 22px; }
+.compare2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 16px 0 0; }
+.compare2 div { background: var(--sand); border-radius: 14px; padding: 12px 14px; }
+.compare2 b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--accent); }
+.compare2 span { font-size: 13px; color: var(--muted); }
+@media print { .sky .cloud, .pass-breath, .toggles { display: none !important; } .sky { min-height: 0; background: none; padding: 0; } .pass-lines p { opacity: 1 !important; transform: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Emotions &amp; RAIN</p>
+      <h1>Meet the <em>Feeling</em></h1>
+      <p class="lede">Name what you feel, find where it lives in your body, ease that place with a short guided exercise, and let the feeling pass in its own time. Based on RAIN: Recognize, Allow, Investigate, Nurture. About 5 to 8 minutes.</p>
+      <p class="privacy-line">Your answers stay on this device. Nothing is saved, tracked, or sent anywhere.</p>
+    </header>
+
+    <div class="toolbar">
+      <ol class="rain" id="rain" aria-hidden="true">
+        <li><b>R</b><span>Name it</span></li>
+        <li><b>A</b><span>Feel it</span></li>
+        <li><b>✦</b><span>Ease it</span></li>
+        <li><b>I</b><span>Listen</span></li>
+        <li><b>N</b><span>Nurture</span></li>
+        <li><b>~</b><span>Let it pass</span></li>
+      </ol>
+      <div class="toggles">
+        <button type="button" class="tgl" id="voice-tgl" aria-pressed="false">🔈 Voice guide</button>
+        <button type="button" class="tgl" id="sound-tgl" aria-pressed="false">🎵 Soothing music</button>
+      </div>
+    </div>
+    <div class="voice-row" id="voice-row" hidden>
+      <label for="voice-sel">Voice</label>
+      <select id="voice-sel"></select>
+      <button type="button" class="btn-text" id="voice-try">Try it</button>
+      <details class="voice-help">
+        <summary>Want a warmer, more natural voice?</summary>
+        <p><b>iPhone or iPad:</b> Settings › Accessibility › Spoken Content › Voices › English. Download a voice marked <i>Enhanced</i> or <i>Premium</i> (Ava, Zoe, or Evan sound especially natural), then reopen this page and choose it here.</p>
+        <p><b>Mac:</b> System Settings › Accessibility › Spoken Content › System Voice › Manage Voices.</p>
+        <p><b>Windows:</b> Settings › Time &amp; Language › Speech › Manage voices.</p>
+        <p>These voices run on your own device, so your words stay private.</p>
+      </details>
+    </div>
+    <p class="mini" id="voice-off-note" hidden style="font-size:13px;color:var(--muted);margin:-12px 0 16px">This browser has no built-in voice on the device, so the voice guide is off to keep things private. Every step is also shown on screen.</p>
+
+    <section id="stage"></section>
+
+    <section class="rel" aria-labelledby="rel-h" style="margin-top:48px">
+      <p class="eyebrow" style="margin-bottom:6px">Therapy Resources</p>
+      <h2 id="rel-h" style="font-family:var(--font-display);font-weight:400;font-size:24px;margin:0 0 12px">Related reading</h2>
+      <div class="options two">
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=turning-toward-emotions"><span><b>Turning Toward Difficult Emotions</b><small>How to notice, name, and allow emotions with self-compassion.</small></span></a>
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=brain-and-emotions"><span><b>How the Brain Creates &amp; Regulates Emotions</b><small>Why emotions are built from body signals, meaning, and past experience.</small></span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="disclaimer">
+    <p>A self-guided practice drawing on emotion labeling, mindfulness, and the RAIN practice (first described by Michele McDonald and adapted by Tara Brach). It is not therapy and not crisis support.</p>
+    <p>If you are in crisis in the U.S., call or text 988, or call 911. Skip any movement that causes pain.</p>
+    <p>Your choices stay on your device. Nothing is saved, tracked, or sent anywhere. The voice guide uses only voices built into your device, and the music is composed live in your browser.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ================== CONTENT (edit freely) ================== */
+  const FAMILIES = [
+    { id: "sad", icon: "🌧️", name: "Sad", sub: "low, heavy, missing something",
+      words: [["disappointed","things didn't turn out as you hoped"],["lonely","wanting connection that isn't there"],["grieving","missing someone or something you've lost"],["heartbroken","a deep ache from loss or rejection"],["discouraged","losing confidence or motivation"],["regretful","wishing something had gone differently"],["homesick","longing for a place or people"],["melancholy","a quiet, lingering sadness"],["hopeless","feeling like nothing will get better"]],
+      insight: "Sadness often shows up when something or someone that matters is missing or has changed. It's a sign of what you care about.",
+      needs: ["Comfort","Time","Connection","Rest","Room to grieve","A good cry"],
+      kind: "It makes sense that I feel {w}. This mattered to me. I can be gentle with myself while it hurts.",
+      step: "Reach out to someone who feels safe, or wrap yourself in something warm for a few minutes." },
+    { id: "anxious", icon: "🌀", name: "Anxious", sub: "worried, on edge, unsettled",
+      words: [["worried","thinking about what might go wrong"],["nervous","jittery about what's coming"],["overwhelmed","too much at once"],["uneasy","a sense that something is off"],["insecure","unsure of yourself or your place"],["dread","a heavy feeling that something bad is coming"],["pressured","pushed to meet expectations"],["vulnerable","exposed and easily hurt"],["restless","unable to settle"]],
+      insight: "Anxiety is your mind and body preparing for something uncertain. It's trying to protect you, even when it overestimates the danger.",
+      needs: ["Safety","Grounding","Reassurance","Information","A plan","Rest"],
+      kind: "It's understandable that I feel {w}. I don't have to solve everything right now. I'm here, in this moment.",
+      step: "Feel your feet on the floor and name five things you can see around you." },
+    { id: "angry", icon: "🔥", name: "Angry", sub: "frustrated, irritated, fed up",
+      words: [["frustrated","blocked from what you want or need"],["irritated","small things getting under your skin"],["resentful","holding on to being treated unfairly"],["betrayed","trust was broken"],["impatient","wanting things to move faster"],["jealous","afraid of losing someone or something to another"],["envious","wanting what someone else has"],["indignant","stirred up by something unjust"],["bitter","anger that has settled in over time"]],
+      insight: "Anger often signals that a boundary was crossed, a need wasn't met, or something feels unfair. It carries energy to protect what matters.",
+      needs: ["To be heard","Fairness","A boundary","Space","Respect","Movement"],
+      kind: "My feeling of being {w} makes sense. Something important to me feels threatened. I can honor it without letting it take over.",
+      step: "Move your body for a few minutes, or write down what you wish you could say. You don't have to send it." },
+    { id: "hurt", icon: "💔", name: "Hurt", sub: "let down, rejected, unseen",
+      words: [["rejected","pushed away or not chosen"],["left out","not included"],["unappreciated","your efforts went unnoticed"],["misunderstood","not seen for who you are"],["dismissed","your feelings were brushed aside"],["let down","someone didn't come through"],["criticized","judged or found lacking"],["invisible","as if no one really sees you"]],
+      insight: "Hurt often appears when you wanted to feel seen, valued, or cared for, and didn't. It shows how much connection matters to you.",
+      needs: ["To be seen","Reassurance","Repair","Kindness","Connection","Space"],
+      kind: "It hurts to feel {w}. My feelings matter, and I deserve care, including from myself.",
+      step: "Write down what you wish someone understood about you right now." },
+    { id: "ashamed", icon: "🍂", name: "Ashamed", sub: "embarrassed, guilty, not enough",
+      words: [["embarrassed","awkward, wishing no one had seen"],["guilty","believing you did something wrong"],["inadequate","feeling not good enough"],["humiliated","lowered in front of others"],["self-conscious","very aware of how you come across"],["exposed","something private was seen"],["foolish","feeling you should have known better"],["unworthy","feeling you don't deserve good things"]],
+      insight: "Shame and its relatives often carry the fear that you're not okay as you are. They can also point to your values and your wish to belong.",
+      needs: ["Acceptance","Compassion","Perspective","Forgiveness","Belonging","Privacy"],
+      kind: "Feeling {w} doesn't make me less worthy. Everyone stumbles. I can treat myself the way I'd treat a friend.",
+      step: "Ask yourself what you'd say to a close friend in your situation, then say it to yourself." },
+    { id: "tired", icon: "🌫️", name: "Tired or numb", sub: "drained, flat, far away",
+      words: [["exhausted","deeply worn out"],["depleted","running on empty"],["burned out","worn down by ongoing stress"],["numb","hard to feel much at all"],["disconnected","far from yourself or others"],["flat","nothing feels very interesting"],["foggy","hard to think clearly"],["empty","a hollow feeling inside"]],
+      insight: "Exhaustion and numbness can be your system turning the volume down after carrying too much for too long. It may be asking you to slow down.",
+      needs: ["Rest","Gentleness","Nourishment","Fewer demands","Quiet","Comfort"],
+      kind: "It's okay that I feel {w}. I've been carrying a lot. I'm allowed to rest before everything is done.",
+      step: "Take one thing off today's list, or rest for ten minutes without your phone." },
+    { id: "good", icon: "🌤️", name: "Good", sub: "calm, grateful, light", pleasant: true,
+      words: [["calm","settled and at ease"],["content","enough, just as things are"],["grateful","thankful for something or someone"],["relieved","a weight has lifted"],["hopeful","looking forward to what's possible"],["proud","pleased with something you did"],["joyful","bright, full happiness"],["loved","cared for and held"],["connected","close to others or the world"],["curious","open and interested"],["excited","energized about what's ahead"],["peaceful","quiet inside"]],
+      insight: "Pleasant feelings deserve attention too. Lingering with them a little longer helps them sink in.",
+      needs: ["People","Rest","Nature","Accomplishment","Kindness","Something new"],
+      kind: "I can let myself enjoy feeling {w}. This moment counts.",
+      step: "Take a mental snapshot of this moment, or tell someone about it." }
+  ];
+
+  // Body regions. Zones on the body map belong to one region.
+  const REGIONS = {
+    head:      { label: "Head, face, or jaw", zones: ["head"] },
+    throat:    { label: "Throat", zones: ["throat"] },
+    chest:     { label: "Chest or heart", zones: ["chest"] },
+    belly:     { label: "Stomach or belly", zones: ["stomach", "belly"] },
+    shoulders: { label: "Neck and shoulders", zones: ["l_shoulder", "r_shoulder"] },
+    hands:     { label: "Arms and hands", zones: ["l_arm", "r_arm", "l_hand", "r_hand"] },
+    legs:      { label: "Hips, legs, or feet", zones: ["hips", "l_thigh", "r_thigh", "l_knee", "r_knee", "l_leg", "r_leg", "l_foot", "r_foot"] },
+    whole:     { label: "My whole body, or I'm not sure", zones: [] }
+  };
+
+  // Guided exercises. Each step: [text, seconds] or { breath: n, text, inS, outS }.
+  const EASE = {
+    head: { title: "Soften the face and jaw", steps: [
+      ["Let your jaw drop a little. Teeth apart, tongue resting softly.", 7],
+      ["Soften the space between your eyebrows.", 6],
+      ["Let your eyes rest, or gently close them.", 6],
+      { breath: 3, text: "Breathe in through your nose… and let a long, slow breath out.", inS: 4, outS: 6 },
+      ["Notice any small change. Nothing needs to be different.", 6] ] },
+    throat: { title: "Open the throat", steps: [
+      ["Rest a hand gently at the base of your throat or collarbone.", 6],
+      ["Swallow once, slowly.", 5],
+      { breath: 3, text: "Breathe in… and hum softly as you breathe out. Feel the gentle vibration.", inS: 4, outS: 7 },
+      ["Let your throat stay soft and open.", 6] ] },
+    chest: { title: "A hand on the heart", steps: [
+      ["Place one or both hands on your chest.", 6],
+      ["Feel the warmth and gentle weight of your hand.", 6],
+      { breath: 4, text: "Breathe in for four… and out for six.", inS: 4, outS: 6 },
+      ["Imagine breathing a little space around the tightness.", 8],
+      ["Say inwardly: \"It's okay. I'm here.\"", 6] ] },
+    belly: { title: "Belly breath", steps: [
+      ["Place a hand on your belly.", 5],
+      { breath: 4, text: "Let your belly rise as you breathe in… and soften as you breathe out.", inS: 4, outS: 6 },
+      ["If it feels knotted, let it be knotted. Keep breathing around it.", 8],
+      ["Let your hand rest there, warm and steady.", 6] ] },
+    shoulders: { title: "Release the shoulders", steps: [
+      ["Breathe in and lift your shoulders up toward your ears.", 4],
+      ["Breathe out and let them drop.", 5],
+      ["Again: lift as you breathe in…", 4],
+      ["…and let them fall as you breathe out.", 5],
+      ["Once more: lift…", 4],
+      ["…and drop. Let your arms hang heavy.", 6],
+      ["Slowly tilt your head toward one shoulder, then the other. Only as far as feels good.", 10] ] },
+    hands: { title: "Squeeze and release", steps: [
+      ["Make two gentle fists and squeeze for a few seconds.", 5],
+      ["Release. Notice the warmth or tingling in your hands.", 6],
+      ["Squeeze once more…", 5],
+      ["…and let go completely.", 6],
+      ["Press your palms together and feel your own steady strength.", 6],
+      ["Let your hands rest open in your lap.", 6] ] },
+    legs: { title: "Feel the ground", steps: [
+      ["Press your feet into the floor.", 6],
+      ["Notice the ground holding you up.", 6],
+      { breath: 3, text: "Breathe in… and as you breathe out, let your weight sink down.", inS: 4, outS: 6 },
+      ["Wiggle your toes. You're here, and you're supported.", 6] ] },
+    whole: { title: "Come back to your senses", steps: [
+      ["Look around and name five things you can see.", 12],
+      ["Notice four things you can feel: your clothes, the chair, the air.", 12],
+      ["Listen for three sounds, near or far.", 10],
+      ["Notice two things you can smell, or simply the air.", 8],
+      { breath: 1, text: "And one slow breath.", inS: 4, outS: 7 } ] },
+    savor: { title: "Savor it", steps: [
+      ["Notice where this good feeling lives in your body.", 8],
+      ["Let it spread, just a little, like warmth.", 8],
+      { breath: 3, text: "Breathe in this feeling… breathe out and let it settle.", inS: 4, outS: 6 },
+      ["Take a mental snapshot of this moment.", 8] ] }
+  };
+
+  const GESTURES = ["Hand on heart", "Hand on belly", "Hold your own hand", "A gentle hug", "Soften your face"];
+  const PHRASES = ["It's okay to feel this.", "This is hard, and I'm not alone.", "I'm here with you.", "May I be kind to myself.", "This will pass."];
+  const SAFETY_WORDS = ["hopeless", "empty", "unworthy"];
+
+  /* ================== STATE ================== */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const blank = () => ({ step: 0, fam: "", word: "", own: "", before: 6, regions: [], allowed: false, eased: [], needs: [], kind: "", gesture: "", after: null });
+  let d = blank(), lastView = -1;
+
+  const fam = () => FAMILIES.find((f) => f.id === d.fam);
+  const word = () => d.own.trim() || d.word;
+  const pleasant = () => fam() && fam().pleasant;
+  const SHORT = { head: "face and jaw", throat: "throat", chest: "chest", belly: "belly", shoulders: "shoulders", hands: "hands", legs: "legs and feet", whole: "whole body" };
+  const regionsText = () => { const a = d.regions.map((r) => SHORT[r]); return a.length < 2 ? (a[0] || "") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]; };
+  const kindFor = () => fam() ? fam().kind.replace("{w}", word() || "this way") : "";
+
+  /* ================== VOICE (on-device only) ================== */
+  const synth = window.speechSynthesis;
+  let voiceOn = false, voice = null, vTok = 0;
+  function localVoices() {
+    if (!synth) return [];
+    const score = (v) => (/premium/i.test(v.name) ? 100 : 0) + (/enhanced|natural|neural/i.test(v.name) ? 60 : 0)
+      + (/^(Ava|Zoe|Samantha|Allison|Susan|Serena|Kate|Karen|Moira|Tessa|Evan|Nathan|Daniel|Jenny|Aria|Libby|Sonia)/i.test(v.name) ? 20 : 0) + (/en[-_]US/i.test(v.lang) ? 5 : 0)
+      - (/compact|eloquence|grandma|grandpa|bad news|bells|bubbles|zarvox|whisper|trinoids|organ|cellos|jester|albert|fred|junior|ralph|kathy|superstar|boing|wobble|rocko|shelley|reed|sandy|flo|eddy/i.test(v.name) ? 200 : 0);
+    return synth.getVoices().filter((v) => v.localService && /^en/i.test(v.lang) && score(v) > -100).sort((a, b) => score(b) - score(a));
+  }
+  let chosenVoice = null; // only for this visit
+  function refreshVoice() {
+    const vs = localVoices();
+    voice = vs.find((v) => v.name === chosenVoice) || vs[0] || null;
+    $("voice-sel").innerHTML = vs.map((v) => `<option value="${esc(v.name)}"${voice && v.name === voice.name ? " selected" : ""}>${esc(v.name.replace(/\s*\(English.*?\)/, ""))}</option>`).join("");
+    $("voice-row").hidden = !voiceOn || !voice;
+    $("voice-tgl").disabled = !voice;
+    $("voice-off-note").hidden = !!voice || !synth;
+    if (!voice && voiceOn) { voiceOn = false; $("voice-tgl").setAttribute("aria-pressed", "false"); }
+  }
+  if (synth) { refreshVoice(); synth.addEventListener?.("voiceschanged", refreshVoice); } else { $("voice-tgl").disabled = true; }
+  // Read like a person: slower, slightly lower, with small breaths between phrases.
+  function say(text) {
+    if (!voiceOn || !voice || !synth) return;
+    synth.cancel(); const tok = ++vTok;
+    const parts = String(text).replace(/…/g, "...").split(/(?<=[,.;:?!])\s+/).filter(Boolean);
+    const next = (i) => {
+      if (tok !== vTok || i >= parts.length) return;
+      const u = new SpeechSynthesisUtterance(parts[i]);
+      u.voice = voice; u.lang = voice.lang; u.rate = 0.82; u.pitch = 0.94; u.volume = 0.95;
+      u.onend = () => setTimeout(() => next(i + 1), /[.?!]$/.test(parts[i]) ? 450 : 220);
+      synth.speak(u);
+    };
+    next(0);
+  }
+  function hush() { vTok++; if (synth) synth.cancel(); }
+  $("voice-tgl").addEventListener("click", () => {
+    voiceOn = !voiceOn; $("voice-tgl").setAttribute("aria-pressed", voiceOn);
+    $("voice-row").hidden = !voiceOn || !voice;
+    if (voiceOn) say("I'll guide you, gently, one step at a time."); else hush();
+  });
+
+  $("voice-sel").addEventListener("change", (e) => { chosenVoice = e.target.value; refreshVoice(); say("I'm here with you."); });
+  $("voice-try").addEventListener("click", () => say("Take a slow breath. I'm here with you."));
+
+  /* ================== MUSIC (composed live in the browser; no files, nothing downloaded) ================== */
+  function createAmbientSound() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AC();
+    const master = ctx.createGain(); master.gain.value = 0;
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -20; comp.ratio.value = 3;
+    master.connect(comp); comp.connect(ctx.destination);
+    // soft hall reverb
+    const len = ctx.sampleRate * 5, ir = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let c = 0; c < 2; c++) { const dd = ir.getChannelData(c); for (let i = 0; i < len; i++) dd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+    const verb = ctx.createConvolver(); verb.buffer = ir;
+    const wet = ctx.createGain(); wet.gain.value = 0.7; verb.connect(wet); wet.connect(master);
+    const dry = ctx.createGain(); dry.gain.value = 0.55; dry.connect(master);
+    const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+    // A slow, warm progression in D major: Dmaj9, Bm7, Gmaj7, Aadd9 (MIDI note numbers)
+    const CHORDS = [[50, 57, 61, 64, 66], [47, 54, 57, 62, 66], [43, 50, 54, 59, 62], [45, 52, 57, 59, 64]];
+    const SCALE = [62, 64, 66, 69, 71, 74, 76, 78, 81]; // D major pentatonic: no clashing notes
+    const CHORD_SECS = 9.6;
+    function pad(notes, t, dur) {
+      notes.forEach((m, i) => {
+        ["sine", "triangle"].forEach((type, k) => {
+          const o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter();
+          o.type = type; o.frequency.value = hz(m) * (k ? 1.002 : 1);
+          f.type = "lowpass"; f.frequency.value = 900;
+          const peak = (k ? 0.006 : 0.014) * (i === 0 ? 1.3 : 1);
+          g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + 3);
+          g.gain.setValueAtTime(peak, t + dur - 3); g.gain.linearRampToValueAtTime(0, t + dur + 1.5);
+          o.connect(f); f.connect(g); g.connect(dry); g.connect(verb); o.start(t); o.stop(t + dur + 2);
+        });
+      });
+    }
+    function bell(m, t, vel) {
+      // a soft, piano-like note: fundamental plus gentle overtones, quick attack, long fade
+      [[1, 1], [2, 0.28], [3, 0.08]].forEach(([mult, amp]) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.value = hz(m) * mult;
+        g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.05 * vel * amp, t + 0.03);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 4.5 / mult);
+        o.connect(g); g.connect(dry); g.connect(verb); o.start(t); o.stop(t + 5);
+      });
+    }
+    let idx = 0, nextChord = ctx.currentTime + 0.1, timer = null;
+    function schedule() {
+      while (nextChord < ctx.currentTime + 12) {
+        const ch = CHORDS[idx % CHORDS.length];
+        pad(ch, nextChord, CHORD_SECS);
+        const fits = SCALE.filter((n) => ch.some((c) => (n - c) % 12 === 0));
+        let t = nextChord + 0.8 + Math.random();
+        const count = 2 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < count && t < nextChord + CHORD_SECS - 1; i++) {
+          bell(fits[Math.floor(Math.random() * fits.length)], t, 0.6 + Math.random() * 0.4);
+          t += 1.6 + Math.random() * 2.2;
+        }
+        nextChord += CHORD_SECS; idx++;
+      }
+    }
+    const ramp = (v, secs) => { const now = ctx.currentTime; master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value, now); master.gain.linearRampToValueAtTime(v, now + secs); };
+    return {
+      fadeIn() { if (ctx.state === "suspended") ctx.resume(); nextChord = Math.max(nextChord, ctx.currentTime + 0.1); schedule(); clearInterval(timer); timer = setInterval(schedule, 3000); ramp(0.9, 4); },
+      fadeOut() { ramp(0, 3); setTimeout(() => clearInterval(timer), 3200); }
+    };
+  }
+  let audio = null, soundOn = false;
+  $("sound-tgl").addEventListener("click", () => {
+    soundOn = !soundOn;
+    try { if (soundOn) { if (!audio) audio = createAmbientSound(); audio.fadeIn(); } else if (audio) audio.fadeOut(); } catch (_) { soundOn = false; }
+    $("sound-tgl").setAttribute("aria-pressed", soundOn);
+  });
+
+  /* ================== BODY MAP ================== */
+  const ZONES = [
+    ["head", 100, 36, 22, 22], ["throat", 100, 67, 11, 9], ["chest", 100, 102, 26, 20], ["stomach", 100, 140, 20, 14], ["belly", 100, 168, 18, 13],
+    ["l_shoulder", 65, 90, 14, 12], ["r_shoulder", 135, 90, 14, 12], ["l_arm", 52, 130, 11, 22], ["r_arm", 148, 130, 11, 22],
+    ["l_hand", 48, 172, 11, 12], ["r_hand", 152, 172, 11, 12], ["hips", 100, 198, 24, 12], ["l_thigh", 80, 232, 12, 20], ["r_thigh", 120, 232, 12, 20],
+    ["l_knee", 79, 264, 10, 9], ["r_knee", 121, 264, 10, 9], ["l_leg", 78, 293, 9, 18], ["r_leg", 122, 293, 9, 18], ["l_foot", 77, 325, 13, 8], ["r_foot", 123, 325, 13, 8]
+  ];
+  const regionOf = (z) => Object.keys(REGIONS).find((r) => REGIONS[r].zones.includes(z));
+  const SIL = (fill = "#FFFFFF") => {
+    const a = `fill="${fill}" stroke="#D9CCBC" stroke-width="1.2"`;
+    return `<ellipse cx="100" cy="36" rx="24" ry="26" ${a}/><rect x="91" y="60" width="18" height="14" rx="5" ${a}/>
+      <path d="M68 74 Q60 88 59 106 Q57 132 61 158 Q65 176 72 190 L128 190 Q135 176 139 158 Q143 132 141 106 Q140 88 132 74 Z" ${a}/>
+      <path d="M72 190 Q70 200 68 212 L132 212 Q130 200 128 190 Z" ${a}/>
+      <path d="M68 78 Q51 94 45 118 Q41 143 43 166 L56 166 Q57 143 59 117 Q64 95 76 80 Z" ${a}/>
+      <path d="M132 78 Q149 94 155 118 Q159 143 157 166 L144 166 Q143 143 141 117 Q136 95 124 80 Z" ${a}/>
+      <ellipse cx="49" cy="172" rx="12" ry="14" ${a}/><ellipse cx="151" cy="172" rx="12" ry="14" ${a}/>
+      <path d="M72 212 Q68 235 66 262 Q64 290 66 318 L88 318 Q90 290 90 262 Q90 236 88 212 Z" ${a}/>
+      <path d="M112 212 Q110 236 110 262 Q110 290 112 318 L134 318 Q136 290 134 262 Q132 235 128 212 Z" ${a}/>
+      <ellipse cx="77" cy="325" rx="14" ry="9" ${a}/><ellipse cx="123" cy="325" rx="14" ry="9" ${a}/>`;
+  };
+  function bodyMap() {
+    return `<svg class="body-svg" viewBox="0 0 200 338" role="group" aria-label="Body map: tap where you feel it">${SIL()}
+      ${ZONES.map(([id, cx, cy, rx, ry]) => { const r = regionOf(id); return `<g class="zone${d.regions.includes(r) ? " on" : ""}" data-zone="${id}" data-region="${r}" tabindex="0" role="button" aria-label="${esc(REGIONS[r].label)}" aria-pressed="${d.regions.includes(r)}">
+        <ellipse class="hit" cx="${cx}" cy="${cy}" rx="${Math.max(rx + 3, 12)}" ry="${Math.max(ry + 3, 12)}"/><ellipse class="dot" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/></g>`; }).join("")}</svg>`;
+  }
+  function miniBody(region) {
+    const zs = region && REGIONS[region] ? REGIONS[region].zones : [];
+    const all = region === "whole" || region === "savor";
+    return `<svg class="mini-body" viewBox="0 0 200 338" aria-hidden="true">${SIL(all ? "#F6E2D6" : "#FFFFFF")}
+      ${ZONES.map(([id, cx, cy, rx, ry]) => `<ellipse class="rg${zs.includes(id) ? " on" : ""}" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/>`).join("")}</svg>`;
+  }
+
+  /* ================== VIEWS ================== */
+  const label = (t) => `<p class="step-label">${t}</p>`;
+  const nav = (txt, ok = true, back = true) => `<div class="actions"><button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${txt}</button>${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}</div>`;
+  const pill = () => word() ? `<p class="feeling-pill">${fam() ? fam().icon : ""} ${esc(word())}</p>` : "";
+  const safety = () => SAFETY_WORDS.includes(d.word) ? `<p class="safety"><strong>You deserve support.</strong> If you're feeling hopeless or having thoughts of harming yourself, please reach out now. In the U.S., call or text <strong>988</strong>. Elsewhere, contact your local emergency number.</p>` : "";
+
+  const views = {
+    0: () => `
+      ${label("R · Recognize")}
+      <h2 class="q" tabindex="-1">What are you <em>feeling</em> right now?</h2>
+      <p class="hint">Start with the closest family. You'll find the exact word next.</p>
+      <div class="fam-grid">${FAMILIES.map((f) => `<button type="button" class="opt" data-fam="${f.id}" aria-pressed="${d.fam === f.id}"><span class="icon" aria-hidden="true">${f.icon}</span><span><b>${esc(f.name)}</b><small>${esc(f.sub)}</small></span></button>`).join("")}</div>
+      ${d.fam ? `
+      <p class="group-name" style="margin-top:24px">Which word fits best?</p>
+      <div class="wordgrid">${fam().words.map(([w, m]) => `<button type="button" class="word" data-word="${esc(w)}" aria-pressed="${d.word === w && !d.own.trim()}"><b>${esc(w)}</b><small>${esc(m)}</small></button>`).join("")}</div>
+      <details class="own-words"${d.own.trim() ? " open" : ""}><summary>Use my own word</summary>
+        <input type="text" data-field="own" maxlength="40" aria-label="Your own word for the feeling" placeholder="e.g. unsettled" value="${esc(d.own)}"></details>
+      <div class="scale"><label for="before">How strong is it? <output id="before-out" for="before">${d.before}</output></label>
+        <input id="before" type="range" min="0" max="10" step="1" value="${d.before}" data-field="before"><div class="ends"><span>0 · barely there</span><span>10 · very strong</span></div></div>` : ""}
+      ${nav("Continue", !!word(), false)}`,
+
+    1: () => `
+      ${pill()}${safety()}
+      ${label("A · Allow")}
+      <h2 class="q" tabindex="-1">Where do you feel <em>${esc(word())}</em> in your body?</h2>
+      <p class="hint">Take a breath and scan from head to toe. Tap where you notice it: tightness, heat, heaviness, fluttering, or emptiness.</p>
+      <div class="bodywrap">
+        <div>${bodyMap()}</div>
+        <div class="region-list" role="group" aria-label="Body areas">${Object.entries(REGIONS).map(([k, r]) => `<button type="button" class="chip" data-region-chip="${k}" aria-pressed="${d.regions.includes(k)}">${esc(r.label)}</button>`).join("")}</div>
+      </div>
+      <button type="button" class="allow" data-act="allow" aria-pressed="${d.allowed}"><span class="box" aria-hidden="true">✓</span><span>I can let this be here, just for now.</span></button>
+      ${nav(pleasant() ? "Savor It" : "Ease This Place", d.regions.length)}`,
+
+    2: () => {
+      const r = currentRegion(), ex = EASE[r];
+      const others = pleasant() ? [] : d.regions.filter((x) => x !== r && !d.eased.includes(x));
+      return `
+      ${pill()}
+      ${label("✦ Ease it")}
+      <article class="card fade-in" style="padding:clamp(20px,4vw,32px)">
+        <div class="player">
+          <div style="display:grid;justify-items:center;gap:6px">${miniBody(r)}<div class="orb-wrap"><div class="orb" id="orb"></div></div></div>
+          <div>
+            <p class="p-title" tabindex="-1">${esc(ex.title)}</p>
+            <p class="p-step" id="p-step" aria-live="polite">${reduceMotion ? "" : ""}Press Start when you're ready.</p>
+            <div class="p-bar"><i id="p-bar"></i></div>
+            <p class="p-count" id="p-count">About ${Math.round(totalSecs(ex) / 10) * 10} seconds</p>
+            <div class="p-ctrl">
+              <button type="button" class="vbtn" id="p-start" aria-pressed="false">▶ Start</button>
+              <button type="button" class="vbtn" id="p-stop">■ Stop</button>
+            </div>
+          </div>
+        </div>
+        <div id="p-done" class="done-msg" hidden>
+          <p style="margin:0">Notice how this place feels now. Even a small softening counts, and so does no change.</p>
+          ${others.length ? `<p style="margin:8px 0 0">You also noticed it in your ${esc(others.map((x) => REGIONS[x].label.toLowerCase()).join(" and "))}. <button type="button" class="btn-text" data-act="ease-next" style="padding:0">Ease that too</button></p>` : ""}
+        </div>
+      </article>
+      <p class="hint" style="margin-top:14px">Skip any movement that hurts. Turn on the voice guide above to hear each step.</p>
+      ${nav("Continue")}`;
+    },
+
+    3: () => `
+      ${pill()}
+      ${label("I · Investigate, with kindness")}
+      <h2 class="q" tabindex="-1">What might this feeling <em>need</em>?</h2>
+      <p class="need-insight">${esc(fam() ? fam().insight : "")}</p>
+      <p class="hint" style="margin-bottom:10px">Tap any that fit. It's okay not to know.</p>
+      <div class="chipset">${(fam() ? fam().needs : []).map((n) => `<button type="button" class="chip" data-need="${esc(n)}" aria-pressed="${d.needs.includes(n)}">${esc(n)}</button>`).join("")}</div>
+      ${nav("Continue")}`,
+
+    4: () => {
+      const options = [kindFor(), ...PHRASES];
+      return `
+      ${pill()}
+      ${label("N · Nurture")}
+      <h2 class="q" tabindex="-1">Offer yourself some <em>care</em></h2>
+      <p class="hint">Choose words you'd say to someone you love who felt ${esc(word())}. Read them slowly, out loud or in your mind.</p>
+      <div class="options">${options.map((t) => `<button type="button" class="opt bal" data-kind="${esc(t)}" aria-pressed="${d.kind === t}"><span><b style="font-weight:500;font-family:var(--font-display);font-size:17px">${esc(t)}</b></span></button>`).join("")}</div>
+      <div class="gesture-row"><p class="group-name">A soothing gesture, if it feels okay</p>
+        <div class="chipset">${GESTURES.map((g) => `<button type="button" class="chip" data-gesture="${esc(g)}" aria-pressed="${d.gesture === g}">${esc(g)}</button>`).join("")}</div></div>
+      ${nav("Let It Pass", !!d.kind)}`;
+    },
+
+    5: () => `
+      ${label("~ Let it pass")}
+      <div class="sky" id="sky">
+        <span class="cloud" aria-hidden="true">${esc(word())}</span>
+        <div class="pass-lines" id="pass-lines" aria-live="polite">${passLines().map((t) => `<p>${esc(t)}</p>`).join("")}</div>
+        <div class="pass-breath"><span class="dot" aria-hidden="true"></span><span>Breathe slowly. There's nothing to do.</span></div>
+      </div>
+      <div class="after" id="after" ${d.after === null ? "hidden" : ""}>
+        <h2 class="q" tabindex="-1" style="font-size:26px">When you're ready…</h2>
+        <div class="scale"><label for="afterR">How strong is <em>${esc(word())}</em> now? <output id="afterR-out" for="afterR">${d.after ?? d.before}</output></label>
+          <input id="afterR" type="range" min="0" max="10" step="1" value="${d.after ?? d.before}" data-field="after"><div class="ends"><span>0 · barely there</span><span>10 · very strong</span></div></div>
+        <div class="compare2"><div><b id="cmp">${d.before} → ${d.after ?? d.before}</b><span>strength of the feeling</span></div><div><b>${d.regions.length}</b><span>${d.regions.length === 1 ? "place" : "places"} you met it in your body</span></div></div>
+        <p class="hint" style="margin-top:14px">Feelings don't have to disappear to be met. Whatever changed, or didn't, is okay. You can come back anytime.</p>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" data-act="copy">Copy My Reflection</button>
+          <button type="button" class="btn btn-ghost" data-act="email">Email to Myself</button>
+          <button type="button" class="btn btn-ghost" data-act="restart">Start Again</button>
+          <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="actions" id="pass-skip"${d.after === null ? "" : " hidden"}><button type="button" class="btn btn-text" data-act="show-after">I'm ready to check in</button><button type="button" class="btn btn-text" data-act="back">← Back</button></div>`
+  };
+
+  function passLines() {
+    const where = regionsText();
+    return [
+      `You named it: ${word()}.`,
+      where ? `You felt it in your ${where}, and you gave that place some care.` : `You gave it some care.`,
+      d.kind,
+      "Now let it be here, just as it is…",
+      "and let it move in its own time, like a cloud crossing the sky.",
+      "You are the sky. The feeling is weather passing through."
+    ].filter(Boolean);
+  }
+
+  /* ================== EASE PLAYER ================== */
+  let pTimer = null, pRun = 0;
+  const currentRegion = () => pleasant() ? "savor" : (d.regions.find((r) => !d.eased.includes(r)) || d.regions[0] || "whole");
+  const totalSecs = (ex) => ex.steps.reduce((n, s) => n + (Array.isArray(s) ? s[1] : s.breath * (s.inS + s.outS)), 0);
+  function stopPlayer() { clearTimeout(pTimer); pRun++; hush(); const o = $("orb"); if (o) { o.style.transitionDuration = "1s"; o.style.transform = "scale(.7)"; } const b = $("p-start"); if (b) { b.setAttribute("aria-pressed", "false"); b.textContent = "▶ Start"; } }
+  function runPlayer() {
+    stopPlayer(); const run = ++pRun, r = currentRegion(), ex = EASE[r];
+    const seq = [];
+    ex.steps.forEach((s) => {
+      if (Array.isArray(s)) seq.push({ text: s[0], secs: s[1], kind: "hold" });
+      else for (let i = 0; i < s.breath; i++) { seq.push({ text: i === 0 ? s.text : "Breathe in…", secs: s.inS, kind: "in", say: i === 0 ? s.text : "Breathe in" }); seq.push({ text: "…and out.", secs: s.outS, kind: "out", say: i === 0 ? "" : "and out" }); }
+    });
+    const total = seq.reduce((n, x) => n + x.secs, 0); let elapsed = 0;
+    $("p-start").setAttribute("aria-pressed", "true"); $("p-start").textContent = "● Playing"; $("p-done").hidden = true;
+    const tick = (i) => {
+      if (run !== pRun) return;
+      if (i >= seq.length) {
+        $("p-step").textContent = "Well done. Rest here for a moment."; $("p-bar").style.width = "100%"; $("p-count").textContent = "Complete";
+        say("Well done. Rest here for a moment, and notice how this place feels now.");
+        if (!d.eased.includes(r) && r !== "savor") d.eased.push(r);
+        $("p-done").hidden = false; $("p-start").setAttribute("aria-pressed", "false"); $("p-start").textContent = "↻ Again";
+        const o = $("orb"); if (o) { o.style.transitionDuration = "2s"; o.style.transform = "scale(.7)"; }
+        return;
+      }
+      const s = seq[i];
+      $("p-step").textContent = s.text;
+      if (s.say !== "" ) say(s.say || s.text);
+      const o = $("orb");
+      if (o && !reduceMotion) { o.style.transitionDuration = s.secs + "s"; o.style.transform = s.kind === "in" ? "scale(1)" : s.kind === "out" ? "scale(.7)" : "scale(.82)"; }
+      const left = Math.max(0, Math.round(total - elapsed));
+      $("p-count").textContent = `${left} seconds left`;
+      elapsed += s.secs; $("p-bar").style.width = (elapsed / total * 100) + "%";
+      pTimer = setTimeout(() => tick(i + 1), s.secs * 1000);
+    };
+    tick(0);
+  }
+
+  /* ================== LET IT PASS ================== */
+  let passTimers = [];
+  function startPass() {
+    passTimers.forEach(clearTimeout); passTimers = [];
+    const ps = [...document.querySelectorAll("#pass-lines p")];
+    ps.forEach((p, i) => passTimers.push(setTimeout(() => { p.classList.add("in"); say(p.textContent); }, reduceMotion ? 0 : 1500 + i * 7000)));
+    passTimers.push(setTimeout(() => showAfter(), reduceMotion ? 800 : 1500 + ps.length * 7000 + 9000));
+  }
+  function showAfter() {
+    passTimers.forEach(clearTimeout); passTimers = [];
+    document.querySelectorAll("#pass-lines p").forEach((p) => p.classList.add("in"));
+    if (d.after === null) d.after = d.before;
+    $("after").hidden = false; $("pass-skip").hidden = true;
+    $("afterR-out").textContent = d.after; $("cmp").textContent = `${d.before} → ${d.after}`;
+  }
+
+  /* ================== RENDER + EVENTS ================== */
+  function render(focus = true) {
+    const same = lastView === d.step; lastView = d.step;
+    stopPlayer(); passTimers.forEach(clearTimeout); passTimers = []; hush();
+    $("stage").innerHTML = views[d.step]();
+    if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
+    [...$("rain").children].forEach((li, i) => { li.classList.toggle("done", i < d.step); li.classList.toggle("now", i === d.step); });
+    if (d.step === 5 && d.after === null) startPass();
+    if (focus) {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true });
+      const intro = { 0: "What are you feeling right now?", 1: `Where do you feel ${word()} in your body? Take a breath and scan from head to toe.`, 2: "When you're ready, press Start.", 3: "What might this feeling need?", 4: "Offer yourself some care." }[d.step];
+      if (intro) setTimeout(() => say(intro), 300);
+    }
+  }
+  const ok = { 0: () => !!word(), 1: () => d.regions.length, 4: () => !!d.kind };
+  function sync() { const n = $("stage").querySelector('[data-act="next"]'); if (n && ok[d.step]) n.disabled = !ok[d.step](); }
+
+  function toggleRegion(r) {
+    if (r === "whole") d.regions = d.regions.includes("whole") ? [] : ["whole"];
+    else { d.regions = d.regions.filter((x) => x !== "whole"); const i = d.regions.indexOf(r); i >= 0 ? d.regions.splice(i, 1) : d.regions.push(r); }
+    d.eased = d.eased.filter((x) => d.regions.includes(x));
+    $("stage").querySelectorAll("[data-region]").forEach((g) => { const on = d.regions.includes(g.dataset.region); g.classList.toggle("on", on); g.setAttribute("aria-pressed", on); });
+    $("stage").querySelectorAll("[data-region-chip]").forEach((b) => b.setAttribute("aria-pressed", d.regions.includes(b.dataset.regionChip)));
+    sync();
+  }
+
+  $("stage").addEventListener("input", (e) => {
+    const f = e.target.dataset.field; if (!f) return;
+    if (e.target.type === "range") {
+      d[f] = +e.target.value; const out = $(e.target.id + "-out"); if (out) out.textContent = d[f];
+      if (f === "after") $("cmp").textContent = `${d.before} → ${d.after}`;
+    } else {
+      d[f] = e.target.value;
+      if (f === "own") $("stage").querySelectorAll("[data-word]").forEach((b) => b.setAttribute("aria-pressed", !e.target.value.trim() && b.dataset.word === d.word));
+    }
+    sync();
+  });
+  $("stage").addEventListener("keydown", (e) => { const g = e.target.closest?.("[data-region]"); if (g && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggleRegion(g.dataset.region); } });
+  $("stage").addEventListener("click", (e) => {
+    const t = e.target;
+    const f = t.closest("[data-fam]"); if (f) { if (d.fam !== f.dataset.fam) { d.fam = f.dataset.fam; d.word = ""; d.needs = []; d.kind = ""; } render(false); const first = $("stage").querySelector("[data-word]"); if (first) first.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" }); return; }
+    const w = t.closest("[data-word]"); if (w) { d.word = w.dataset.word; d.own = ""; const inp = $("stage").querySelector('[data-field="own"]'); if (inp) inp.value = ""; $("stage").querySelectorAll("[data-word]").forEach((b) => b.setAttribute("aria-pressed", b === w)); sync(); return; }
+    const z = t.closest("[data-region]"); if (z) { toggleRegion(z.dataset.region); return; }
+    const rc = t.closest("[data-region-chip]"); if (rc) { toggleRegion(rc.dataset.regionChip); return; }
+    const n = t.closest("[data-need]"); if (n) { const v = n.dataset.need, i = d.needs.indexOf(v); i >= 0 ? d.needs.splice(i, 1) : d.needs.push(v); n.setAttribute("aria-pressed", i < 0); return; }
+    const k = t.closest("[data-kind]"); if (k) { d.kind = d.kind === k.dataset.kind ? "" : k.dataset.kind; $("stage").querySelectorAll("[data-kind]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.kind === d.kind)); if (d.kind) say(d.kind); sync(); return; }
+    const g = t.closest("[data-gesture]"); if (g) { d.gesture = d.gesture === g.dataset.gesture ? "" : g.dataset.gesture; $("stage").querySelectorAll("[data-gesture]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.gesture === d.gesture)); return; }
+    if (t.id === "p-start") { runPlayer(); return; }
+    if (t.id === "p-stop") { stopPlayer(); $("p-step").textContent = "Paused. Press Start to begin again."; return; }
+    const a = t.closest("[data-act]")?.dataset.act; if (!a) return;
+    if (a === "allow") { d.allowed = !d.allowed; t.closest("[data-act]").setAttribute("aria-pressed", d.allowed); if (d.allowed) say("I can let this be here, just for now."); return; }
+    if (a === "ease-next") { render(false); return; }
+    if (a === "next") { d.step = Math.min(d.step + 1, 5); render(); return; }
+    if (a === "back") { if (d.step === 5) d.after = null; d.step = Math.max(d.step - 1, 0); render(); return; }
+    if (a === "show-after") { showAfter(); return; }
+    if (a === "restart") { d = blank(); render(); return; }
+    if (a === "copy") { copyText(reflectionText()); return; }
+    if (a === "email") {
+      window.location.href = "mailto:?subject=" + encodeURIComponent("Meet the Feeling: " + word()) + "&body=" + encodeURIComponent(reflectionText());
+      $("copy-status").textContent = "Your email app should open. Add your own address and send."; return;
+    }
+  });
+
+  function reflectionText() {
+    const L = ["Meet the Feeling · my reflection", "", `Feeling: ${word()}${fam() ? " (" + fam().name.toLowerCase() + ")" : ""}`, `Where I felt it: ${d.regions.map((r) => REGIONS[r].label).join(", ")}`];
+    if (d.eased.length || pleasant()) L.push(`What I practiced: ${pleasant() ? EASE.savor.title : d.eased.map((r) => EASE[r].title).join(", ")}`);
+    if (d.needs.length) L.push(`What it might need: ${d.needs.join(", ")}`);
+    if (d.kind) L.push(`Kind words: "${d.kind}"`);
+    if (d.gesture) L.push(`Soothing gesture: ${d.gesture}`);
+    L.push(`Strength: ${d.before} → ${d.after ?? d.before} (out of 10)`, "", "You are the sky. The feeling is weather passing through.");
+    return L.join("\n");
+  }
+  function copyText(text) {
+    const done = (m) => { const s = $("copy-status"); if (s) s.textContent = m; };
+    const fb = () => { const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done("Copied."); } catch (_) { done("Couldn't copy."); } ta.remove(); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done("Copied."), fb); else fb();
+  }
+
+  render(false);
+})();
+</script>
+</body>
+</html>
