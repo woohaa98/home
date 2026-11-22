@@ -235,9 +235,12 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
   .print-head b { display: block; font-size: 13pt; color: #000; }
   body { background: #fff; font-size: 11pt; }
-  .topbar, header, .steps, .step-name, .nav, .disclaimer, section:not(#s-journal), #j-intro, .no-print { display: none !important; }
+  .topbar, header, .steps, .step-name, .nav, .disclaimer, section:not(#s-journal):not(#insight), #j-intro, .no-print { display: none !important; }
   #s-journal { display: block !important; }
   .summary { box-shadow: none; border: 0; padding: 0; }
+  .insight { box-shadow: none; padding: 0 0 12px; border: 0; border-bottom: 1px solid #ccc; border-radius: 0; }
+  .ins { break-inside: avoid; }
+  .gap-bars .track { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .prompt textarea { border: 0; padding: 0; min-height: 0; resize: none; overflow: visible; }
   .prompt textarea:placeholder-shown { min-height: 1.2in; border-bottom: 1px solid #ccc; }
   .prompt { break-inside: avoid; }
