@@ -317,13 +317,14 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <select id="voice-sel"></select>
       <button type="button" class="btn-text" id="voice-try">Try it</button>
       <details class="voice-help">
-        <summary>Want a warmer, more natural voice?</summary>
+        <summary>Prefer a voice on your own device?</summary>
         <p><b>iPhone or iPad:</b> Settings › Accessibility › Spoken Content › Voices › English. Download a voice marked <i>Enhanced</i> or <i>Premium</i> (Ava, Zoe, or Evan sound especially natural), then reopen this page and choose it here.</p>
         <p><b>Mac:</b> System Settings › Accessibility › Spoken Content › System Voice › Manage Voices.</p>
         <p><b>Windows:</b> Settings › Time &amp; Language › Speech › Manage voices.</p>
         <p>These voices run on your own device, so your words stay private.</p>
       </details>
     </div>
+    <p class="mini" id="voice-ai-note" hidden style="font-size:13px;color:var(--muted);margin:-12px 0 16px">The natural voice is AI-generated, not a human voice. It plays recordings saved on this site, so nothing you choose or type is sent anywhere.</p>
     <p class="mini" id="voice-off-note" hidden style="font-size:13px;color:var(--muted);margin:-12px 0 16px">This browser has no built-in voice on the device, so the voice guide is off to keep things private. Every step is also shown on screen.</p>
 
     <section id="stage"></section>
@@ -341,11 +342,12 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   <footer class="disclaimer">
     <p>A self-guided practice drawing on emotion labeling, mindfulness, and the RAIN practice (first described by Michele McDonald and adapted by Tara Brach). It is not therapy and not crisis support.</p>
     <p>If you are in crisis in the U.S., call or text 988, or call 911. Skip any movement that causes pain.</p>
-    <p>Your choices stay on your device. Nothing is saved, tracked, or sent anywhere. The voice guide uses only voices built into your device, and the music is composed live in your browser.</p>
+    <p>Your choices stay on your device. Nothing is saved, tracked, or sent anywhere. The voice guide plays recordings saved on this site (an AI-generated voice) or uses voices built into your device, and the music is composed live in your browser.</p>
       <p class="feedback-line">These tools are evolving, and your feedback helps shape them. <a href="mailto:wooheekwak@outlook.com?subject=Feedback%20on%20Meet%20the%20Feeling&amp;body=What%20helped%3A%0A%0AWhat%20was%20confusing%20or%20could%20be%20better%3A%0A%0A%28Please%20leave%20out%20personal%20or%20health%20details.%29%0A">Share feedback</a> (please leave out personal or health details).</p>
   </footer>
 </div>
 
+<script src="voice/meet-the-feeling/manifest.js"></script>
 <script>
 (() => {
   "use strict";
@@ -483,9 +485,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const regionsText = () => { const a = d.regions.map((r) => SHORT[r]); return a.length < 2 ? (a[0] || "") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1]; };
   const kindFor = () => fam() ? fam().kind.replace("{w}", word() || "this way") : "";
 
-  /* ================== VOICE (on-device only) ================== */
+  /* ================== VOICE ==================
+     Natural voice: AI-generated audio clips saved with this site (voice/meet-the-feeling/).
+     Device voice: voices built into the person's own device. Nothing is sent anywhere either way. */
   const synth = window.speechSynthesis;
-  let voiceOn = false, voice = null, vTok = 0;
+  const CLIPS = (window.WK_VOICE && window.WK_VOICE["meet-the-feeling"] && Object.keys(window.WK_VOICE["meet-the-feeling"]).length) ? window.WK_VOICE["meet-the-feeling"] : null;
+  const NATURAL = "__natural";
+  let voiceOn = false, voice = null, vTok = 0, natural = !!CLIPS, clipAudio = null;
+  const norm = (t) => String(t).replace(/…/g, "...").replace(/\s+/g, " ").trim();
+  const hashText = (t) => { let h = 0x811c9dc5; const x = norm(t); for (let i = 0; i < x.length; i++) { h ^= x.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(36); };
   function localVoices() {
     if (!synth) return [];
     const score = (v) => (/premium/i.test(v.name) ? 100 : 0) + (/enhanced|natural|neural/i.test(v.name) ? 60 : 0)
@@ -494,21 +502,25 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     return synth.getVoices().filter((v) => v.localService && /^en/i.test(v.lang) && score(v) > -100).sort((a, b) => score(b) - score(a));
   }
   let chosenVoice = null; // only for this visit
+  const canSpeak = () => !!CLIPS || !!voice;
   function refreshVoice() {
     const vs = localVoices();
     voice = vs.find((v) => v.name === chosenVoice) || vs[0] || null;
-    $("voice-sel").innerHTML = vs.map((v) => `<option value="${esc(v.name)}"${voice && v.name === voice.name ? " selected" : ""}>${esc(v.name.replace(/\s*\(English.*?\)/, ""))}</option>`).join("");
-    $("voice-row").hidden = !voiceOn || !voice;
-    $("voice-tgl").disabled = !voice;
-    $("voice-off-note").hidden = !!voice || !synth;
-    if (!voice && voiceOn) { voiceOn = false; $("voice-tgl").setAttribute("aria-pressed", "false"); }
+    natural = !!CLIPS && (chosenVoice === null || chosenVoice === NATURAL);
+    $("voice-sel").innerHTML = (CLIPS ? `<option value="${NATURAL}"${natural ? " selected" : ""}>Natural voice (AI-generated)</option>` : "")
+      + vs.map((v) => `<option value="${esc(v.name)}"${!natural && voice && v.name === voice.name ? " selected" : ""}>${esc(v.name.replace(/\s*\(English.*?\)/, ""))} (on this device)</option>`).join("");
+    $("voice-row").hidden = !voiceOn || !canSpeak();
+    $("voice-ai-note").hidden = !natural;
+    $("voice-tgl").disabled = !canSpeak();
+    $("voice-off-note").hidden = canSpeak() || !synth;
+    if (!canSpeak() && voiceOn) { voiceOn = false; $("voice-tgl").setAttribute("aria-pressed", "false"); }
   }
-  if (synth) { refreshVoice(); synth.addEventListener?.("voiceschanged", refreshVoice); } else { $("voice-tgl").disabled = true; }
-  // Read like a person: slower, slightly lower, with small breaths between phrases.
-  function say(text) {
-    if (!voiceOn || !voice || !synth) return;
-    synth.cancel(); const tok = ++vTok;
-    const parts = String(text).replace(/…/g, "...").split(/(?<=[,.;:?!])\s+/).filter(Boolean);
+  if (synth) synth.addEventListener?.("voiceschanged", refreshVoice);
+  refreshVoice();
+  function stopClip() { if (clipAudio) { clipAudio.pause(); clipAudio = null; } }
+  function deviceSay(text, tok) {
+    if (!voice || !synth) return;
+    const parts = norm(text).split(/(?<=[,.;:?!])\s+/).filter(Boolean);
     const next = (i) => {
       if (tok !== vTok || i >= parts.length) return;
       const u = new SpeechSynthesisUtterance(parts[i]);
@@ -518,10 +530,24 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     };
     next(0);
   }
-  function hush() { vTok++; if (synth) synth.cancel(); }
+  // say(text, alt): alt is a general version to use when there's no natural clip for text (e.g. text includes the person's own words).
+  function say(text, alt) {
+    if (!voiceOn) return;
+    if (synth) synth.cancel(); stopClip(); const tok = ++vTok;
+    if (natural && CLIPS) {
+      const key = [text, alt].filter(Boolean).map(hashText).find((k) => CLIPS[k]);
+      if (key) {
+        const a = new Audio(`voice/meet-the-feeling/${key}.mp3`); clipAudio = a; a.volume = 0.95;
+        a.play().catch(() => { if (tok === vTok) deviceSay(text, tok); });
+        return;
+      }
+    }
+    deviceSay(text, tok);
+  }
+  function hush() { vTok++; if (synth) synth.cancel(); stopClip(); }
   $("voice-tgl").addEventListener("click", () => {
     voiceOn = !voiceOn; $("voice-tgl").setAttribute("aria-pressed", voiceOn);
-    $("voice-row").hidden = !voiceOn || !voice;
+    $("voice-row").hidden = !voiceOn || !canSpeak();
     if (voiceOn) say("I'll guide you, gently, one step at a time."); else hush();
   });
 
@@ -717,7 +743,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${label("~ Let it pass")}
       <div class="sky" id="sky">
         <span class="cloud" aria-hidden="true">${esc(word())}</span>
-        <div class="pass-lines" id="pass-lines" aria-live="polite">${passLines().map((t) => `<p>${esc(t)}</p>`).join("")}</div>
+        <div class="pass-lines" id="pass-lines" aria-live="polite">${passLines().map((t, i) => `<p${PASS_ALT[i] ? ` data-alt="${esc(PASS_ALT[i])}"` : ""}>${esc(t)}</p>`).join("")}</div>
         <div class="pass-breath"><span class="dot" aria-hidden="true"></span><span>Breathe slowly. There's nothing to do.</span></div>
       </div>
       <div class="after" id="after" ${d.after === null ? "hidden" : ""}>
@@ -736,6 +762,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <div class="actions" id="pass-skip"${d.after === null ? "" : " hidden"}><button type="button" class="btn btn-text" data-act="show-after">I'm ready to check in</button><button type="button" class="btn btn-text" data-act="back">← Back</button></div>`
   };
 
+  const PASS_ALT = ["You named it.", "You felt it in your body, and you gave it some care.", "It makes sense that I feel this way. I can be gentle with myself."];
   function passLines() {
     const where = regionsText();
     return [
@@ -790,7 +817,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   function startPass() {
     passTimers.forEach(clearTimeout); passTimers = [];
     const ps = [...document.querySelectorAll("#pass-lines p")];
-    ps.forEach((p, i) => passTimers.push(setTimeout(() => { p.classList.add("in"); say(p.textContent); }, reduceMotion ? 0 : 1500 + i * 7000)));
+    ps.forEach((p, i) => passTimers.push(setTimeout(() => { p.classList.add("in"); say(p.textContent, p.dataset.alt); }, reduceMotion ? 0 : 1500 + i * 7000)));
     passTimers.push(setTimeout(() => showAfter(), reduceMotion ? 800 : 1500 + ps.length * 7000 + 9000));
   }
   function showAfter() {
@@ -812,8 +839,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (focus) {
       window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
       const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true });
-      const intro = { 0: "What are you feeling right now?", 1: `Where do you feel ${word()} in your body? Take a breath and scan from head to toe.`, 2: "When you're ready, press Start.", 3: "What might this feeling need?", 4: "Offer yourself some care." }[d.step];
-      if (intro) setTimeout(() => say(intro), 300);
+      const intro = { 0: "What are you feeling right now?", 1: [`Where do you feel ${word()} in your body? Take a breath and scan from head to toe.`, "Where do you feel this in your body? Take a breath and scan from head to toe."], 2: "When you're ready, press Start.", 3: "What might this feeling need?", 4: "Offer yourself some care." }[d.step];
+      if (intro) setTimeout(() => Array.isArray(intro) ? say(intro[0], intro[1]) : say(intro), 300);
     }
   }
   const ok = { 0: () => !!word(), 1: () => d.regions.length, 4: () => !!d.kind };
@@ -847,7 +874,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const z = t.closest("[data-region]"); if (z) { toggleRegion(z.dataset.region); return; }
     const rc = t.closest("[data-region-chip]"); if (rc) { toggleRegion(rc.dataset.regionChip); return; }
     const n = t.closest("[data-need]"); if (n) { const v = n.dataset.need, i = d.needs.indexOf(v); i >= 0 ? d.needs.splice(i, 1) : d.needs.push(v); n.setAttribute("aria-pressed", i < 0); return; }
-    const k = t.closest("[data-kind]"); if (k) { d.kind = d.kind === k.dataset.kind ? "" : k.dataset.kind; $("stage").querySelectorAll("[data-kind]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.kind === d.kind)); if (d.kind) say(d.kind); sync(); return; }
+    const k = t.closest("[data-kind]"); if (k) { d.kind = d.kind === k.dataset.kind ? "" : k.dataset.kind; $("stage").querySelectorAll("[data-kind]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.kind === d.kind)); if (d.kind) say(d.kind, PASS_ALT[2]); sync(); return; }
     const g = t.closest("[data-gesture]"); if (g) { d.gesture = d.gesture === g.dataset.gesture ? "" : g.dataset.gesture; $("stage").querySelectorAll("[data-gesture]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.gesture === d.gesture)); return; }
     if (t.id === "p-start") { runPlayer(); return; }
     if (t.id === "p-stop") { stopPlayer(); $("p-step").textContent = "Paused. Press Start to begin again."; return; }
