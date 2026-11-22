@@ -127,6 +127,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
 .summary dd { margin: 0; white-space: pre-wrap; }
 @media (max-width: 520px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.pick-hint { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.answers { margin-bottom: 6px; }
+.own-words { margin: 8px 0 0; }
+.own-words summary { cursor: pointer; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; list-style: none; }
+.own-words summary::-webkit-details-marker { display: none; }
+.own-words[open] summary { margin-bottom: 8px; }
+.message-card { margin: 22px 0 0; background: var(--accent-soft); border-radius: 16px; padding: 18px 20px; }
+.message-card .mc-label { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.message-card .mc-text { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
 .closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
 
 .disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
@@ -260,41 +269,49 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 
   const BODY_PLACES = ["Chest", "Throat", "Stomach", "Shoulders", "Jaw", "Head", "Back", "Hands", "Whole body", "Hard to say"];
 
+  /* Step 5 questions. Answers are tapped (multi-select unless single: true); own words are optional.
+     Options can differ by kind of part: manager, firefighter, identity. */
   const QUESTIONS = [
-    { key: "q1", label: "What it fears", q: (p) => `What does ${p} seem afraid would happen if it didn't do its job?` },
-    { key: "q2", label: "What it protects", q: () => "What is it trying to protect you from?" },
-    { key: "q3", label: "How long it's served", q: () => "How long do you sense it's been doing this role?" },
-    { key: "q4", label: "What it needs", q: () => "What does it need you, your calmer and wiser Self, to understand?" }
+    { key: "q1", label: "What it fears", q: (p) => `If ${p} stopped doing its job, what is it afraid would happen?`,
+      options: {
+        manager: ["I'd fail or fall behind", "People would be disappointed in me", "I'd be rejected or left out", "Things would fall apart", "I'd be seen as not good enough", "I'd lose control"],
+        firefighter: ["The pain would be too much", "I'd be overwhelmed", "I'd fall apart", "I'd feel completely alone", "I'd get hurt again", "Something unbearable would surface"],
+        identity: ["I'd lose who I am", "I'd make the wrong choice", "I'd be stuck forever", "I'd waste my potential", "I'd lose my security", "People would see me differently"]
+      } },
+    { key: "q2", label: "What it protects me from", q: () => "Which feelings is it trying to keep away from you?",
+      options: ["Shame", "Rejection", "Failure", "Loneliness", "Sadness or grief", "Fear", "Anger", "Feeling powerless", "Being criticized", "Uncertainty", "Feeling like a burden"] },
+    { key: "q3", label: "How long it's been working", q: () => "How long do you sense it's been doing this job?", single: true,
+      options: ["Since I was a child", "Since my teens", "Since a specific event or change", "The last few years", "Only recently", "I'm not sure"] },
+    { key: "q4", label: "What it needs", q: () => "What does it need from you, your calmer and wiser Self?",
+      options: ["To know I'm safe now", "To be thanked for working so hard", "To know I can handle this", "Some rest", "To trust me to lead", "To be heard, not fixed", "Permission to do less", "To know it's not alone"] }
   ];
+  const optionsFor = (q) => Array.isArray(q.options) ? q.options : (q.options[partGroup()] || q.options.manager);
 
-  // Gentle, pre-written reflections. Each honors the part's intent and ends with an open question.
-  const REFLECTIONS = {
-    q1: [
-      "That fear makes a lot of sense from where {p} stands. It has been bracing for something it believes would really hurt. What might help it feel even a little less on guard right now?",
-      "It sounds like {p} carries a real worry, and its effort is a way of trying to keep that from coming true. If it could set the worry down for a moment, what would it want to do instead?",
-      "There's care inside that fear. {p} works this hard because something feels like it's at stake. How does it feel to hear its fear named out loud?"
-    ],
-    q2: [
-      "So {p} has been standing between you and something painful. That's a protective job, even if the way it does it is costly at times. What do you notice toward it as you see this?",
-      "It's trying to keep you from being hurt in a way that once felt too much. That protection came from somewhere real. What would it need to trust that you can handle a little more now?",
-      "That's a lot for one part to guard against. It makes sense it hasn't wanted to step back. How does your body respond as you acknowledge what it protects?"
-    ],
-    q3: [
-      "Parts often take on their roles early, when they were the best option available. {p} may still be working as if things are the way they were then. What might it want to know about who you are today?",
-      "That's a long time to carry a job. It's okay if it feels tired, or stuck in an old pattern. What would you like {p} to know about your life now?",
-      "Sometimes just noticing how long a part has been working brings a little tenderness toward it. What do you feel toward {p} as you sense its history?"
-    ],
-    q4: [
-      "That's an important request, and it's worth taking in slowly. {p} has been waiting to be understood, not managed. What could you offer it, even in a small way, this week?",
-      "It sounds like {p} is asking to be seen for its effort. Simply hearing this can soften things. How does it respond as you let it know you heard it?",
-      "Listening to what a part needs is a kind of care. You don't have to act on everything right away. What feels like one small way to honor this?"
-    ],
-    thanks: [
-      "Thank you for offering {p} that appreciation. Parts often relax a little when their hard work is seen. What do you notice in your body now?",
-      "Whatever its response was, even uncertainty, is welcome. Building trust with a part can take time. What would you like to say to it before you close?",
-      "Appreciation can be a new experience for a part that has worked without thanks. Is there anything else it wants you to know right now?"
-    ]
+  const THANKS = ["It softened a little", "It relaxed", "It felt surprised", "It felt seen", "It's still on guard", "It didn't trust me yet", "Hard to tell"];
+
+  // What each "need" can turn into this week.
+  const NEED_ACTIONS = {
+    "To know I'm safe now": "When {p} shows up, name one way you're safe right now: \"Right now, I'm okay.\"",
+    "To be thanked for working so hard": "Each evening, thank {p} for one thing it tried to do for you that day.",
+    "To know I can handle this": "Pick one small moment this week to let {p} watch you handle something without its help.",
+    "Some rest": "Give {p} a short break: tell it \"I've got this for the next ten minutes,\" and notice what happens.",
+    "To trust me to lead": "Before acting this week, pause and ask: \"Is this {p} deciding, or me?\"",
+    "To be heard, not fixed": "Take two minutes a day to ask {p} what it's worried about. Just listen; don't fix.",
+    "Permission to do less": "Choose one task this week to do at \"good enough,\" and notice how {p} responds.",
+    "To know it's not alone": "Share what you learned about {p} with someone you trust, or bring this card to therapy."
   };
+
+  const HISTORY_NOTES = {
+    "Since I was a child": "Parts that start young often still act as if you're that age. {p} may not know how much you've grown.",
+    "Since my teens": "{p} learned its job during a time of big changes. It may still be using strategies that fit then, not now.",
+    "Since a specific event or change": "{p} may have stepped in to get you through something hard. That made sense then; it may not need to work this hard now.",
+    "The last few years": "{p} has been carrying a lot lately. It may be tired, too.",
+    "Only recently": "{p} is new to this job. Getting to know it early can keep it from taking over.",
+    "I'm not sure": "That's okay. You can ask {p} about its history another time."
+  };
+
+  const listText = (arr) => arr.length < 2 ? (arr[0] || "") : arr.slice(0, -1).join(", ") + " and " + arr[arr.length - 1];
+  const low = (t) => /^I[ ']/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
 
   const EXPERIMENTS = {
     manager: [
@@ -320,7 +337,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const STEPS = 8;
   const blank = () => ({ agree: false, topic: "", topicCustom: "", category: "", part: "", partCustom: "", bodyPlaces: [], body: "", blend: 5,
-                         q1: "", q2: "", q3: "", q4: "", appreciation: "", experiment: "", experimentCustom: "" });
+                         q1: "", q2: "", q3: "", q4: "", a1: [], a2: [], a3: [], a4: [], thanks: [], appreciation: "", experiment: "", experimentCustom: "" });
   let d = blank();
   let step = 0, sub = 0;
   const shown = {};          // which reflections have been revealed, by key
@@ -331,14 +348,36 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const allParts = () => Object.entries(PARTS).flatMap(([g, list]) => list.map(([id, label, desc]) => ({ g, id, label, desc })));
   const partName = () => d.part === "custom" ? (d.partCustom.trim() || "this part") : (allParts().find((p) => p.id === d.part)?.label || "this part");
   const partGroup = () => allParts().find((p) => p.id === d.part)?.g || (d.category && d.category !== "unsure" ? d.category : "manager");
-  const fill = (t) => t.replaceAll("{p}", partName());
+  const midName = () => partName().replace(/^The /, "the ");
+  const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+  const fill = (t) => cap(t.replaceAll("{p}", midName()));
   const topicText = () => d.topic === "Something else" ? d.topicCustom.trim() : d.topic;
   const experimentText = () => d.experiment === "custom" ? d.experimentCustom.trim() : (d.experiment ? fill(d.experiment) : "");
 
+  const akey = (q) => "a" + q.key.slice(1);
+  const answerList = (q) => [...d[akey(q)], d[q.key].trim()].filter(Boolean);
+  const answerText = (q) => answerList(q).join("; ");
+  const thanksList = () => [...d.thanks, d.appreciation.trim()].filter(Boolean);
+
+  // A short, gentle reflection built from what was tapped.
   function reflectionFor(key) {
-    const list = REFLECTIONS[key];
-    if (pickIdx[key] == null) pickIdx[key] = Math.floor(Math.random() * list.length);
-    return fill(list[pickIdx[key]]);
+    return cap(reflectionRaw(key));
+  }
+  function reflectionRaw(key) {
+    const P = midName();
+    if (key === "thanks") {
+      if (!thanksList().length) return "";
+      const wary = d.thanks.some((t) => /guard|trust|Hard to tell/.test(t));
+      return wary ? `That's honest, and it's okay. Trust builds slowly. ${P} has been working alone for a while; you can keep checking in.`
+                  : `${P} noticed your appreciation. Parts often ease when their effort is seen. Notice how your body feels right now.`;
+    }
+    const q = QUESTIONS.find((x) => x.key === key), picks = d[akey(q)];
+    if (!picks.length && !d[key].trim()) return "";
+    if (key === "q1") return picks.length ? `So ${P} is afraid that ${listText(picks.map(low))}. No wonder it works so hard. Its fear makes sense from where it stands.` : `There's care inside that fear. ${P} works hard because something feels at stake.`;
+    if (key === "q2") return picks.length ? `${P} has been standing between you and ${listText(picks.map(low))}. That's a protective job, even when the way it does it costs you something.` : `${P} has been protecting you from something that once felt like too much.`;
+    if (key === "q3") return fill(HISTORY_NOTES[picks[0]] || "Noticing how long a part has been working often brings a little tenderness toward it.");
+    if (key === "q4") return picks.length ? `${P} needs ${listText(picks.map(low))}. This is where you come in: you'll turn this into one small step at the end.` : `Listening to what a part needs is a kind of care. You'll turn this into one small step at the end.`;
+    return "";
   }
 
   /* ---------- views ---------- */
@@ -346,8 +385,23 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     return `<button type="button" class="opt ${extra}" ${attrs} aria-pressed="${pressed}">${inner}</button>`;
   }
   function reflectBlock(key) {
-    if (!shown[key]) return "";
-    return `<div class="reflection fade-in" role="note"><span class="mark" aria-hidden="true">✦</span><p>${esc(reflectionFor(key))}</p></div>`;
+    const t = reflectionFor(key);
+    if (!t) return "";
+    return `<div class="reflection" role="note"><span class="mark" aria-hidden="true">✦</span><p>${esc(t)}</p></div>`;
+  }
+  function experimentsList() {
+    const fromNeeds = d.a4.map((n) => NEED_ACTIONS[n]).filter(Boolean);
+    const rest = EXPERIMENTS[partGroup()].filter((e) => !fromNeeds.includes(e));
+    return fromNeeds.concat(rest).slice(0, 4);
+  }
+  function messageToPart() {
+    const P = partName().replace(/^The /, ""), f = d.a1, pr = d.a2, n = d.a4;
+    const bits = [`I see you, ${P}.`];
+    if (f.length) bits.push(`I know you're afraid that ${listText(f.map(low))}.`);
+    if (pr.length) bits.push(`Thank you for trying to protect me from ${listText(pr.map(low))}.`);
+    if (n.length) bits.push(`I hear that you need ${listText(n.map(low))}.`);
+    bits.push("I'm here, and we can figure this out together.");
+    return bits.join(" ");
   }
   function nav(nextLabel, enabled, back = true) {
     return `<div class="actions">
@@ -430,19 +484,25 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${nav("Continue", d.bodyPlaces.length || d.body.trim())}`,
 
     5: () => {
-      const cur = QUESTIONS[sub];
-      const val = d[cur.key];
+      const cur = QUESTIONS[sub], k = akey(cur), picks = d[k];
       const last = sub === QUESTIONS.length - 1;
+      const ok = picks.length || d[cur.key].trim();
       return `
       <p class="step-label">Step 5 of 7 · Getting to know ${esc(partName())}</p>
       <h2 class="q" tabindex="-1">Stay <em>curious</em></h2>
       <p class="subcount">Question ${sub + 1} of ${QUESTIONS.length}</p>
-      <p class="prompt-card">${esc(cur.q(partName()))}</p>
-      <textarea rows="4" data-field="${cur.key}" aria-label="${esc(cur.q(partName()))}" placeholder="Take your time. A word or two is enough.">${esc(val)}</textarea>
-      <div id="reflect-slot">${reflectBlock(cur.key)}</div>
+      <p class="prompt-card">${esc(cur.q(midName()))}</p>
+      <p class="pick-hint">${cur.single ? "Tap the one that fits best." : "Tap any that fit. Go with your first sense."}</p>
+      <div class="chipset answers" role="group" aria-label="${esc(cur.q(midName()))}">
+        ${optionsFor(cur).map((o) => `<button type="button" class="chip" data-answer="${k}" data-val="${esc(o)}"${cur.single ? ' data-single' : ""} aria-pressed="${picks.includes(o)}">${esc(o)}</button>`).join("")}
+      </div>
+      <details class="own-words"${d[cur.key].trim() ? " open" : ""}>
+        <summary>Add your own words (optional)</summary>
+        <input type="text" data-field="${cur.key}" maxlength="160" aria-label="In your own words" placeholder="A word or a short phrase is plenty" value="${esc(d[cur.key])}">
+      </details>
+      <div id="reflect-slot" aria-live="polite">${reflectBlock(cur.key)}</div>
       <div class="actions">
-        <button type="button" class="btn btn-primary" data-act="next" ${val.trim() ? "" : "disabled"}>${last ? "Continue to Appreciation" : "Next Question"}</button>
-        <button type="button" class="btn btn-ghost" data-act="reflect" ${val.trim() && !shown[cur.key] ? "" : "hidden"}>✦ Reflect with me</button>
+        <button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${last ? "Continue to Appreciation" : "Next Question"}</button>
         <button type="button" class="btn btn-text" data-act="back">← Back</button>
       </div>`;
     },
@@ -450,27 +510,30 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     6: () => `
       <p class="step-label">Step 6 of 7 · Appreciation</p>
       <h2 class="q" tabindex="-1">Thank ${esc(partName())} for its <em>care</em></h2>
-      <p class="hint">This part has been working hard for you, maybe for a long time. See if you can offer it a moment of genuine appreciation, even for the intention behind what it does.</p>
-      <div class="field">
-        <label for="appreciation">How does it respond when you thank it?</label>
-        <textarea id="appreciation" rows="4" data-field="appreciation" placeholder="e.g. It softened a little. It didn't trust me yet. It felt surprised.">${esc(d.appreciation)}</textarea>
+      <p class="hint">This part has been working hard for you, maybe for a long time. Take a breath and offer it a moment of genuine appreciation, even just for its intention. You might say inwardly: "Thank you for trying to protect me."</p>
+      <p class="pick-hint">How does it respond? Tap any that fit.</p>
+      <div class="chipset answers" role="group" aria-label="How does it respond?">
+        ${THANKS.map((t) => `<button type="button" class="chip" data-answer="thanks" data-val="${esc(t)}" aria-pressed="${d.thanks.includes(t)}">${esc(t)}</button>`).join("")}
       </div>
-      <div id="reflect-slot">${reflectBlock("thanks")}</div>
+      <details class="own-words"${d.appreciation.trim() ? " open" : ""}>
+        <summary>Add your own words (optional)</summary>
+        <input type="text" id="appreciation" data-field="appreciation" maxlength="160" aria-label="How it responds, in your own words" placeholder="e.g. It took a breath with me" value="${esc(d.appreciation)}">
+      </details>
+      <div id="reflect-slot" aria-live="polite">${reflectBlock("thanks")}</div>
       <div class="actions">
-        <button type="button" class="btn btn-primary" data-act="next" ${d.appreciation.trim() ? "" : "disabled"}>See My Reflection</button>
-        <button type="button" class="btn btn-ghost" data-act="reflect" ${d.appreciation.trim() && !shown.thanks ? "" : "hidden"}>✦ Reflect with me</button>
+        <button type="button" class="btn btn-primary" data-act="next" ${thanksList().length ? "" : "disabled"}>See My Reflection</button>
         <button type="button" class="btn btn-text" data-act="back">← Back</button>
       </div>`,
 
     7: () => {
-      const exps = EXPERIMENTS[partGroup()];
+      const exps = experimentsList();
       const rows = [
         ["Part explored", partName()],
         ["Situation", topicText()],
         ["In my body", [d.bodyPlaces.join(", "), d.body.trim()].filter(Boolean).join(". ")],
         ["How blended", `${d.blend} of 10`],
-        ...QUESTIONS.map((q) => [q.label, d[q.key].trim()]),
-        ["Its response to thanks", d.appreciation.trim()]
+        ...QUESTIONS.map((q) => [q.label, answerText(q)]),
+        ["Its response to thanks", thanksList().join("; ")]
       ].filter((r) => r[1]);
       return `
       <article class="card fade-in">
@@ -481,8 +544,13 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <dl class="summary">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}
           <div id="exp-row" ${experimentText() ? "" : "hidden"}><dt>A small experiment</dt><dd id="exp-val">${esc(experimentText())}</dd></div>
         </dl>
+        <div class="message-card">
+          <p class="mc-label">Something you can say to ${esc(partName())} when it shows up</p>
+          <p class="mc-text">${esc(messageToPart())}</p>
+        </div>
         <div class="field no-print" style="margin-top:22px">
           <label id="exp-l">Choose one small experiment for this week</label>
+          <p class="pick-hint" style="margin-top:-2px">${d.a4.length ? "The first ones come from what " + esc(partName()) + " said it needs." : "Small and specific works best."}</p>
           <div class="options" role="group" aria-labelledby="exp-l">
             ${exps.map((e) => opt(`data-set="experiment" data-val="${esc(e)}" data-keep`, d.experiment === e, `<span><small style="color:var(--ink);font-size:15px">${esc(fill(e))}</small></span>`)).join("")}
             ${opt('data-set="experiment" data-val="custom" data-keep', d.experiment === "custom", "<span><b>My own experiment</b></span>", "dashed")}
@@ -524,14 +592,13 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       2: () => d.category,
       3: () => d.part && (d.part !== "custom" || d.partCustom.trim()),
       4: () => d.bodyPlaces.length || d.body.trim(),
-      5: () => d[QUESTIONS[sub].key].trim(),
-      6: () => d.appreciation.trim()
+      5: () => d[akey(QUESTIONS[sub])].length || d[QUESTIONS[sub].key].trim(),
+      6: () => thanksList().length
     }[step];
     if (next && ok) next.disabled = !ok();
-    if (refl) {
-      const key = step === 5 ? QUESTIONS[sub].key : "thanks";
-      const val = step === 5 ? d[key] : d.appreciation;
-      refl.hidden = !val.trim() || !!shown[key];
+    if (step === 5 || step === 6) {
+      const slot = $("reflect-slot");
+      if (slot) slot.innerHTML = reflectBlock(step === 5 ? QUESTIONS[sub].key : "thanks");
     }
     if (step === 7) {
       const t = experimentText();
@@ -551,12 +618,6 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       $("blend-note").hidden = d.blend < 7;
     } else {
       d[f] = e.target.value;
-      // Editing an answer invites a fresh reflection.
-      const key = step === 5 ? QUESTIONS[sub].key : step === 6 ? "thanks" : null;
-      if (key && shown[key] && (f === key || (key === "thanks" && f === "appreciation"))) {
-        shown[key] = false; pickIdx[key] = null;
-        $("reflect-slot").innerHTML = "";
-      }
     }
     syncControls();
   });
@@ -574,6 +635,16 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         const input = $("stage").querySelector(`[data-field="${k}Custom"]`);
         (v === "custom" || v === "Something else") && input ? input.focus() : again && again.focus();
       }
+      return;
+    }
+    const ans = e.target.closest("[data-answer]");
+    if (ans) {
+      const key = ans.dataset.answer, v = ans.dataset.val, single = "single" in ans.dataset;
+      const list = d[key], i = list.indexOf(v);
+      if (single) d[key] = i >= 0 ? [] : [v];
+      else i >= 0 ? list.splice(i, 1) : list.push(v);
+      ans.parentElement.querySelectorAll("[data-answer]").forEach((b) => b.setAttribute("aria-pressed", d[key].includes(b.dataset.val)));
+      syncControls();
       return;
     }
     const tog = e.target.closest("[data-toggle]");
@@ -595,11 +666,6 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       if (step === 5 && sub > 0) { sub--; }
       else { step = Math.max(step - 1, 0); if (step === 5) sub = QUESTIONS.length - 1; }
       render();
-    } else if (act === "reflect") {
-      const key = step === 5 ? QUESTIONS[sub].key : "thanks";
-      shown[key] = true;
-      $("reflect-slot").innerHTML = reflectBlock(key);
-      syncControls();
     } else if (act === "copy") {
       copyReflection();
     } else if (act === "print") {
@@ -621,9 +687,12 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       row("Situation", topicText()),
       row("In my body", [d.bodyPlaces.join(", "), d.body.trim()].filter(Boolean).join(". ")),
       row("How blended", `${d.blend} of 10`),
-      ...QUESTIONS.map((q) => row(q.label, d[q.key].trim())),
-      row("Its response to thanks", d.appreciation.trim()),
+      ...QUESTIONS.map((q) => row(q.label, answerText(q))),
+      row("Its response to thanks", thanksList().join("; ")),
       row("A small experiment", experimentText()),
+      "",
+      "Something I can say to " + partName() + ":",
+      messageToPart(),
       "",
       "You are more than any single part."
     ].filter((l) => l !== null).join("\n");
