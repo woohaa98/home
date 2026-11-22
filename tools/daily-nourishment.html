@@ -179,7 +179,11 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
 .plan .empty { padding: 16px 20px; background: #fff; color: var(--muted); margin: 0; font-size: 14.5px; }
 .erase { margin-top: 10px; font-size: 13.5px; }
 .btn-text { appearance: none; background: none; border: 0; padding: 4px 0; font: inherit; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-@media print { .topbar, header, .privacy-note, #step-choose, .paths, .panel, .actions, .erase, .disclaimer { display: none !important; } .card { box-shadow: none; } }
+@media print { .topbar, header, .privacy-note, #step-choose, .paths, .panel, .actions, .erase, .disclaimer, .photo-box { display: none !important; } .card { box-shadow: none; } }
+
+.photo-box { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+.photo-tip { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
+.photo-box img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 14px; border: 1px solid var(--line); margin: 0 auto; -webkit-touch-callout: default; }
 
 /* ---------- Motion ---------- */
 .fade-in { animation: fadeUp .6s cubic-bezier(.2,.7,.2,1) both; }
@@ -272,9 +276,20 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
 
       <div class="actions">
         <button type="button" class="btn btn-primary" id="copy">Copy My Message</button>
+        <button type="button" class="btn btn-ghost" id="photo">Save as Photo</button>
+        <button type="button" class="btn btn-ghost" id="email-me">Email to Myself</button>
         <button type="button" class="btn btn-ghost" id="print">Print</button>
         <button type="button" class="btn btn-ghost" id="restart">Start Again</button>
         <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <div class="photo-box" id="photo-box" hidden>
+        <p class="photo-tip" id="photo-tip">Here's your card.</p>
+        <img id="photo-img" alt="Your daily nourishment card: your message, words to carry, and today's plan.">
+        <div class="actions" style="margin-top:14px">
+          <button type="button" class="btn btn-primary" id="photo-share" hidden>Save or Email</button>
+          <a class="btn btn-ghost" id="photo-dl" download="my-daily-nourishment.png" style="text-decoration:none;display:inline-flex;align-items:center">Download</a>
+          <button type="button" class="btn-text" id="photo-close">Close</button>
+        </div>
       </div>
       <p class="erase"><button type="button" class="btn-text" id="erase">Erase my answers</button> <span class="status" id="erase-status" role="status" aria-live="polite"></span></p>
     </section>
@@ -542,7 +557,7 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
   $("restart").addEventListener("click", () => {
     boxes().forEach((b) => (b.checked = false));
     updateButton();
-    current = null; store(null);
+    current = null; store(null); $("photo-box").hidden = true;
     show("step-choose");
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
     boxes()[0].focus({ preventScroll: true });
@@ -644,8 +659,126 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     renderPlan(); store(current);
   });
   $("print").addEventListener("click", () => window.print());
+
+  /* ---------------- Save as photo (drawn on this device; nothing is uploaded) ---------------- */
+  function wrapLines(ctx, text, maxW) {
+    const out = [];
+    String(text).split("\n").forEach((para) => {
+      let line = "";
+      para.split(/\s+/).forEach((w) => {
+        const t = line ? line + " " + w : w;
+        if (ctx.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t;
+      });
+      out.push(line);
+    });
+    return out;
+  }
+  function rrect(ctx, x, y, w, h, r) {
+    const R = Array.isArray(r) ? r : [r, r, r, r];
+    ctx.beginPath();
+    ctx.moveTo(x + R[0], y); ctx.lineTo(x + w - R[1], y); ctx.quadraticCurveTo(x + w, y, x + w, y + R[1]);
+    ctx.lineTo(x + w, y + h - R[2]); ctx.quadraticCurveTo(x + w, y + h, x + w - R[2], y + h);
+    ctx.lineTo(x + R[3], y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - R[3]);
+    ctx.lineTo(x, y + R[0]); ctx.quadraticCurveTo(x, y, x + R[0], y); ctx.closePath();
+  }
+  async function makeCard() {
+    try { await Promise.all(['italic 400 40px "Lora"', '400 40px "Lora"', '400 30px "DM Sans"', '500 30px "DM Sans"', '600 30px "DM Sans"'].map((f) => document.fonts.load(f))); } catch (_) {}
+    const W = 1080, P = 90, inner = W - P * 2;
+    const C = { bg: "#FDFAF6", ink: "#2A2F35", muted: "#5A6370", sage: "#476B56", warm: "#C4714A" };
+    const q = quoteById(current.quote);
+    const m = document.createElement("canvas").getContext("2d");
+    const blocks = [];
+    const add = (font, color, text, lh, gap, spacing) => { m.font = font; blocks.push({ font, color, lines: wrapLines(m, text, inner), lh, gap, spacing }); };
+    add('600 26px "DM Sans"', C.muted, "MY DAILY NOURISHMENT", 34, 8, true);
+    add('400 28px "DM Sans"', C.muted, new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }), 38, 44);
+    add('500 30px "DM Sans"', C.sage, "Today I need: " + current.names.join(" · "), 42, 40);
+    add('italic 400 50px "Lora"', C.ink, "“" + current.mantra + "”", 68, 56);
+    if (q) {
+      blocks.push({ rule: true, gap: 34 });
+      add('600 24px "DM Sans"', C.muted, "WORDS TO CARRY", 32, 14, true);
+      add('italic 400 40px "Lora"', C.ink, q.text, 56, 16);
+      add('400 26px "DM Sans"', C.muted, q.by + ", " + q.from, 36, 52);
+    }
+    if (current.plan.length) {
+      m.font = '400 31px "DM Sans"';
+      const items = current.plan.map((a) => ({ done: current.done.includes(a), lines: wrapLines(m, a, inner - 132) }));
+      blocks.push({ items, h: 92 + 26 + items.reduce((n, it) => n + it.lines.length * 42 + 22, 0) + 8, gap: 40 });
+    }
+    add('italic 400 30px "Lora"', C.muted, "However much of this you do is enough.", 40, 0);
+    let H = P + 20;
+    blocks.forEach((b) => { H += (b.rule ? 2 : b.items ? b.h : b.lines.length * b.lh) + b.gap; });
+    H += P + 40;
+    const cv = document.createElement("canvas"); cv.width = W; cv.height = Math.max(H, 1350);
+    const ctx = cv.getContext("2d");
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, cv.height);
+    ctx.fillStyle = C.sage; ctx.fillRect(0, 0, W, 14);
+    ctx.textBaseline = "top";
+    let y = P + 20 + (cv.height - H) / 2;
+    for (const b of blocks) {
+      if (b.rule) { ctx.fillStyle = C.warm; ctx.fillRect(P, y, 80, 3); y += 2 + b.gap; continue; }
+      if (b.items) {
+        const x = P, w = inner;
+        ctx.fillStyle = "#FFFFFF"; rrect(ctx, x, y, w, b.h, 28); ctx.fill();
+        ctx.strokeStyle = C.sage; ctx.lineWidth = 4; rrect(ctx, x, y, w, b.h, 28); ctx.stroke();
+        ctx.fillStyle = C.sage; rrect(ctx, x, y, w, 92, [28, 28, 0, 0]); ctx.fill();
+        ctx.fillStyle = "#FFFFFF"; ctx.font = '600 24px "DM Sans"';
+        if ("letterSpacing" in ctx) ctx.letterSpacing = "4px";
+        ctx.fillText("TODAY'S NOURISHMENT PLAN", x + 36, y + 32);
+        if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+        let yy = y + 92 + 26;
+        ctx.font = '400 31px "DM Sans"';
+        b.items.forEach((it) => {
+          ctx.fillStyle = it.done ? C.sage : "#FFFFFF"; rrect(ctx, x + 36, yy + 2, 36, 36, 9); ctx.fill();
+          ctx.strokeStyle = C.sage; ctx.lineWidth = 3; rrect(ctx, x + 36, yy + 2, 36, 36, 9); ctx.stroke();
+          if (it.done) { ctx.strokeStyle = "#FFFFFF"; ctx.lineWidth = 4; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(x + 45, yy + 21); ctx.lineTo(x + 52, yy + 28); ctx.lineTo(x + 64, yy + 13); ctx.stroke(); }
+          ctx.fillStyle = it.done ? C.muted : C.ink;
+          it.lines.forEach((ln, i) => ctx.fillText(ln, x + 96, yy + i * 42));
+          yy += it.lines.length * 42 + 22;
+        });
+        y += b.h + b.gap; continue;
+      }
+      ctx.font = b.font; ctx.fillStyle = b.color;
+      if ("letterSpacing" in ctx) ctx.letterSpacing = b.spacing ? "4px" : "0px";
+      b.lines.forEach((ln, i) => ctx.fillText(ln, P, y + i * b.lh));
+      y += b.lines.length * b.lh + b.gap;
+    }
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    ctx.font = '400 22px "DM Sans"'; ctx.fillStyle = C.muted;
+    ctx.fillText("Daily Nourishment Check-In · wooheekwak.me", P, cv.height - P + 20);
+    return new Promise((res) => cv.toBlob(res, "image/png"));
+  }
+  let photoUrl = null;
+  $("photo").addEventListener("click", async () => {
+    if (!current) return;
+    $("photo").disabled = true; $("photo").textContent = "Making your card…";
+    let blob = null;
+    try { blob = await makeCard(); } catch (_) {}
+    $("photo").disabled = false; $("photo").textContent = "Save as Photo";
+    if (!blob) { $("copy-status").textContent = "Couldn't make the photo on this device. Try Copy or Print instead."; return; }
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    photoUrl = URL.createObjectURL(blob);
+    $("photo-img").src = photoUrl; $("photo-dl").href = photoUrl;
+    let file = null, canShare = false;
+    try { file = new File([blob], "my-daily-nourishment.png", { type: "image/png" }); canShare = !!(navigator.canShare && navigator.canShare({ files: [file] })); } catch (_) {}
+    $("photo-share").hidden = !canShare;
+    $("photo-share").onclick = async () => { try { await navigator.share({ files: [file] }); } catch (_) {} };
+    $("photo-tip").textContent = canShare
+      ? "Here's your card. Tap “Save or Email” and choose Save Image to keep it in Photos, or Mail to send it to yourself."
+      : "Here's your card. Use Download, or press and hold (or right-click) the picture to save it.";
+    $("photo-box").hidden = false;
+    $("photo-box").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+  });
+  $("photo-close").addEventListener("click", () => { $("photo-box").hidden = true; });
+  // Email to myself: opens the person's own email app with the message as text, for them to address and send.
+  $("email-me").addEventListener("click", () => {
+    if (!current) return;
+    const subject = "My Daily Nourishment · " + new Date().toLocaleDateString(undefined, { month: "long", day: "numeric" });
+    window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(messageText(current));
+    $("copy-status").textContent = "Your email app should open. Add your own address and send.";
+  });
+
   $("erase").addEventListener("click", () => {
-    store(null); current = null;
+    store(null); current = null; $("photo-box").hidden = true;
     boxes().forEach((b) => (b.checked = false)); updateButton();
     ["path-words", "path-do"].forEach((id) => $(id).setAttribute("aria-pressed", "false"));
     $("panel-words").hidden = $("panel-do").hidden = true;
