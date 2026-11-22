@@ -201,6 +201,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .print-head { display: none; }
 .erase-row { margin-top: 14px; font-size: 14px; }
 
+
+.opt.bal { background: #F2F8F3; border-color: #CFE0D4; align-items: center; }
+.opt.bal b { font-weight: 500; font-family: var(--font-display); font-size: 17px; color: #2F4A3A; }
+.opt.bal .bal-icon { flex: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 1.5px solid #B8D4C0; position: relative; }
+.opt.bal .bal-icon::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; background: #B8D4C0; }
+.opt.bal:hover { border-color: var(--accent); background: #EAF3EC; }
+.opt.bal[aria-pressed="true"] { background: #DDEDE1; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.12); }
+.opt.bal[aria-pressed="true"] .bal-icon { background: var(--accent); border-color: var(--accent); }
+.opt.bal[aria-pressed="true"] .bal-icon::after { inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12.5l3.2 3.2L17 9' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat; }
 /* ---- visuals ---- */
 .map { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 18px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
 .map .m { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); padding: 4px 10px; border-radius: 999px; }
@@ -634,7 +643,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${label(7, "Reframe and take a step")}
       <h2 class="q" tabindex="-1">A more <em>balanced</em> thought</h2>
       <p class="hint">Not forced positivity. Something you can actually believe, that makes room for both the worry and the facts. Pick one, or write your own.</p>
-      <div class="options">${BALANCED[theme()].map((b) => `<button type="button" class="opt" data-set="balanced" data-val="${esc(b)}" aria-pressed="${d.balanced === b && !d.balancedOwn.trim()}"><span><b style="font-weight:500">${esc(b)}</b></span></button>`).join("")}</div>
+      <div class="options">${BALANCED[theme()].map((b) => `<button type="button" class="opt bal" data-set="balanced" data-val="${esc(b)}" aria-pressed="${d.balanced === b && !d.balancedOwn.trim()}"><span class="bal-icon" aria-hidden="true"></span><span><b>${esc(b)}</b></span></button>`).join("")}</div>
       ${ownLine("balancedOwn", "Write my own balanced thought", "e.g. I can turn in something decent, and I can learn from feedback")}
       ${scale("beliefAfter", `Now, how much do you believe the original thought?`, "0 · not at all", "100 · completely", 100, "%")}
       ${scale("intensityAfter", `And how strong is the feeling (${esc(d.feelings.join(", ").toLowerCase() || "the feeling")}) now?`, "0 · barely", "10 · overwhelming")}
