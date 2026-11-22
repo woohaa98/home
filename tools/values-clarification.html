@@ -210,6 +210,23 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .more-prompts[open] summary { margin-bottom: 14px; }
 .sum-block ul { margin: 0; padding-left: 20px; }
 .sum-block li { margin: 2px 0; }
+.insight { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(20px, 4vw, 30px); margin: 0 0 22px; }
+.insight > h3 { margin: 0 0 4px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); font-weight: 600; }
+.compass { margin: 6px 0 22px; font-family: var(--font-display); font-style: italic; font-size: clamp(20px, 3.6vw, 25px); line-height: 1.45; color: var(--ink); }
+.ins { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); }
+.ins .ic { width: 32px; height: 32px; border-radius: 50%; background: var(--sage-soft); display: grid; place-items: center; font-size: 16px; }
+.ins h4 { margin: 2px 0 4px; font-size: 16px; font-weight: 600; }
+.ins p { margin: 0 0 6px; color: var(--ink); font-size: 15.5px; line-height: 1.6; }
+.ins p.soft { color: var(--muted); font-size: 14.5px; }
+.gap-bars { display: grid; gap: 8px; margin: 10px 0 8px; }
+.gap-bars div { display: grid; grid-template-columns: minmax(0, 130px) minmax(0, 1fr) 44px; gap: 10px; align-items: center; font-size: 14px; }
+.gap-bars span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gap-bars .track { height: 10px; background: var(--sand); border-radius: 6px; overflow: hidden; }
+.gap-bars .track i { display: block; height: 100%; background: var(--sage); border-radius: 6px; }
+.gap-bars .low .track i { background: var(--accent); }
+.gap-bars b { font-weight: 600; text-align: right; color: var(--muted); }
+.carry { margin-top: 6px; background: var(--accent-soft); border-radius: 14px; padding: 14px 16px; font-family: var(--font-display); font-size: 18px; line-height: 1.5; }
+.details-h { margin: 8px 0 10px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 .sum-stage { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
 .sum-stage b { color: var(--ink); font-weight: 500; }
 .sum-q { font-family: var(--font-display); font-style: italic; color: var(--muted); margin: 10px 0 2px !important; }
@@ -348,11 +365,13 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <!-- 7. Journal -->
     <section id="s-journal" hidden aria-labelledby="q-journal">
       <div id="j-intro">
-        <h2 class="q" id="q-journal" tabindex="-1">Your values, <em>in your words</em></h2>
-        <p class="hint">Here's your summary. If you'd like to go deeper, there are a couple of optional prompts below it. Anything you write there is added to your summary.</p>
+        <h2 class="q" id="q-journal" tabindex="-1">What your values are <em>telling you</em></h2>
+        <p class="hint">Here's what your choices add up to. Read it slowly and notice what feels true, and what doesn't. Your full summary is below, with a couple of optional prompts if you'd like to go deeper.</p>
       </div>
       <div class="print-head" id="print-head" hidden><b>Values Clarification · Session summary</b><span id="ph-line"></span></div>
+      <section class="insight" id="insight" aria-labelledby="ins-h"></section>
       <article class="summary">
+        <p class="details-h">The details</p>
         <p class="sum-stage" id="sum-stage" hidden><span>Where I am:</span> <b></b></p>
         <h3>My core values</h3>
         <ol class="sum-values" id="sum-values"></ol>
@@ -528,6 +547,34 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const MOMENTS = ["Making or building something", "Helping someone through a hard time", "Figuring out a tough problem", "Learning something new",
     "Leading or organizing people", "Creating art, music, or writing", "Being outdoors or active", "Teaching or explaining",
     "Performing or competing", "Working toward a goal with a team", "Fixing or improving how things work", "Caring for family or friends"];
+
+  /* Which values each warm-up moment tends to draw on (used for the "At your best" insight). */
+  const MOMENT_VALUES = {
+    "Making or building something": ["Creativity", "Achievement", "Mastery", "Autonomy"],
+    "Helping someone through a hard time": ["Compassion", "Service", "Relationships", "Contribution"],
+    "Figuring out a tough problem": ["Curiosity", "Mastery", "Achievement", "Growth"],
+    "Learning something new": ["Curiosity", "Growth", "Wisdom", "Variety"],
+    "Leading or organizing people": ["Leadership", "Influence", "Responsibility", "Collaboration"],
+    "Creating art, music, or writing": ["Creativity", "Beauty", "Authenticity"],
+    "Being outdoors or active": ["Nature", "Health", "Adventure"],
+    "Teaching or explaining": ["Contribution", "Wisdom", "Service", "Influence"],
+    "Performing or competing": ["Achievement", "Recognition", "Adventure", "Mastery"],
+    "Working toward a goal with a team": ["Collaboration", "Belonging", "Achievement"],
+    "Fixing or improving how things work": ["Order", "Mastery", "Contribution", "Creativity"],
+    "Caring for family or friends": ["Family", "Relationships", "Compassion", "Responsibility"]
+  };
+
+  /* Values that often pull in different directions. [group A, group B, what the pull feels like] */
+  const TENSIONS = [
+    [["Security", "Financial security", "Order"], ["Adventure", "Variety"], "one wants solid ground, the other wants new horizons"],
+    [["Achievement", "Recognition", "Mastery"], ["Balance", "Health"], "striving can quietly crowd out rest"],
+    [["Autonomy"], ["Belonging", "Collaboration", "Family"], "the freedom to go your own way, and the pull to be part of something with others"],
+    [["Order"], ["Creativity"], "structure and the freedom to improvise"],
+    [["Family", "Relationships"], ["Achievement", "Adventure", "Influence"], "time for the people you love, and room for ambition"],
+    [["Honesty", "Authenticity", "Fairness"], ["Belonging", "Relationships"], "saying what you really think, and keeping the peace"],
+    [["Financial security"], ["Purpose", "Contribution", "Creativity"], "what pays, and what feels meaningful"],
+    [["Tradition & heritage"], ["Autonomy", "Authenticity", "Adventure"], "honoring where you come from while choosing your own path"]
+  ];
 
   /* Everything that changes with the stage someone picks on step 1. */
   const STAGE_INFO = {
@@ -833,7 +880,73 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     out.push(["future", "Imagine yourself five years from now, living your top values. Describe an ordinary Tuesday."]);
     return out;
   }
+  /* ---------- "What your values are telling you" ---------- */
+  const lc = (t) => t ? t.charAt(0).toLowerCase() + t.slice(1) : t;
+  const listAnd = (a) => a.length < 2 ? (a[0] || "") : a.length === 2 ? `${a[0]} and ${a[1]}` : a.slice(0, -1).join(", ") + ", and " + a[a.length - 1];
+  const phrase = (n) => { const own = (S.defs[n] || "").trim(), m = (S.meanings[n] || [])[0]; return (own || m || "").replace(/[.!]+$/, ""); };
+  function insights() {
+    const top = S.ranked.slice(0, 5); if (!top.length) return null;
+    const live = (n) => S.living[n] ?? 5;
+    // 1. compass
+    const parts = top.slice(0, 3).map((n) => phrase(n) ? lc(phrase(n)) : n.toLowerCase());
+    const compass = `What matters most to me is ${listAnd(parts)}.`;
+    // 2. gap + strength (importance weighted by rank)
+    const scored = top.map((n, i) => ({ n, i, l: live(n), gap: (5 - i) * (10 - live(n)) }));
+    const gap = scored.slice().sort((a, b) => b.gap - a.gap || a.i - b.i)[0];
+    const strong = scored.slice().sort((a, b) => b.l - a.l || a.i - b.i)[0];
+    const avg = scored.reduce((x, y) => x + y.l, 0) / scored.length;
+    let gapText, gapSoft;
+    if (gap.l >= 7) { gapText = `Your top values are already showing up in your life, with ${strong.n} strongest at ${strong.l} out of 10.`; gapSoft = "The question now may be how to protect that as life changes."; }
+    else if (avg <= 4) { gapText = `Most of your top values aren't getting much room right now. That can feel heavy, and it often explains a sense that something's missing.`; gapSoft = `It isn't a verdict on you. It's information. Start with ${gap.n}, the one that matters most and feels furthest away.`; }
+    else { gapText = `${gap.n} is #${gap.i + 1} for you, but you're living it only ${gap.l} out of 10 right now. A gap like this often shows up as restlessness, frustration, or a sense that something's missing.`;
+      gapSoft = strong.n !== gap.n && strong.l >= 6 ? `Meanwhile, ${strong.n} is already strong (${strong.l} out of 10). Notice what makes that possible. You may be able to borrow from it.` : "It's also where a small change can make the biggest difference."; }
+    // 3. at your best
+    let best = "";
+    if (S.peakPicks.length) {
+      const count = {}; S.peakPicks.forEach((m) => (MOMENT_VALUES[m] || []).forEach((v) => { count[v] = (count[v] || 0) + 1; }));
+      const inTop = top.filter((v) => count[v]);
+      const outside = Object.keys(count).filter((v) => !top.includes(v)).sort((a, b) => count[b] - count[a]).slice(0, 2);
+      const moments = listAnd(S.peakPicks.slice(0, 2).map(lc));
+      if (inTop.length) best = `When you're ${moments}, you're living ${listAnd(inTop.slice(0, 3))}. These values aren't just ideals for you. They already light you up.`;
+      if (outside.length) best += `${best ? " " : ""}Your best moments also draw on ${listAnd(outside)}, which didn't make your top five. Worth wondering: ${outside.length > 1 ? "do they" : "does it"} matter more than you thought?`;
+    }
+    // 4. tension
+    let tension = "";
+    for (const [A, B, why] of TENSIONS) {
+      const a = top.find((v) => A.includes(v)), b = top.find((v) => B.includes(v));
+      if (a && b) { tension = `${a} and ${b} can pull in different directions: ${why}. Neither is wrong. Noticing the pull helps you choose on purpose, not by default.`; break; }
+    }
+    // 5. small step + question
+    const ph = phrase(gap.n);
+    const step = `Make a little room for ${gap.n} this week${ph ? `: ${lc(ph)}` : ""}. Five minutes counts. Then notice how it feels.`;
+    const v1 = top[0], v2 = top[1] || top[0], g = gap.n;
+    const Q = {
+      "": `If ${v1} were guiding your next decision, what would you choose?`,
+      pre: `Where could you live ${v1} a little more this year, in a class, a club, or something you try?`,
+      college: `Which path in front of you would let you live ${v1} and ${v2} the most?`,
+      grad: `When you read a job posting, how will you know if there's room for ${v1}?`,
+      early: `What would your work look like with just 10% more ${g}?`,
+      stuck: `What has it cost you to set ${g} aside, and what's one small way back to it?`,
+      change: `In your next chapter, how will you protect ${v1} from the very start?`
+    };
+    if (gap.l >= 7) return { compass, gap, strong, gapText, gapSoft, best, tension, scored,
+      step: `Notice one moment this week when you're living ${strong.n}, and what makes it possible.`,
+      question: `What would help you protect ${v1} as life gets busier or changes?` };
+    return { compass, gap, strong, gapText, gapSoft, best, tension, step, question: Q[S.stage] || Q[""], scored };
+  }
+  function renderInsight() {
+    const r = insights(); const el = $("insight"); el.hidden = !r; if (!r) return;
+    const bars = r.scored.map((x) => `<div class="${x.n === r.gap.n && x.l < 7 ? "low" : ""}"><span>${esc(x.n)}</span><span class="track"><i style="width:${x.l * 10}%"></i></span><b>${x.l}/10</b></div>`).join("");
+    const ins = (ic, h, body) => `<div class="ins"><span class="ic" aria-hidden="true">${ic}</span><div><h4>${h}</h4>${body}</div></div>`;
+    el.innerHTML = `<h3 id="ins-h">Your compass</h3><p class="compass">“${esc(r.compass)}”</p>`
+      + ins("🧭", "Where your values are living, and where they aren't", `<div class="gap-bars" aria-hidden="true">${bars}</div><p>${esc(r.gapText)}</p><p class="soft">${esc(r.gapSoft)}</p>`)
+      + (r.best ? ins("✨", "At your best", `<p>${esc(r.best)}</p>`) : "")
+      + (r.tension ? ins("⚖️", "A tension to hold", `<p>${esc(r.tension)}</p>`) : "")
+      + ins("🌱", "One small step this week", `<p>${esc(r.step)}</p>`)
+      + ins("💭", "A question to carry", `<p class="carry">${esc(r.question)}</p>`);
+  }
   function renderSummary() {
+    renderInsight();
     const st = STAGES.find((x) => x.id === S.stage);
     $("sum-stage").hidden = !st; if (st) $("sum-stage").querySelector("b").textContent = `${st.name}, ${st.sub}`;
     $("sum-values").innerHTML = S.ranked.map((n, i) => {
@@ -869,6 +982,13 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (session) { const n = $("client-name").value.trim(); L.splice(1, 0, `${n ? "From " + n + " · " : ""}For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`); }
     const st = STAGES.find((s) => s.id === S.stage); if (st) L.push(`Where I am: ${st.name}`, "");
     if (S.peakPicks.length || S.peak.trim()) { L.push("When I feel most like myself:"); if (S.peakPicks.length) L.push(S.peakPicks.join(" · ")); if (S.peak.trim()) L.push(S.peak.trim()); L.push(""); }
+    const r = insights();
+    if (r) {
+      L.push("WHAT MY VALUES ARE TELLING ME", "", `“${r.compass}”`, "", r.gapText, r.gapSoft, "");
+      if (r.best) L.push("At my best: " + r.best, "");
+      if (r.tension) L.push("A tension to hold: " + r.tension, "");
+      L.push("One small step this week: " + r.step, "", "A question to carry: " + r.question, "", "THE DETAILS", "");
+    }
     L.push("My core values:");
     S.ranked.forEach((n, i) => { L.push(`${i + 1}. ${n} (living it now: ${S.living[n] ?? 5}/10)`); const m = meaningText(n); if (m) L.push(`   ${m}`); });
     L.push("");
