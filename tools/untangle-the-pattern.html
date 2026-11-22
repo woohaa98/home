@@ -200,6 +200,90 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .session-banner p { margin: 0; }
 .print-head { display: none; }
 .erase-row { margin-top: 14px; font-size: 14px; }
+
+/* ---- visuals ---- */
+.map { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 18px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.map .m { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); padding: 4px 10px; border-radius: 999px; }
+.map .m i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: inline-block; }
+.map .m.done { color: var(--ink); }
+.map .m.done i { background: var(--warm); }
+.map .m.now { background: var(--warm-soft); color: var(--warm-ink); font-weight: 600; }
+.map .m.now i { background: var(--warm-ink); box-shadow: 0 0 0 3px rgba(154,82,50,.18); }
+.map.new .m.done i { background: var(--accent); }
+.map.new .m.now { background: var(--accent-soft); color: var(--accent); }
+.map.new .m.now i { background: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.18); }
+.map .arrow { color: var(--line); font-size: 13px; }
+
+.cycle { display: grid; grid-template-columns: 1fr minmax(0, 1.25fr) 1fr; grid-template-areas: "c1 t c2" "r m f" "c4 a c3"; gap: 8px; align-items: center; margin: 4px 0 6px; }
+.cycle .node { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; box-shadow: var(--shadow); min-width: 0; }
+.cycle .node .k { display: block; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--warm-ink); margin-bottom: 3px; }
+.cycle .node .v { font-size: 14.5px; line-height: 1.45; }
+.cycle .node.t { grid-area: t; border-color: var(--warm); background: var(--warm-soft); }
+.cycle .node.t .v { font-family: var(--font-display); font-style: italic; font-size: 16px; }
+.cycle .node.f { grid-area: f; } .cycle .node.a { grid-area: a; } .cycle .node.r { grid-area: r; }
+.cycle .mid { grid-area: m; text-align: center; padding: 8px; }
+.cycle .mid .k { display: block; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.cycle .mid .v { font-size: 14px; color: var(--muted); }
+.cycle .mid .spin { display: block; margin: 0 auto 6px; width: 34px; height: 34px; color: var(--warm); }
+.cycle .cn { display: grid; place-items: center; color: var(--warm); }
+.cycle .cn svg { width: 46px; height: 46px; }
+.cycle .c1 { grid-area: c1; transform: rotate(0deg); } .cycle .c2 { grid-area: c2; transform: rotate(90deg); }
+.cycle .c3 { grid-area: c3; transform: rotate(180deg); } .cycle .c4 { grid-area: c4; transform: rotate(270deg); }
+@media (max-width: 600px) {
+  .cycle { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+  .cycle .cn { display: none; }
+  .cycle .mid { order: -1; margin-bottom: 8px; }
+  .cycle .node { margin-bottom: 24px; position: relative; }
+  .cycle .node::after { content: "↓"; position: absolute; left: 50%; bottom: -22px; transform: translateX(-50%); color: var(--warm); }
+  .cycle .node.t { order: 1; } .cycle .node.f { order: 2; } .cycle .node.a { order: 3; } .cycle .node.r { order: 4; }
+  .cycle .node.r::after { content: "↺ back to the thought"; font-family: var(--font-display); font-style: italic; font-size: 14px; white-space: nowrap; }
+}
+
+.paths { display: grid; gap: 12px; margin-top: 6px; }
+.path { border-radius: 18px; padding: 14px 16px; }
+.path.old { background: var(--warm-soft); }
+.path.new { background: var(--accent-soft); }
+.path .ptag { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+.path.old .ptag { color: var(--warm-ink); } .path.new .ptag { color: var(--accent); }
+.path ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.path li { position: relative; background: rgba(255,255,255,.75); border-radius: 12px; padding: 10px 12px; font-size: 14px; line-height: 1.4; }
+.path li:not(:last-child)::after { content: "→"; position: absolute; right: -9px; top: 50%; transform: translateY(-50%); font-size: 14px; z-index: 1; }
+.path.old li:not(:last-child)::after { color: var(--warm-ink); } .path.new li:not(:last-child)::after { color: var(--accent); }
+.path.old li:first-child { font-family: var(--font-display); font-style: italic; text-decoration: line-through; text-decoration-color: rgba(154,82,50,.45); }
+.path.new li:first-child { font-family: var(--font-display); font-style: italic; }
+@media (max-width: 600px) { .path ol { grid-template-columns: 1fr; gap: 14px; } .path li:not(:last-child)::after { content: "↓"; right: auto; left: 50%; top: auto; bottom: -15px; transform: translateX(-50%); } }
+
+.meters { display: grid; gap: 14px; margin-top: 16px; }
+.meter .lbl { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; margin-bottom: 6px; }
+.meter .lbl b { font-weight: 600; }
+.meter .row { display: grid; grid-template-columns: 56px minmax(0, 1fr) 44px; gap: 10px; align-items: center; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.meter .bar2 { height: 10px; background: var(--sand); border-radius: 6px; overflow: hidden; }
+.meter .bar2 i { display: block; height: 100%; border-radius: 6px; }
+.meter .before i { background: #E8A882; } .meter .after i { background: var(--accent); }
+.meter .num { text-align: right; color: var(--ink); font-weight: 600; }
+
+.practice { margin-top: 22px; border: 2px solid var(--accent); border-radius: 22px; overflow: hidden; }
+.practice .p-top { display: flex; gap: 16px; align-items: flex-start; background: var(--accent); color: #fff; padding: 18px 20px; }
+.practice .p-icon { flex: none; width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,.16); display: grid; place-items: center; }
+.practice .p-icon svg { width: 24px; height: 24px; }
+.practice .p-k { margin: 0; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.8); }
+.practice .p-step { margin: 2px 0 0; font-family: var(--font-display); font-size: 21px; line-height: 1.3; }
+.practice .p-when { margin: 6px 0 0; font-size: 14px; color: rgba(255,255,255,.9); }
+.practice .p-body { padding: 18px 20px; background: #fff; display: grid; gap: 16px; }
+.practice .p-body h4 { margin: 0 0 8px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.gauge { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.gauge .g { height: 12px; border-radius: 8px; background: linear-gradient(90deg, #EEF4F0, #F6E2D6 60%, #E8A882); position: relative; }
+.gauge .g b { position: absolute; top: 50%; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 3px solid var(--warm-ink); transform: translate(-50%, -50%); }
+.gauge .g b.after { border-color: var(--accent); }
+.gauge .pct { font-weight: 600; text-align: right; }
+.gauge-legend { display: flex; gap: 16px; font-size: 12.5px; color: var(--muted); margin-top: 6px; flex-wrap: wrap; }
+.gauge-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; border: 2.5px solid var(--warm-ink); margin-right: 6px; vertical-align: -1px; }
+.gauge-legend span.after::before { border-color: var(--accent); }
+.tips { margin: 0; padding-left: 18px; font-size: 14.5px; }
+.tips li { margin: 3px 0; }
+.trap-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.trap-tags span { font-size: 13px; background: var(--warm-soft); color: var(--warm-ink); border-radius: 999px; padding: 4px 12px; }
+@media print { .practice, .path, .cycle .node, .meter { break-inside: avoid; } .practice .p-top { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
 @media print {
   .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
   .print-head b { display: block; font-size: 13pt; color: #000; }
@@ -348,7 +432,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const STEPS = 9; // 0 intro, 1..7 steps, 8 card
   const blank = () => ({ step: 0, situation: "", situationText: "", thoughts: [], thoughtOwn: "", belief: 70, feelings: [], intensity: 6,
     behaviors: [], behaviorOwn: "", results: [], traps: [], evFor: [], evAgainst: [], evOwn: "", balanced: "", balancedOwn: "",
-    beliefAfter: 50, intensityAfter: 5, smallStep: "", smallStepOwn: "", predict: 60, outcome: "", outcomeNote: "" });
+    beliefAfter: 50, intensityAfter: 5, smallStep: "", smallStepOwn: "", predict: 60, when: "", outcome: "", outcomeNote: "", predictAfter: 30 });
   let d = load();
   let lastView = -1;
 
@@ -415,6 +499,49 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <p class="loop-back">↺ …and next time, the thought feels even more true.</p>`;
   }
 
+  /* ---------- visuals ---------- */
+  const CURVE = '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 30 C 10 16, 22 10, 36 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M30 6 L37 12 L30 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const SPIN = '<svg viewBox="0 0 24 24" aria-hidden="true" class="spin"><path d="M20 12a8 8 0 1 1-2.34-5.66" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const STEP_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h4v-4h4v-4h4V6h4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const short = (t, n = 90) => t.length > n ? t.slice(0, n - 1).trimEnd() + "…" : t;
+
+  // A small "where you are" map at the top of each step.
+  function stepMap(at) {
+    const oldMap = ["Situation", "Thought", "Feeling", "Action & result", "See the loop"];
+    const newMap = ["See the loop", "Weigh the evidence", "Reframe", "Small step"];
+    const isNew = at >= 5, list = isNew ? newMap : oldMap, idx = isNew ? at - 5 + (at === 5 ? 0 : 0) : at - 1;
+    const cur = isNew ? (at === 5 ? 0 : at === 6 ? 1 : 2) : idx;
+    const items = list.map((l, i) => `<span class="m ${i < cur ? "done" : ""} ${i === cur || (at === 7 && i === 3) ? "now" : ""}"><i></i>${l}</span>`);
+    return `<div class="map${isNew ? " new" : ""}" aria-hidden="true">${items.join('<span class="arrow">→</span>')}</div>`;
+  }
+
+  function cycleHTML() {
+    const node = (cls, k, v) => `<div class="node ${cls}"><span class="k">${k}</span><span class="v">${esc(v || "–")}</span></div>`;
+    return `<div class="cycle" role="img" aria-label="Your pattern as a loop: thought, feeling, what you do, what happens, and back to the thought.">
+      <span class="cn c1">${CURVE}</span><span class="cn c2">${CURVE}</span><span class="cn c3">${CURVE}</span><span class="cn c4">${CURVE}</span>
+      ${node("t", "Thought", short(allThoughts().map((t) => `"${t}"`).join(" "), 120))}
+      ${node("f", "Feeling", d.feelings.length ? `${d.feelings.join(", ")} · ${d.intensity}/10` : "")}
+      ${node("a", "What I do", behaviorList().join(" · "))}
+      ${node("r", "What happens", d.results.join(" · "))}
+      <div class="mid">${SPIN}<span class="k">When</span><span class="v">${esc(short(situationText(), 70))}</span></div>
+    </div>`;
+  }
+
+  function pathsHTML() {
+    return `<div class="paths">
+      <div class="path old"><span class="ptag">The old loop</span><ol>
+        <li>"${esc(short(thoughtMain(), 70))}"</li><li>${esc(d.feelings.slice(0, 2).join(", ") || "Feeling")}</li><li>${esc(short(behaviorList()[0] || "Avoid", 50))}</li><li>Quick relief, then the thought grows</li></ol></div>
+      <div class="path new"><span class="ptag">The new path</span><ol>
+        <li>"${esc(short(balancedText(), 90))}"</li><li>${esc(short(stepText(), 60))}</li><li>See what really happens</li><li>The old thought loosens</li></ol></div>
+    </div>`;
+  }
+
+  function meter(label, b, a, max, unit) {
+    return `<div class="meter"><div class="lbl"><b>${label}</b><span>${b}${unit} → ${a}${unit}</span></div>
+      <div class="row before"><span>Before</span><span class="bar2"><i style="width:${b / max * 100}%"></i></span><span class="num">${b}${unit}</span></div>
+      <div class="row after"><span>After</span><span class="bar2"><i style="width:${a / max * 100}%"></i></span><span class="num">${a}${unit}</span></div></div>`;
+  }
+
   /* ---------- views ---------- */
   const views = {
     0: () => `
@@ -432,6 +559,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${nav("Start", true, false)}`,
 
     1: () => `
+      ${stepMap(1)}
       ${label(1, "The situation")}
       <h2 class="q" tabindex="-1">Where does this pattern <em>show up</em>?</h2>
       <p class="hint">Pick the closest match. Think of one recent, specific time.</p>
@@ -442,6 +570,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     2: () => {
       const th = theme(), lists = [[th === "social" ? "About people and how I come across" : "About doing well", THOUGHTS[th]], ["Other common ones", THOUGHTS[th === "social" ? "work" : "social"].concat(THOUGHTS.any)]];
       return `
+      ${stepMap(2)}
       ${label(2, "The thought")}
       <h2 class="q" tabindex="-1">What goes through your <em>mind</em>?</h2>
       <p class="hint">These are "automatic thoughts": quick, convincing, and often unquestioned. Tap any that sound familiar.</p>
@@ -452,6 +581,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     },
 
     3: () => `
+      ${stepMap(3)}
       ${label(3, "The feeling")}
       <h2 class="q" tabindex="-1">When you think that, how do you <em>feel</em>?</h2>
       <p class="hint">Tap any that fit.</p>
@@ -460,6 +590,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${nav("Continue", d.feelings.length)}`,
 
     4: () => `
+      ${stepMap(4)}
       ${label(4, "What you do")}
       <h2 class="q" tabindex="-1">What do you usually <em>do</em> next?</h2>
       <p class="hint">No judgment. These are understandable ways to get away from an uncomfortable feeling.</p>
@@ -472,10 +603,11 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     5: () => {
       const likely = likelyTraps(), order = likely.concat(Object.keys(TRAPS).filter((k) => !likely.includes(k)));
       return `
+      ${stepMap(5)}
       ${label(5, "See the pattern")}
       <h2 class="q" tabindex="-1">Here's your <em>loop</em></h2>
-      <p class="hint">Notice how the action that brings relief also keeps the thought from being tested. That's what keeps the loop going.</p>
-      ${loopHTML()}
+      <p class="hint">Follow the arrows. The action that brings relief also keeps the thought from ever being tested, so each time around, the thought feels a little more true.</p>
+      ${cycleHTML()}
       <p class="group-name" style="margin-top:26px">Which thinking traps might be at work?</p>
       <p class="hint" style="margin-bottom:12px">Thinking traps are common mental shortcuts that make a thought feel truer than it is. The ones marked "likely" often go with the thought you chose. Tap any that fit.</p>
       <div class="traps">${order.map((k) => `<button type="button" class="trap" data-multi="traps" data-val="${k}" aria-pressed="${d.traps.includes(k)}"><b>${esc(TRAPS[k][0])}${likely.includes(k) ? '<span class="likely">likely</span>' : ""}</b><small>${esc(TRAPS[k][1])}</small></button>`).join("")}</div>
@@ -483,6 +615,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     },
 
     6: () => `
+      ${stepMap(6)}
       ${label(6, "Weigh the evidence")}
       <h2 class="q" tabindex="-1">Is the thought <em>100 percent</em> true?</h2>
       <p class="prompt-card">"${esc(thoughtMain())}"</p>
@@ -497,6 +630,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${nav("Continue", d.evFor.length || d.evAgainst.length || d.evOwn.trim())}`,
 
     7: () => `
+      ${stepMap(7)}
       ${label(7, "Reframe and take a step")}
       <h2 class="q" tabindex="-1">A more <em>balanced</em> thought</h2>
       <p class="hint">Not forced positivity. Something you can actually believe, that makes room for both the worry and the facts. Pick one, or write your own.</p>
@@ -509,37 +643,63 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <p class="hint" style="margin-bottom:12px">Change happens when you act a little differently and see what really happens. Choose a step that feels a bit uncomfortable but doable.</p>
       <div class="options">${STEPS_LIB[theme()].map((b) => `<button type="button" class="opt" data-set="smallStep" data-val="${esc(b)}" aria-pressed="${d.smallStep === b && !d.smallStepOwn.trim()}"><span><b style="font-weight:500">${esc(b)}</b></span></button>`).join("")}</div>
       ${ownLine("smallStepOwn", "My own small step", "e.g. Write the intro paragraph tonight")}
+      <p class="group-name" style="margin-top:20px">When will you try it?</p>
+      ${chips("when", ["Today", "Tomorrow", "This weekend", "Before my next session"], true)}
       ${scale("predict", "Before you try it: how likely does your feared outcome feel?", "0 · won't happen", "100 · certain", 100, "%")}
       ${nav("See My Summary", balancedText() && stepText())}`,
 
     8: () => {
       const traps = d.traps.map((k) => TRAPS[k][0]);
+      const tried = d.outcome && d.outcome !== "I haven't tried it yet";
       return `
       <article class="card fade-in">
         <div class="print-head" id="print-head"><b>Untangle the Pattern · Summary</b><span id="ph-line"></span></div>
         <p class="step-label">Your summary</p>
         <h2 class="q" tabindex="-1">Your pattern, <em>untangled</em></h2>
-        ${loopHTML()}
-        <div class="card-sec"><h3>Thinking traps</h3><p>${esc(traps.join(" · ") || "None chosen")}</p></div>
-        <div class="card-sec"><h3>Evidence</h3>
+
+        <div class="card-sec" style="border-top:0;padding-top:4px"><h3>1 · The loop you noticed</h3>${cycleHTML()}
+          ${traps.length ? `<p style="font-size:14px;color:var(--muted);margin:14px 0 6px">Thinking traps that keep it going:</p><div class="trap-tags">${traps.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
+        </div>
+
+        <div class="card-sec"><h3>2 · What the evidence says</h3>
           ${d.evFor.length ? `<p><strong>Feels true because:</strong> ${esc(d.evFor.join("; "))}</p>` : ""}
           ${d.evAgainst.length || d.evOwn.trim() ? `<p style="margin-top:4px"><strong>Doesn't quite fit:</strong> ${esc([...d.evAgainst, d.evOwn.trim()].filter(Boolean).join("; "))}</p>` : ""}
         </div>
-        <div class="card-sec"><h3>From… to…</h3>
-          <p class="quote old">"${esc(thoughtMain())}"</p>
-          <p class="quote" style="margin-top:6px">"${esc(balancedText())}"</p>
-          <div class="compare">
-            <div><b>${d.belief}% → ${d.beliefAfter}%</b><span>belief in the original thought</span></div>
-            <div><b>${d.intensity} → ${d.intensityAfter}</b><span>strength of the feeling (out of 10)</span></div>
+
+        <div class="card-sec"><h3>3 · A different path</h3>${pathsHTML()}
+          <div class="meters">
+            ${meter("How much I believe the old thought", d.belief, d.beliefAfter, 100, "%")}
+            ${meter("How strong the feeling is", d.intensity, d.intensityAfter, 10, "")}
           </div>
         </div>
-        <div class="card-sec"><h3>My small step</h3><p>${esc(stepText())}</p><p style="font-size:14px;color:var(--muted);margin-top:4px">Before trying it, the feared outcome felt ${d.predict}% likely.</p></div>
-        <div class="followup" id="followup">
-          <h3>After you try it</h3>
-          <p>Come back to this page on the same device and note what actually happened. This is where the old thought starts to loosen.</p>
-          ${chips("outcome", OUTCOMES, true)}
-          ${ownLine("outcomeNote", "What did you notice? (optional)", "e.g. Ten minutes turned into an hour")}
-          <p id="outcome-print" style="margin:8px 0 0" ${d.outcome || d.outcomeNote.trim() ? "" : "hidden"}><strong>What happened:</strong> <span id="outcome-text">${esc([d.outcome, d.outcomeNote.trim()].filter(Boolean).join(". "))}</span></p>
+
+        <div class="practice">
+          <div class="p-top"><span class="p-icon">${STEP_ICON}</span><div>
+            <p class="p-k">My practice step</p>
+            <p class="p-step">${esc(stepText())}</p>
+            ${d.when ? `<p class="p-when">When: ${esc(d.when)}</p>` : ""}
+          </div></div>
+          <div class="p-body">
+            <div><h4>My prediction</h4>
+              <div class="gauge"><span class="g"><b style="left:${d.predict}%"></b>${tried ? `<b class="after" style="left:${d.predictAfter}%"></b>` : ""}</span><span class="pct" id="g-pct">${tried ? `${d.predict}→${d.predictAfter}%` : d.predict + "%"}</span></div>
+              <div class="gauge-legend"><span>Before: feared outcome felt ${d.predict}% likely</span>${tried ? `<span class="after">After: ${d.predictAfter}% likely next time</span>` : ""}</div>
+            </div>
+            <div><h4>While you practice</h4>
+              <ul class="tips">
+                <li>Expect the old thought to show up. That's normal. Notice it: "There's that thought."</li>
+                <li>Say your new thought to yourself: <em>"${esc(short(balancedText(), 110))}"</em></li>
+                <li>Stay with the step even if it feels uncomfortable. Discomfort is not danger.</li>
+              </ul>
+            </div>
+            <div class="followup" id="followup" style="margin:0">
+              <h3>After you try it</h3>
+              <p>Come back to this page on the same device and record what really happened.</p>
+              ${chips("outcome", OUTCOMES, true)}
+              <div id="after-wrap" ${tried ? "" : "hidden"}>${scale("predictAfter", "Now, how likely does the feared outcome feel next time?", "0 · won't happen", "100 · certain", 100, "%")}</div>
+              ${ownLine("outcomeNote", "What did you notice? (optional)", "e.g. Ten minutes turned into an hour")}
+              <p id="outcome-print" style="margin:8px 0 0" ${d.outcome || d.outcomeNote.trim() ? "" : "hidden"}><strong>What happened:</strong> <span id="outcome-text">${esc([d.outcome, d.outcomeNote.trim()].filter(Boolean).join(". "))}</span></p>
+            </div>
+          </div>
         </div>
         ${therapist ? `<p class="hint" style="margin:20px 0 0">Print or save this as a PDF and bring it to your next session with ${esc(therapist.name)}.${therapist.reply ? ` If you've both agreed to use email, you can send it to ${esc(therapist.reply)}; email isn't fully private.` : ""}</p>` : ""}
       </article>
@@ -583,7 +743,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 
   $("stage").addEventListener("input", (e) => {
     const f = e.target.dataset.field; if (!f) return;
-    if (e.target.type === "range") { d[f] = +e.target.value; $(f + "-out").textContent = d[f] + (e.target.dataset.unit || ""); }
+    if (e.target.type === "range") {
+      d[f] = +e.target.value; $(f + "-out").textContent = d[f] + (e.target.dataset.unit || "");
+      if (f === "predictAfter") { const g = $("stage").querySelector(".gauge b.after"), lg = $("stage").querySelector(".gauge-legend .after"); if (g) g.style.left = d[f] + "%"; if (lg) lg.textContent = `After: ${d[f]}% likely next time`; const gp = $("g-pct"); if (gp) gp.textContent = `${d.predict}→${d[f]}%`; }
+    }
     else {
       d[f] = e.target.value;
       if (f === "balancedOwn" || f === "smallStepOwn") {
@@ -598,7 +761,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const m = e.target.closest("[data-multi]");
     if (m) {
       const k = m.dataset.multi, v = m.dataset.val;
-      if ("single" in m.dataset) { d[k] = d[k] === v ? "" : v; m.parentElement.querySelectorAll("[data-multi]").forEach((b) => b.setAttribute("aria-pressed", d[k] === b.dataset.val)); }
+      if ("single" in m.dataset) {
+        d[k] = d[k] === v ? "" : v; m.parentElement.querySelectorAll("[data-multi]").forEach((b) => b.setAttribute("aria-pressed", d[k] === b.dataset.val));
+        if (k === "outcome") { save(); const y = window.scrollY; render(false); window.scrollTo(0, y); const again = $("stage").querySelector(`[data-multi="outcome"][data-val="${CSS.escape(v)}"]`); if (again) again.focus({ preventScroll: true }); return; }
+      }
       else { const i = d[k].indexOf(v); i >= 0 ? d[k].splice(i, 1) : d[k].push(v); $("stage").querySelectorAll(`[data-multi="${k}"]`).forEach((b) => b.setAttribute("aria-pressed", d[k].includes(b.dataset.val))); }
       sync(); return;
     }
@@ -639,8 +805,9 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (d.evFor.length) L.push(`Feels true because: ${d.evFor.join("; ")}`);
     const ag = [...d.evAgainst, d.evOwn.trim()].filter(Boolean); if (ag.length) L.push(`Doesn't quite fit: ${ag.join("; ")}`);
     L.push("", `Balanced thought: ${balancedText()}`, `Belief in original thought: ${d.belief}% → ${d.beliefAfter}%`, `Feeling strength: ${d.intensity} → ${d.intensityAfter} (out of 10)`,
-      "", `My small step: ${stepText()} (feared outcome felt ${d.predict}% likely)`);
+      "", `My small step: ${stepText()}${d.when ? " · when: " + d.when : ""} (feared outcome felt ${d.predict}% likely)`);
     const oc = [d.outcome, d.outcomeNote.trim()].filter(Boolean).join(". "); if (oc) L.push(`What happened: ${oc}`);
+    if (d.outcome && d.outcome !== "I haven't tried it yet") L.push(`Feared outcome next time: ${d.predict}% → ${d.predictAfter}%`);
     L.push("", "Untangle the Pattern · wooheekwak.me");
     const text = L.join("\n");
     const done = (m) => { $("copy-status").textContent = m; };
