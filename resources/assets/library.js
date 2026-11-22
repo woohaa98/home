@@ -35,7 +35,7 @@ window.RESOURCE_LIBRARY = {
     "name-the-feeling":     { title: "Name the Feeling", href: "../tools/name-the-feeling.html", blurb: "Find the right word for what you feel, then sit with it gently." },
     "parts-of-me":          { title: "Parts of Me", href: "../tools/parts-of-me.html", blurb: "Get to know a protective part of you: what it fears and what it needs." },
     "rain-micropractice":   { title: "RAIN Micropractice", href: "../tools/rain-micropractice.html", blurb: "Five minutes to Recognize, Allow, Investigate, and Nurture a hard feeling." },
-    "ride-the-wave":        { title: "Ride the Wave", href: "../tools/ride-the-wave.html", blurb: "Notice the trigger, the urge, and stay with the feeling instead of reacting." }
+    "ride-the-wave":        { title: "Ride the Wave", href: "../tools/ride-the-wave.html", blurb: "Notice the trigger, the urge, and stay with the feeling instead of reacting." },
     "untangle-the-pattern": { title: "Untangle the Pattern", href: "../tools/untangle-the-pattern.html", blurb: "See how a rigid thought drives a habit, then reframe it and test one small step." },
   },
 
