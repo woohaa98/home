@@ -295,6 +295,11 @@ a { color: var(--terracotta-ink); }
 .clin-jump a { display: flex; gap: 10px; align-items: baseline; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,.18); border-radius: 14px; padding: 12px 14px; font-size: .92rem; transition: background-color .2s, border-color .2s; }
 .clin-jump a:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.4); }
 .clin-jump span { font-family: var(--serif); font-style: italic; color: #B8D4C0; }
+.clin-evolve { margin: 22px 0 0; font-size: .92rem; color: rgba(243,239,232,.85); }
+.clin-evolve a { color: #E8A882; font-weight: 500; }
+.feedback-box { background: #fff; border: 1px solid var(--divider); border-left: 4px solid var(--slate); border-radius: 16px; padding: 22px 24px; max-width: 70ch; }
+.feedback-box p { margin: 0 0 14px; color: var(--text-mid); }
+.feedback-box .fine { font-size: .82rem; margin: 0; }
 .clinician .clin-section { padding-top: 56px; scroll-margin-top: 70px; }
 .clinician .clin-section + .clin-section { border-top: 1px solid var(--divider); margin-top: 24px; }
 .clinician .category-letter { font-style: italic; color: var(--slate-mid); font-size: 1rem; }
