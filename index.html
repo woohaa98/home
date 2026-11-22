@@ -719,7 +719,7 @@
     color: white;
   }
   .footer-tagline { font-size: 0.82rem; margin-top: 4px; }
-  .footer-links { display: flex; gap: 24px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 10px 24px; }
   .footer-links a {
     color: rgba(255,255,255,0.6);
     text-decoration: none;
@@ -774,6 +774,20 @@
   /* ---- TOOLS ---- */
   #tools { background: var(--warm-white); }
   .tools-header { text-align: center; margin-bottom: 60px; }
+  .finder { max-width: 880px; margin: 0 auto 44px; background: white; border: 1px solid var(--divider); border-radius: 24px; padding: 26px 28px; box-shadow: 0 10px 30px rgba(42,47,53,0.05); }
+  .finder-q { font-family: var(--font-display, 'Lora', serif); font-size: 1.25rem; margin: 0 0 16px; color: var(--text-dark); }
+  .finder-q span { display: block; font-family: var(--font-body, 'DM Sans', sans-serif); font-size: 0.95rem; color: var(--text-mid); margin-top: 2px; }
+  .finder-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .finder-opts button { font: inherit; font-size: 0.95rem; text-align: left; cursor: pointer; background: var(--cream); border: 1px solid var(--divider); border-radius: 14px; padding: 13px 16px; color: var(--text-dark); line-height: 1.45; transition: border-color 0.2s, background-color 0.2s; }
+  .finder-opts button:hover { border-color: var(--sage); }
+  .finder-opts button[aria-pressed="true"] { background: #EEF4F0; border-color: var(--sage); }
+  .finder-result { margin-top: 16px; padding: 16px 18px; border-radius: 16px; background: #EEF4F0; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; }
+  .finder-result p { margin: 0; color: var(--text-dark); font-size: 0.95rem; line-height: 1.55; flex: 1 1 320px; }
+  .finder-result p b { font-weight: 600; }
+  .finder-result a.go { background: var(--sage-dark, #476B56); color: white; text-decoration: none; border-radius: 999px; padding: 11px 20px; font-weight: 500; font-size: 0.92rem; white-space: nowrap; }
+  .finder-result .note { flex-basis: 100%; font-size: 0.85rem; color: var(--text-mid); }
+  .tool-card.is-match { box-shadow: 0 0 0 3px var(--sage), 0 18px 40px rgba(71,107,86,0.18); }
+  @media (max-width: 700px) { .finder { padding: 20px; } .finder-opts { grid-template-columns: 1fr; } }
   .tools-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1342,54 +1356,67 @@
     <p class="tools-therapist-note">Are you a therapist? <a href="therapists/#share">Send any of these to a client →</a></p>
   </div>
 
+  <div class="finder reveal" id="finder">
+    <p class="finder-q" id="finder-q">Not sure where to start? <span>What's going on for you right now?</span></p>
+    <div class="finder-opts" role="group" aria-labelledby="finder-q">
+      <button type="button" data-tool="tool-feeling">A feeling is big or hard to name</button>
+      <button type="button" data-tool="tool-untangle">A thought keeps holding me back</button>
+      <button type="button" data-tool="tool-wave">I feel an urge to check, wash, escape, or seek reassurance</button>
+      <button type="button" data-tool="tool-parts">A part of me keeps pushing, criticizing, or shutting down</button>
+      <button type="button" data-tool="tool-values">I'm figuring out what matters or what's next</button>
+      <button type="button" data-tool="tool-nourish">I just need a little care today</button>
+    </div>
+    <div class="finder-result" id="finder-result" aria-live="polite" hidden></div>
+  </div>
+
   <div class="tools-grid">
 
-    <div class="tool-card tc reveal">
+    <div id="tool-values" class="tool-card tc reveal">
       <div class="tool-icon tc">🧭</div>
       <span class="tool-tag tc">Values</span>
       <h4>Values Clarification Exercise</h4>
-      <p>Discover what matters most to you, choose and rank your core values, describe them in your own words, and see which kinds of work might fit. Ends with journal prompts to keep reflecting. For students, career starters, and anyone feeling stuck.</p>
+      <p>For students, career starters, and anyone feeling stuck about what's next. Tap through what matters most to you, rank your top values, and see which kinds of work might fit, tailored to where you are in life. Mostly tapping, about 10 to 15 minutes.</p>
       <div class="tool-method">Acceptance &amp; Commitment Therapy (ACT) · Work Values</div>
       <a href="tools/values-clarification.html" class="tool-link tc">Try the Tool →</a>
     </div>
-<div class="tool-card sg reveal">
+<div id="tool-untangle" class="tool-card sg reveal">
       <div class="tool-icon sg">🧶</div>
       <span class="tool-tag sg">Thoughts &amp; Habits</span>
       <h4>Untangle the Pattern</h4>
-      <p>A CBT exercise for patterns like putting off work you fear won't be good enough, or skipping events because you're sure you won't measure up. See how a rigid thought drives the habit, spot the thinking trap, find a more balanced thought, and test it with one small step.</p>
+      <p>For when a rigid thought holds you back: putting off work you fear won't be good enough, or skipping events because you're sure you won't measure up. Map the pattern, spot the thinking trap, find a more balanced thought, and test it with one small step. About 10 minutes.</p>
       <div class="tool-method">Cognitive Behavioral Therapy (CBT) · Behavioral Experiments</div>
       <a href="tools/untangle-the-pattern.html" class="tool-link sg">Try the Tool →</a>
     </div>
-<div class="tool-card tc reveal">
+<div id="tool-nourish" class="tool-card tc reveal">
       <div class="tool-icon tc">🌱</div>
       <span class="tool-tag tc">Nourishment</span>
       <h4>Daily Nourishment Check-In</h4>
-      <p>A gentle one-minute check-in: notice which parts of you need nourishment today, receive a compassionate message that reminds you you're already enough, and choose one small way to care for yourself. Private by design; nothing you choose leaves your device.</p>
+      <p>For the days you need a little care. Notice what you need, receive a message that reminds you you're already enough, then choose words to carry or a small plan for today. Save it as a photo card. About 3 minutes.</p>
       <div class="tool-method">ACT · Mindfulness · Meaning-Centered (Frankl)</div>
       <a href="tools/daily-nourishment.html" class="tool-link tc">Try the Tool →</a>
     </div>
-<div class="tool-card sg reveal">
+<div id="tool-feeling" class="tool-card sg reveal">
       <div class="tool-icon sg">🫧</div>
       <span class="tool-tag sg">Emotions &amp; Body</span>
       <h4>Meet the Feeling</h4>
-      <p>Name what you feel, find where it lives in your body, and ease that place with a short guided exercise you can see and hear. Then let the feeling pass in its own time. A gentle practice based on RAIN, about 5 to 8 minutes.</p>
+      <p>For when a feeling is big, confusing, or hard to name. Find the right word, notice where it lives in your body, ease that place with a guided exercise you can see and hear, then let it pass in its own time. About 5 to 8 minutes.</p>
       <div class="tool-method">RAIN · Emotion Labeling · Mindful Grounding</div>
       <a href="tools/meet-the-feeling.html" class="tool-link sg">Try the Tool →</a>
     </div>
-<div class="tool-card tc reveal">
+<div id="tool-parts" class="tool-card tc reveal">
       <div class="tool-icon tc">🪞</div>
       <span class="tool-tag tc">Identity</span>
       <h4>Parts of Me</h4>
-      <p>A gentle reflection for getting to know one part of you, like the inner critic, the people pleaser, or the part that shuts down: what it does, what it fears, and what it needs. Private by design; nothing you write leaves your device.</p>
+      <p>For the inner critic, the people pleaser, or the part that shuts down. Get to know what one protective part does, what it fears, and what it needs, then hear a message you can say to it. About 10 minutes.</p>
       <div class="tool-method">Internal Family Systems (IFS)-Informed · Self-Compassion</div>
       <a href="tools/parts-of-me.html" class="tool-link tc">Try the Tool →</a>
     </div>
-<div class="tool-card sg reveal">
+<div id="tool-wave" class="tool-card sg reveal">
       <div class="tool-icon sg">🌊</div>
-      <span class="tool-tag sg">Anxiety &amp; OCD</span>
+      <span class="tool-tag sg">OCD, Panic &amp; Urges</span>
       <h4>Ride the Wave</h4>
-      <p>For panic, OCD, and high anxiety. Learn the trigger, sensation, thought, and compulsion cycle, then practice noticing the urge and staying with the feeling instead of reacting, and watch your own wave rise and fall. Private by design.</p>
-      <div class="tool-method">ERP-Informed · Mindfulness · CBT for Panic</div>
+      <p>For OCD, panic, and urges you feel you must act on: checking, washing, escaping, asking for reassurance. Map the cycle, then practice letting the urge rise and fall without acting on it, and watch your own wave pass. About 10 minutes.</p>
+      <div class="tool-method">Exposure &amp; Response Prevention (ERP) · CBT for Panic</div>
       <a href="tools/ride-the-wave.html" class="tool-link sg">Try the Tool →</a>
     </div>
 
@@ -1626,6 +1653,30 @@
     var body = msg + "\n\n" + name;
     window.location.href = "mailto:wooheekwak@outlook.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
     note.textContent = "Your email app should open with the message ready. If it doesn't, you can email wooheekwak@outlook.com directly.";
+  });
+})();
+</script>
+<script>
+/* Tool finder: suggests a tool from one tap. Nothing is stored or sent. */
+(function () {
+  var F = document.getElementById("finder"); if (!F) return;
+  var INFO = {
+    "tool-feeling": ["Meet the Feeling", "tools/meet-the-feeling.html", "Name it, find it in your body, and ease it with a short guided exercise.", ""],
+    "tool-untangle": ["Untangle the Pattern", "tools/untangle-the-pattern.html", "See how the thought drives what you do, loosen it, and test it with one small step.", "If the thought is an obsession you feel you must neutralize or check, Ride the Wave is a better fit."],
+    "tool-wave": ["Ride the Wave", "tools/ride-the-wave.html", "Practice letting the urge rise and fall without acting on it. That is how the cycle loosens.", "Built for OCD and panic. If you're working with an ERP therapist, follow their plan for which steps to practice."],
+    "tool-parts": ["Parts of Me", "tools/parts-of-me.html", "Get to know that part: what it does, what it fears, and what it needs from you.", ""],
+    "tool-values": ["Values Clarification Exercise", "tools/values-clarification.html", "Find and rank what matters most, and see which kinds of work might fit.", ""],
+    "tool-nourish": ["Daily Nourishment Check-In", "tools/daily-nourishment.html", "A few gentle minutes to notice what you need and choose one small way to care for yourself.", ""]
+  };
+  var out = document.getElementById("finder-result");
+  F.addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-tool]"); if (!b) return;
+    var id = b.getAttribute("data-tool"), t = INFO[id];
+    F.querySelectorAll("button[data-tool]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    document.querySelectorAll(".tool-card.is-match").forEach(function (c) { c.classList.remove("is-match"); });
+    var card = document.getElementById(id); if (card) card.classList.add("is-match");
+    out.innerHTML = '<p>Try <b>' + t[0] + '</b>. ' + t[2] + '</p><a class="go" href="' + t[1] + '">Open ' + t[0] + ' \u2192</a>' + (t[3] ? '<p class="note">' + t[3] + '</p>' : '');
+    out.hidden = false;
   });
 })();
 </script>
