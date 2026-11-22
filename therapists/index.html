@@ -183,6 +183,8 @@
   var TOOLS = [
     { id: "values-clarification", title: "Values Clarification Exercise", blurb: "Values, priorities, and fields to explore", summary: true, mins: "15 to 20 minutes",
       intro: "Here's a values exercise I'd love for you to try before our next session. It helps you find and rank what matters most to you, put it in your own words, and see which kinds of work might fit." },
+    { id: "untangle-the-pattern", title: "Untangle the Pattern", blurb: "CBT: thought, feeling, action loop, reframe, and a small step", summary: true, mins: "about 10 minutes",
+      intro: "Here's the CBT exercise we talked about. It walks you through the pattern step by step: the situation, the thought, how you feel, what you do, and then how to loosen the thought and test it with one small step." },
     { id: "name-the-feeling", title: "Name the Feeling", blurb: "Emotion words and a gentle way to sit with a feeling", mins: "5 to 10 minutes",
       intro: "Here's a short tool for those moments when something feels big but hard to name. It helps you find the right word for the feeling and then gently stay with it." },
     { id: "ride-the-wave", title: "Ride the Wave", blurb: "Panic, OCD, and anxiety: notice the urge and stay with it", mins: "10 to 15 minutes",
@@ -219,7 +221,7 @@
     var first = $("sh-first").value.trim(), name = $("sh-name").value.trim();
     var lines = ["Hi" + (first ? " " + first : "") + ",", "", tool.intro + " It takes " + tool.mins + ", and your answers stay on your own device.", "", "[link]", ""];
     if (tool.summary) {
-      lines.push("When you finish, you'll see a \"Save this for your next session\" box at the end. Please print it or save it as a PDF and bring it with you, or open it on your phone." +
+      lines.push("When you finish, please print your summary or save it as a PDF and bring it to our next session, or open it on your phone." +
         ($("sh-reply").value.trim() ? " You can also email it to me at " + $("sh-reply").value.trim() + ", but regular email isn't fully private, so only share what you're comfortable sending that way." : ""), "");
     } else {
       lines.push("There's nothing to send back. Just notice what comes up, and we can talk about it next time if you'd like.", "");
