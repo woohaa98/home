@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Small Steps · Woohee (Elise) Kwak</title>
+<meta name="description" content="For low mood, burnout, or feeling stuck: choose one to three small, doable steps for today, matched to your energy, and notice how your mood responds. Based on behavioral activation.">
+<!-- Privacy: no analytics, tracking, or data requests. Nothing is saved. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 22px; }
+.progress { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+.ground-btn { appearance: none; font: inherit; font-size: 13.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--accent); white-space: nowrap; transition: border-color .2s; }
+.ground-btn:hover { border-color: var(--accent); }
+.grounding { display: flex; gap: 14px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: 0 0 22px; }
+.grounding strong { display: block; color: var(--accent); font-weight: 600; }
+.grounding p { margin: 0; font-size: 14.5px; }
+.grounding .x { appearance: none; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; margin-left: auto; padding: 0 4px; }
+
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
+
+.options { display: grid; gap: 10px; }
+.options.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .options.two { grid-template-columns: 1fr; } }
+.opt {
+  appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 15px 18px;
+  transition: border-color .2s, background-color .2s;
+}
+.opt:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 20px; line-height: 1.2; }
+.opt b { display: block; font-weight: 600; font-size: 15.5px; }
+.opt small { display: block; color: var(--muted); font-size: 14px; margin-top: 1px; }
+.opt.dashed { border-style: dashed; }
+.group-name { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+.group-name:first-child { margin-top: 0; }
+
+.field { margin-top: 16px; }
+.field > label { display: block; font-weight: 500; margin-bottom: 8px; }
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 16px; line-height: 1.6; padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); resize: vertical; }
+textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.15); }
+::placeholder { color: #8C939C; }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.scale { margin-top: 26px; padding: 18px 20px; background: var(--sand); border-radius: 16px; }
+.scale label { font-weight: 500; display: block; margin-bottom: 8px; }
+.scale input[type=range] { width: 100%; accent-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.scale output { font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+.note { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 14px 0 0; }
+.note strong { color: var(--warm-ink); }
+
+.prompt-card { background: var(--sand); border-radius: 16px; padding: 18px 20px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.subcount { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+.reflection { display: flex; gap: 14px; align-items: flex-start; border-left: 3px solid var(--warm); background: var(--surface); border-radius: 0 14px 14px 0; padding: 14px 18px; margin: 16px 0 0; box-shadow: var(--shadow); }
+.reflection .mark { color: var(--warm); font-size: 18px; line-height: 1.5; }
+.reflection p { margin: 0; font-family: var(--font-display); font-size: 17px; line-height: 1.55; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(24px, 6vw, 44px); }
+.welcome-list { margin: 0 0 18px; padding-left: 20px; }
+.welcome-list li { margin-bottom: 6px; }
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 20px; }
+.safety strong { color: var(--warm-ink); }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-weight: 500; }
+.check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+
+.part-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 16px; }
+.summary { display: grid; gap: 12px; margin: 6px 0 0; }
+.summary div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.summary dd { margin: 0; white-space: pre-wrap; }
+@media (max-width: 520px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.pick-hint { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.answers { margin-bottom: 6px; }
+.own-words { margin: 8px 0 0; }
+.own-words summary { cursor: pointer; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; list-style: none; }
+.own-words summary::-webkit-details-marker { display: none; }
+.own-words[open] summary { margin-bottom: 8px; }
+.message-card { margin: 22px 0 0; background: var(--accent-soft); border-radius: 16px; padding: 18px 20px; }
+.message-card .mc-label { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.message-card .mc-text { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+@media print {
+  body { background: #fff; }
+  .topbar, header, .toolbar, .grounding, .actions, .disclaimer, .no-print { display: none !important; }
+  .card { box-shadow: none; border: 0; padding: 0; }
+}
+
+
+
+/* ---- shared by Small Steps, Kind Boundaries, Gentle Start-Up ---- */
+.privacy-line { font-size: 13.5px; color: var(--muted); margin: -20px 0 28px; }
+.session-banner { display: flex; gap: 12px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: -12px 0 28px; font-size: 14.5px; }
+.session-banner b { display: block; color: var(--accent); font-weight: 600; }
+.session-banner p { margin: 0; }
+.explain { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 0 0 18px; }
+.explain div { background: var(--sand); border-radius: 14px; padding: 14px 16px; }
+.explain b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 17px; margin-bottom: 2px; }
+.explain span { font-size: 14px; color: var(--muted); }
+.callout { background: var(--accent-soft); border-radius: 16px; padding: 14px 18px; margin: 16px 0 0; font-size: 15px; }
+.callout strong { color: var(--accent); }
+.callout.warm { background: var(--warm-soft); }
+.callout.warm strong { color: var(--warm-ink); }
+.script { background: #F2F8F3; border: 1px solid #CFE0D4; border-radius: 18px; padding: 20px 22px; margin: 6px 0 0; }
+.script .k { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 8px; }
+.script p.say { font-family: var(--font-display); font-size: 20px; line-height: 1.5; margin: 0; }
+.script textarea { width: 100%; font: inherit; font-family: var(--font-display); font-size: 19px; line-height: 1.5; padding: 12px 14px; border: 1px solid #CFE0D4; border-radius: 12px; background: #fff; color: var(--ink); resize: vertical; min-height: 120px; }
+.tone { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 12px; }
+.card-sec { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.card-sec h3 { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.card-sec p { margin: 0; }
+.card-sec ul { margin: 0; padding-left: 20px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-row span { font-size: 13px; background: var(--sand); border-radius: 999px; padding: 4px 12px; }
+.print-head { display: none; }
+.erase-row { margin-top: 14px; font-size: 14px; }
+.vbtn { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; background: #fff; border: 1px solid #CFE0D4; color: var(--accent); border-radius: 999px; padding: 9px 16px; min-height: 42px; }
+.vbtn:disabled { opacity: .45; cursor: not-allowed; }
+@media print {
+  .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
+  .print-head b { display: block; font-size: 13pt; color: #000; }
+  .session-banner, .erase-row, .rel, .privacy-line, .no-print { display: none !important; }
+}
+
+/* ---- Small Steps ---- */
+.cycle2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 0 6px; }
+@media (max-width: 600px) { .cycle2 { grid-template-columns: 1fr; } }
+.cycle2 > div { border-radius: 18px; padding: 16px 18px; }
+.cycle2 .down { background: var(--warm-soft); }
+.cycle2 .up { background: var(--accent-soft); }
+.cycle2 h3 { margin: 0 0 8px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
+.cycle2 .down h3 { color: var(--warm-ink); } .cycle2 .up h3 { color: var(--accent); }
+.cycle2 ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.cycle2 li { background: rgba(255,255,255,.75); border-radius: 10px; padding: 8px 12px; font-size: 14.5px; position: relative; }
+.cycle2 li:not(:last-child)::after { content: "↓"; position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); font-size: 12px; z-index: 1; }
+.cycle2 .down li:not(:last-child)::after { color: var(--warm-ink); } .cycle2 .up li:not(:last-child)::after { color: var(--accent); }
+.cat { margin: 0 0 18px; }
+.cat h3 { display: flex; gap: 8px; align-items: baseline; margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+.cat h3 small { font-weight: 400; color: var(--muted); font-size: 13.5px; }
+.acts { display: grid; gap: 8px; }
+.act { appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 11px 14px; transition: border-color .2s, background-color .2s; }
+.act:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.act .plus { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-size: 14px; color: var(--accent); line-height: 1; }
+.act[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.act[aria-pressed="true"] .plus { background: var(--accent); border-color: var(--accent); color: #fff; }
+.act .eff { font-size: 12px; color: var(--muted); background: var(--sand); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.count-note { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+.act[disabled] { opacity: .45; cursor: not-allowed; }
+.energy { display: grid; gap: 8px; }
+.plan-item { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; margin-bottom: 12px; }
+.plan-item h3 { margin: 0 0 10px; font-size: 16px; font-weight: 600; }
+.plan-item .row { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 8px; align-items: center; margin-top: 8px; }
+@media (max-width: 480px) { .plan-item .row { grid-template-columns: 1fr; gap: 4px; } }
+.plan-item .row > span { font-size: 13px; color: var(--muted); }
+.plan-item .chipset { gap: 6px; }
+.plan-item .chip { min-height: 36px; padding: 6px 12px; font-size: 13.5px; }
+.today { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.today li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.today .box { width: 22px; height: 22px; border: 2px solid var(--accent); border-radius: 6px; margin-top: 2px; }
+.today b { font-weight: 600; display: block; }
+.today small { color: var(--muted); font-size: 13.5px; }
+.encourage { margin: 18px 0 0; font-family: var(--font-display); font-style: italic; font-size: 21px; line-height: 1.45; color: var(--ink); }
+.notice { margin-top: 16px; background: var(--accent-soft); border-radius: 14px; padding: 14px 16px; font-size: 15px; }
+.notice b { color: var(--accent); }
+.photo-box { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+.photo-tip { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
+.photo-box img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 14px; border: 1px solid var(--line); margin: 0 auto; -webkit-touch-callout: default; }
+.remind { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 14.5px; }
+.remind input[type="time"] { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+@media print { .photo-box, .remind { display: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Low Mood &amp; Burnout</p>
+      <h1>Small <em>Steps</em></h1>
+      <p class="lede">When mood is low, we tend to do less, and doing less makes mood lower. Choose one to three small, doable steps for today, matched to your energy, and notice what happens. You don't have to feel motivated first. About 3 minutes.</p>
+      <p class="privacy-line">Your answers stay on this device. Nothing is saved, tracked, or sent anywhere.</p>
+    </header>
+    <div class="session-banner" id="session-banner" role="note" hidden><span aria-hidden="true">🌿</span>
+      <div><b>Shared by your therapist, <span class="th-name"></span></b><p>Choose today's small steps here, then save, print, or email your card to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div></div>
+    <div class="toolbar"><ol class="progress" id="progress" aria-hidden="true"></ol></div>
+    <section id="stage"></section>
+    <section class="rel" aria-labelledby="rel-h" style="margin-top:48px">
+      <p class="eyebrow" style="margin-bottom:6px">Therapy Resources</p>
+      <h2 id="rel-h" style="font-family:var(--font-display);font-weight:400;font-size:24px;margin:0 0 12px">Related reading</h2>
+      <div class="options two">
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=values-vs-goals"><span><b>Values vs. Goals</b><small>A direction you live versus a destination you reach.</small></span></a>
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=brain-and-emotions"><span><b>How the Brain Creates &amp; Regulates Emotions</b><small>Why emotions are built from body signals, meaning, and past experience.</small></span></a>
+      </div>
+    </section>
+  </main>
+  <footer class="disclaimer">
+    <p>Based on behavioral activation, a well-researched approach for low mood and depression. A self-guided practice, not a substitute for care. If low mood lasts more than two weeks or makes daily life hard, please talk with a doctor or therapist.</p>
+    <p>If you're having thoughts of harming yourself, in the U.S. call or text 988, or call 911.</p>
+    <p>Your answers stay on your device. Nothing is saved, tracked, or sent anywhere.</p>
+  </footer>
+</div>
+<script>
+(() => {
+  "use strict";
+  const SESSION_KEY = "wk-small-steps-session";
+
+  /* ---------- shared helpers ---------- */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const listText = (a) => a.length < 2 ? (a[0] || "") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
+  const low = (t) => /^I[ ']/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
+
+  /* session mode (?from=Name&reply=email), as in the other tools */
+  let therapist = null;
+  (function () {
+    const q = new URLSearchParams(location.search), from = (q.get("from") || "").trim().slice(0, 60);
+    try {
+      if (from) {
+        const t = { name: from.toLowerCase() === "elise" ? "Elise Kwak" : from, reply: "" };
+        const r = (q.get("reply") || "").trim().slice(0, 120);
+        if (r && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(r)) t.reply = r; else if (from.toLowerCase() === "elise") t.reply = "elise@selfspaceseattle.com";
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(t)); therapist = t;
+      } else { const raw = sessionStorage.getItem(SESSION_KEY); if (raw) therapist = JSON.parse(raw); }
+    } catch (_) { if (from) therapist = { name: from, reply: "" }; }
+    if (therapist && therapist.name) { $("session-banner").hidden = false; document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; }); }
+    else therapist = null;
+  })();
+  const sessionNote = () => therapist ? `<p class="hint" style="margin:20px 0 0">Print or save this as a PDF and bring it to your next session with ${esc(therapist.name)}.${therapist.reply ? ` If you've both agreed to use email, you can send it to ${esc(therapist.reply)}; email isn't fully private.` : ""}</p>` : "";
+
+  function copyText(text) {
+    const done = (m) => { const s = $("copy-status"); if (s) s.textContent = m; };
+    const fb = () => { const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done("Copied."); } catch (_) { done("Couldn't copy."); } ta.remove(); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done("Copied."), fb); else fb();
+  }
+  function emailMe(subject, text) {
+    window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
+    const s = $("copy-status"); if (s) s.textContent = "Your email app should open. Add your own address and send.";
+  }
+  function printNow() {
+    const ph = $("ph-line"); if (ph) ph.textContent = (therapist ? `For a session with ${therapist.name} · ` : "") + new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    window.print();
+  }
+
+
+  /* ================== CONTENT (edit freely) ================== */
+  const CATS = [
+    { id: "pleasure", icon: "🌸", name: "Something enjoyable", sub: "small pleasures, even if they feel flat right now", acts: [
+      ["Listen to one song you used to love", "Tiny"], ["Sit outside or by a window with a warm drink", "Tiny"], ["Watch something that makes you laugh", "Small"], ["Take a slow shower or bath", "Small"], ["Cook or order a favorite meal", "Medium"], ["Spend 20 minutes on an old hobby", "Medium"] ] },
+    { id: "mastery", icon: "✅", name: "Something accomplished", sub: "a sense of getting something done", acts: [
+      ["Make your bed", "Tiny"], ["Wash the dishes in the sink", "Small"], ["Reply to one message you've been avoiding", "Small"], ["Do 10 minutes on a task you've put off", "Small"], ["Put away one pile of clothes", "Small"], ["Pay one bill or handle one errand", "Medium"] ] },
+    { id: "connection", icon: "🤝", name: "Someone to connect with", sub: "even brief contact counts", acts: [
+      ["Send a short text to someone you like", "Tiny"], ["Say hi to a neighbor or coworker", "Tiny"], ["Call or voice-message a friend for 5 minutes", "Small"], ["Eat a meal with someone", "Medium"], ["Join one plan you'd usually skip, for 30 minutes", "Medium"] ] },
+    { id: "body", icon: "🚶", name: "Something for your body", sub: "movement, light, rest, food", acts: [
+      ["Step outside for 5 minutes of daylight", "Tiny"], ["Drink a glass of water", "Tiny"], ["Stretch for 5 minutes", "Tiny"], ["Take a 10-minute walk", "Small"], ["Eat one real meal at a regular time", "Small"], ["Go to bed 30 minutes earlier", "Medium"] ] },
+    { id: "values", icon: "🧭", name: "Something that matters to you", sub: "small acts in the direction of your values", acts: [
+      ["Do one kind thing for someone", "Tiny"], ["Read or learn something for 10 minutes", "Small"], ["Spend 15 minutes on something creative", "Small"], ["Help someone with a small task", "Small"], ["Take one step on a project you care about", "Medium"] ] }
+  ];
+  const ENERGY = [
+    { id: "empty", label: "Running on empty", sub: "Getting through the day is hard", say: "On a heavy day, one tiny step is a real step. You don't have to feel ready." },
+    { id: "low", label: "Low, but I can do a little", sub: "Things feel flat or hard to start", say: "You don't need motivation first. Start small, and let the feeling catch up." },
+    { id: "okay", label: "Okay-ish", sub: "Some energy, and I want to build on it", say: "Small steps add up. Today you're choosing the way back up." }
+  ];
+  const WHEN = ["Right now", "Morning", "Midday", "Afternoon", "Evening"];
+  const GUESS = ["Not at all", "A little", "Some", "A lot"];
+  const IFNOT = ["I'll do it for just 2 minutes", "I'll do the smallest version", "I'll do it badly, and that still counts", "I'll ask someone to do it with me", "I'll start before I think about it"];
+  const MAX = 3;
+
+  /* ================== STATE (not saved) ================== */
+  const blank = () => ({ step: 0, energy: "", mood: 4, picks: [], own: "", ownOn: false, when: {}, guess: {}, ifnot: "", showAll: false });
+  let d = blank(), lastView = -1;
+  const STEPS = 4;
+  $("progress").innerHTML = "<li></li>".repeat(STEPS);
+  const ownStep = () => d.ownOn && d.own.trim() ? [d.own.trim()] : [];
+  const allPicks = () => d.picks.concat(ownStep());
+  const catOf = (a) => (CATS.find((c) => c.acts.some(([t]) => t === a)) || { icon: "✨", name: "My own" });
+  const energy = () => ENERGY.find((e) => e.id === d.energy);
+  const effOk = (e) => d.showAll || d.energy !== "empty" || e === "Tiny";
+
+  /* ================== VIEWS ================== */
+  const label = (t) => `<p class="step-label">${t}</p>`;
+  const nav = (txt, ok = true, back = true) => `<div class="actions"><button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${txt}</button>${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}</div>`;
+  const full = () => allPicks().length >= MAX;
+
+  const views = {
+    0: () => `
+      ${label("Step 1 of 3 · Check in")}
+      <h2 class="q" tabindex="-1">How is your energy <em>today</em>?</h2>
+      <div class="options energy">${ENERGY.map((e) => `<button type="button" class="opt" data-energy="${e.id}" aria-pressed="${d.energy === e.id}"><span><b>${esc(e.label)}</b><small>${esc(e.sub)}</small></span></button>`).join("")}</div>
+      <div class="scale" style="margin-top:18px"><label for="mood">My mood right now <output id="mood-out" for="mood">${d.mood}</output></label>
+        <input id="mood" type="range" min="0" max="10" step="1" value="${d.mood}" data-field="mood"><div class="ends"><span>0 · very low</span><span>10 · really good</span></div></div>
+      <div class="cycle2" style="margin-top:22px">
+        <div class="down"><h3>When mood is low</h3><ol><li>We wait to feel like it</li><li>We do less and pull back</li><li>Fewer good or meaningful moments</li><li>Mood dips further</li></ol></div>
+        <div class="up"><h3>The way back up</h3><ol><li>Do one small thing anyway</li><li>A moment of enjoyment, connection, or "I did it"</li><li>A little more energy</li><li>The next step gets easier</li></ol></div>
+      </div>
+      <p class="callout"><strong>Action first, motivation follows.</strong> The best step is one so easy you could do it on a bad day. Five minutes counts.</p>
+      ${nav("Choose Today's Steps", !!d.energy, false)}`,
+
+    1: () => `
+      ${label("Step 2 of 3 · Choose")}
+      <h2 class="q" tabindex="-1">Pick <em>1 to 3</em> small steps for today</h2>
+      <p class="hint">${d.energy === "empty" && !d.showAll ? "Showing the tiniest steps, since energy is low. One is plenty. " : "A mix helps: something enjoyable, something accomplished, or someone to connect with. "}${d.energy === "empty" ? `<button type="button" class="btn-text" data-act="showall">${d.showAll ? "Show tiny steps only" : "Show all steps"}</button>` : ""}</p>
+      ${CATS.map((c) => { const acts = c.acts.filter(([, e]) => effOk(e)); return acts.length ? `<div class="cat"><h3><span aria-hidden="true">${c.icon}</span>${esc(c.name)} <small>${esc(c.sub)}</small></h3>
+        <div class="acts">${acts.map(([t, e]) => { const on = d.picks.includes(t); return `<button type="button" class="act" data-pick="${esc(t)}" aria-pressed="${on}"${!on && full() ? " disabled" : ""}><span class="plus" aria-hidden="true">${on ? "✓" : "+"}</span><span>${esc(t)}</span><span class="eff">${e}</span></button>`; }).join("")}</div></div>` : ""; }).join("")}
+      <details class="own-words"${d.ownOn ? " open" : ""}><summary>Add my own small step</summary>
+        <input type="text" data-field="own" maxlength="80" aria-label="Your own small step" placeholder="e.g. Water the plants" value="${esc(d.own)}"></details>
+      <p class="count-note" id="count-note">${countNote()}</p>
+      ${nav("Make It Doable", allPicks().length >= 1)}`,
+
+    2: () => `
+      ${label("Step 3 of 3 · Make it doable")}
+      <h2 class="q" tabindex="-1">When, and what do you <em>expect</em>?</h2>
+      <p class="hint">Picking a time makes it far more likely to happen. Then guess how much it might help. Low mood often guesses low. Later, you'll get to check.</p>
+      ${allPicks().map((a) => `<div class="plan-item"><h3>${catOf(a).icon} ${esc(a)}</h3>
+        <div class="row"><span>When</span><div class="chipset" role="group" aria-label="When">${WHEN.map((w) => `<button type="button" class="chip" data-when="${w}" data-for="${esc(a)}" aria-pressed="${d.when[a] === w}">${w}</button>`).join("")}</div></div>
+        <div class="row"><span>Might help</span><div class="chipset" role="group" aria-label="How much it might help">${GUESS.map((g) => `<button type="button" class="chip" data-guess="${g}" data-for="${esc(a)}" aria-pressed="${d.guess[a] === g}">${g}</button>`).join("")}</div></div></div>`).join("")}
+      <p class="group-name" style="margin-top:22px">If I don't feel like it when the time comes…</p>
+      <div class="chipset">${IFNOT.map((x) => `<button type="button" class="chip" data-ifnot="${esc(x)}" aria-pressed="${d.ifnot === x}">${esc(x)}</button>`).join("")}</div>
+      ${nav("See My Card")}`,
+
+    3: () => {
+      const items = allPicks(), guessed = items.filter((a) => d.guess[a]);
+      return `
+      <article class="card fade-in">
+        <div class="print-head"><b>Small Steps · Today</b><span id="ph-line"></span></div>
+        ${label(new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }))}
+        <h2 class="q" tabindex="-1">Today's small <em>steps</em></h2>
+        <ul class="today">${items.map((a) => `<li><span class="box" aria-hidden="true"></span><span><b>${catOf(a).icon} ${esc(a)}</b><small>${esc(d.when[a] || "Sometime today")}${d.guess[a] ? ` · I guess it might help: ${esc(d.guess[a].toLowerCase())}` : ""}</small></span></li>`).join("")}</ul>
+        ${d.ifnot ? `<div class="card-sec"><h3>If I don't feel like it</h3><p>${esc(d.ifnot)}.</p></div>` : ""}
+        <p class="encourage">${esc(energy() ? energy().say : ENERGY[1].say)}</p>
+        <div class="notice"><b>After each step, notice:</b> did your mood shift, even a little? ${guessed.length ? "Compare it with your guess. Low mood often predicts less than we actually feel." : "Low mood often predicts less than we actually feel."} Mood right now: ${d.mood}/10.</div>
+        ${sessionNote()}
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="photo">Save as Photo</button>
+        <button type="button" class="btn btn-ghost" data-act="email">Email to Myself</button>
+        <button type="button" class="btn btn-ghost" data-act="copy">Copy</button>
+        <button type="button" class="btn btn-ghost" data-act="print">Print or Save as PDF</button>
+        <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <div class="photo-box" id="photo-box" hidden>
+        <p class="photo-tip" id="photo-tip">Here's your card.</p>
+        <img id="photo-img" alt="Your small steps card for today.">
+        <div class="actions" style="margin-top:14px">
+          <button type="button" class="btn btn-primary" id="photo-share" hidden>Save or Email</button>
+          <a class="btn btn-ghost" id="photo-dl" download="my-small-steps.png" style="text-decoration:none;display:inline-flex;align-items:center">Download</a>
+          <button type="button" class="btn-text" data-act="photo-close">Close</button>
+        </div>
+      </div>
+      <div class="remind no-print"><label for="remind-time">Daily nudge to take one small step, at</label>
+        <input type="time" id="remind-time" value="10:00"><button type="button" class="btn btn-ghost" data-act="ics" style="padding:10px 16px;min-height:40px">Add to Calendar</button></div>
+      <p class="hint" id="remind-tip" style="margin-top:8px">Creates a 14-day reminder in your own calendar app. Your calendar keeps it, not this site.</p>
+      <p class="erase-row"><button type="button" class="btn-text" data-act="back">← Back</button> · <button type="button" class="btn-text" data-act="restart">Start again</button></p>`;
+    }
+  };
+  function countNote() { const n = allPicks().length; return n >= MAX ? `${n} chosen · that's plenty for today` : `${n} chosen`; }
+
+  function render(focus = true) {
+    const same = lastView === d.step; lastView = d.step;
+    $("stage").innerHTML = views[d.step]();
+    if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
+    [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i <= d.step));
+    if (focus) { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true }); }
+  }
+  function sync() {
+    const n = $("stage").querySelector('[data-act="next"]');
+    if (n && d.step === 0) n.disabled = !d.energy;
+    if (n && d.step === 1) n.disabled = !allPicks().length;
+    const c = $("count-note"); if (c) c.textContent = countNote();
+    $("stage").querySelectorAll("[data-pick]").forEach((b) => { b.disabled = b.getAttribute("aria-pressed") !== "true" && full(); });
+  }
+  const dateLong = () => new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+  function textSummary() {
+    const L = ["SMALL STEPS · " + dateLong(), ""];
+    if (therapist) L.push(`For a session with ${therapist.name}`, "");
+    L.push(`Energy: ${energy() ? energy().label : ""} · Mood right now: ${d.mood}/10`, "", "Today's small steps:");
+    allPicks().forEach((a) => L.push(`[ ] ${a} (${d.when[a] || "sometime today"}${d.guess[a] ? `; might help: ${d.guess[a].toLowerCase()}` : ""})`));
+    if (d.ifnot) L.push("", "If I don't feel like it: " + d.ifnot + ".");
+    L.push("", energy() ? energy().say : ENERGY[1].say, "", "After each step, notice: did my mood shift, even a little? Compare it with my guess.", "", "Small Steps · wooheekwak.me/tools/small-steps.html");
+    return L.join("\n");
+  }
+
+  /* ---------- Save as photo (drawn on this device; nothing is uploaded) ---------- */
+  function wrapLines(ctx, text, maxW) { const out = []; String(text).split("\n").forEach((para) => { let line = ""; para.split(/\s+/).forEach((w) => { const t = line ? line + " " + w : w; if (ctx.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; }); out.push(line); }); return out; }
+  function rrect(ctx, x, y, w, h, r) { const R = Array.isArray(r) ? r : [r, r, r, r]; ctx.beginPath(); ctx.moveTo(x + R[0], y); ctx.lineTo(x + w - R[1], y); ctx.quadraticCurveTo(x + w, y, x + w, y + R[1]); ctx.lineTo(x + w, y + h - R[2]); ctx.quadraticCurveTo(x + w, y + h, x + w - R[2], y + h); ctx.lineTo(x + R[3], y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - R[3]); ctx.lineTo(x, y + R[0]); ctx.quadraticCurveTo(x, y, x + R[0], y); ctx.closePath(); }
+  async function makeCard() {
+    try { await Promise.all(['italic 400 40px "Lora"', '400 40px "Lora"', '400 30px "DM Sans"', '500 30px "DM Sans"', '600 30px "DM Sans"'].map((f) => document.fonts.load(f))); } catch (_) {}
+    const W = 1080, P = 90, inner = W - P * 2;
+    const C = { bg: "#FDFAF6", ink: "#2A2F35", muted: "#5A6370", sage: "#476B56", warm: "#C4714A" };
+    const m = document.createElement("canvas").getContext("2d"), blocks = [];
+    const add = (font, color, text, lh, gap, spacing) => { m.font = font; blocks.push({ font, color, lines: wrapLines(m, text, inner), lh, gap, spacing }); };
+    add('600 26px "DM Sans"', C.muted, "MY SMALL STEPS", 34, 8, true);
+    add('400 28px "DM Sans"', C.muted, dateLong(), 38, 48);
+    m.font = '500 32px "DM Sans"';
+    const items = allPicks().map((a) => { m.font = '500 32px "DM Sans"'; const l1 = wrapLines(m, a, inner - 132); m.font = '400 25px "DM Sans"'; const l2 = wrapLines(m, (d.when[a] || "Sometime today") + (d.guess[a] ? " · might help: " + d.guess[a].toLowerCase() : ""), inner - 132); return { l1, l2 }; });
+    blocks.push({ items, h: 92 + 28 + items.reduce((n, it) => n + it.l1.length * 42 + it.l2.length * 34 + 30, 0), gap: 44 });
+    if (d.ifnot) { add('600 24px "DM Sans"', C.muted, "IF I DON'T FEEL LIKE IT", 32, 10, true); add('400 30px "DM Sans"', C.ink, d.ifnot + ".", 42, 40); }
+    add('italic 400 42px "Lora"', C.ink, energy() ? energy().say : ENERGY[1].say, 58, 40);
+    add('400 27px "DM Sans"', C.sage, "After each step, notice: did my mood shift, even a little?", 38, 0);
+    let H = P + 20; blocks.forEach((b) => { H += (b.items ? b.h : b.lines.length * b.lh) + b.gap; }); H += P + 40;
+    const cv = document.createElement("canvas"); cv.width = W; cv.height = Math.max(H, 1350);
+    const ctx = cv.getContext("2d");
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, cv.height); ctx.fillStyle = C.sage; ctx.fillRect(0, 0, W, 14);
+    ctx.textBaseline = "top";
+    let y = P + 20 + (cv.height - H) / 2;
+    for (const b of blocks) {
+      if (b.items) {
+        const x = P, w = inner;
+        ctx.fillStyle = "#FFFFFF"; rrect(ctx, x, y, w, b.h, 28); ctx.fill();
+        ctx.strokeStyle = C.sage; ctx.lineWidth = 4; rrect(ctx, x, y, w, b.h, 28); ctx.stroke();
+        ctx.fillStyle = C.sage; rrect(ctx, x, y, w, 92, [28, 28, 0, 0]); ctx.fill();
+        ctx.fillStyle = "#FFFFFF"; ctx.font = '600 24px "DM Sans"'; if ("letterSpacing" in ctx) ctx.letterSpacing = "4px";
+        ctx.fillText("TODAY'S SMALL STEPS", x + 36, y + 32); if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+        let yy = y + 92 + 28;
+        b.items.forEach((it) => {
+          ctx.fillStyle = "#FFFFFF"; rrect(ctx, x + 36, yy + 2, 36, 36, 9); ctx.fill();
+          ctx.strokeStyle = C.sage; ctx.lineWidth = 3; rrect(ctx, x + 36, yy + 2, 36, 36, 9); ctx.stroke();
+          ctx.fillStyle = C.ink; ctx.font = '500 32px "DM Sans"'; it.l1.forEach((ln, i) => ctx.fillText(ln, x + 96, yy + i * 42));
+          let y2 = yy + it.l1.length * 42; ctx.fillStyle = C.muted; ctx.font = '400 25px "DM Sans"'; it.l2.forEach((ln, i) => ctx.fillText(ln, x + 96, y2 + i * 34));
+          yy = y2 + it.l2.length * 34 + 30;
+        });
+        y += b.h + b.gap; continue;
+      }
+      ctx.font = b.font; ctx.fillStyle = b.color; if ("letterSpacing" in ctx) ctx.letterSpacing = b.spacing ? "4px" : "0px";
+      b.lines.forEach((ln, i) => ctx.fillText(ln, P, y + i * b.lh)); y += b.lines.length * b.lh + b.gap;
+    }
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    ctx.font = '400 22px "DM Sans"'; ctx.fillStyle = C.muted; ctx.fillText("Small Steps · wooheekwak.me", P, cv.height - P + 20);
+    return new Promise((res) => cv.toBlob(res, "image/png"));
+  }
+  let photoUrl = null;
+  async function showPhoto(btn) {
+    btn.disabled = true; btn.textContent = "Making your card…";
+    let blob = null; try { blob = await makeCard(); } catch (_) {}
+    btn.disabled = false; btn.textContent = "Save as Photo";
+    if (!blob) { $("copy-status").textContent = "Couldn't make the photo on this device. Try Copy or Print instead."; return; }
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    photoUrl = URL.createObjectURL(blob); $("photo-img").src = photoUrl; $("photo-dl").href = photoUrl;
+    let file = null, canShare = false;
+    try { file = new File([blob], "my-small-steps.png", { type: "image/png" }); canShare = !!(navigator.canShare && navigator.canShare({ files: [file] })); } catch (_) {}
+    $("photo-share").hidden = !canShare; $("photo-share").onclick = async () => { try { await navigator.share({ files: [file] }); } catch (_) {} };
+    $("photo-tip").textContent = canShare ? "Here's your card. Tap “Save or Email” and choose Save Image to keep it in Photos, or Mail to send it to yourself." : "Here's your card. Use Download, or press and hold (or right-click) the picture to save it.";
+    $("photo-box").hidden = false; $("photo-box").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+  }
+
+  /* ---------- Daily reminder (.ics file opened by the person's own calendar) ---------- */
+  function icsEscape(t) { return t.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\n/g, "\\n"); }
+  function fold(line) { const out = []; while (line.length > 74) { out.push(line.slice(0, 74)); line = " " + line.slice(74); } out.push(line); return out.join("\r\n"); }
+  function saveIcs() {
+    const [hh, mm] = ($("remind-time").value || "10:00").split(":").map(Number);
+    const start = new Date(); start.setHours(hh, mm, 0, 0); if (start < new Date()) start.setDate(start.getDate() + 1);
+    const p2 = (n) => String(n).padStart(2, "0");
+    const local = `${start.getFullYear()}${p2(start.getMonth() + 1)}${p2(start.getDate())}T${p2(hh)}${p2(mm)}00`;
+    const now = new Date(), stamp = `${now.getUTCFullYear()}${p2(now.getUTCMonth() + 1)}${p2(now.getUTCDate())}T${p2(now.getUTCHours())}${p2(now.getUTCMinutes())}00Z`;
+    const body = `Choose one small step for today. Action first, motivation follows.\n\nIdeas from my list:\n${allPicks().map((a) => "- " + a).join("\n")}${d.ifnot ? `\n\nIf I don't feel like it: ${d.ifnot}.` : ""}\n\nPlan today's steps: https://wooheekwak.me/tools/small-steps.html`;
+    const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//wooheekwak.me//Small Steps//EN", "CALSCALE:GREGORIAN", "BEGIN:VEVENT",
+      `UID:${Date.now()}-${Math.random().toString(36).slice(2)}@wooheekwak.me`, `DTSTAMP:${stamp}`, `DTSTART:${local}`, "DURATION:PT10M", "RRULE:FREQ=DAILY;COUNT=14",
+      `SUMMARY:${icsEscape("One small step")}`, `DESCRIPTION:${icsEscape(body)}`,
+      "BEGIN:VALARM", "ACTION:DISPLAY", "TRIGGER:PT0M", `DESCRIPTION:${icsEscape("One small step")}`, "END:VALARM",
+      "END:VEVENT", "END:VCALENDAR"].map(fold).join("\r\n");
+    const url = URL.createObjectURL(new Blob([lines], { type: "text/calendar" }));
+    const a = document.createElement("a"); a.href = url; a.download = "small-steps-reminder.ics"; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    $("remind-tip").textContent = "A daily reminder for the next 14 days was created. Open the file to add it to your calendar. Your calendar keeps it, not this site.";
+  }
+
+  $("stage").addEventListener("input", (e) => {
+    const t = e.target, f = t.dataset.field; if (!f) return;
+    if (t.type === "range") { d[f] = +t.value; const o = $(t.id + "-out"); if (o) o.textContent = d[f]; return; }
+    if (f === "own") { const was = allPicks().length; d.own = t.value; d.ownOn = !!t.value.trim(); if (allPicks().length > MAX) { d.ownOn = false; $("count-note").textContent = "Three is plenty for today. Remove one to add your own."; return; } }
+    sync();
+  });
+  $("stage").addEventListener("click", (e) => {
+    const t = e.target;
+    const en = t.closest("[data-energy]"); if (en) { d.energy = en.dataset.energy; $("stage").querySelectorAll("[data-energy]").forEach((b) => b.setAttribute("aria-pressed", b === en)); sync(); return; }
+    const pk = t.closest("[data-pick]"); if (pk) { const v = pk.dataset.pick, i = d.picks.indexOf(v); if (i >= 0) d.picks.splice(i, 1); else if (!full()) d.picks.push(v); else return; pk.setAttribute("aria-pressed", i < 0); pk.querySelector(".plus").textContent = i < 0 ? "✓" : "+"; sync(); return; }
+    const wh = t.closest("[data-when]"); if (wh) { const a = wh.dataset.for; d.when[a] = d.when[a] === wh.dataset.when ? "" : wh.dataset.when; wh.parentElement.querySelectorAll("[data-when]").forEach((b) => b.setAttribute("aria-pressed", d.when[a] === b.dataset.when)); return; }
+    const gu = t.closest("[data-guess]"); if (gu) { const a = gu.dataset.for; d.guess[a] = d.guess[a] === gu.dataset.guess ? "" : gu.dataset.guess; gu.parentElement.querySelectorAll("[data-guess]").forEach((b) => b.setAttribute("aria-pressed", d.guess[a] === b.dataset.guess)); return; }
+    const inn = t.closest("[data-ifnot]"); if (inn) { d.ifnot = d.ifnot === inn.dataset.ifnot ? "" : inn.dataset.ifnot; $("stage").querySelectorAll("[data-ifnot]").forEach((b) => b.setAttribute("aria-pressed", d.ifnot === b.dataset.ifnot)); return; }
+    const btn = t.closest("[data-act]"), a = btn?.dataset.act; if (!a) return;
+    if (a === "next") { d.step = Math.min(d.step + 1, STEPS - 1); render(); }
+    else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
+    else if (a === "showall") { d.showAll = !d.showAll; render(false); }
+    else if (a === "restart") { d = blank(); render(); }
+    else if (a === "photo") showPhoto(btn);
+    else if (a === "photo-close") $("photo-box").hidden = true;
+    else if (a === "ics") saveIcs();
+    else if (a === "print") printNow();
+    else if (a === "copy") copyText(textSummary());
+    else if (a === "email") emailMe("My small steps · " + new Date().toLocaleDateString(undefined, { month: "long", day: "numeric" }), textSummary());
+  });
+  render(false);
+})();
+</script>
+</body>
+</html>

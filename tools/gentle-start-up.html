@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gentle Start-Up · Woohee (Elise) Kwak</title>
+<meta name="description" content="For couples: turn a complaint into a gentle start-up (I feel… about… I need…), check for the Four Horsemen, and keep repair phrases ready. Inspired by the Gottman Method.">
+<!-- Privacy: no analytics, tracking, or data requests. Nothing is saved. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 22px; }
+.progress { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+.ground-btn { appearance: none; font: inherit; font-size: 13.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--accent); white-space: nowrap; transition: border-color .2s; }
+.ground-btn:hover { border-color: var(--accent); }
+.grounding { display: flex; gap: 14px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: 0 0 22px; }
+.grounding strong { display: block; color: var(--accent); font-weight: 600; }
+.grounding p { margin: 0; font-size: 14.5px; }
+.grounding .x { appearance: none; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; margin-left: auto; padding: 0 4px; }
+
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
+
+.options { display: grid; gap: 10px; }
+.options.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .options.two { grid-template-columns: 1fr; } }
+.opt {
+  appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 15px 18px;
+  transition: border-color .2s, background-color .2s;
+}
+.opt:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 20px; line-height: 1.2; }
+.opt b { display: block; font-weight: 600; font-size: 15.5px; }
+.opt small { display: block; color: var(--muted); font-size: 14px; margin-top: 1px; }
+.opt.dashed { border-style: dashed; }
+.group-name { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+.group-name:first-child { margin-top: 0; }
+
+.field { margin-top: 16px; }
+.field > label { display: block; font-weight: 500; margin-bottom: 8px; }
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 16px; line-height: 1.6; padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); resize: vertical; }
+textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.15); }
+::placeholder { color: #8C939C; }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.scale { margin-top: 26px; padding: 18px 20px; background: var(--sand); border-radius: 16px; }
+.scale label { font-weight: 500; display: block; margin-bottom: 8px; }
+.scale input[type=range] { width: 100%; accent-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.scale output { font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+.note { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 14px 0 0; }
+.note strong { color: var(--warm-ink); }
+
+.prompt-card { background: var(--sand); border-radius: 16px; padding: 18px 20px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.subcount { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+.reflection { display: flex; gap: 14px; align-items: flex-start; border-left: 3px solid var(--warm); background: var(--surface); border-radius: 0 14px 14px 0; padding: 14px 18px; margin: 16px 0 0; box-shadow: var(--shadow); }
+.reflection .mark { color: var(--warm); font-size: 18px; line-height: 1.5; }
+.reflection p { margin: 0; font-family: var(--font-display); font-size: 17px; line-height: 1.55; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(24px, 6vw, 44px); }
+.welcome-list { margin: 0 0 18px; padding-left: 20px; }
+.welcome-list li { margin-bottom: 6px; }
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 20px; }
+.safety strong { color: var(--warm-ink); }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-weight: 500; }
+.check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+
+.part-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 16px; }
+.summary { display: grid; gap: 12px; margin: 6px 0 0; }
+.summary div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.summary dd { margin: 0; white-space: pre-wrap; }
+@media (max-width: 520px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.pick-hint { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.answers { margin-bottom: 6px; }
+.own-words { margin: 8px 0 0; }
+.own-words summary { cursor: pointer; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; list-style: none; }
+.own-words summary::-webkit-details-marker { display: none; }
+.own-words[open] summary { margin-bottom: 8px; }
+.message-card { margin: 22px 0 0; background: var(--accent-soft); border-radius: 16px; padding: 18px 20px; }
+.message-card .mc-label { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.message-card .mc-text { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+@media print {
+  body { background: #fff; }
+  .topbar, header, .toolbar, .grounding, .actions, .disclaimer, .no-print { display: none !important; }
+  .card { box-shadow: none; border: 0; padding: 0; }
+}
+
+
+
+/* ---- shared by Small Steps, Kind Boundaries, Gentle Start-Up ---- */
+.privacy-line { font-size: 13.5px; color: var(--muted); margin: -20px 0 28px; }
+.session-banner { display: flex; gap: 12px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: -12px 0 28px; font-size: 14.5px; }
+.session-banner b { display: block; color: var(--accent); font-weight: 600; }
+.session-banner p { margin: 0; }
+.explain { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 0 0 18px; }
+.explain div { background: var(--sand); border-radius: 14px; padding: 14px 16px; }
+.explain b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 17px; margin-bottom: 2px; }
+.explain span { font-size: 14px; color: var(--muted); }
+.callout { background: var(--accent-soft); border-radius: 16px; padding: 14px 18px; margin: 16px 0 0; font-size: 15px; }
+.callout strong { color: var(--accent); }
+.callout.warm { background: var(--warm-soft); }
+.callout.warm strong { color: var(--warm-ink); }
+.script { background: #F2F8F3; border: 1px solid #CFE0D4; border-radius: 18px; padding: 20px 22px; margin: 6px 0 0; }
+.script .k { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 8px; }
+.script p.say { font-family: var(--font-display); font-size: 20px; line-height: 1.5; margin: 0; }
+.script textarea { width: 100%; font: inherit; font-family: var(--font-display); font-size: 19px; line-height: 1.5; padding: 12px 14px; border: 1px solid #CFE0D4; border-radius: 12px; background: #fff; color: var(--ink); resize: vertical; min-height: 120px; }
+.tone { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 12px; }
+.card-sec { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.card-sec h3 { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.card-sec p { margin: 0; }
+.card-sec ul { margin: 0; padding-left: 20px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-row span { font-size: 13px; background: var(--sand); border-radius: 999px; padding: 4px 12px; }
+.print-head { display: none; }
+.erase-row { margin-top: 14px; font-size: 14px; }
+.vbtn { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; background: #fff; border: 1px solid #CFE0D4; color: var(--accent); border-radius: 999px; padding: 9px 16px; min-height: 42px; }
+.vbtn:disabled { opacity: .45; cursor: not-allowed; }
+@media print {
+  .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
+  .print-head b { display: block; font-size: 13pt; color: #000; }
+  .session-banner, .erase-row, .rel, .privacy-line, .no-print { display: none !important; }
+}
+
+.vs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 0 6px; }
+@media (max-width: 600px) { .vs { grid-template-columns: 1fr; } }
+.vs > div { border-radius: 16px; padding: 14px 16px; }
+.vs .harsh { background: var(--warm-soft); }
+.vs .soft { background: var(--accent-soft); }
+.vs h3 { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
+.vs .harsh h3 { color: var(--warm-ink); } .vs .soft h3 { color: var(--accent); }
+.vs p { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 17px; line-height: 1.45; }
+.horse { display: grid; gap: 8px; }
+.horse button { appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; display: grid; gap: 2px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.horse button b { font-weight: 600; font-size: 15px; }
+.horse button small { color: var(--muted); font-size: 13.5px; }
+.horse button[aria-pressed="true"] { border-color: var(--warm); background: var(--warm-soft); }
+.antidote { margin-top: 12px; display: grid; gap: 8px; }
+.antidote div { background: var(--accent-soft); border-radius: 12px; padding: 10px 14px; font-size: 14.5px; }
+.antidote b { color: var(--accent); }
+.formula { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 16px; font-family: var(--font-display); font-size: 18px; }
+.formula span { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; }
+.formula span.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.plan { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 14px; }
+.plan li b { display: block; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.plan li p { margin: 0; }
+.plan li p.say { background: var(--accent-soft); border-radius: 14px; padding: 12px 16px; font-family: var(--font-display); font-style: italic; font-size: 18px; line-height: 1.5; }
+.opt[disabled] { opacity: .45; cursor: not-allowed; }
+.photo-box { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+.photo-tip { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
+.photo-box img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 14px; border: 1px solid var(--line); margin: 0 auto; -webkit-touch-callout: default; }
+@media print { .photo-box { display: none !important; } }
+.opt.bal { background: #F2F8F3; border-color: #CFE0D4; align-items: center; }
+.opt.bal b { font-weight: 500; font-family: var(--font-display); font-size: 17px; color: #2F4A3A; }
+.opt.bal:hover { border-color: var(--accent); background: #EAF3EC; }
+.opt.bal[aria-pressed="true"] { background: #DDEDE1; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.12); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Couples &amp; Communication</p>
+      <h1>Gentle <em>Start-Up</em></h1>
+      <p class="lede">How a hard conversation starts often shapes how it ends. Turn a complaint into a gentle start-up, check for habits that escalate conflict, and keep a few repair phrases ready. For partners, and useful with anyone close. Mostly tapping, about 7 minutes.</p>
+      <p class="privacy-line">Your answers stay on this device. Nothing is saved, tracked, or sent anywhere.</p>
+    </header>
+    <div class="session-banner" id="session-banner" role="note" hidden><span aria-hidden="true">🌿</span>
+      <div><b>Shared by your therapist, <span class="th-name"></span></b><p>Prepare your start-up here, then print or save it to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div></div>
+    <div class="toolbar"><ol class="progress" id="progress" aria-hidden="true"></ol></div>
+    <section id="stage"></section>
+    <section class="rel" aria-labelledby="rel-h" style="margin-top:48px">
+      <p class="eyebrow" style="margin-bottom:6px">Therapy Resources</p>
+      <h2 id="rel-h" style="font-family:var(--font-display);font-weight:400;font-size:24px;margin:0 0 12px">Related reading</h2>
+      <div class="options two">
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=four-horsemen"><span><b>The Four Horsemen</b><small>Four patterns that predict relationship distress, and their antidotes.</small></span></a>
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=attachment-styles"><span><b>Attachment Styles in Relationships</b><small>How we seek closeness and handle distance, and how security grows.</small></span></a>
+      </div>
+    </section>
+  </main>
+  <footer class="disclaimer">
+    <p>Inspired by the Gottman Method's research on gentle start-up, the Four Horsemen, and repair attempts. Not affiliated with The Gottman Institute. A self-guided practice, not couples therapy.</p>
+    <p>If there is fear, threats, control, or violence in your relationship, gentle communication is not the answer and your safety comes first. In the U.S., the National Domestic Violence Hotline is 1-800-799-7233 (or text START to 88788). In a crisis, call or text 988, or call 911.</p>
+    <p>Your answers stay on your device. Nothing is saved, tracked, or sent anywhere.</p>
+  </footer>
+</div>
+<script>
+(() => {
+  "use strict";
+  const SESSION_KEY = "wk-startup-session";
+
+  /* ---------- shared helpers ---------- */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const listText = (a) => a.length < 2 ? (a[0] || "") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
+  const low = (t) => /^I[ ']/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
+
+  /* session mode (?from=Name&reply=email), as in the other tools */
+  let therapist = null;
+  (function () {
+    const q = new URLSearchParams(location.search), from = (q.get("from") || "").trim().slice(0, 60);
+    try {
+      if (from) {
+        const t = { name: from.toLowerCase() === "elise" ? "Elise Kwak" : from, reply: "" };
+        const r = (q.get("reply") || "").trim().slice(0, 120);
+        if (r && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(r)) t.reply = r; else if (from.toLowerCase() === "elise") t.reply = "elise@selfspaceseattle.com";
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(t)); therapist = t;
+      } else { const raw = sessionStorage.getItem(SESSION_KEY); if (raw) therapist = JSON.parse(raw); }
+    } catch (_) { if (from) therapist = { name: from, reply: "" }; }
+    if (therapist && therapist.name) { $("session-banner").hidden = false; document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; }); }
+    else therapist = null;
+  })();
+  const sessionNote = () => therapist ? `<p class="hint" style="margin:20px 0 0">Print or save this as a PDF and bring it to your next session with ${esc(therapist.name)}.${therapist.reply ? ` If you've both agreed to use email, you can send it to ${esc(therapist.reply)}; email isn't fully private.` : ""}</p>` : "";
+
+  function copyText(text) {
+    const done = (m) => { const s = $("copy-status"); if (s) s.textContent = m; };
+    const fb = () => { const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done("Copied."); } catch (_) { done("Couldn't copy."); } ta.remove(); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done("Copied."), fb); else fb();
+  }
+  function emailMe(subject, text) {
+    window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
+    const s = $("copy-status"); if (s) s.textContent = "Your email app should open. Add your own address and send.";
+  }
+  function printNow() {
+    const ph = $("ph-line"); if (ph) ph.textContent = (therapist ? `For a session with ${therapist.name} · ` : "") + new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    window.print();
+  }
+
+
+  /* ================== CONTENT (edit freely) ================== */
+  const TOPICS = [
+    { id: "chores", label: "Chores and household load", about: ["the dishes piling up after dinner", "how the housework is split", "doing most of the planning and remembering"], need: ["us to split the evening cleanup", "help with one specific task each week", "us to sit down and divide things in a way that feels fair"] },
+    { id: "time", label: "Time together", about: ["how little time we've had together lately", "evenings when we're both on our phones", "plans falling through"], need: ["one evening a week that's just ours", "15 minutes to talk without phones after the kids are in bed", "us to plan something together this weekend"] },
+    { id: "money", label: "Money", about: ["the unexpected purchase this month", "not knowing where we stand financially", "how we make spending decisions"], need: ["us to check in on our budget together once a month", "a heads-up before big purchases", "a shared plan we both feel good about"] },
+    { id: "unheard", label: "Feeling unheard or unseen", about: ["what happened in our conversation last night", "my day getting brushed past", "feeling like my opinion doesn't count"], need: ["you to just listen for a few minutes before offering solutions", "us to check in with each other at the end of the day", "to hear that you understand where I'm coming from"] },
+    { id: "family", label: "Family or in-laws", about: ["the plans for the holidays", "the comments at dinner on Sunday", "how much time we spend with family"], need: ["us to decide together before we commit to plans", "you to back me up when it comes up", "a little time just for us around family visits"] },
+    { id: "parenting", label: "Parenting", about: ["bedtime turning into a struggle", "feeling like we're not on the same page with the kids", "carrying most of the parenting this week"], need: ["us to agree on a plan before we talk to the kids", "you to take bedtime two nights a week", "a few minutes to talk about it, just the two of us"] },
+    { id: "affection", label: "Affection and closeness", about: ["feeling distant from you lately", "how rarely we touch or hug these days", "missing feeling close to you"], need: ["a real hug when you get home", "some time to just be close, without pressure", "us to talk about what helps each of us feel close"] },
+    { id: "other", label: "Something else", about: [], need: [] }
+  ];
+  const FEELINGS = ["lonely", "overwhelmed", "hurt", "worried", "frustrated", "unappreciated", "tired", "disconnected", "anxious", "sad"];
+  const HORSEMEN = [
+    { id: "crit", short: "Describe the situation, not their character.", name: "Criticism", ex: "\"You always…\" / \"You never…\" / attacking who they are", fix: "Talk about your feeling and a specific situation, then ask for what you need. That's exactly what you're building here." },
+    { id: "cont", short: "Lead with appreciation, not sarcasm.", name: "Contempt", ex: "Sarcasm, eye-rolling, mockery, feeling superior", fix: "Remember what you appreciate about your partner. Start with one sincere appreciation." },
+    { id: "def", short: "Own my part, even a small one.", name: "Defensiveness", ex: "\"It's not my fault,\" counter-attacking, excuses", fix: "Take responsibility for even a small part: \"You're right, I did…\"" },
+    { id: "stone", short: "If I'm flooded, take 20 minutes, then come back.", name: "Stonewalling", ex: "Shutting down, going silent, walking away mid-talk", fix: "Notice when you're flooded and take a 20-minute break to calm your body, then come back." }
+  ];
+  const SOFTENERS = ["I love that you", "I know you've had a long week too.", "Can we talk about something that's been on my mind?", "I'm not trying to blame you."];
+  const REPAIR_GROUPS = [
+    ["To slow down", ["I need a short break. Can we come back to this in 20 minutes?", "Can we start over? I didn't say that well."]],
+    ["To soften", ["I'm sorry. That came out harsher than I meant.", "I see your point.", "Can you tell me what you're feeling right now?"]],
+    ["To reconnect", ["We're on the same team here.", "Let's find a compromise.", "I love you. We'll figure this out."]]
+  ];
+
+  /* ================== STATE (not saved) ================== */
+  const blank = () => ({ step: 0, topic: "", aboutPick: "", aboutOwn: "", feel: [], needPick: "", needOwn: "", horse: [], appreciation: "", softener: "", willing: true, script: "", edited: false, repairs: [] });
+  let d = blank(), lastView = -1;
+  const STEPS = 6;
+  $("progress").innerHTML = "<li></li>".repeat(STEPS);
+  const topic = () => TOPICS.find((t) => t.id === d.topic);
+  const about = () => d.aboutOwn.trim() || d.aboutPick;
+  const need = () => d.needOwn.trim() || d.needPick;
+
+  function build2() {
+    const f = d.feel.length ? listText(d.feel) : "upset";
+    const a = about() ? about().replace(/[.!?]+$/, "") : "something that's been on my mind";
+    const n = need() ? need().replace(/[.!?]+$/, "") : "";
+    const parts = [];
+    if (d.softener === "I love that you") { if (d.appreciation.trim()) parts.push(`I love that you ${d.appreciation.trim().replace(/[.!?]+$/, "")}.`); }
+    else if (d.softener) parts.push(d.softener);
+    parts.push(`I feel ${f} about ${a}.`);
+    if (n) parts.push(`I need ${n}.`);
+    if (n && d.willing) parts.push("Would you be willing to try that with me?");
+    return parts.join(" ");
+  }
+
+  /* ================== VIEWS ================== */
+  const label = (t) => `<p class="step-label">${t}</p>`;
+  const nav = (txt, ok = true, back = true) => `<div class="actions"><button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${txt}</button>${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}</div>`;
+  const formula = (on) => `<div class="formula" aria-hidden="true"><span class="${on === 0 ? "on" : ""}">I feel…</span><span class="${on === 1 ? "on" : ""}">about…</span><span class="${on === 2 ? "on" : ""}">I need…</span></div>`;
+
+  const views = {
+    0: () => `
+      ${label("Step 1 of 5 · The topic")}
+      <h2 class="q" tabindex="-1">What do you want to <em>bring up</em>?</h2>
+      <div class="vs">
+        <div class="harsh"><h3>A harsh start-up</h3><p>"You never help with anything. I'm always the one doing it all."</p></div>
+        <div class="soft"><h3>A gentle start-up</h3><p>"I feel overwhelmed about the dishes piling up after dinner. I need us to split the evening cleanup."</p></div>
+      </div>
+      <p class="hint" style="margin:10px 0 16px">Same complaint. The second one describes your feeling and a situation, then asks for something specific, so your partner hears an invitation instead of an attack.</p>
+      <div class="options two">${TOPICS.map((t) => `<button type="button" class="opt${t.id === "other" ? " dashed" : ""}" data-topic="${t.id}" aria-pressed="${d.topic === t.id}"><span><b>${esc(t.label)}</b></span></button>`).join("")}</div>
+      ${nav("Continue", !!d.topic, false)}`,
+
+    1: () => `
+      ${label("Step 2 of 5 · I feel… about…")}
+      ${formula(0)}
+      <h2 class="q" tabindex="-1">How do you <em>feel</em>?</h2>
+      <p class="hint">Name your own feeling, not what your partner did. Tap one or two.</p>
+      <div class="chipset">${FEELINGS.map((f) => `<button type="button" class="chip" data-feel="${f}" aria-pressed="${d.feel.includes(f)}">${f}</button>`).join("")}</div>
+      <p class="group-name" style="margin-top:22px">About what? Describe the situation, not their character.</p>
+      ${topic() && topic().about.length ? `<div class="options">${topic().about.map((a) => `<button type="button" class="opt" data-about="${esc(a)}" aria-pressed="${d.aboutPick === a && !d.aboutOwn.trim()}"><span><b style="font-weight:500">…${esc(a)}</b></span></button>`).join("")}</div>` : ""}
+      <details class="own-words"${d.aboutOwn.trim() || !(topic() && topic().about.length) ? " open" : ""}><summary>In my own words</summary>
+        <input type="text" data-field="aboutOwn" maxlength="120" aria-label="The situation" placeholder="e.g. the laundry sitting in the dryer for days" value="${esc(d.aboutOwn)}"></details>
+      ${nav("Continue", d.feel.length && about())}`,
+
+    2: () => `
+      ${label("Step 3 of 5 · I need…")}
+      ${formula(2)}
+      <h2 class="q" tabindex="-1">What do you <em>need</em>?</h2>
+      <p class="hint">Ask for what you want, not what you don't want. Something specific and doable works best.</p>
+      ${topic() && topic().need.length ? `<div class="options">${topic().need.map((n) => `<button type="button" class="opt bal" data-need="${esc(n)}" aria-pressed="${d.needPick === n && !d.needOwn.trim()}"><span><b style="font-weight:500">I need ${esc(n)}</b></span></button>`).join("")}</div>` : ""}
+      <details class="own-words"${d.needOwn.trim() || !(topic() && topic().need.length) ? " open" : ""}><summary>In my own words</summary>
+        <input type="text" data-field="needOwn" maxlength="120" aria-label="What you need" placeholder="e.g. us to fold it together on Sunday" value="${esc(d.needOwn)}"></details>
+      <p class="group-name" style="margin-top:22px">Soften the start (optional)</p>
+      <div class="chipset">${SOFTENERS.map((s) => `<button type="button" class="chip" data-soft="${esc(s)}" aria-pressed="${d.softener === s}">${esc(s === "I love that you" ? "Start with an appreciation" : s)}</button>`).join("")}</div>
+      ${d.softener === "I love that you" ? `<input type="text" data-field="appreciation" maxlength="100" style="margin-top:8px" aria-label="An appreciation" placeholder="I love that you… e.g. make me laugh every morning" value="${esc(d.appreciation)}">` : ""}
+      ${nav("Check for the Four Horsemen", !!need())}`,
+
+    3: () => {
+      if (!d.edited) d.script = build2();
+      return `
+      ${label("Step 4 of 5 · Check it")}
+      <h2 class="q" tabindex="-1">Your gentle <em>start-up</em></h2>
+      <div class="script"><p class="k">Edit it so it sounds like you</p><textarea id="script" data-field="script" aria-label="Your gentle start-up">${esc(d.script)}</textarea></div>
+      <p class="group-name" style="margin-top:22px">Which of these tend to show up for you in conflict? <span style="text-transform:none;letter-spacing:0">(tap any, it's okay to be honest)</span></p>
+      <div class="horse">${HORSEMEN.map((h) => `<button type="button" data-horse="${h.id}" aria-pressed="${d.horse.includes(h.id)}"><b>${h.name}</b><small>${esc(h.ex)}</small></button>`).join("")}</div>
+      <div class="antidote" id="antidote">${antidotes()}</div>
+      ${nav("Plan for If It Gets Heated")}`;
+    },
+
+    4: () => `
+      ${label("Step 5 of 5 · If it gets heated")}
+      <h2 class="q" tabindex="-1">Choose your <em>repair</em> phrases</h2>
+      <p class="hint">Even caring couples get off track. A repair phrase is a quick way to slow things down and turn back toward each other. Pick one or two you could actually say.</p>
+      ${REPAIR_GROUPS.map(([g, list]) => `<p class="group-name" style="margin-top:16px">${g}</p><div class="options">${list.map((r) => { const on = d.repairs.includes(r); return `<button type="button" class="opt" data-repair="${esc(r)}" aria-pressed="${on}"${!on && d.repairs.length >= 2 ? " disabled" : ""}><span><b style="font-weight:500">"${esc(r)}"</b></span></button>`; }).join("")}</div>`).join("")}
+      <p class="callout" style="margin-top:20px"><strong>If your heart is racing,</strong> that's flooding. Say you need a break, take about 20 minutes to do something calming (not replaying the argument), then come back.</p>
+      ${nav("See My Conversation Plan")}`,
+
+    5: () => `
+      <article class="card fade-in">
+        <div class="print-head"><b>Gentle Start-Up · My conversation plan</b><span id="ph-line"></span></div>
+        ${label("Your conversation plan")}
+        <h2 class="q" tabindex="-1">How I'll bring it <em>up</em></h2>
+        <ol class="plan">${planSteps().map(([h, body, quote]) => `<li><b>${esc(h)}</b>${quote ? `<p class="say">${esc(body)}</p>` : `<p>${esc(body)}</p>`}</li>`).join("")}</ol>
+        ${d.horse.length ? `<div class="card-sec"><h3>Remember</h3><ul>${HORSEMEN.filter((h) => d.horse.includes(h.id)).map((h) => `<li>${esc(h.short)}</li>`).join("")}</ul></div>` : ""}
+        ${sessionNote()}
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="photo">Save as Photo</button>
+        <button type="button" class="btn btn-ghost" data-act="email">Email to Myself</button>
+        <button type="button" class="btn btn-ghost" data-act="copy">Copy</button>
+        <button type="button" class="btn btn-ghost" data-act="print">Print</button>
+        <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <div class="photo-box" id="photo-box" hidden>
+        <p class="photo-tip" id="photo-tip">Here's your card.</p>
+        <img id="photo-img" alt="Your gentle start-up conversation plan.">
+        <div class="actions" style="margin-top:14px">
+          <button type="button" class="btn btn-primary" id="photo-share" hidden>Save or Email</button>
+          <a class="btn btn-ghost" id="photo-dl" download="my-gentle-start-up.png" style="text-decoration:none;display:inline-flex;align-items:center">Download</a>
+          <button type="button" class="btn-text" data-act="photo-close">Close</button>
+        </div>
+      </div>
+      <p class="erase-row"><button type="button" class="btn-text" data-act="back">← Back</button> · <button type="button" class="btn-text" data-act="restart">Start again</button></p>`
+  };
+  function planSteps() {
+    const reps = d.repairs.length ? d.repairs : ["I need a short break. Can we come back to this in 20 minutes?"];
+    return [
+      ["1. Pick a calm moment", "Not when either of you is rushed, tired, or already upset. Ask: \"Is now a good time to talk about something?\""],
+      ["2. Start gently", d.script || build2(), true],
+      ["3. Then listen", "Let them respond. Listen for their feelings too, and keep it to this one topic."],
+      ["4. If it gets heated, say", reps.map((r) => `"${r}"`).join("  ·  "), true]
+    ];
+  }
+  function antidotes() { return HORSEMEN.filter((h) => d.horse.includes(h.id)).map((h) => `<div><b>Antidote to ${h.name.toLowerCase()}:</b> ${esc(h.fix)}</div>`).join(""); }
+
+  const ok = { 0: () => !!d.topic, 1: () => d.feel.length && about(), 2: () => !!need() };
+  function render(focus = true) {
+    const same = lastView === d.step; lastView = d.step;
+    $("stage").innerHTML = views[d.step]();
+    grow();
+    if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
+    [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i <= d.step));
+    if (focus) { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true }); }
+  }
+  function grow() { const ta = $("stage").querySelector(".script textarea"); if (ta) { ta.style.height = "auto"; ta.style.height = ta.scrollHeight + 4 + "px"; } }
+  function sync() { const n = $("stage").querySelector('[data-act="next"]'); if (n && ok[d.step]) n.disabled = !ok[d.step](); }
+  function planText() {
+    const L = ["MY GENTLE START-UP · conversation plan", ""];
+    if (therapist) L.push(`For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`, "");
+    planSteps().forEach(([h, body]) => L.push(h, body, ""));
+    const hs = HORSEMEN.filter((h) => d.horse.includes(h.id)); if (hs.length) { L.push("Remember:"); hs.forEach((h) => L.push("- " + h.short)); L.push(""); }
+    L.push("Gentle Start-Up · wooheekwak.me/tools/gentle-start-up.html"); return L.join("\n");
+  }
+  /* ---------- Save as photo (drawn on this device; nothing is uploaded) ---------- */
+  function wrapLines(ctx, text, maxW) { const out = []; String(text).split("\n").forEach((para) => { let line = ""; para.split(/\s+/).forEach((w) => { const t = line ? line + " " + w : w; if (ctx.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; }); out.push(line); }); return out; }
+  function rrect(ctx, x, y, w, h, r) { const R = Array.isArray(r) ? r : [r, r, r, r]; ctx.beginPath(); ctx.moveTo(x + R[0], y); ctx.lineTo(x + w - R[1], y); ctx.quadraticCurveTo(x + w, y, x + w, y + R[1]); ctx.lineTo(x + w, y + h - R[2]); ctx.quadraticCurveTo(x + w, y + h, x + w - R[2], y + h); ctx.lineTo(x + R[3], y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - R[3]); ctx.lineTo(x, y + R[0]); ctx.quadraticCurveTo(x, y, x + R[0], y); ctx.closePath(); }
+  async function makeCard() {
+    try { await Promise.all(['italic 400 40px "Lora"', '400 30px "DM Sans"', '600 30px "DM Sans"'].map((f) => document.fonts.load(f))); } catch (_) {}
+    const W = 1080, P = 90, inner = W - P * 2;
+    const C = { bg: "#FDFAF6", ink: "#2A2F35", muted: "#5A6370", sage: "#476B56", soft: "#EEF4F0" };
+    const m = document.createElement("canvas").getContext("2d"), blocks = [];
+    const add = (font, color, text, lh, gap, spacing, boxed) => { m.font = font; blocks.push({ font, color, lines: wrapLines(m, text, inner - (boxed ? 64 : 0)), lh, gap, spacing, boxed }); };
+    add('600 26px "DM Sans"', C.muted, "MY GENTLE START-UP", 34, 50, true);
+    planSteps().forEach(([h, body, quote]) => {
+      add('600 26px "DM Sans"', C.sage, h.toUpperCase(), 34, 12, true);
+      if (quote) add('italic 400 38px "Lora"', C.ink, body, 52, 40, false, true);
+      else add('400 29px "DM Sans"', C.ink, body, 40, 40);
+    });
+    const hs = HORSEMEN.filter((h) => d.horse.includes(h.id));
+    if (hs.length) { add('600 26px "DM Sans"', C.muted, "REMEMBER", 34, 12, true); hs.forEach((h) => add('400 28px "DM Sans"', C.ink, "• " + h.short, 38, 8)); }
+    let H = P; blocks.forEach((b) => { H += b.lines.length * b.lh + (b.boxed ? 56 : 0) + b.gap; }); H += P + 40;
+    const cv = document.createElement("canvas"); cv.width = W; cv.height = Math.max(H, 1350);
+    const ctx = cv.getContext("2d");
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, cv.height); ctx.fillStyle = C.sage; ctx.fillRect(0, 0, W, 14);
+    ctx.textBaseline = "top";
+    let y = P + (cv.height - H) / 2;
+    for (const b of blocks) {
+      if (b.boxed) { const bh = b.lines.length * b.lh + 56; ctx.fillStyle = C.soft; rrect(ctx, P, y, inner, bh, 24); ctx.fill(); }
+      ctx.font = b.font; ctx.fillStyle = b.color; if ("letterSpacing" in ctx) ctx.letterSpacing = b.spacing ? "4px" : "0px";
+      const off = b.boxed ? 32 : 0, top = b.boxed ? 28 : 0;
+      b.lines.forEach((ln, i) => ctx.fillText(ln, P + off, y + top + i * b.lh));
+      y += b.lines.length * b.lh + (b.boxed ? 56 : 0) + b.gap;
+    }
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    ctx.font = '400 22px "DM Sans"'; ctx.fillStyle = C.muted; ctx.fillText("Gentle Start-Up · wooheekwak.me", P, cv.height - P + 20);
+    return new Promise((res) => cv.toBlob(res, "image/png"));
+  }
+  let photoUrl = null;
+  async function showPhoto(btn) {
+    btn.disabled = true; btn.textContent = "Making your card…";
+    let blob = null; try { blob = await makeCard(); } catch (_) {}
+    btn.disabled = false; btn.textContent = "Save as Photo";
+    if (!blob) { $("copy-status").textContent = "Couldn't make the photo on this device. Try Copy or Print instead."; return; }
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    photoUrl = URL.createObjectURL(blob); $("photo-img").src = photoUrl; $("photo-dl").href = photoUrl;
+    let file = null, canShare = false;
+    try { file = new File([blob], "my-gentle-start-up.png", { type: "image/png" }); canShare = !!(navigator.canShare && navigator.canShare({ files: [file] })); } catch (_) {}
+    $("photo-share").hidden = !canShare; $("photo-share").onclick = async () => { try { await navigator.share({ files: [file] }); } catch (_) {} };
+    $("photo-tip").textContent = canShare ? "Here's your card. Tap “Save or Email” and choose Save Image to keep it in Photos, or Mail to send it to yourself." : "Here's your card. Use Download, or press and hold (or right-click) the picture to save it.";
+    $("photo-box").hidden = false; $("photo-box").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+  }
+
+
+
+  $("stage").addEventListener("input", (e) => {
+    const f = e.target.dataset.field; if (!f) return;
+    d[f] = e.target.value; if (f === "script") grow();
+    if (f === "script") d.edited = true; else d.edited = false;
+    if (f === "aboutOwn" && e.target.value.trim()) $("stage").querySelectorAll("[data-about]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+    if (f === "needOwn" && e.target.value.trim()) $("stage").querySelectorAll("[data-need]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+    sync();
+  });
+  $("stage").addEventListener("click", (e) => {
+    const t = e.target;
+    const tp = t.closest("[data-topic]"); if (tp) { if (d.topic !== tp.dataset.topic) { d.topic = tp.dataset.topic; d.aboutPick = ""; d.needPick = ""; d.edited = false; } $("stage").querySelectorAll("[data-topic]").forEach((b) => b.setAttribute("aria-pressed", b === tp)); sync(); return; }
+    const fe = t.closest("[data-feel]"); if (fe) { const v = fe.dataset.feel, i = d.feel.indexOf(v); i >= 0 ? d.feel.splice(i, 1) : d.feel.push(v); fe.setAttribute("aria-pressed", i < 0); d.edited = false; sync(); return; }
+    const ab = t.closest("[data-about]"); if (ab) { d.aboutPick = ab.dataset.about; d.aboutOwn = ""; const inp = $("stage").querySelector('[data-field="aboutOwn"]'); if (inp) inp.value = ""; $("stage").querySelectorAll("[data-about]").forEach((b) => b.setAttribute("aria-pressed", b === ab)); d.edited = false; sync(); return; }
+    const nd = t.closest("[data-need]"); if (nd) { d.needPick = nd.dataset.need; d.needOwn = ""; const inp = $("stage").querySelector('[data-field="needOwn"]'); if (inp) inp.value = ""; $("stage").querySelectorAll("[data-need]").forEach((b) => b.setAttribute("aria-pressed", b === nd)); d.edited = false; sync(); return; }
+    const sf = t.closest("[data-soft]"); if (sf) { d.softener = d.softener === sf.dataset.soft ? "" : sf.dataset.soft; d.edited = false; render(false); return; }
+    const hs = t.closest("[data-horse]"); if (hs) { const v = hs.dataset.horse, i = d.horse.indexOf(v); i >= 0 ? d.horse.splice(i, 1) : d.horse.push(v); hs.setAttribute("aria-pressed", i < 0); $("antidote").innerHTML = antidotes(); return; }
+    const rp = t.closest("[data-repair]"); if (rp) { const v = rp.dataset.repair, i = d.repairs.indexOf(v); if (i >= 0) d.repairs.splice(i, 1); else if (d.repairs.length < 2) d.repairs.push(v); $("stage").querySelectorAll("[data-repair]").forEach((b) => { const on = d.repairs.includes(b.dataset.repair); b.setAttribute("aria-pressed", on); b.disabled = !on && d.repairs.length >= 2; }); return; }
+    const btn = t.closest("[data-act]"), a = btn?.dataset.act; if (!a) return;
+    if (a === "next") { d.step = Math.min(d.step + 1, STEPS - 1); render(); }
+    else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
+    else if (a === "restart") { d = blank(); render(); }
+    else if (a === "copy") copyText(planText());
+    else if (a === "email") emailMe("My gentle start-up plan", planText());
+    else if (a === "photo") showPhoto(btn);
+    else if (a === "photo-close") $("photo-box").hidden = true;
+    else if (a === "print") printNow();
+  });
+  render(false);
+})();
+</script>
+</body>
+</html>
