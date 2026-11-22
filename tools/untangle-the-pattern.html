@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Untangle the Pattern · Woohee (Elise) Kwak</title>
+<meta name="description" content="A CBT exercise: see how a rigid thought drives a feeling and an avoidance pattern, spot the thinking trap, weigh the evidence, find a more balanced thought, and choose one small step.">
+<!-- Privacy: this page makes no analytics, tracking, or data requests. Answers are saved only in this browser. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 22px; }
+.progress { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+.ground-btn { appearance: none; font: inherit; font-size: 13.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--accent); white-space: nowrap; transition: border-color .2s; }
+.ground-btn:hover { border-color: var(--accent); }
+.grounding { display: flex; gap: 14px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: 0 0 22px; }
+.grounding strong { display: block; color: var(--accent); font-weight: 600; }
+.grounding p { margin: 0; font-size: 14.5px; }
+.grounding .x { appearance: none; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; margin-left: auto; padding: 0 4px; }
+
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
+
+.options { display: grid; gap: 10px; }
+.options.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .options.two { grid-template-columns: 1fr; } }
+.opt {
+  appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 15px 18px;
+  transition: border-color .2s, background-color .2s;
+}
+.opt:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 20px; line-height: 1.2; }
+.opt b { display: block; font-weight: 600; font-size: 15.5px; }
+.opt small { display: block; color: var(--muted); font-size: 14px; margin-top: 1px; }
+.opt.dashed { border-style: dashed; }
+.group-name { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+.group-name:first-child { margin-top: 0; }
+
+.field { margin-top: 16px; }
+.field > label { display: block; font-weight: 500; margin-bottom: 8px; }
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 16px; line-height: 1.6; padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); resize: vertical; }
+textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.15); }
+::placeholder { color: #8C939C; }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.scale { margin-top: 26px; padding: 18px 20px; background: var(--sand); border-radius: 16px; }
+.scale label { font-weight: 500; display: block; margin-bottom: 8px; }
+.scale input[type=range] { width: 100%; accent-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.scale output { font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+.note { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 14px 0 0; }
+.note strong { color: var(--warm-ink); }
+
+.prompt-card { background: var(--sand); border-radius: 16px; padding: 18px 20px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.subcount { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+.reflection { display: flex; gap: 14px; align-items: flex-start; border-left: 3px solid var(--warm); background: var(--surface); border-radius: 0 14px 14px 0; padding: 14px 18px; margin: 16px 0 0; box-shadow: var(--shadow); }
+.reflection .mark { color: var(--warm); font-size: 18px; line-height: 1.5; }
+.reflection p { margin: 0; font-family: var(--font-display); font-size: 17px; line-height: 1.55; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(24px, 6vw, 44px); }
+.welcome-list { margin: 0 0 18px; padding-left: 20px; }
+.welcome-list li { margin-bottom: 6px; }
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 20px; }
+.safety strong { color: var(--warm-ink); }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-weight: 500; }
+.check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+
+.part-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 16px; }
+.summary { display: grid; gap: 12px; margin: 6px 0 0; }
+.summary div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.summary dd { margin: 0; white-space: pre-wrap; }
+@media (max-width: 520px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.pick-hint { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.answers { margin-bottom: 6px; }
+.own-words { margin: 8px 0 0; }
+.own-words summary { cursor: pointer; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; list-style: none; }
+.own-words summary::-webkit-details-marker { display: none; }
+.own-words[open] summary { margin-bottom: 8px; }
+.message-card { margin: 22px 0 0; background: var(--accent-soft); border-radius: 16px; padding: 18px 20px; }
+.message-card .mc-label { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.message-card .mc-text { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+@media print {
+  body { background: #fff; }
+  .topbar, header, .toolbar, .grounding, .actions, .disclaimer, .no-print { display: none !important; }
+  .card { box-shadow: none; border: 0; padding: 0; }
+}
+
+/* ---- Untangle additions ---- */
+.loop { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.loop li { position: relative; display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 14px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; margin-bottom: 26px; }
+.loop li:not(:last-child)::after { content: "↓"; position: absolute; left: 50%; bottom: -24px; transform: translateX(-50%); color: var(--warm); font-size: 18px; line-height: 1; }
+.loop .k { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding-top: 2px; }
+.loop .v { font-size: 15.5px; }
+.loop .v.empty { color: var(--muted); font-style: italic; }
+.loop li.thought { border-color: var(--warm); background: var(--warm-soft); }
+.loop-back { text-align: center; font-family: var(--font-display); font-style: italic; color: var(--warm-ink); margin: -8px 0 0; }
+@media (max-width: 480px) { .loop li { grid-template-columns: 1fr; gap: 2px; } }
+
+.triangle { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0 0 18px; }
+@media (max-width: 560px) { .triangle { grid-template-columns: 1fr; } }
+.triangle div { background: var(--sand); border-radius: 14px; padding: 14px 16px; }
+.triangle b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 18px; }
+.triangle span { font-size: 14px; color: var(--muted); }
+
+.trap { appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; transition: border-color .2s, background-color .2s; }
+.trap b { display: block; font-weight: 600; font-size: 15px; }
+.trap small { display: block; color: var(--muted); font-size: 14px; }
+.trap .likely { display: inline-block; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--warm-ink); background: var(--warm-soft); border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: 2px; font-weight: 600; }
+.trap[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.traps { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 600px) { .traps { grid-template-columns: 1fr; } }
+
+.two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+.col-box { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+.col-box h3 { margin: 0 0 10px; font-size: 15px; font-weight: 600; }
+.col-box.against { border-color: #CFE0D4; background: #FAFCFA; }
+
+.compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 16px 0 0; }
+.compare div { background: var(--sand); border-radius: 14px; padding: 12px 14px; }
+.compare b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 26px; color: var(--accent); line-height: 1.1; }
+.compare span { font-size: 13px; color: var(--muted); }
+.quote { font-family: var(--font-display); font-style: italic; font-size: 20px; line-height: 1.45; margin: 0; }
+.quote.old { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(90,99,112,.4); font-size: 17px; }
+.card-sec { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.card-sec h3 { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.card-sec p { margin: 0; }
+.followup { margin-top: 26px; background: var(--accent-soft); border-radius: 18px; padding: 18px 20px; }
+.followup h3 { font-family: var(--font-display); font-weight: 400; font-size: 21px; margin: 0 0 4px; }
+.followup p { margin: 0 0 10px; font-size: 14.5px; color: var(--muted); }
+.session-banner { display: flex; gap: 12px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: -12px 0 28px; font-size: 14.5px; }
+.session-banner b { display: block; color: var(--accent); font-weight: 600; }
+.session-banner p { margin: 0; }
+.print-head { display: none; }
+.erase-row { margin-top: 14px; font-size: 14px; }
+@media print {
+  .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
+  .print-head b { display: block; font-size: 13pt; color: #000; }
+  .session-banner, .followup .chipset, .followup details, .erase-row, .rel { display: none !important; }
+  .loop li { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · CBT</p>
+      <h1>Untangle the <em>Pattern</em></h1>
+      <p class="lede">Putting off homework because you're afraid it won't be good enough. Skipping a party because you're sure you won't measure up. This exercise helps you see how one rigid thought drives a feeling and a habit, and how to loosen it, one small step at a time. Mostly tapping; about 10 minutes.</p>
+    </header>
+
+    <div class="session-banner" id="session-banner" role="note" hidden>
+      <span aria-hidden="true">🌿</span>
+      <div><b>Shared by your therapist, <span class="th-name"></span></b>
+      <p>Your progress saves on this device. At the end, you'll save a summary to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div>
+    </div>
+
+    <div class="toolbar">
+      <ol class="progress" id="progress" aria-hidden="true"></ol>
+      <button type="button" class="ground-btn" id="ground-btn" aria-expanded="false" aria-controls="grounding">🌿 Pause</button>
+    </div>
+    <div class="grounding fade-in" id="grounding" hidden role="note">
+      <div>
+        <strong>Take a breath</strong>
+        <p>Thoughts can feel very convincing when we're stressed. Breathe out slowly, feel your feet on the floor, and come back when you're ready. You can stop at any time.</p>
+      </div>
+      <button type="button" class="x" id="ground-close" aria-label="Close">×</button>
+    </div>
+
+    <section id="stage"></section>
+
+    <section class="rel" aria-labelledby="rel-h" style="margin-top:48px">
+      <p class="eyebrow" style="margin-bottom:6px">Therapy Resources</p>
+      <h2 id="rel-h" style="font-family:var(--font-display);font-weight:400;font-size:24px;margin:0 0 12px">Related reading</h2>
+      <div class="options two">
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=perfectionism"><span><b>Perfectionism &amp; Fear of Failure</b><small>Moving from fear-driven striving toward what matters to you.</small></span></a>
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=anxiety-cycle"><span><b>Understanding the Anxiety Cycle</b><small>How avoidance brings quick relief but keeps anxiety going.</small></span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="disclaimer">
+    <p>A self-guided exercise based on cognitive behavioral therapy (CBT): the thought record, common thinking traps, and behavioral experiments. It's for education and practice, not a substitute for therapy.</p>
+    <p>The goal isn't positive thinking. It's more accurate, flexible thinking. If a thought feels too heavy to work with alone, bring it to a therapist. If you're in crisis in the U.S., call or text 988.</p>
+    <p>Your answers are saved only in this browser on this device so you can come back after you try your step. Nothing is sent anywhere.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     CONTENT. Edit freely.
+     theme: "work" (tasks, school, performance) or "social" (people, events, how I come across)
+     ------------------------------------------------------------------ */
+  const SITUATIONS = [
+    { id: "task", label: "Starting homework, a project, or a work task", theme: "work" },
+    { id: "feedback", label: "Getting feedback, a grade, or a review", theme: "work" },
+    { id: "new", label: "Trying something new or hard", theme: "work" },
+    { id: "party", label: "A party, gathering, or group event", theme: "social" },
+    { id: "speak", label: "Speaking up in class, a meeting, or a group", theme: "social" },
+    { id: "reach", label: "Reaching out, texting back, or making plans", theme: "social" },
+    { id: "other", label: "Something else", theme: "" }
+  ];
+
+  const THOUGHTS = {
+    work: [
+      ["I won't do a good job", ["fortune", "allnothing"]],
+      ["If it's not perfect, it's a failure", ["allnothing", "should"]],
+      ["I'm going to fail", ["fortune", "catastrophe"]],
+      ["I'm not smart or capable enough", ["labeling", "discount"]],
+      ["I should be able to do this easily", ["should"]],
+      ["Everyone will see I'm not good enough", ["mind", "catastrophe"]]
+    ],
+    social: [
+      ["I won't look good compared to everyone else", ["compare", "mind"]],
+      ["People will judge me", ["mind", "fortune"]],
+      ["I'll say something awkward", ["fortune"]],
+      ["No one will want to talk to me", ["fortune", "mind"]],
+      ["Everyone else is more interesting than me", ["compare", "discount"]],
+      ["I'll embarrass myself", ["catastrophe", "fortune"]]
+    ],
+    any: [
+      ["I can't handle this", ["catastrophe", "discount"]],
+      ["It's going to go badly", ["fortune"]],
+      ["I feel like a failure, so I must be one", ["emotional", "labeling"]]
+    ]
+  };
+
+  const FEELINGS = ["Anxious", "Overwhelmed", "Ashamed", "Embarrassed", "Insecure", "Sad", "Frustrated", "Lonely", "Numb", "Hopeless"];
+
+  const BEHAVIORS = {
+    work: ["Put it off", "Scroll, game, or watch something instead", "Over-prepare or keep redoing it", "Do easier tasks first", "Ask others to reassure me", "Give up partway", "Pull an all-nighter at the end"],
+    social: ["Skip it or cancel", "Leave early", "Stay quiet or on my phone", "Spend a long time getting ready", "Only go if a certain person goes", "Drink or distract to get through it", "Replay it afterward for hours"]
+  };
+
+  const RESULTS = ["I felt relief, for a while", "The stress built up", "The work piled up", "I missed time with people", "I felt worse about myself", "The thought felt even more true", "Others noticed or were disappointed"];
+
+  const TRAPS = {
+    allnothing: ["All-or-nothing thinking", "Seeing it as perfect or a failure, with nothing in between."],
+    fortune: ["Fortune-telling", "Predicting the worst as if it's already certain."],
+    mind: ["Mind-reading", "Assuming you know what others are thinking about you."],
+    compare: ["Comparing", "Measuring your inside against other people's outside."],
+    catastrophe: ["Catastrophizing", "Jumping to the worst outcome and underestimating how you'd cope."],
+    labeling: ["Labeling", "Turning one moment into a verdict about who you are."],
+    should: ["\"Should\" rules", "Rigid rules about how you must be or feel."],
+    discount: ["Discounting the positive", "Brushing off evidence that you're doing okay."],
+    emotional: ["Emotional reasoning", "\"I feel it, so it must be true.\""]
+  };
+
+  const EVIDENCE_FOR = ["It's happened before", "I've struggled with this kind of thing", "Someone said something like this once", "It just feels really true"];
+  const EVIDENCE_AGAINST = {
+    work: ["I've finished hard things before", "I've done okay even when I worried", "A rough version is better than nothing", "Most people find this hard too", "One task doesn't define me", "I can ask for help"],
+    social: ["People are mostly focused on themselves", "I've had good moments at events before", "I was invited because people want me there", "How I look is a small part of how people see me", "Feeling awkward is normal and passes", "I can leave if I need to"]
+  };
+
+  const BALANCED = {
+    work: ["I might not do it perfectly, and that's okay. Starting is what matters.", "I've handled hard things before. I can take this one step at a time.", "A messy first try is better than no try at all.", "My worth isn't decided by one assignment or task."],
+    social: ["I might feel awkward at first, and that feeling usually passes.", "I can't know what others think, and most people are busy thinking about themselves.", "I don't have to be the most impressive person there to belong.", "I can go for a little while and see what actually happens."]
+  };
+
+  const STEPS_LIB = {
+    work: ["Work on it for just 10 minutes, then decide", "Do only the very first small piece", "Write a messy first draft on purpose", "Work next to a friend or in a library", "Ask one question about the part I'm stuck on"],
+    social: ["Go for 30 minutes, then decide whether to stay", "Go with, or meet, a friend there", "Say hi to two people", "Ask someone one question about themselves", "Notice three people who also look a little nervous"]
+  };
+
+  const OUTCOMES = ["It went better than I expected", "About what I expected", "Harder, but I got through it", "The feared thing didn't happen", "I haven't tried it yet"];
+
+  /* ------------------------------------------------------------------ */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const KEY = "wk-untangle-v1";
+  const STEPS = 9; // 0 intro, 1..7 steps, 8 card
+  const blank = () => ({ step: 0, situation: "", situationText: "", thoughts: [], thoughtOwn: "", belief: 70, feelings: [], intensity: 6,
+    behaviors: [], behaviorOwn: "", results: [], traps: [], evFor: [], evAgainst: [], evOwn: "", balanced: "", balancedOwn: "",
+    beliefAfter: 50, intensityAfter: 5, smallStep: "", smallStepOwn: "", predict: 60, outcome: "", outcomeNote: "" });
+  let d = load();
+  let lastView = -1;
+
+  function load() { try { const r = localStorage.getItem(KEY); if (r) return Object.assign(blank(), JSON.parse(r)); } catch (_) {} return blank(); }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (_) {} }
+
+  const sit = () => SITUATIONS.find((x) => x.id === d.situation);
+  const theme = () => (sit() && sit().theme) || (d.thoughts.some((t) => THOUGHTS.social.some(([x]) => x === t)) ? "social" : "work");
+  const thoughtMain = () => d.thoughtOwn.trim() || d.thoughts[0] || "";
+  const allThoughts = () => [...d.thoughts, d.thoughtOwn.trim()].filter(Boolean);
+  const likelyTraps = () => {
+    const all = [...THOUGHTS.work, ...THOUGHTS.social, ...THOUGHTS.any], set = [];
+    d.thoughts.forEach((t) => { const m = all.find(([x]) => x === t); if (m) m[1].forEach((k) => { if (!set.includes(k)) set.push(k); }); });
+    if (d.evFor.includes("It just feels really true") && !set.includes("emotional")) set.push("emotional");
+    return set;
+  };
+  const balancedText = () => d.balancedOwn.trim() || d.balanced;
+  const stepText = () => d.smallStepOwn.trim() || d.smallStep;
+  const behaviorList = () => [...d.behaviors, d.behaviorOwn.trim()].filter(Boolean);
+  const situationText = () => [sit() && sit().id !== "other" ? sit().label : "", d.situationText.trim()].filter(Boolean).join(": ");
+
+  /* session mode (?from=Name&reply=email), same as the Values tool */
+  let therapist = null;
+  (function () {
+    const SK = "wk-untangle-session", q = new URLSearchParams(location.search);
+    const from = (q.get("from") || "").trim().slice(0, 60);
+    try {
+      if (from) {
+        const t = { name: from.toLowerCase() === "elise" ? "Elise Kwak" : from, reply: "" };
+        const r = (q.get("reply") || "").trim().slice(0, 120);
+        if (r && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(r)) t.reply = r; else if (from.toLowerCase() === "elise") t.reply = "elise@selfspaceseattle.com";
+        localStorage.setItem(SK, JSON.stringify(t)); therapist = t;
+      } else { const raw = localStorage.getItem(SK); if (raw) therapist = JSON.parse(raw); }
+    } catch (_) { if (from) therapist = { name: from, reply: "" }; }
+    if (therapist && therapist.name) {
+      $("session-banner").hidden = false;
+      document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; });
+    } else therapist = null;
+  })();
+
+  $("progress").innerHTML = "<li></li>".repeat(STEPS - 1);
+
+  /* ---------- builders ---------- */
+  const chip = (key, v, pressed, extra = "") => `<button type="button" class="chip" data-multi="${key}" data-val="${esc(v)}"${extra} aria-pressed="${pressed}">${esc(v)}</button>`;
+  const chips = (key, list, single = false) => `<div class="chipset" role="group">${list.map((v) => chip(key, v, single ? d[key] === v : d[key].includes(v), single ? " data-single" : "")).join("")}</div>`;
+  const ownLine = (key, label, ph, open) => `<details class="own-words"${open || d[key].trim() ? " open" : ""}><summary>${label}</summary>
+      <input type="text" data-field="${key}" maxlength="160" aria-label="${esc(label)}" placeholder="${esc(ph)}" value="${esc(d[key])}"></details>`;
+  const scale = (key, label, lo, hi, max = 10, unit = "") => `<div class="scale"><label for="${key}">${label} <output id="${key}-out" for="${key}">${d[key]}${unit}</output></label>
+      <input id="${key}" type="range" min="0" max="${max}" step="${max === 100 ? 5 : 1}" value="${d[key]}" data-field="${key}" data-unit="${unit}">
+      <div class="ends"><span>${lo}</span><span>${hi}</span></div></div>`;
+  const nav = (label, ok = true, back = true) => `<div class="actions"><button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${label}</button>
+      ${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}</div>`;
+  const label = (n, t) => `<p class="step-label">Step ${n} of 7 · ${t}</p>`;
+
+  function loopHTML() {
+    const rows = [
+      ["Situation", situationText(), ""],
+      ["Thought", allThoughts().map((t) => `"${t}"`).join(" "), "thought"],
+      ["Feeling", d.feelings.length ? `${d.feelings.join(", ")} (${d.intensity}/10)` : "", ""],
+      ["What I do", behaviorList().join(" · "), ""],
+      ["What happens", d.results.join(" · "), ""]
+    ];
+    return `<ol class="loop">${rows.map(([k, v, c]) => `<li class="${c}"><span class="k">${k}</span><span class="v${v ? "" : " empty"}">${esc(v || "not filled in")}</span></li>`).join("")}</ol>
+      <p class="loop-back">↺ …and next time, the thought feels even more true.</p>`;
+  }
+
+  /* ---------- views ---------- */
+  const views = {
+    0: () => `
+      <article class="card fade-in">
+        <p class="step-label">How it works</p>
+        <h2 class="q" tabindex="-1">Thoughts, feelings, and actions <em>feed each other</em></h2>
+        <p class="hint">In cognitive behavioral therapy (CBT), we look at how they connect. A rigid thought ("I won't do a good job") brings a feeling (anxiety), which leads to an action (putting it off). The action brings quick relief, but it also keeps the thought from ever being tested, so the pattern repeats.</p>
+        <div class="triangle">
+          <div><b>Thought</b><span>"I won't look good next to everyone else."</span></div>
+          <div><b>Feeling</b><span>Insecure, anxious, embarrassed in advance.</span></div>
+          <div><b>Action</b><span>Skip the party. Relief now, more isolation later.</span></div>
+        </div>
+        <p class="hint" style="margin-bottom:0">You'll map one of your patterns, spot the thinking trap, weigh the evidence, find a more balanced thought, and choose one small step to test it. The aim isn't to think positively. It's to think more <em>accurately</em> and flexibly.</p>
+      </article>
+      ${nav("Start", true, false)}`,
+
+    1: () => `
+      ${label(1, "The situation")}
+      <h2 class="q" tabindex="-1">Where does this pattern <em>show up</em>?</h2>
+      <p class="hint">Pick the closest match. Think of one recent, specific time.</p>
+      <div class="options two">${SITUATIONS.map((x) => `<button type="button" class="opt${x.id === "other" ? " dashed" : ""}" data-set="situation" data-val="${x.id}" aria-pressed="${d.situation === x.id}"><span><b>${esc(x.label)}</b></span></button>`).join("")}</div>
+      ${ownLine("situationText", d.situation === "other" ? "Describe it in a few words" : "Add a detail (optional)", "e.g. my history essay due Friday", d.situation === "other")}
+      ${nav("Continue", d.situation && (d.situation !== "other" || d.situationText.trim()))}`,
+
+    2: () => {
+      const th = theme(), lists = [[th === "social" ? "About people and how I come across" : "About doing well", THOUGHTS[th]], ["Other common ones", THOUGHTS[th === "social" ? "work" : "social"].concat(THOUGHTS.any)]];
+      return `
+      ${label(2, "The thought")}
+      <h2 class="q" tabindex="-1">What goes through your <em>mind</em>?</h2>
+      <p class="hint">These are "automatic thoughts": quick, convincing, and often unquestioned. Tap any that sound familiar.</p>
+      ${lists.map(([t, l], i) => `<p class="group-name">${t}</p>${i === 0 ? chips("thoughts", l.map((x) => x[0])) : `<details class="own-words"${l.some(([x]) => d.thoughts.includes(x)) ? " open" : ""}><summary>Show more thoughts</summary>${chips("thoughts", l.map((x) => x[0]))}</details>`}`).join("")}
+      ${ownLine("thoughtOwn", "Say it in your own words (optional)", "e.g. Everyone will think my essay is stupid")}
+      ${scale("belief", "Right now, how much do you believe this thought?", "0 · not at all", "100 · completely", 100, "%")}
+      ${nav("Continue", allThoughts().length)}`;
+    },
+
+    3: () => `
+      ${label(3, "The feeling")}
+      <h2 class="q" tabindex="-1">When you think that, how do you <em>feel</em>?</h2>
+      <p class="hint">Tap any that fit.</p>
+      ${chips("feelings", FEELINGS)}
+      ${scale("intensity", "How strong is the feeling?", "0 · barely", "10 · overwhelming")}
+      ${nav("Continue", d.feelings.length)}`,
+
+    4: () => `
+      ${label(4, "What you do")}
+      <h2 class="q" tabindex="-1">What do you usually <em>do</em> next?</h2>
+      <p class="hint">No judgment. These are understandable ways to get away from an uncomfortable feeling.</p>
+      ${chips("behaviors", BEHAVIORS[theme()])}
+      ${ownLine("behaviorOwn", "Something else (optional)", "e.g. Clean my whole room instead")}
+      <p class="group-name" style="margin-top:22px">And then what happens?</p>
+      ${chips("results", RESULTS)}
+      ${nav("See My Pattern", behaviorList().length && d.results.length)}`,
+
+    5: () => {
+      const likely = likelyTraps(), order = likely.concat(Object.keys(TRAPS).filter((k) => !likely.includes(k)));
+      return `
+      ${label(5, "See the pattern")}
+      <h2 class="q" tabindex="-1">Here's your <em>loop</em></h2>
+      <p class="hint">Notice how the action that brings relief also keeps the thought from being tested. That's what keeps the loop going.</p>
+      ${loopHTML()}
+      <p class="group-name" style="margin-top:26px">Which thinking traps might be at work?</p>
+      <p class="hint" style="margin-bottom:12px">Thinking traps are common mental shortcuts that make a thought feel truer than it is. The ones marked "likely" often go with the thought you chose. Tap any that fit.</p>
+      <div class="traps">${order.map((k) => `<button type="button" class="trap" data-multi="traps" data-val="${k}" aria-pressed="${d.traps.includes(k)}"><b>${esc(TRAPS[k][0])}${likely.includes(k) ? '<span class="likely">likely</span>' : ""}</b><small>${esc(TRAPS[k][1])}</small></button>`).join("")}</div>
+      ${nav("Continue", d.traps.length)}`;
+    },
+
+    6: () => `
+      ${label(6, "Weigh the evidence")}
+      <h2 class="q" tabindex="-1">Is the thought <em>100 percent</em> true?</h2>
+      <p class="prompt-card">"${esc(thoughtMain())}"</p>
+      <p class="hint">Be a fair judge. Tap what fits on each side.</p>
+      <div class="two-col">
+        <div class="col-box"><h3>What makes it feel true</h3>${chips("evFor", EVIDENCE_FOR)}</div>
+        <div class="col-box against"><h3>What doesn't quite fit</h3>${chips("evAgainst", EVIDENCE_AGAINST[theme()])}</div>
+      </div>
+      <p class="note" id="emo-note" ${d.evFor.includes("It just feels really true") ? "" : "hidden"}><strong>Worth noticing:</strong> a thought feeling true isn't the same as it being true. That's called emotional reasoning, and anxiety is very good at it.</p>
+      ${ownLine("evOwn", "Something else you know (optional)", "e.g. My last essay got a B even though I panicked")}
+      <p class="mini" style="font-size:14px;color:var(--muted);margin:16px 0 0">Ask yourself: what would I say to a friend who had this thought?</p>
+      ${nav("Continue", d.evFor.length || d.evAgainst.length || d.evOwn.trim())}`,
+
+    7: () => `
+      ${label(7, "Reframe and take a step")}
+      <h2 class="q" tabindex="-1">A more <em>balanced</em> thought</h2>
+      <p class="hint">Not forced positivity. Something you can actually believe, that makes room for both the worry and the facts. Pick one, or write your own.</p>
+      <div class="options">${BALANCED[theme()].map((b) => `<button type="button" class="opt" data-set="balanced" data-val="${esc(b)}" aria-pressed="${d.balanced === b && !d.balancedOwn.trim()}"><span><b style="font-weight:500">${esc(b)}</b></span></button>`).join("")}</div>
+      ${ownLine("balancedOwn", "Write my own balanced thought", "e.g. I can turn in something decent, and I can learn from feedback")}
+      ${scale("beliefAfter", `Now, how much do you believe the original thought?`, "0 · not at all", "100 · completely", 100, "%")}
+      ${scale("intensityAfter", `And how strong is the feeling (${esc(d.feelings.join(", ").toLowerCase() || "the feeling")}) now?`, "0 · barely", "10 · overwhelming")}
+
+      <p class="group-name" style="margin-top:28px">One small step to test it</p>
+      <p class="hint" style="margin-bottom:12px">Change happens when you act a little differently and see what really happens. Choose a step that feels a bit uncomfortable but doable.</p>
+      <div class="options">${STEPS_LIB[theme()].map((b) => `<button type="button" class="opt" data-set="smallStep" data-val="${esc(b)}" aria-pressed="${d.smallStep === b && !d.smallStepOwn.trim()}"><span><b style="font-weight:500">${esc(b)}</b></span></button>`).join("")}</div>
+      ${ownLine("smallStepOwn", "My own small step", "e.g. Write the intro paragraph tonight")}
+      ${scale("predict", "Before you try it: how likely does your feared outcome feel?", "0 · won't happen", "100 · certain", 100, "%")}
+      ${nav("See My Summary", balancedText() && stepText())}`,
+
+    8: () => {
+      const traps = d.traps.map((k) => TRAPS[k][0]);
+      return `
+      <article class="card fade-in">
+        <div class="print-head" id="print-head"><b>Untangle the Pattern · Summary</b><span id="ph-line"></span></div>
+        <p class="step-label">Your summary</p>
+        <h2 class="q" tabindex="-1">Your pattern, <em>untangled</em></h2>
+        ${loopHTML()}
+        <div class="card-sec"><h3>Thinking traps</h3><p>${esc(traps.join(" · ") || "None chosen")}</p></div>
+        <div class="card-sec"><h3>Evidence</h3>
+          ${d.evFor.length ? `<p><strong>Feels true because:</strong> ${esc(d.evFor.join("; "))}</p>` : ""}
+          ${d.evAgainst.length || d.evOwn.trim() ? `<p style="margin-top:4px"><strong>Doesn't quite fit:</strong> ${esc([...d.evAgainst, d.evOwn.trim()].filter(Boolean).join("; "))}</p>` : ""}
+        </div>
+        <div class="card-sec"><h3>From… to…</h3>
+          <p class="quote old">"${esc(thoughtMain())}"</p>
+          <p class="quote" style="margin-top:6px">"${esc(balancedText())}"</p>
+          <div class="compare">
+            <div><b>${d.belief}% → ${d.beliefAfter}%</b><span>belief in the original thought</span></div>
+            <div><b>${d.intensity} → ${d.intensityAfter}</b><span>strength of the feeling (out of 10)</span></div>
+          </div>
+        </div>
+        <div class="card-sec"><h3>My small step</h3><p>${esc(stepText())}</p><p style="font-size:14px;color:var(--muted);margin-top:4px">Before trying it, the feared outcome felt ${d.predict}% likely.</p></div>
+        <div class="followup" id="followup">
+          <h3>After you try it</h3>
+          <p>Come back to this page on the same device and note what actually happened. This is where the old thought starts to loosen.</p>
+          ${chips("outcome", OUTCOMES, true)}
+          ${ownLine("outcomeNote", "What did you notice? (optional)", "e.g. Ten minutes turned into an hour")}
+          <p id="outcome-print" style="margin:8px 0 0" ${d.outcome || d.outcomeNote.trim() ? "" : "hidden"}><strong>What happened:</strong> <span id="outcome-text">${esc([d.outcome, d.outcomeNote.trim()].filter(Boolean).join(". "))}</span></p>
+        </div>
+        ${therapist ? `<p class="hint" style="margin:20px 0 0">Print or save this as a PDF and bring it to your next session with ${esc(therapist.name)}.${therapist.reply ? ` If you've both agreed to use email, you can send it to ${esc(therapist.reply)}; email isn't fully private.` : ""}</p>` : ""}
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="print">Print or Save as PDF</button>
+        <button type="button" class="btn btn-ghost" data-act="copy">Copy</button>
+        <button type="button" class="btn btn-ghost" data-act="restart">Map Another Pattern</button>
+        <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <p class="erase-row"><button type="button" class="btn-text" data-act="back">← Back</button> · <button type="button" class="btn-text" data-act="erase">Erase my answers</button></p>`;
+    }
+  };
+
+  const okFor = {
+    0: () => true,
+    1: () => d.situation && (d.situation !== "other" || d.situationText.trim()),
+    2: () => allThoughts().length,
+    3: () => d.feelings.length,
+    4: () => behaviorList().length && d.results.length,
+    5: () => d.traps.length,
+    6: () => d.evFor.length || d.evAgainst.length || d.evOwn.trim(),
+    7: () => balancedText() && stepText()
+  };
+
+  function render(focus = true) {
+    const same = lastView === d.step; lastView = d.step;
+    $("stage").innerHTML = views[d.step]();
+    if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
+    [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i < d.step));
+    if (focus) {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+      const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true });
+    }
+  }
+  function sync() {
+    const n = $("stage").querySelector('[data-act="next"]'); if (n && okFor[d.step]) n.disabled = !okFor[d.step]();
+    const emo = $("emo-note"); if (emo) emo.hidden = !d.evFor.includes("It just feels really true");
+    const op = $("outcome-print"); if (op) { const t = [d.outcome, d.outcomeNote.trim()].filter(Boolean).join(". "); op.hidden = !t; $("outcome-text").textContent = t; }
+    save();
+  }
+
+  $("stage").addEventListener("input", (e) => {
+    const f = e.target.dataset.field; if (!f) return;
+    if (e.target.type === "range") { d[f] = +e.target.value; $(f + "-out").textContent = d[f] + (e.target.dataset.unit || ""); }
+    else {
+      d[f] = e.target.value;
+      if (f === "balancedOwn" || f === "smallStepOwn") {
+        const k = f === "balancedOwn" ? "balanced" : "smallStep";
+        if (e.target.value.trim()) $("stage").querySelectorAll(`[data-set="${k}"]`).forEach((b) => b.setAttribute("aria-pressed", "false"));
+      }
+    }
+    sync();
+  });
+
+  $("stage").addEventListener("click", (e) => {
+    const m = e.target.closest("[data-multi]");
+    if (m) {
+      const k = m.dataset.multi, v = m.dataset.val;
+      if ("single" in m.dataset) { d[k] = d[k] === v ? "" : v; m.parentElement.querySelectorAll("[data-multi]").forEach((b) => b.setAttribute("aria-pressed", d[k] === b.dataset.val)); }
+      else { const i = d[k].indexOf(v); i >= 0 ? d[k].splice(i, 1) : d[k].push(v); $("stage").querySelectorAll(`[data-multi="${k}"]`).forEach((b) => b.setAttribute("aria-pressed", d[k].includes(b.dataset.val))); }
+      sync(); return;
+    }
+    const st = e.target.closest("[data-set]");
+    if (st) {
+      const k = st.dataset.set, v = st.dataset.val;
+      d[k] = v;
+      if (k === "balanced") d.balancedOwn = "";
+      if (k === "smallStep") d.smallStepOwn = "";
+      if (k === "situation") { save(); render(false); const again = $("stage").querySelector(`[data-set="situation"][data-val="${v}"]`); if (v === "other") { const inp = $("stage").querySelector('[data-field="situationText"]'); if (inp) inp.focus(); } else if (again) again.focus(); return; }
+      $("stage").querySelectorAll(`[data-set="${k}"]`).forEach((b) => b.setAttribute("aria-pressed", b === st));
+      const own = $("stage").querySelector(`[data-field="${k}Own"]`); if (own) own.value = "";
+      sync(); return;
+    }
+    const act = e.target.closest("[data-act]")?.dataset.act; if (!act) return;
+    if (act === "next") { d.step = Math.min(d.step + 1, STEPS - 1); if (d.step === 7) { if (d.beliefAfter === 50 && d.belief < 50) d.beliefAfter = d.belief; } save(); render(); }
+    else if (act === "back") { d.step = Math.max(d.step - 1, 0); save(); render(); }
+    else if (act === "restart" || act === "erase") {
+      if (act === "erase") { try { localStorage.removeItem(KEY); } catch (_) {} }
+      d = blank(); if (act === "restart") d.step = 1; save(); render();
+    }
+    else if (act === "print") { prepPrint(); window.print(); }
+    else if (act === "copy") copyText();
+  });
+
+  function prepPrint() {
+    const date = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    const ph = $("ph-line"); if (ph) ph.textContent = (therapist ? `For a session with ${therapist.name} · ` : "") + date;
+  }
+  window.addEventListener("beforeprint", prepPrint);
+
+  function copyText() {
+    const L = ["UNTANGLE THE PATTERN", ""];
+    if (therapist) L.push(`For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`, "");
+    L.push(`Situation: ${situationText()}`, `Thought: ${allThoughts().join("; ")}`, `Feeling: ${d.feelings.join(", ")} (${d.intensity}/10)`,
+      `What I do: ${behaviorList().join(", ")}`, `What happens: ${d.results.join(", ")}`, "",
+      `Thinking traps: ${d.traps.map((k) => TRAPS[k][0]).join(", ")}`);
+    if (d.evFor.length) L.push(`Feels true because: ${d.evFor.join("; ")}`);
+    const ag = [...d.evAgainst, d.evOwn.trim()].filter(Boolean); if (ag.length) L.push(`Doesn't quite fit: ${ag.join("; ")}`);
+    L.push("", `Balanced thought: ${balancedText()}`, `Belief in original thought: ${d.belief}% → ${d.beliefAfter}%`, `Feeling strength: ${d.intensity} → ${d.intensityAfter} (out of 10)`,
+      "", `My small step: ${stepText()} (feared outcome felt ${d.predict}% likely)`);
+    const oc = [d.outcome, d.outcomeNote.trim()].filter(Boolean).join(". "); if (oc) L.push(`What happened: ${oc}`);
+    L.push("", "Untangle the Pattern · wooheekwak.me");
+    const text = L.join("\n");
+    const done = (m) => { $("copy-status").textContent = m; };
+    const fb = () => { const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done("Copied."); } catch (_) { done("Couldn't copy."); } ta.remove(); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done("Copied."), fb); else fb();
+  }
+
+  const setG = (o) => { $("grounding").hidden = !o; $("ground-btn").setAttribute("aria-expanded", o); };
+  $("ground-btn").addEventListener("click", () => setG($("grounding").hidden));
+  $("ground-close").addEventListener("click", () => { setG(false); $("ground-btn").focus(); });
+
+  render(false);
+})();
+</script>
+</body>
+</html>
