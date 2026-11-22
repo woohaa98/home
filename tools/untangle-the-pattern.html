@@ -153,6 +153,9 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 }
 
 /* ---- Untangle additions ---- */
+.fit-note { font-size: 14px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; padding: 10px 14px; margin: -14px 0 28px; }
+.fit-note a { color: var(--accent); font-weight: 500; }
+
 .loop { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
 .loop li { position: relative; display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 14px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; margin-bottom: 26px; }
 .loop li:not(:last-child)::after { content: "↓"; position: absolute; left: 50%; bottom: -24px; transform: translateX(-50%); color: var(--warm); font-size: 18px; line-height: 1; }
@@ -313,6 +316,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <p class="eyebrow">Interactive Tools · CBT</p>
       <h1>Untangle the <em>Pattern</em></h1>
       <p class="lede">Putting off homework because you're afraid it won't be good enough. Skipping a party because you're sure you won't measure up. This exercise helps you see how one rigid thought drives a feeling and a habit, and how to loosen it, one small step at a time. Mostly tapping; about 10 minutes.</p>
+      <p class="fit-note">If the thought is an obsession, an unwanted thought you feel you must check, undo, or get reassurance about, weighing the evidence can turn into reassurance-seeking. <a href="ride-the-wave.html">Ride the Wave</a> is the better fit for OCD and panic.</p>
     </header>
 
     <div class="session-banner" id="session-banner" role="note" hidden>
@@ -636,6 +640,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <p class="note" id="emo-note" ${d.evFor.includes("It just feels really true") ? "" : "hidden"}><strong>Worth noticing:</strong> a thought feeling true isn't the same as it being true. That's called emotional reasoning, and anxiety is very good at it.</p>
       ${ownLine("evOwn", "Something else you know (optional)", "e.g. My last essay got a B even though I panicked")}
       <p class="mini" style="font-size:14px;color:var(--muted);margin:16px 0 0">Ask yourself: what would I say to a friend who had this thought?</p>
+      <p class="mini" style="font-size:13.5px;color:var(--muted);margin:8px 0 0">If you notice yourself going over the evidence again and again to feel certain, that may be reassurance-seeking. Pause here, and consider <a href="ride-the-wave.html" style="color:var(--accent)">Ride the Wave</a> instead.</p>
       ${nav("Continue", d.evFor.length || d.evAgainst.length || d.evOwn.trim())}`,
 
     7: () => `
