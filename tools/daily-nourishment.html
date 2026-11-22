@@ -130,6 +130,61 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
 .disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
 .disclaimer p { margin: 0 0 6px; }
 
+/* ---------- Step 3: nourish ---------- */
+.privacy-note { font-size: 13.5px; color: var(--muted); margin: -30px 0 36px; display: flex; gap: 8px; align-items: baseline; }
+.privacy-note::before { content: "🔒"; font-size: 12px; }
+.need-note { color: var(--muted); font-size: 15px; margin: 18px 0 0; max-width: 58ch; }
+.paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 30px 0 0; }
+@media (max-width: 560px) { .paths { grid-template-columns: 1fr; } }
+.path-btn { appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); transition: border-color .2s, background-color .2s, transform .2s; }
+.path-btn:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.path-btn[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.path-btn .icon { font-size: 24px; }
+.path-btn b { display: block; font-size: 16px; font-weight: 600; }
+.path-btn small { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; }
+.panel { margin-top: 26px; }
+.panel h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px; margin: 0 0 4px; }
+.panel .sub { color: var(--muted); font-size: 14.5px; margin: 0 0 16px; }
+.quotes { display: grid; gap: 12px; }
+.quote-card { appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; display: grid; gap: 10px; transition: border-color .2s, background-color .2s, box-shadow .2s; }
+.quote-card:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.quote-card[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 3px rgba(71,107,86,.12); }
+.quote-card .tag { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.quote-card .poem { font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.55; white-space: pre-line; margin: 0; }
+.quote-card .by { font-size: 13.5px; color: var(--muted); margin: 0; }
+.chosen-quote { margin: 26px 0 0; padding: 22px 24px; border-left: 3px solid var(--warm); background: #FBF5EF; border-radius: 0 18px 18px 0; }
+.chosen-quote .k { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
+.chosen-quote .poem { font-family: var(--font-display); font-style: italic; font-size: 21px; line-height: 1.5; white-space: pre-line; margin: 0; }
+.chosen-quote .by { font-size: 13.5px; color: var(--muted); margin: 8px 0 0; }
+.chosen-quote .try { font-size: 14.5px; margin: 12px 0 0; }
+.acts-group { margin: 0 0 16px; }
+.acts-group h4 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+.acts { display: grid; gap: 8px; }
+.act { appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; transition: border-color .2s, background-color .2s; }
+.act:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.act .plus { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-size: 14px; color: var(--accent); line-height: 1; }
+.act[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.act[aria-pressed="true"] .plus { background: var(--accent); border-color: var(--accent); color: #fff; }
+.act .time { font-size: 12px; color: var(--muted); background: #F5EFE6; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.plan { margin-top: 26px; border: 2px solid var(--accent); border-radius: 22px; overflow: hidden; }
+.plan .top { background: var(--accent); color: #fff; padding: 16px 20px; }
+.plan .top p { margin: 0; }
+.plan .top .k { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.8); }
+.plan .top .t { font-family: var(--font-display); font-size: 21px; margin-top: 2px; }
+.plan ul { list-style: none; margin: 0; padding: 10px 14px 14px; background: #fff; display: grid; gap: 6px; }
+.plan li label { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; align-items: start; padding: 10px 6px; border-radius: 10px; cursor: pointer; }
+.plan li input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); }
+.plan li.done span { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(90,99,112,.5); }
+.plan .cheer { margin: 0; padding: 0 20px 16px; background: #fff; font-family: var(--font-display); font-style: italic; color: var(--accent); }
+.plan .empty { padding: 16px 20px; background: #fff; color: var(--muted); margin: 0; font-size: 14.5px; }
+.erase { margin-top: 10px; font-size: 13.5px; }
+.btn-text { appearance: none; background: none; border: 0; padding: 4px 0; font: inherit; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+@media print { .topbar, header, .privacy-note, #step-choose, .paths, .panel, .actions, .erase, .disclaimer, .photo-box { display: none !important; } .card { box-shadow: none; } }
+
+.photo-box { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+.photo-tip { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
+.photo-box img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 14px; border: 1px solid var(--line); margin: 0 auto; -webkit-touch-callout: default; }
+
 /* ---------- Motion ---------- */
 .fade-in { animation: fadeUp .6s cubic-bezier(.2,.7,.2,1) both; }
 .fade-in.d1 { animation-delay: .12s; } .fade-in.d2 { animation-delay: .5s; } .fade-in.d3 { animation-delay: .8s; }
@@ -164,8 +219,9 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     <header>
       <p class="eyebrow">Interactive Tools · Nourishment</p>
       <h1>Daily <em>Nourishment</em> Check-In</h1>
-      <p class="lede">A minute to notice what you need, remember that you are already enough, and choose one small way to care for yourself today.</p>
+      <p class="lede">A few minutes to notice what you need, remember that you are already enough, and choose how to care for yourself today: with words to carry, or small things to do.</p>
     </header>
+    <p class="privacy-note">Today's plan saves on this device so you can check things off later. Nothing is sent anywhere unless you choose to share it.</p>
 
     <!-- Step 1 -->
     <section id="step-choose" aria-labelledby="q">
@@ -195,16 +251,47 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         <p class="named fade-in">What you named today</p>
         <ul class="chips fade-in" id="chips"></ul>
         <p class="mantra fade-in d1" id="mantra" tabindex="-1"></p>
-        <hr class="divider fade-in d2">
-        <p class="small-label fade-in d2">One small thing for today</p>
-        <p class="suggestion fade-in d2" id="suggestion"></p>
+        <p class="need-note fade-in d2" id="need-note"></p>
+        <div id="chosen-wrap"></div>
+        <div id="plan-wrap"></div>
         <p class="closing fade-in d3">However much of this you do is enough.</p>
       </article>
-      <div class="actions fade-in d3">
+
+      <div class="paths fade-in d3" role="group" aria-label="What would nourish you right now?">
+        <button type="button" class="path-btn" id="path-words" aria-pressed="false" aria-controls="panel-words"><span class="icon" aria-hidden="true">📜</span><span><b>Words to carry</b><small>Choose a poem or quote for inspiration today.</small></span></button>
+        <button type="button" class="path-btn" id="path-do" aria-pressed="false" aria-controls="panel-do"><span class="icon" aria-hidden="true">🌿</span><span><b>Small things to do</b><small>Pick one to three ideas for your plan today.</small></span></button>
+      </div>
+
+      <section class="panel" id="panel-words" hidden aria-labelledby="pw-h">
+        <h3 id="pw-h">Words to carry</h3>
+        <p class="sub">Read slowly. Tap the one that speaks to you today.</p>
+        <div class="quotes" id="quotes"></div>
+      </section>
+
+      <section class="panel" id="panel-do" hidden aria-labelledby="pd-h">
+        <h3 id="pd-h">Small things to do</h3>
+        <p class="sub">Tap to add to today's plan. One is plenty; three at most.</p>
+        <div id="acts"></div>
+      </section>
+
+      <div class="actions">
         <button type="button" class="btn btn-primary" id="copy">Copy My Message</button>
+        <button type="button" class="btn btn-ghost" id="photo">Save as Photo</button>
+        <button type="button" class="btn btn-ghost" id="email-me">Email to Myself</button>
+        <button type="button" class="btn btn-ghost" id="print">Print</button>
         <button type="button" class="btn btn-ghost" id="restart">Start Again</button>
         <span class="status" id="copy-status" role="status" aria-live="polite"></span>
       </div>
+      <div class="photo-box" id="photo-box" hidden>
+        <p class="photo-tip" id="photo-tip">Here's your card.</p>
+        <img id="photo-img" alt="Your daily nourishment card: your message, words to carry, and today's plan.">
+        <div class="actions" style="margin-top:14px">
+          <button type="button" class="btn btn-primary" id="photo-share" hidden>Save or Email</button>
+          <a class="btn btn-ghost" id="photo-dl" download="my-daily-nourishment.png" style="text-decoration:none;display:inline-flex;align-items:center">Download</a>
+          <button type="button" class="btn-text" id="photo-close">Close</button>
+        </div>
+      </div>
+      <p class="erase"><button type="button" class="btn-text" id="erase">Erase my answers</button> <span class="status" id="erase-status" role="status" aria-live="polite"></span></p>
     </section>
     <section class="rel" aria-labelledby="rel-h">
       <p class="rel-eyebrow">Therapy Resources</p>
@@ -219,7 +306,8 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
 
   <footer class="disclaimer">
     <p>A self-reflection tool, not a substitute for professional mental health care.</p>
-    <p>Your choices stay on your device. Nothing is saved, tracked, or sent anywhere.</p>
+    <p>Your choices stay on your device. Only today's plan is saved, in this browser, so you can check it off later. Nothing is tracked or sent anywhere. Use "Erase my answers" to clear it.</p>
+    <p>Poems and quotes are from works in the public domain.</p>
   </footer>
 </div>
 
@@ -242,11 +330,19 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         "Even when I feel alone, I am part of more connection than I can see right now."
       ],
       actions: [
-        "Send a short message to someone you miss. No agenda, just “I was thinking of you.”",
-        "Place a hand on your heart and take three slow breaths, offering yourself the warmth you'd give a friend.",
-        "Give someone your full attention for one conversation today, phone set aside.",
-        "Think of one person who helps you feel like you belong, and let yourself feel that for a moment.",
-        "Ask someone how they're really doing, and leave space for the answer."
+        ["Send a short message to someone you miss. No agenda, just “I was thinking of you.”", "2 min"],
+        ["Place a hand on your heart and take three slow breaths, offering yourself the warmth you'd give a friend.", "2 min"],
+        ["Give someone your full attention for one conversation today, phone set aside.", "Today"],
+        ["Think of one person who helps you feel like you belong, and let yourself feel that for a moment.", "2 min"],
+        ["Ask someone how they're really doing, and leave space for the answer.", "5 min"],
+        ["Plan a walk or coffee with someone this week", "15 min"],
+        ["Write a few lines to someone who shaped you, even if you never send it", "15 min"]
+      ],
+      note: "When we feel disconnected, it's common to pull back just when we most need people. A small reach toward someone, including yourself, counts.",
+      try: "Who comes to mind as you read this? Let them stay with you for a moment.",
+      quotes: [
+        { text: "For every atom belonging to me as good belongs to you.", by: "Walt Whitman", from: "Song of Myself" },
+        { text: "Let there be spaces in your togetherness,\nAnd let the winds of the heavens dance between you.", by: "Kahlil Gibran", from: "The Prophet" }
       ] },
     { id: "joy", icon: "🌸", name: "Joy & Beauty", desc: "Nature, pleasure, appreciation", need: "beauty",
       mantras: [
@@ -257,11 +353,19 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         "I can slow down long enough to let the world be beautiful."
       ],
       actions: [
-        "Step outside for five minutes and find one beautiful thing: the sky, a tree, the light.",
-        "Play one song you love and let yourself do nothing else while it plays.",
-        "Eat or drink something slowly today, noticing its taste and warmth.",
-        "Take a photo of one small thing that catches your eye.",
-        "Name three things you can see right now that you genuinely like."
+        ["Step outside for five minutes and find one beautiful thing: the sky, a tree, the light.", "5 min"],
+        ["Play one song you love and let yourself do nothing else while it plays.", "5 min"],
+        ["Eat or drink something slowly today, noticing its taste and warmth.", "10 min"],
+        ["Take a photo of one small thing that catches your eye.", "2 min"],
+        ["Name three things you can see right now that you genuinely like.", "2 min"],
+        ["Spend twenty minutes outside without your phone", "20 min"],
+        ["Make something with your hands: cook, draw, or arrange a few flowers", "30 min+"]
+      ],
+      note: "Joy and beauty aren't extras. Pausing to notice something good gives your attention somewhere to rest besides worry or work.",
+      try: "Look up from the screen for a moment. What's one beautiful thing within sight?",
+      quotes: [
+        { text: "A thing of beauty is a joy for ever:\nIts loveliness increases; it will never\nPass into nothingness", by: "John Keats", from: "Endymion" },
+        { text: "For oft, when on my couch I lie\nIn vacant or in pensive mood,\nThey flash upon that inward eye\nWhich is the bliss of solitude", by: "William Wordsworth", from: "I Wandered Lonely as a Cloud" }
       ] },
     { id: "growth", icon: "🌱", name: "Growth", desc: "Learning, curiosity, personal development", need: "curiosity",
       mantras: [
@@ -272,11 +376,19 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         "Not knowing is a doorway, not a failure."
       ],
       actions: [
-        "Spend ten minutes with something you're curious about, just for the pleasure of it.",
-        "Write one sentence about something you've learned about yourself lately.",
-        "Ask one question today that you'd normally keep to yourself.",
-        "When you notice your inner critic today, try getting curious about it instead.",
-        "Read one page of something that opens your mind a little."
+        ["Spend ten minutes with something you're curious about, just for the pleasure of it.", "10 min"],
+        ["Write one sentence about something you've learned about yourself lately.", "5 min"],
+        ["Ask one question today that you'd normally keep to yourself.", "Today"],
+        ["When you notice your inner critic today, try getting curious about it instead.", "Today"],
+        ["Read one page of something that opens your mind a little.", "10 min"],
+        ["Look into one class, book, or talk you've been curious about", "15 min"],
+        ["Teach someone something you know well", "30 min+"]
+      ],
+      note: "Growth doesn't have to mean pushing harder. Curiosity, at a gentle pace, is one of the most reliable ways to feel alive.",
+      try: "Where in your life are you still unfolding? Let that be okay today.",
+      quotes: [
+        { text: "Do I contradict myself?\nVery well then I contradict myself,\n(I am large, I contain multitudes.)", by: "Walt Whitman", from: "Song of Myself" },
+        { text: "If one advances confidently in the direction of his dreams, and endeavors to live the life which he has imagined, he will meet with a success unexpected in common hours.", by: "Henry David Thoreau", from: "Walden" }
       ] },
     { id: "meaning", icon: "🕯️", name: "Meaning & Contribution", desc: "Purpose, kindness, helping others", need: "meaning",
       mantras: [
@@ -287,11 +399,19 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         "Even here, I can choose how I respond. That choice is mine."
       ],
       actions: [
-        "Do one small kind thing for someone without needing them to notice.",
-        "Write down one thing you care about, and choose one tiny action that honors it today.",
-        "Thank someone for something specific they did.",
-        "Ask yourself: what would I like today to have been about? Let the answer guide one choice.",
-        "Before bed, recall one moment today when you mattered to someone, however small."
+        ["Do one small kind thing for someone without needing them to notice.", "Today"],
+        ["Write down one thing you care about, and choose one tiny action that honors it today.", "5 min"],
+        ["Thank someone for something specific they did.", "2 min"],
+        ["Ask yourself: what would I like today to have been about? Let the answer guide one choice.", "2 min"],
+        ["Before bed, recall one moment today when you mattered to someone, however small.", "5 min"],
+        ["Set aside time this week to help someone close to you with something they need", "30 min+"],
+        ["Write a few lines about what you hope your life stands for", "15 min"]
+      ],
+      note: "Meaning often lives in small choices: a kind act, a moment of honesty, showing up for what you care about.",
+      try: "What's one small way you could matter to someone today?",
+      quotes: [
+        { text: "If I can stop one heart from breaking,\nI shall not live in vain", by: "Emily Dickinson", from: "Poems" },
+        { text: "I went to the woods because I wished to live deliberately, to front only the essential facts of life, and see if I could not learn what it had to teach", by: "Henry David Thoreau", from: "Walden" }
       ] },
     { id: "adventure", icon: "🧭", name: "Adventure & Freedom", desc: "Exploration, novelty, possibilities", need: "possibility",
       mantras: [
@@ -302,11 +422,19 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         "Possibility doesn't need a grand plan. It can begin with one open door."
       ],
       actions: [
-        "Take a different route on a walk or drive today, and notice what's new.",
-        "Try one small thing you've never done before: a food, a song, a street.",
-        "Write down one possibility for your life you'd like to stay open to.",
-        "Spend five minutes daydreaming about a place you'd love to see, no plan required.",
-        "Say yes to one small invitation, or offer one yourself."
+        ["Take a different route on a walk or drive today, and notice what's new.", "Today"],
+        ["Try one small thing you've never done before: a food, a song, a street.", "Today"],
+        ["Write down one possibility for your life you'd like to stay open to.", "5 min"],
+        ["Spend five minutes daydreaming about a place you'd love to see, no plan required.", "5 min"],
+        ["Say yes to one small invitation, or offer one yourself.", "Today"],
+        ["Plan one small outing to somewhere you've never been", "15 min"],
+        ["Spend an afternoon exploring a new neighborhood, trail, or museum", "30 min+"]
+      ],
+      note: "Feeling stuck often shrinks our sense of what's possible. Even one small new experience can widen it again.",
+      try: "What's one door you'd like to keep open, even just a little?",
+      quotes: [
+        { text: "Afoot and light-hearted I take to the open road,\nHealthy, free, the world before me", by: "Walt Whitman", from: "Song of the Open Road" },
+        { text: "Hope is the thing with feathers\nThat perches in the soul,\nAnd sings the tune without the words,\nAnd never stops at all", by: "Emily Dickinson", from: "Poems" }
       ] },
     { id: "rest", icon: "🌙", name: "Rest & Safety", desc: "Slowing down, acceptance, inner peace", need: "rest",
       mantras: [
@@ -317,11 +445,19 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         "I am enough even when I am doing nothing at all."
       ],
       actions: [
-        "Set a timer for five minutes, close your eyes, and let your breath slow on its own.",
-        "Breathe in for a count of four and out for six, five times.",
-        "Let one item on your list wait until tomorrow, on purpose.",
-        "Sit or lie with your back supported and let your body be held for a few minutes.",
-        "Notice where your body meets the chair or floor, and let those places soften."
+        ["Set a timer for five minutes, close your eyes, and let your breath slow on its own.", "5 min"],
+        ["Breathe in for a count of four and out for six, five times.", "2 min"],
+        ["Let one item on your list wait until tomorrow, on purpose.", "2 min"],
+        ["Sit or lie with your back supported and let your body be held for a few minutes.", "5 min"],
+        ["Notice where your body meets the chair or floor, and let those places soften.", "2 min"],
+        ["Take a slow walk with no destination", "20 min"],
+        ["Go to bed thirty minutes earlier tonight", "30 min+"]
+      ],
+      note: "Rest is not a reward for finishing everything. Your body and mind need it to keep caring for anything at all.",
+      try: "Let your shoulders drop. What would it be like to do nothing for one minute?",
+      quotes: [
+        { text: "I loafe and invite my soul,\nI lean and loafe at my ease observing a spear of summer grass.", by: "Walt Whitman", from: "Song of Myself" },
+        { text: "The world is too much with us; late and soon,\nGetting and spending, we lay waste our powers", by: "William Wordsworth", from: "The World Is Too Much With Us" }
       ] }
   ];
 
@@ -391,9 +527,8 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     } else pool = WHOLE;
 
     const mantra = pick(pool, last.mantra);
-    const action = pick(cats.flatMap((c) => c.actions), last.action);
-    last = { mantra, action };
-    return { names: cats.map((c) => c.name), mantra, action };
+    last = { mantra };
+    return { ids: cats.map((c) => c.id), names: cats.map((c) => c.name), mantra, quote: null, plan: [], done: [] };
   }
 
   function show(id) {
@@ -405,12 +540,11 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     e.preventDefault();
     const cats = selected();
     if (!cats.length) return;
-    current = buildMessage(cats);
+    current = buildMessage(cats); store(current);
+    ["path-words", "path-do"].forEach((id) => $(id).setAttribute("aria-pressed", "false"));
+    $("panel-words").hidden = $("panel-do").hidden = true;
 
-    $("chips").innerHTML = current.names.map((n) => `<li>${n}</li>`).join("");
-    $("mantra").textContent = current.mantra;
-    $("suggestion").textContent = current.action;
-    $("copy-status").textContent = "";
+    renderResult(cats);
 
     show("step-pause");
     setTimeout(() => {
@@ -423,7 +557,7 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
   $("restart").addEventListener("click", () => {
     boxes().forEach((b) => (b.checked = false));
     updateButton();
-    current = null;
+    current = null; store(null); $("photo-box").hidden = true;
     show("step-choose");
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
     boxes()[0].focus({ preventScroll: true });
@@ -431,7 +565,12 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
 
   /* ---------------- Copy ---------------- */
   function messageText(m) {
-    return `My Daily Nourishment\n\nToday I need: ${m.names.join(", ")}\n\n“${m.mantra}”\n\nOne small thing for today: ${m.action}\n\nDaily Nourishment Check-In by Woohee (Elise) Kwak`;
+    const L = ["My Daily Nourishment", "", `Today I need: ${m.names.join(", ")}`, "", `“${m.mantra}”`];
+    const q = quoteById(m.quote);
+    if (q) L.push("", "Words to carry:", q.text, `(${q.by}, ${q.from})`);
+    if (m.plan.length) { L.push("", "Today's plan:"); m.plan.forEach((a) => L.push(`${m.done.includes(a) ? "[x]" : "[ ]"} ${a}`)); }
+    L.push("", "Daily Nourishment Check-In by Woohee (Elise) Kwak");
+    return L.join("\n");
   }
   function fallbackCopy(text) {
     const ta = document.createElement("textarea");
@@ -450,6 +589,215 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     $("copy-status").textContent = ok ? "Copied. Carry it with you today." : "Couldn't copy automatically. You can select the text above.";
     if (ok) { $("copy").textContent = "Copied ✓"; setTimeout(() => ($("copy").textContent = "Copy My Message"), 2200); }
   });
+
+  /* ---------------- Words and plan ---------------- */
+  const KEY = "wk-nourish-today-v1";
+  const today = () => new Date().toDateString();
+  function store(m) {
+    try { if (m) localStorage.setItem(KEY, JSON.stringify(Object.assign({ date: today() }, m))); else localStorage.removeItem(KEY); } catch (_) {}
+  }
+  function restore() {
+    try { const r = JSON.parse(localStorage.getItem(KEY) || "null"); if (r && r.date === today()) return r; if (r) localStorage.removeItem(KEY); } catch (_) {}
+    return null;
+  }
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const allQuotes = () => CATEGORIES.flatMap((c) => c.quotes.map((q, i) => Object.assign({ id: `${c.id}-${i}`, cat: c }, q)));
+  const quoteById = (id) => allQuotes().find((q) => q.id === id);
+
+  function renderResult(cats) {
+    $("chips").innerHTML = current.names.map((n) => `<li>${esc(n)}</li>`).join("");
+    $("mantra").textContent = current.mantra;
+    $("need-note").textContent = cats.length === 1 ? cats[0].note : "Many needs at once can feel like a lot. You don't have to meet them all today; one small act of care is enough to begin.";
+    $("copy-status").textContent = "";
+    // quotes for chosen areas
+    const qs = allQuotes().filter((q) => current.ids.includes(q.cat.id));
+    $("quotes").innerHTML = qs.map((q) => `<button type="button" class="quote-card" data-quote="${q.id}" aria-pressed="${current.quote === q.id}">
+      <span class="tag">${q.cat.icon} ${esc(q.cat.name)}</span><p class="poem">${esc(q.text)}</p><p class="by">${esc(q.by)}, <em>${esc(q.from)}</em></p></button>`).join("");
+    // actions grouped by area
+    $("acts").innerHTML = cats.map((c) => `<div class="acts-group"><h4><span aria-hidden="true">${c.icon}</span>${esc(c.name)}</h4><div class="acts">
+      ${c.actions.map(([t, tm]) => `<button type="button" class="act" data-act="${esc(t)}" aria-pressed="${current.plan.includes(t)}"><span class="plus" aria-hidden="true">${current.plan.includes(t) ? "✓" : "+"}</span><span>${esc(t)}</span><span class="time">${esc(tm)}</span></button>`).join("")}
+      </div></div>`).join("");
+    renderChosen(); renderPlan();
+  }
+  function renderChosen() {
+    const q = quoteById(current.quote);
+    $("chosen-wrap").innerHTML = q ? `<div class="chosen-quote"><p class="k">Words to carry today</p><p class="poem">${esc(q.text)}</p><p class="by">${esc(q.by)}, <em>${esc(q.from)}</em></p><p class="try">${esc(q.cat.try)}</p></div>` : "";
+  }
+  function renderPlan() {
+    if (!current.plan.length) { $("plan-wrap").innerHTML = ""; return; }
+    const allDone = current.plan.every((a) => current.done.includes(a));
+    $("plan-wrap").innerHTML = `<div class="plan"><div class="top"><p class="k">Today's nourishment plan</p><p class="t">${current.plan.length === 1 ? "One small thing" : current.plan.length + " small things"}</p></div>
+      <ul>${current.plan.map((a, i) => `<li class="${current.done.includes(a) ? "done" : ""}"><label><input type="checkbox" data-done="${esc(a)}" ${current.done.includes(a) ? "checked" : ""}><span>${esc(a)}</span></label></li>`).join("")}</ul>
+      ${current.done.length ? `<p class="cheer">${allDone ? "You did it. Notice how that feels." : "One done. That counts."}</p>` : ""}</div>`;
+  }
+  function togglePath(which) {
+    const on = $("path-" + which).getAttribute("aria-pressed") !== "true";
+    $("path-" + which).setAttribute("aria-pressed", on);
+    $(which === "words" ? "panel-words" : "panel-do").hidden = !on;
+    if (on) $(which === "words" ? "panel-words" : "panel-do").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+  }
+  $("path-words").addEventListener("click", () => togglePath("words"));
+  $("path-do").addEventListener("click", () => togglePath("do"));
+  $("quotes").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-quote]"); if (!b || !current) return;
+    current.quote = current.quote === b.dataset.quote ? null : b.dataset.quote;
+    $("quotes").querySelectorAll("[data-quote]").forEach((x) => x.setAttribute("aria-pressed", x.dataset.quote === current.quote));
+    renderChosen(); store(current);
+  });
+  $("acts").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-act]"); if (!b || !current) return;
+    const a = b.dataset.act, i = current.plan.indexOf(a);
+    if (i >= 0) { current.plan.splice(i, 1); current.done = current.done.filter((x) => x !== a); }
+    else if (current.plan.length >= 3) { $("copy-status").textContent = "Three is plenty for today. Remove one to add another."; return; }
+    else current.plan.push(a);
+    $("acts").querySelectorAll("[data-act]").forEach((x) => { const on = current.plan.includes(x.dataset.act); x.setAttribute("aria-pressed", on); x.querySelector(".plus").textContent = on ? "✓" : "+"; });
+    $("copy-status").textContent = ""; renderPlan(); store(current);
+  });
+  $("plan-wrap").addEventListener("change", (e) => {
+    const a = e.target.dataset.done; if (!a || !current) return;
+    current.done = e.target.checked ? current.done.concat(a) : current.done.filter((x) => x !== a);
+    renderPlan(); store(current);
+  });
+  $("print").addEventListener("click", () => window.print());
+
+  /* ---------------- Save as photo (drawn on this device; nothing is uploaded) ---------------- */
+  function wrapLines(ctx, text, maxW) {
+    const out = [];
+    String(text).split("\n").forEach((para) => {
+      let line = "";
+      para.split(/\s+/).forEach((w) => {
+        const t = line ? line + " " + w : w;
+        if (ctx.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t;
+      });
+      out.push(line);
+    });
+    return out;
+  }
+  function rrect(ctx, x, y, w, h, r) {
+    const R = Array.isArray(r) ? r : [r, r, r, r];
+    ctx.beginPath();
+    ctx.moveTo(x + R[0], y); ctx.lineTo(x + w - R[1], y); ctx.quadraticCurveTo(x + w, y, x + w, y + R[1]);
+    ctx.lineTo(x + w, y + h - R[2]); ctx.quadraticCurveTo(x + w, y + h, x + w - R[2], y + h);
+    ctx.lineTo(x + R[3], y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - R[3]);
+    ctx.lineTo(x, y + R[0]); ctx.quadraticCurveTo(x, y, x + R[0], y); ctx.closePath();
+  }
+  async function makeCard() {
+    try { await Promise.all(['italic 400 40px "Lora"', '400 40px "Lora"', '400 30px "DM Sans"', '500 30px "DM Sans"', '600 30px "DM Sans"'].map((f) => document.fonts.load(f))); } catch (_) {}
+    const W = 1080, P = 90, inner = W - P * 2;
+    const C = { bg: "#FDFAF6", ink: "#2A2F35", muted: "#5A6370", sage: "#476B56", warm: "#C4714A" };
+    const q = quoteById(current.quote);
+    const m = document.createElement("canvas").getContext("2d");
+    const blocks = [];
+    const add = (font, color, text, lh, gap, spacing) => { m.font = font; blocks.push({ font, color, lines: wrapLines(m, text, inner), lh, gap, spacing }); };
+    add('600 26px "DM Sans"', C.muted, "MY DAILY NOURISHMENT", 34, 8, true);
+    add('400 28px "DM Sans"', C.muted, new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }), 38, 44);
+    add('500 30px "DM Sans"', C.sage, "Today I need: " + current.names.join(" · "), 42, 40);
+    add('italic 400 50px "Lora"', C.ink, "“" + current.mantra + "”", 68, 56);
+    if (q) {
+      blocks.push({ rule: true, gap: 34 });
+      add('600 24px "DM Sans"', C.muted, "WORDS TO CARRY", 32, 14, true);
+      add('italic 400 40px "Lora"', C.ink, q.text, 56, 16);
+      add('400 26px "DM Sans"', C.muted, q.by + ", " + q.from, 36, 52);
+    }
+    if (current.plan.length) {
+      m.font = '400 31px "DM Sans"';
+      const items = current.plan.map((a) => ({ done: current.done.includes(a), lines: wrapLines(m, a, inner - 132) }));
+      blocks.push({ items, h: 92 + 26 + items.reduce((n, it) => n + it.lines.length * 42 + 22, 0) + 8, gap: 40 });
+    }
+    add('italic 400 30px "Lora"', C.muted, "However much of this you do is enough.", 40, 0);
+    let H = P + 20;
+    blocks.forEach((b) => { H += (b.rule ? 2 : b.items ? b.h : b.lines.length * b.lh) + b.gap; });
+    H += P + 40;
+    const cv = document.createElement("canvas"); cv.width = W; cv.height = Math.max(H, 1350);
+    const ctx = cv.getContext("2d");
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, cv.height);
+    ctx.fillStyle = C.sage; ctx.fillRect(0, 0, W, 14);
+    ctx.textBaseline = "top";
+    let y = P + 20 + (cv.height - H) / 2;
+    for (const b of blocks) {
+      if (b.rule) { ctx.fillStyle = C.warm; ctx.fillRect(P, y, 80, 3); y += 2 + b.gap; continue; }
+      if (b.items) {
+        const x = P, w = inner;
+        ctx.fillStyle = "#FFFFFF"; rrect(ctx, x, y, w, b.h, 28); ctx.fill();
+        ctx.strokeStyle = C.sage; ctx.lineWidth = 4; rrect(ctx, x, y, w, b.h, 28); ctx.stroke();
+        ctx.fillStyle = C.sage; rrect(ctx, x, y, w, 92, [28, 28, 0, 0]); ctx.fill();
+        ctx.fillStyle = "#FFFFFF"; ctx.font = '600 24px "DM Sans"';
+        if ("letterSpacing" in ctx) ctx.letterSpacing = "4px";
+        ctx.fillText("TODAY'S NOURISHMENT PLAN", x + 36, y + 32);
+        if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+        let yy = y + 92 + 26;
+        ctx.font = '400 31px "DM Sans"';
+        b.items.forEach((it) => {
+          ctx.fillStyle = it.done ? C.sage : "#FFFFFF"; rrect(ctx, x + 36, yy + 2, 36, 36, 9); ctx.fill();
+          ctx.strokeStyle = C.sage; ctx.lineWidth = 3; rrect(ctx, x + 36, yy + 2, 36, 36, 9); ctx.stroke();
+          if (it.done) { ctx.strokeStyle = "#FFFFFF"; ctx.lineWidth = 4; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(x + 45, yy + 21); ctx.lineTo(x + 52, yy + 28); ctx.lineTo(x + 64, yy + 13); ctx.stroke(); }
+          ctx.fillStyle = it.done ? C.muted : C.ink;
+          it.lines.forEach((ln, i) => ctx.fillText(ln, x + 96, yy + i * 42));
+          yy += it.lines.length * 42 + 22;
+        });
+        y += b.h + b.gap; continue;
+      }
+      ctx.font = b.font; ctx.fillStyle = b.color;
+      if ("letterSpacing" in ctx) ctx.letterSpacing = b.spacing ? "4px" : "0px";
+      b.lines.forEach((ln, i) => ctx.fillText(ln, P, y + i * b.lh));
+      y += b.lines.length * b.lh + b.gap;
+    }
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    ctx.font = '400 22px "DM Sans"'; ctx.fillStyle = C.muted;
+    ctx.fillText("Daily Nourishment Check-In · wooheekwak.me", P, cv.height - P + 20);
+    return new Promise((res) => cv.toBlob(res, "image/png"));
+  }
+  let photoUrl = null;
+  $("photo").addEventListener("click", async () => {
+    if (!current) return;
+    $("photo").disabled = true; $("photo").textContent = "Making your card…";
+    let blob = null;
+    try { blob = await makeCard(); } catch (_) {}
+    $("photo").disabled = false; $("photo").textContent = "Save as Photo";
+    if (!blob) { $("copy-status").textContent = "Couldn't make the photo on this device. Try Copy or Print instead."; return; }
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    photoUrl = URL.createObjectURL(blob);
+    $("photo-img").src = photoUrl; $("photo-dl").href = photoUrl;
+    let file = null, canShare = false;
+    try { file = new File([blob], "my-daily-nourishment.png", { type: "image/png" }); canShare = !!(navigator.canShare && navigator.canShare({ files: [file] })); } catch (_) {}
+    $("photo-share").hidden = !canShare;
+    $("photo-share").onclick = async () => { try { await navigator.share({ files: [file] }); } catch (_) {} };
+    $("photo-tip").textContent = canShare
+      ? "Here's your card. Tap “Save or Email” and choose Save Image to keep it in Photos, or Mail to send it to yourself."
+      : "Here's your card. Use Download, or press and hold (or right-click) the picture to save it.";
+    $("photo-box").hidden = false;
+    $("photo-box").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+  });
+  $("photo-close").addEventListener("click", () => { $("photo-box").hidden = true; });
+  // Email to myself: opens the person's own email app with the message as text, for them to address and send.
+  $("email-me").addEventListener("click", () => {
+    if (!current) return;
+    const subject = "My Daily Nourishment · " + new Date().toLocaleDateString(undefined, { month: "long", day: "numeric" });
+    window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(messageText(current));
+    $("copy-status").textContent = "Your email app should open. Add your own address and send.";
+  });
+
+  $("erase").addEventListener("click", () => {
+    store(null); current = null; $("photo-box").hidden = true;
+    boxes().forEach((b) => (b.checked = false)); updateButton();
+    ["path-words", "path-do"].forEach((id) => $(id).setAttribute("aria-pressed", "false"));
+    $("panel-words").hidden = $("panel-do").hidden = true;
+    show("step-choose"); $("erase-status").textContent = "";
+    window.scrollTo({ top: 0 }); $("choose-status").textContent = "Your answers were erased.";
+  });
+
+  // Coming back later today: pick up where you left off.
+  const saved = restore();
+  if (saved) {
+    const cats = saved.ids.map((id) => CATEGORIES.find((c) => c.id === id)).filter(Boolean);
+    if (cats.length) {
+      current = Object.assign({ quote: null, plan: [], done: [] }, saved);
+      cats.forEach((c) => { const b = $("opt-" + c.id); if (b) b.checked = true; });
+      renderResult(cats); show("step-result");
+      if (current.plan.length) { $("path-do").setAttribute("aria-pressed", "true"); $("panel-do").hidden = false; }
+      if (current.quote) { $("path-words").setAttribute("aria-pressed", "true"); $("panel-words").hidden = false; }
+    }
+  }
 
   updateButton();
 })();
