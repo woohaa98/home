@@ -196,6 +196,12 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .rain li.now b { background: var(--accent); border-color: var(--accent); color: #fff; }
 .rain li.now { color: var(--accent); font-weight: 600; }
 @media (max-width: 480px) { .rain li span { display: none; } }
+.voice-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: -10px 0 18px; font-size: 14px; color: var(--muted); }
+.voice-row select { font: inherit; font-size: 14.5px; padding: 6px 10px; border: 1px solid #CFE0D4; border-radius: 10px; background: #fff; color: var(--ink); max-width: 100%; }
+.voice-row .btn-text { padding: 4px; }
+.voice-help { flex-basis: 100%; font-size: 13.5px; }
+.voice-help summary { cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 2px 0; }
+.voice-help p { margin: 6px 0; }
 .toggles { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
 .tgl { appearance: none; font: inherit; font-size: 13px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; color: var(--muted); white-space: nowrap; }
 .tgl[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
@@ -299,8 +305,20 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       </ol>
       <div class="toggles">
         <button type="button" class="tgl" id="voice-tgl" aria-pressed="false">🔈 Voice guide</button>
-        <button type="button" class="tgl" id="sound-tgl" aria-pressed="false">🎵 Sound</button>
+        <button type="button" class="tgl" id="sound-tgl" aria-pressed="false">🎵 Soothing music</button>
       </div>
+    </div>
+    <div class="voice-row" id="voice-row" hidden>
+      <label for="voice-sel">Voice</label>
+      <select id="voice-sel"></select>
+      <button type="button" class="btn-text" id="voice-try">Try it</button>
+      <details class="voice-help">
+        <summary>Want a warmer, more natural voice?</summary>
+        <p><b>iPhone or iPad:</b> Settings › Accessibility › Spoken Content › Voices › English. Download a voice marked <i>Enhanced</i> or <i>Premium</i> (Ava, Zoe, or Evan sound especially natural), then reopen this page and choose it here.</p>
+        <p><b>Mac:</b> System Settings › Accessibility › Spoken Content › System Voice › Manage Voices.</p>
+        <p><b>Windows:</b> Settings › Time &amp; Language › Speech › Manage voices.</p>
+        <p>These voices run on your own device, so your words stay private.</p>
+      </details>
     </div>
     <p class="mini" id="voice-off-note" hidden style="font-size:13px;color:var(--muted);margin:-12px 0 16px">This browser has no built-in voice on the device, so the voice guide is off to keep things private. Every step is also shown on screen.</p>
 
@@ -319,7 +337,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   <footer class="disclaimer">
     <p>A self-guided practice drawing on emotion labeling, mindfulness, and the RAIN practice (first described by Michele McDonald and adapted by Tara Brach). It is not therapy and not crisis support.</p>
     <p>If you are in crisis in the U.S., call or text 988, or call 911. Skip any movement that causes pain.</p>
-    <p>Your choices stay on your device. Nothing is saved, tracked, or sent anywhere. The voice guide uses only voices built into your device, and the sound is generated in your browser.</p>
+    <p>Your choices stay on your device. Nothing is saved, tracked, or sent anywhere. The voice guide uses only voices built into your device, and the music is composed live in your browser.</p>
   </footer>
 </div>
 
@@ -470,74 +488,103 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       - (/compact|eloquence|grandma|grandpa|bad news|bells|bubbles|zarvox|whisper|trinoids|organ|cellos|jester|albert|fred|junior|ralph|kathy|superstar|boing|wobble|rocko|shelley|reed|sandy|flo|eddy/i.test(v.name) ? 200 : 0);
     return synth.getVoices().filter((v) => v.localService && /^en/i.test(v.lang) && score(v) > -100).sort((a, b) => score(b) - score(a));
   }
+  let chosenVoice = null; // only for this visit
   function refreshVoice() {
-    voice = localVoices()[0] || null;
+    const vs = localVoices();
+    voice = vs.find((v) => v.name === chosenVoice) || vs[0] || null;
+    $("voice-sel").innerHTML = vs.map((v) => `<option value="${esc(v.name)}"${voice && v.name === voice.name ? " selected" : ""}>${esc(v.name.replace(/\s*\(English.*?\)/, ""))}</option>`).join("");
+    $("voice-row").hidden = !voiceOn || !voice;
     $("voice-tgl").disabled = !voice;
     $("voice-off-note").hidden = !!voice || !synth;
     if (!voice && voiceOn) { voiceOn = false; $("voice-tgl").setAttribute("aria-pressed", "false"); }
   }
   if (synth) { refreshVoice(); synth.addEventListener?.("voiceschanged", refreshVoice); } else { $("voice-tgl").disabled = true; }
+  // Read like a person: slower, slightly lower, with small breaths between phrases.
   function say(text) {
     if (!voiceOn || !voice || !synth) return;
     synth.cancel(); const tok = ++vTok;
-    const parts = String(text).split(/(?<=[,.;:?!…])\s+/);
-    parts.forEach((t) => { const u = new SpeechSynthesisUtterance(t); u.voice = voice; u.lang = voice.lang; u.rate = 0.86; u.pitch = 0.96; if (tok === vTok) synth.speak(u); });
+    const parts = String(text).replace(/…/g, "...").split(/(?<=[,.;:?!])\s+/).filter(Boolean);
+    const next = (i) => {
+      if (tok !== vTok || i >= parts.length) return;
+      const u = new SpeechSynthesisUtterance(parts[i]);
+      u.voice = voice; u.lang = voice.lang; u.rate = 0.82; u.pitch = 0.94; u.volume = 0.95;
+      u.onend = () => setTimeout(() => next(i + 1), /[.?!]$/.test(parts[i]) ? 450 : 220);
+      synth.speak(u);
+    };
+    next(0);
   }
   function hush() { vTok++; if (synth) synth.cancel(); }
   $("voice-tgl").addEventListener("click", () => {
     voiceOn = !voiceOn; $("voice-tgl").setAttribute("aria-pressed", voiceOn);
-    if (voiceOn) say("Voice guide on."); else hush();
+    $("voice-row").hidden = !voiceOn || !voice;
+    if (voiceOn) say("I'll guide you, gently, one step at a time."); else hush();
   });
 
-  /* ================== SOUND (generated in the browser) ================== */
+  $("voice-sel").addEventListener("change", (e) => { chosenVoice = e.target.value; refreshVoice(); say("I'm here with you."); });
+  $("voice-try").addEventListener("click", () => say("Take a slow breath. I'm here with you."));
+
+  /* ================== MUSIC (composed live in the browser; no files, nothing downloaded) ================== */
   function createAmbientSound() {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const t = ctx.currentTime, nodes = [];
-    const master = ctx.createGain(); master.gain.setValueAtTime(0, t);
-    const comp = ctx.createDynamicsCompressor();
-    comp.threshold.value = -24; comp.knee.value = 30; comp.ratio.value = 4; comp.attack.value = 0.3; comp.release.value = 1.0;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AC();
+    const master = ctx.createGain(); master.gain.value = 0;
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -20; comp.ratio.value = 3;
     master.connect(comp); comp.connect(ctx.destination);
-
-    const len = ctx.sampleRate * 4, irBuf = ctx.createBuffer(2, len, ctx.sampleRate);
-    for (let ch = 0; ch < 2; ch++) { const dd = irBuf.getChannelData(ch); for (let i = 0; i < len; i++) dd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
-    const reverb = ctx.createConvolver(); reverb.buffer = irBuf;
-    const wet = ctx.createGain(); wet.gain.value = 0.55; reverb.connect(wet); wet.connect(master);
-
-    function pad(freq, vol, pan, lfoRate) {
-      const osc = ctx.createOscillator(); osc.type = "sine";
-      osc.frequency.setValueAtTime(freq, t); osc.frequency.setTargetAtTime(freq * 1.0008, t, 20);
-      const lpf = ctx.createBiquadFilter(); lpf.type = "lowpass"; lpf.frequency.value = freq * 2.8; lpf.Q.value = 0.5;
-      const g = ctx.createGain(); g.gain.setValueAtTime(vol, t);
-      const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = lfoRate; lg.gain.value = vol * 0.3;
-      lfo.connect(lg); lg.connect(g.gain); lfo.start(t);
-      const p = ctx.createStereoPanner(); p.pan.value = pan;
-      osc.connect(lpf); lpf.connect(g); g.connect(p); p.connect(master); g.connect(reverb);
-      osc.start(t); nodes.push(osc, lfo);
+    // soft hall reverb
+    const len = ctx.sampleRate * 5, ir = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let c = 0; c < 2; c++) { const dd = ir.getChannelData(c); for (let i = 0; i < len; i++) dd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+    const verb = ctx.createConvolver(); verb.buffer = ir;
+    const wet = ctx.createGain(); wet.gain.value = 0.7; verb.connect(wet); wet.connect(master);
+    const dry = ctx.createGain(); dry.gain.value = 0.55; dry.connect(master);
+    const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+    // A slow, warm progression in D major: Dmaj9, Bm7, Gmaj7, Aadd9 (MIDI note numbers)
+    const CHORDS = [[50, 57, 61, 64, 66], [47, 54, 57, 62, 66], [43, 50, 54, 59, 62], [45, 52, 57, 59, 64]];
+    const SCALE = [62, 64, 66, 69, 71, 74, 76, 78, 81]; // D major pentatonic: no clashing notes
+    const CHORD_SECS = 9.6;
+    function pad(notes, t, dur) {
+      notes.forEach((m, i) => {
+        ["sine", "triangle"].forEach((type, k) => {
+          const o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter();
+          o.type = type; o.frequency.value = hz(m) * (k ? 1.002 : 1);
+          f.type = "lowpass"; f.frequency.value = 900;
+          const peak = (k ? 0.006 : 0.014) * (i === 0 ? 1.3 : 1);
+          g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + 3);
+          g.gain.setValueAtTime(peak, t + dur - 3); g.gain.linearRampToValueAtTime(0, t + dur + 1.5);
+          o.connect(f); f.connect(g); g.connect(dry); g.connect(verb); o.start(t); o.stop(t + dur + 2);
+        });
+      });
     }
-    function pink(vol) {
-      const n = ctx.sampleRate * 4, buf = ctx.createBuffer(1, n, ctx.sampleRate), dd = buf.getChannelData(0);
-      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
-      for (let i = 0; i < n; i++) {
-        const w = Math.random() * 2 - 1;
-        b0 = 0.99886 * b0 + w * 0.0555179; b1 = 0.99332 * b1 + w * 0.0750759; b2 = 0.969 * b2 + w * 0.153852;
-        b3 = 0.8665 * b3 + w * 0.3104856; b4 = 0.55 * b4 + w * 0.5329522; b5 = -0.7616 * b5 - w * 0.016898;
-        dd[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * 0.5362) * 0.11; b6 = w * 0.115926;
+    function bell(m, t, vel) {
+      // a soft, piano-like note: fundamental plus gentle overtones, quick attack, long fade
+      [[1, 1], [2, 0.28], [3, 0.08]].forEach(([mult, amp]) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "sine"; o.frequency.value = hz(m) * mult;
+        g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.05 * vel * amp, t + 0.03);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 4.5 / mult);
+        o.connect(g); g.connect(dry); g.connect(verb); o.start(t); o.stop(t + 5);
+      });
+    }
+    let idx = 0, nextChord = ctx.currentTime + 0.1, timer = null;
+    function schedule() {
+      while (nextChord < ctx.currentTime + 12) {
+        const ch = CHORDS[idx % CHORDS.length];
+        pad(ch, nextChord, CHORD_SECS);
+        const fits = SCALE.filter((n) => ch.some((c) => (n - c) % 12 === 0));
+        let t = nextChord + 0.8 + Math.random();
+        const count = 2 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < count && t < nextChord + CHORD_SECS - 1; i++) {
+          bell(fits[Math.floor(Math.random() * fits.length)], t, 0.6 + Math.random() * 0.4);
+          t += 1.6 + Math.random() * 2.2;
+        }
+        nextChord += CHORD_SECS; idx++;
       }
-      const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
-      const lpf = ctx.createBiquadFilter(); lpf.type = "lowpass"; lpf.frequency.value = 320; lpf.Q.value = 0.3;
-      const g = ctx.createGain(); g.gain.value = vol;
-      src.connect(lpf); lpf.connect(g); g.connect(master); src.start(t); nodes.push(src);
     }
-    pad(110, 0.018, 0, 0.04); pad(165, 0.012, -0.25, 0.06); pad(220, 0.010, 0.25, 0.05); pad(275, 0.007, -0.15, 0.07); pad(330, 0.005, 0.15, 0.08);
-    pink(0.006);
-
-    const ramp = (v, s) => { const now = ctx.currentTime; master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value, now); master.gain.linearRampToValueAtTime(v, now + s); };
+    const ramp = (v, secs) => { const now = ctx.currentTime; master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value, now); master.gain.linearRampToValueAtTime(v, now + secs); };
     return {
-      fadeIn() { if (ctx.state === "suspended") ctx.resume(); ramp(1, 5); },
-      fadeOut() { ramp(0, 3); }
+      fadeIn() { if (ctx.state === "suspended") ctx.resume(); nextChord = Math.max(nextChord, ctx.currentTime + 0.1); schedule(); clearInterval(timer); timer = setInterval(schedule, 3000); ramp(0.9, 4); },
+      fadeOut() { ramp(0, 3); setTimeout(() => clearInterval(timer), 3200); }
     };
   }
-
   let audio = null, soundOn = false;
   $("sound-tgl").addEventListener("click", () => {
     soundOn = !soundOn;
