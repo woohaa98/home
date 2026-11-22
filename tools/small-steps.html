@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Small Steps · Woohee (Elise) Kwak</title>
+<meta name="description" content="A behavioral activation planner for low mood, burnout, or withdrawal: choose a few small, doable activities for the week, check them off, and notice how your mood responds.">
+<!-- Privacy: no analytics, tracking, or data requests. The weekly plan saves only in this browser. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 22px; }
+.progress { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+.ground-btn { appearance: none; font: inherit; font-size: 13.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--accent); white-space: nowrap; transition: border-color .2s; }
+.ground-btn:hover { border-color: var(--accent); }
+.grounding { display: flex; gap: 14px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: 0 0 22px; }
+.grounding strong { display: block; color: var(--accent); font-weight: 600; }
+.grounding p { margin: 0; font-size: 14.5px; }
+.grounding .x { appearance: none; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; margin-left: auto; padding: 0 4px; }
+
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
+
+.options { display: grid; gap: 10px; }
+.options.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .options.two { grid-template-columns: 1fr; } }
+.opt {
+  appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 15px 18px;
+  transition: border-color .2s, background-color .2s;
+}
+.opt:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 20px; line-height: 1.2; }
+.opt b { display: block; font-weight: 600; font-size: 15.5px; }
+.opt small { display: block; color: var(--muted); font-size: 14px; margin-top: 1px; }
+.opt.dashed { border-style: dashed; }
+.group-name { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+.group-name:first-child { margin-top: 0; }
+
+.field { margin-top: 16px; }
+.field > label { display: block; font-weight: 500; margin-bottom: 8px; }
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 16px; line-height: 1.6; padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); resize: vertical; }
+textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.15); }
+::placeholder { color: #8C939C; }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.scale { margin-top: 26px; padding: 18px 20px; background: var(--sand); border-radius: 16px; }
+.scale label { font-weight: 500; display: block; margin-bottom: 8px; }
+.scale input[type=range] { width: 100%; accent-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.scale output { font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+.note { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 14px 0 0; }
+.note strong { color: var(--warm-ink); }
+
+.prompt-card { background: var(--sand); border-radius: 16px; padding: 18px 20px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.subcount { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+.reflection { display: flex; gap: 14px; align-items: flex-start; border-left: 3px solid var(--warm); background: var(--surface); border-radius: 0 14px 14px 0; padding: 14px 18px; margin: 16px 0 0; box-shadow: var(--shadow); }
+.reflection .mark { color: var(--warm); font-size: 18px; line-height: 1.5; }
+.reflection p { margin: 0; font-family: var(--font-display); font-size: 17px; line-height: 1.55; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(24px, 6vw, 44px); }
+.welcome-list { margin: 0 0 18px; padding-left: 20px; }
+.welcome-list li { margin-bottom: 6px; }
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 20px; }
+.safety strong { color: var(--warm-ink); }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-weight: 500; }
+.check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+
+.part-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 16px; }
+.summary { display: grid; gap: 12px; margin: 6px 0 0; }
+.summary div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.summary dd { margin: 0; white-space: pre-wrap; }
+@media (max-width: 520px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.pick-hint { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.answers { margin-bottom: 6px; }
+.own-words { margin: 8px 0 0; }
+.own-words summary { cursor: pointer; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; list-style: none; }
+.own-words summary::-webkit-details-marker { display: none; }
+.own-words[open] summary { margin-bottom: 8px; }
+.message-card { margin: 22px 0 0; background: var(--accent-soft); border-radius: 16px; padding: 18px 20px; }
+.message-card .mc-label { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.message-card .mc-text { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+@media print {
+  body { background: #fff; }
+  .topbar, header, .toolbar, .grounding, .actions, .disclaimer, .no-print { display: none !important; }
+  .card { box-shadow: none; border: 0; padding: 0; }
+}
+
+
+
+/* ---- shared by Small Steps, Kind Boundaries, Gentle Start-Up ---- */
+.privacy-line { font-size: 13.5px; color: var(--muted); margin: -20px 0 28px; }
+.session-banner { display: flex; gap: 12px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: -12px 0 28px; font-size: 14.5px; }
+.session-banner b { display: block; color: var(--accent); font-weight: 600; }
+.session-banner p { margin: 0; }
+.explain { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 0 0 18px; }
+.explain div { background: var(--sand); border-radius: 14px; padding: 14px 16px; }
+.explain b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 17px; margin-bottom: 2px; }
+.explain span { font-size: 14px; color: var(--muted); }
+.callout { background: var(--accent-soft); border-radius: 16px; padding: 14px 18px; margin: 16px 0 0; font-size: 15px; }
+.callout strong { color: var(--accent); }
+.callout.warm { background: var(--warm-soft); }
+.callout.warm strong { color: var(--warm-ink); }
+.script { background: #F2F8F3; border: 1px solid #CFE0D4; border-radius: 18px; padding: 20px 22px; margin: 6px 0 0; }
+.script .k { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 8px; }
+.script p.say { font-family: var(--font-display); font-size: 20px; line-height: 1.5; margin: 0; }
+.script textarea { width: 100%; font: inherit; font-family: var(--font-display); font-size: 19px; line-height: 1.5; padding: 12px 14px; border: 1px solid #CFE0D4; border-radius: 12px; background: #fff; color: var(--ink); resize: vertical; min-height: 120px; }
+.tone { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 12px; }
+.card-sec { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.card-sec h3 { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.card-sec p { margin: 0; }
+.card-sec ul { margin: 0; padding-left: 20px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-row span { font-size: 13px; background: var(--sand); border-radius: 999px; padding: 4px 12px; }
+.print-head { display: none; }
+.erase-row { margin-top: 14px; font-size: 14px; }
+.vbtn { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; background: #fff; border: 1px solid #CFE0D4; color: var(--accent); border-radius: 999px; padding: 9px 16px; min-height: 42px; }
+.vbtn:disabled { opacity: .45; cursor: not-allowed; }
+@media print {
+  .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
+  .print-head b { display: block; font-size: 13pt; color: #000; }
+  .session-banner, .erase-row, .rel, .privacy-line, .no-print { display: none !important; }
+}
+
+/* ---- Small Steps ---- */
+.cycle2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0 0 6px; }
+@media (max-width: 600px) { .cycle2 { grid-template-columns: 1fr; } }
+.cycle2 > div { border-radius: 18px; padding: 16px 18px; }
+.cycle2 .down { background: var(--warm-soft); }
+.cycle2 .up { background: var(--accent-soft); }
+.cycle2 h3 { margin: 0 0 8px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; }
+.cycle2 .down h3 { color: var(--warm-ink); } .cycle2 .up h3 { color: var(--accent); }
+.cycle2 ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.cycle2 li { background: rgba(255,255,255,.75); border-radius: 10px; padding: 8px 12px; font-size: 14.5px; position: relative; }
+.cycle2 li:not(:last-child)::after { content: "↓"; position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); font-size: 12px; z-index: 1; }
+.cycle2 .down li:not(:last-child)::after { color: var(--warm-ink); } .cycle2 .up li:not(:last-child)::after { color: var(--accent); }
+.cat { margin: 0 0 18px; }
+.cat h3 { display: flex; gap: 8px; align-items: baseline; margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+.cat h3 small { font-weight: 400; color: var(--muted); font-size: 13.5px; }
+.acts { display: grid; gap: 8px; }
+.act { appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 11px 14px; transition: border-color .2s, background-color .2s; }
+.act:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.act .plus { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-size: 14px; color: var(--accent); line-height: 1; }
+.act[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.act[aria-pressed="true"] .plus { background: var(--accent); border-color: var(--accent); color: #fff; }
+.act .eff { font-size: 12px; color: var(--muted); background: var(--sand); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.count-note { font-size: 14px; color: var(--muted); margin: 6px 0 0; }
+.plan-item { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; margin-bottom: 12px; }
+.plan-item h3 { margin: 0 0 10px; font-size: 16px; font-weight: 600; }
+.plan-item .days { display: flex; flex-wrap: wrap; gap: 6px; }
+.plan-item .days .chip { min-height: 36px; padding: 6px 12px; font-size: 13.5px; }
+.week { display: grid; gap: 10px; }
+.wk-item { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.wk-item.done { border-color: var(--accent); background: #F6FAF7; }
+.wk-head { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+.wk-head b { font-weight: 600; }
+.wk-head small { display: block; color: var(--muted); font-size: 13.5px; }
+.wk-log { margin-top: 10px; display: grid; gap: 8px; }
+.wk-log .scale { margin: 0; padding: 12px 14px; }
+.log-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.lift { display: grid; gap: 10px; margin-top: 8px; }
+.lift .row { display: grid; grid-template-columns: minmax(0, 1fr) 110px 48px; gap: 10px; align-items: center; font-size: 14.5px; }
+.lift .bar { height: 10px; background: var(--sand); border-radius: 6px; position: relative; overflow: hidden; }
+.lift .bar i { position: absolute; top: 0; bottom: 0; left: 50%; background: var(--accent); border-radius: 6px; }
+.lift .bar i.neg { background: #E8A882; }
+.lift .bar::after { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--muted); opacity: .4; }
+.lift .num { text-align: right; font-weight: 600; }
+@media (max-width: 480px) { .lift .row { grid-template-columns: minmax(0, 1fr) 70px 40px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Low Mood &amp; Burnout</p>
+      <h1>Small <em>Steps</em></h1>
+      <p class="lede">When mood is low, we tend to do less, and doing less makes mood lower. This planner helps you choose a few small, doable activities for the week, check them off, and notice how your mood responds. You don't have to feel motivated first. About 5 minutes to plan.</p>
+      <p class="privacy-line">Your plan saves on this device so you can check things off during the week. Nothing is sent anywhere unless you choose to share it.</p>
+    </header>
+    <div class="session-banner" id="session-banner" role="note" hidden><span aria-hidden="true">🌿</span>
+      <div><b>Shared by your therapist, <span class="th-name"></span></b><p>Plan your week here and check things off as you go. Bring your summary to your next session. Nothing is sent anywhere unless you choose to share it.</p></div></div>
+    <div class="toolbar"><ol class="progress" id="progress" aria-hidden="true"></ol></div>
+    <section id="stage"></section>
+    <section class="rel" aria-labelledby="rel-h" style="margin-top:48px">
+      <p class="eyebrow" style="margin-bottom:6px">Therapy Resources</p>
+      <h2 id="rel-h" style="font-family:var(--font-display);font-weight:400;font-size:24px;margin:0 0 12px">Related reading</h2>
+      <div class="options two">
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=values-vs-goals"><span><b>Values vs. Goals</b><small>A direction you live versus a destination you reach.</small></span></a>
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=brain-and-emotions"><span><b>How the Brain Creates &amp; Regulates Emotions</b><small>Why emotions are built from body signals, meaning, and past experience.</small></span></a>
+      </div>
+    </section>
+  </main>
+  <footer class="disclaimer">
+    <p>Based on behavioral activation, a well-researched approach for low mood and depression. A self-guided planner, not a substitute for care. If low mood lasts more than two weeks or makes daily life hard, please talk with a doctor or therapist.</p>
+    <p>If you're having thoughts of harming yourself, in the U.S. call or text 988, or call 911.</p>
+    <p>Your plan is saved only in this browser on this device. Use "Erase my answers" to clear it. Nothing is tracked or sent anywhere.</p>
+  </footer>
+</div>
+<script>
+(() => {
+  "use strict";
+  const SESSION_KEY = "wk-small-steps-session";
+
+  /* ---------- shared helpers ---------- */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const listText = (a) => a.length < 2 ? (a[0] || "") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
+  const low = (t) => /^I[ ']/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
+
+  /* session mode (?from=Name&reply=email), as in the other tools */
+  let therapist = null;
+  (function () {
+    const q = new URLSearchParams(location.search), from = (q.get("from") || "").trim().slice(0, 60);
+    try {
+      if (from) {
+        const t = { name: from.toLowerCase() === "elise" ? "Elise Kwak" : from, reply: "" };
+        const r = (q.get("reply") || "").trim().slice(0, 120);
+        if (r && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(r)) t.reply = r; else if (from.toLowerCase() === "elise") t.reply = "elise@selfspaceseattle.com";
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(t)); therapist = t;
+      } else { const raw = sessionStorage.getItem(SESSION_KEY); if (raw) therapist = JSON.parse(raw); }
+    } catch (_) { if (from) therapist = { name: from, reply: "" }; }
+    if (therapist && therapist.name) { $("session-banner").hidden = false; document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; }); }
+    else therapist = null;
+  })();
+  const sessionNote = () => therapist ? `<p class="hint" style="margin:20px 0 0">Print or save this as a PDF and bring it to your next session with ${esc(therapist.name)}.${therapist.reply ? ` If you've both agreed to use email, you can send it to ${esc(therapist.reply)}; email isn't fully private.` : ""}</p>` : "";
+
+  function copyText(text) {
+    const done = (m) => { const s = $("copy-status"); if (s) s.textContent = m; };
+    const fb = () => { const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done("Copied."); } catch (_) { done("Couldn't copy."); } ta.remove(); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done("Copied."), fb); else fb();
+  }
+  function emailMe(subject, text) {
+    window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
+    const s = $("copy-status"); if (s) s.textContent = "Your email app should open. Add your own address and send.";
+  }
+  function printNow() {
+    const ph = $("ph-line"); if (ph) ph.textContent = (therapist ? `For a session with ${therapist.name} · ` : "") + new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    window.print();
+  }
+
+
+  /* ================== CONTENT (edit freely) ================== */
+  const SIGNS = ["Staying in bed longer", "Canceling plans", "Not answering messages", "Scrolling or watching for hours", "Skipping meals or eating on autopilot", "Hard to start anything", "Letting chores pile up", "Not going outside"];
+  const CATS = [
+    { id: "pleasure", icon: "🌸", name: "Something enjoyable", sub: "small pleasures, even if they feel flat right now", acts: [
+      ["Listen to one song you used to love", "Tiny"], ["Sit outside or by a window with a warm drink", "Tiny"], ["Watch something that makes you laugh", "Small"], ["Take a slow shower or bath", "Small"], ["Cook or order a favorite meal", "Medium"], ["Spend 20 minutes on an old hobby", "Medium"] ] },
+    { id: "mastery", icon: "✅", name: "Something accomplished", sub: "a sense of getting something done", acts: [
+      ["Make your bed", "Tiny"], ["Wash the dishes in the sink", "Small"], ["Reply to one message you've been avoiding", "Small"], ["Do 10 minutes on a task you've put off", "Small"], ["Put away one pile of clothes", "Small"], ["Pay one bill or handle one errand", "Medium"] ] },
+    { id: "connection", icon: "🤝", name: "Someone to connect with", sub: "even brief contact counts", acts: [
+      ["Send a short text to someone you like", "Tiny"], ["Say hi to a neighbor or coworker", "Tiny"], ["Call or voice-message a friend for 5 minutes", "Small"], ["Eat a meal with someone", "Medium"], ["Join one plan you'd usually skip, for 30 minutes", "Medium"] ] },
+    { id: "body", icon: "🚶", name: "Something for your body", sub: "movement, light, rest, food", acts: [
+      ["Step outside for 5 minutes of daylight", "Tiny"], ["Drink a glass of water", "Tiny"], ["Stretch for 5 minutes", "Tiny"], ["Take a 10-minute walk", "Small"], ["Eat one real meal at a regular time", "Small"], ["Go to bed 30 minutes earlier", "Medium"] ] },
+    { id: "values", icon: "🧭", name: "Something that matters to you", sub: "small acts in the direction of your values", acts: [
+      ["Do one kind thing for someone", "Tiny"], ["Read or learn something for 10 minutes", "Small"], ["Spend 15 minutes on something creative", "Small"], ["Help someone with a small task", "Small"], ["Take one step on a project you care about", "Medium"] ] }
+  ];
+  const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  /* ================== STATE (saved on this device) ================== */
+  const KEY = "wk-small-steps-v1";
+  const blank = () => ({ step: 0, mood: 4, signs: [], picks: [], own: "", days: {}, log: {}, made: "" });
+  function load() { try { const r = localStorage.getItem(KEY); if (r) return Object.assign(blank(), JSON.parse(r)); } catch (_) {} return blank(); }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (_) {} }
+  let d = load(), lastView = -1;
+  const STEPS = 5;
+  $("progress").innerHTML = "<li></li>".repeat(STEPS);
+  const allPicks = () => d.picks.concat(d.own.trim() ? [d.own.trim()] : []);
+  const catOf = (a) => (CATS.find((c) => c.acts.some(([t]) => t === a)) || { icon: "✨", name: "My own" });
+
+  /* ================== VIEWS ================== */
+  const label = (t) => `<p class="step-label">${t}</p>`;
+  const nav = (txt, ok = true, back = true) => `<div class="actions"><button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${txt}</button>${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}</div>`;
+
+  const views = {
+    0: () => `
+      ${label("Step 1 of 4 · Check in")}
+      <h2 class="q" tabindex="-1">How has your mood been <em>lately</em>?</h2>
+      <div class="scale"><label for="mood">Most days this week <output id="mood-out" for="mood">${d.mood}</output></label>
+        <input id="mood" type="range" min="0" max="10" step="1" value="${d.mood}" data-field="mood"><div class="ends"><span>0 · very low</span><span>10 · really good</span></div></div>
+      <p class="group-name" style="margin-top:22px">Has low mood been showing up like this? <span style="text-transform:none;letter-spacing:0">(tap any)</span></p>
+      <div class="chipset">${SIGNS.map((x) => `<button type="button" class="chip" data-sign="${esc(x)}" aria-pressed="${d.signs.includes(x)}">${esc(x)}</button>`).join("")}</div>
+      ${nav("Continue", true, false)}`,
+
+    1: () => `
+      ${label("Step 2 of 4 · How it works")}
+      <h2 class="q" tabindex="-1">Action first, <em>motivation</em> follows</h2>
+      <p class="hint">Low mood tells us to wait until we feel like it. But for most people, feeling better comes after doing something small, not before.</p>
+      <div class="cycle2">
+        <div class="down"><h3>The downward spiral</h3><ol><li>Mood dips</li><li>${esc(d.signs[0] || "Do less, pull back")}</li><li>Fewer good or meaningful moments</li><li>Mood dips further</li></ol></div>
+        <div class="up"><h3>The way back up</h3><ol><li>Do one small thing anyway</li><li>A moment of enjoyment, connection, or "I did it"</li><li>A little more energy</li><li>The next step gets easier</li></ol></div>
+      </div>
+      <p class="callout"><strong>Keep it small.</strong> The best step is one so easy you could do it on a bad day. Five minutes counts. Doing it badly counts.</p>
+      ${nav("Choose My Steps")}`,
+
+    2: () => `
+      ${label("Step 3 of 4 · Choose")}
+      <h2 class="q" tabindex="-1">Pick <em>3 to 5</em> small steps for this week</h2>
+      <p class="hint">A mix works best: something enjoyable, something accomplished, someone to connect with. Start with "Tiny" if energy is low.</p>
+      ${CATS.map((c) => `<div class="cat"><h3><span aria-hidden="true">${c.icon}</span>${esc(c.name)} <small>${esc(c.sub)}</small></h3>
+        <div class="acts">${c.acts.map(([t, e]) => `<button type="button" class="act" data-pick="${esc(t)}" aria-pressed="${d.picks.includes(t)}"><span class="plus" aria-hidden="true">${d.picks.includes(t) ? "✓" : "+"}</span><span>${esc(t)}</span><span class="eff">${e}</span></button>`).join("")}</div></div>`).join("")}
+      <details class="own-words"${d.own.trim() ? " open" : ""}><summary>Add my own small step</summary>
+        <input type="text" data-field="own" maxlength="80" aria-label="Your own small step" placeholder="e.g. Water the plants" value="${esc(d.own)}"></details>
+      <p class="count-note" id="count-note">${allPicks().length} chosen</p>
+      ${nav("Plan My Week", allPicks().length >= 1)}`,
+
+    3: () => `
+      ${label("Step 4 of 4 · Plan")}
+      <h2 class="q" tabindex="-1">When will you <em>do</em> each one?</h2>
+      <p class="hint">Picking a day makes it far more likely to happen. Choose one or two days for each. You can change this later.</p>
+      ${allPicks().map((a) => `<div class="plan-item"><h3>${catOf(a).icon} ${esc(a)}</h3><div class="days" role="group" aria-label="Days for ${esc(a)}">
+        ${DAYS.map((dd) => `<button type="button" class="chip" data-day="${dd}" data-for="${esc(a)}" aria-pressed="${(d.days[a] || []).includes(dd)}">${dd}</button>`).join("")}</div></div>`).join("")}
+      ${nav("See My Week")}`,
+
+    4: () => {
+      const items = allPicks();
+      const lifts = items.map((a) => { const L = d.log[a] || []; if (!L.length) return null; const avg = L.reduce((n, x) => n + (x.after - x.before), 0) / L.length; return [a, avg, L.length]; }).filter(Boolean).sort((x, y) => y[1] - x[1]);
+      const doneCount = items.reduce((n, a) => n + (d.log[a] || []).length, 0);
+      return `
+      <article class="card fade-in">
+        <div class="print-head"><b>Small Steps · My week</b><span id="ph-line"></span></div>
+        ${label("My week")}
+        <h2 class="q" tabindex="-1">Your small steps, <em>this week</em></h2>
+        <p class="hint">After you do one, come back and tap "I did it." Rate your mood before and after. Over a few days, you'll see what actually helps.</p>
+        <div class="week">${items.map((a) => {
+          const L = d.log[a] || [], days = (d.days[a] || []).join(", ") || "No day chosen";
+          return `<div class="wk-item${L.length ? " done" : ""}"><div class="wk-head"><div><b>${catOf(a).icon} ${esc(a)}</b><small>${esc(days)}${L.length ? ` · done ${L.length}×` : ""}</small></div>
+            <button type="button" class="btn btn-ghost no-print" data-log="${esc(a)}" style="padding:10px 16px;min-height:40px">I did it</button></div>
+            <div class="wk-log" data-logbox="${esc(a)}" hidden>
+              <div class="scale"><label>Mood before <output data-out="b">4</output></label><input type="range" min="0" max="10" value="4" data-lv="b"></div>
+              <div class="scale"><label>Mood after <output data-out="a">5</output></label><input type="range" min="0" max="10" value="5" data-lv="a"></div>
+              <div><button type="button" class="btn btn-primary" data-save="${esc(a)}" style="padding:11px 20px;min-height:42px">Save</button></div>
+            </div>
+            ${L.length ? `<ul class="log-list">${L.map((x) => `<li>${esc(x.date)} · mood ${x.before} → ${x.after}</li>`).join("")}</ul>` : ""}</div>`; }).join("")}</div>
+        <div class="card-sec"><h3>What's helping</h3>
+          ${lifts.length ? `<div class="lift">${lifts.map(([a, v]) => `<div class="row"><span>${esc(a)}</span><span class="bar"><i class="${v < 0 ? "neg" : ""}" style="${v >= 0 ? `left:50%;width:${Math.min(50, v * 10)}%` : `left:${50 - Math.min(50, -v * 10)}%;width:${Math.min(50, -v * 10)}%`}"></i></span><span class="num">${v > 0 ? "+" : ""}${v.toFixed(1)}</span></div>`).join("")}</div>
+            <p class="hint" style="margin:10px 0 0">Average mood change after each step. Even a small lift is worth noticing.</p>`
+            : `<p class="hint" style="margin:0">Log a step or two and your mood changes will show here.</p>`}
+        </div>
+        <div class="card-sec"><h3>Starting point</h3><p>Mood most days: ${d.mood}/10${d.signs.length ? ` · ${esc(d.signs.join(", ").toLowerCase())}` : ""}</p></div>
+        ${doneCount ? `<p class="callout" style="margin-top:20px"><strong>${doneCount} small step${doneCount === 1 ? "" : "s"} taken.</strong> That's not nothing. That's the way back up.</p>` : ""}
+        ${sessionNote()}
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="print">Print or Save as PDF</button>
+        <button type="button" class="btn btn-ghost" data-act="email">Email to Myself</button>
+        <button type="button" class="btn btn-ghost" data-act="copy">Copy</button>
+        <button type="button" class="btn btn-ghost" data-act="edit">Change My Steps</button>
+        <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <p class="erase-row"><button type="button" class="btn-text" data-act="newweek">Start a new week</button> · <button type="button" class="btn-text" data-act="erase">Erase my answers</button></p>`;
+    }
+  };
+
+  function render(focus = true) {
+    const same = lastView === d.step; lastView = d.step;
+    $("stage").innerHTML = views[d.step]();
+    if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
+    [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i <= d.step));
+    if (focus) { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true }); }
+  }
+  function sync() {
+    const n = $("stage").querySelector('[data-act="next"]'); if (n && d.step === 2) n.disabled = !allPicks().length;
+    const c = $("count-note"); if (c) c.textContent = `${allPicks().length} chosen${allPicks().length > 5 ? " · that's a lot for one week; fewer is fine" : ""}`;
+    save();
+  }
+  function textSummary() {
+    const L = ["SMALL STEPS · my week", ""];
+    if (therapist) L.push(`For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`, "");
+    L.push(`Mood most days: ${d.mood}/10`); if (d.signs.length) L.push(`Low mood has looked like: ${d.signs.join(", ")}`);
+    L.push("", "My steps:");
+    allPicks().forEach((a) => { const Lg = d.log[a] || []; L.push(`- ${a} (${(d.days[a] || []).join(", ") || "no day"})${Lg.length ? ` · done ${Lg.length}x, mood ${Lg.map((x) => x.before + "→" + x.after).join(", ")}` : ""}`); });
+    L.push("", "Small Steps · wooheekwak.me"); return L.join("\n");
+  }
+
+  $("stage").addEventListener("input", (e) => {
+    const t = e.target;
+    if (t.dataset.lv) { const box = t.closest(".wk-log"); box.querySelector(`[data-out="${t.dataset.lv}"]`).textContent = t.value; return; }
+    const f = t.dataset.field; if (!f) return;
+    if (t.type === "range") { d[f] = +t.value; const o = $(t.id + "-out"); if (o) o.textContent = d[f]; } else d[f] = t.value;
+    sync();
+  });
+  $("stage").addEventListener("click", (e) => {
+    const t = e.target;
+    const sg = t.closest("[data-sign]"); if (sg) { const v = sg.dataset.sign, i = d.signs.indexOf(v); i >= 0 ? d.signs.splice(i, 1) : d.signs.push(v); sg.setAttribute("aria-pressed", i < 0); sync(); return; }
+    const pk = t.closest("[data-pick]"); if (pk) { const v = pk.dataset.pick, i = d.picks.indexOf(v); i >= 0 ? d.picks.splice(i, 1) : d.picks.push(v); pk.setAttribute("aria-pressed", i < 0); pk.querySelector(".plus").textContent = i < 0 ? "✓" : "+"; sync(); return; }
+    const dy = t.closest("[data-day]"); if (dy) { const a = dy.dataset.for, v = dy.dataset.day, L = d.days[a] = d.days[a] || [], i = L.indexOf(v); i >= 0 ? L.splice(i, 1) : L.push(v); dy.setAttribute("aria-pressed", i < 0); sync(); return; }
+    const lg = t.closest("[data-log]"); if (lg) { const box = $("stage").querySelector(`[data-logbox="${CSS.escape(lg.dataset.log)}"]`); box.hidden = !box.hidden; return; }
+    const sv = t.closest("[data-save]"); if (sv) {
+      const a = sv.dataset.save, box = sv.closest(".wk-log");
+      const b = +box.querySelector('[data-lv="b"]').value, af = +box.querySelector('[data-lv="a"]').value;
+      (d.log[a] = d.log[a] || []).push({ date: new Date().toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" }), before: b, after: af });
+      save(); const y = window.scrollY; render(false); window.scrollTo(0, y); return;
+    }
+    const a = t.closest("[data-act]")?.dataset.act; if (!a) return;
+    if (a === "next") { d.step = Math.min(d.step + 1, STEPS - 1); if (d.step === 4) d.made = d.made || new Date().toISOString(); save(); render(); }
+    else if (a === "back") { d.step = Math.max(d.step - 1, 0); save(); render(); }
+    else if (a === "edit") { d.step = 2; save(); render(); }
+    else if (a === "newweek") { const keep = { mood: d.mood }; d = Object.assign(blank(), keep, { step: 0 }); save(); render(); }
+    else if (a === "erase") { try { localStorage.removeItem(KEY); } catch (_) {} d = blank(); render(); }
+    else if (a === "print") printNow();
+    else if (a === "copy") copyText(textSummary());
+    else if (a === "email") emailMe("My Small Steps for this week", textSummary());
+  });
+  render(false);
+})();
+</script>
+</body>
+</html>

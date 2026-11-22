@@ -36,6 +36,9 @@ window.RESOURCE_LIBRARY = {
     "parts-of-me":          { title: "Parts of Me", href: "../tools/parts-of-me.html", blurb: "Get to know a protective part of you: what it fears and what it needs." },
     "ride-the-wave":        { title: "Ride the Wave", href: "../tools/ride-the-wave.html", blurb: "For OCD, panic, and urges: let the urge rise and fall without acting on it." },
     "untangle-the-pattern": { title: "Untangle the Pattern", href: "../tools/untangle-the-pattern.html", blurb: "See how a rigid thought drives a habit, then reframe it and test one small step." },
+    "small-steps":          { title: "Small Steps", href: "../tools/small-steps.html", blurb: "Behavioral activation: plan a few small activities and see what lifts your mood." },
+    "kind-boundaries":      { title: "Kind Boundaries", href: "../tools/kind-boundaries.html", blurb: "Build a clear, kind way to say no or ask for what you need (DEAR MAN)." },
+    "gentle-start-up":      { title: "Gentle Start-Up", href: "../tools/gentle-start-up.html", blurb: "For couples: raise a concern with I feel… about… I need…, plus repair phrases." },
   },
 
   resources: [
@@ -43,7 +46,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 1 */
     {
       id: "brain-and-emotions",
-      tools: ["meet-the-feeling", "daily-nourishment"],
+      tools: ["meet-the-feeling", "small-steps", "daily-nourishment"],
       category: "mind-body",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -149,7 +152,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 4 */
     {
       id: "four-horsemen",
-      tools: ["meet-the-feeling"],
+      tools: ["gentle-start-up", "meet-the-feeling"],
       category: "relationships",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -184,7 +187,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 5 */
     {
       id: "attachment-styles",
-      tools: ["parts-of-me"],
+      tools: ["parts-of-me", "gentle-start-up", "kind-boundaries"],
       category: "relationships",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -220,7 +223,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 6 */
     {
       id: "values-vs-goals",
-      tools: ["values-clarification"],
+      tools: ["values-clarification", "small-steps"],
       category: "identity",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -254,7 +257,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 7 */
     {
       id: "perfectionism",
-      tools: ["untangle-the-pattern", "parts-of-me", "values-clarification"],
+      tools: ["untangle-the-pattern", "parts-of-me", "kind-boundaries", "values-clarification"],
       category: "growth",
       status: "published",
       lastReviewed: "2026-11-05",
@@ -290,7 +293,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 8 */
     {
       id: "turning-toward-emotions",
-      tools: ["meet-the-feeling"],
+      tools: ["meet-the-feeling", "gentle-start-up"],
       category: "awareness",
       status: "published",
       lastReviewed: "2026-11-09",
