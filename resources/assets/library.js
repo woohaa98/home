@@ -41,6 +41,7 @@ window.RESOURCE_LIBRARY = {
     "life-chapters":        { title: "Life Chapters", href: "../tools/life-chapters.html", blurb: "Name your life's chapters, notice the thread, and title the next one." },
     "best-possible-self":   { title: "Best Possible Self", href: "../tools/best-possible-self.html", blurb: "Imagine your future going well, and get a letter from your future self." },
     "drop-the-rope":        { title: "Drop the Rope", href: "../tools/drop-the-rope.html", blurb: "What you resist persists: make room for discomfort and take one willing step." },
+    "roots-and-messages":   { title: "Roots & Messages", href: "../tools/roots-and-messages.html", blurb: "Map your family and choose which messages to carry, rewrite, or leave." },
     "gentle-start-up":      { title: "Gentle Start-Up", href: "../tools/gentle-start-up.html", blurb: "For couples: raise a concern with I feel… about… I need…, plus repair phrases." },
   },
 
@@ -190,7 +191,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 5 */
     {
       id: "attachment-styles",
-      tools: ["parts-of-me", "life-chapters", "gentle-start-up", "kind-boundaries"],
+      tools: ["roots-and-messages", "parts-of-me", "life-chapters", "gentle-start-up", "kind-boundaries"],
       category: "relationships",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -260,7 +261,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 7 */
     {
       id: "perfectionism",
-      tools: ["untangle-the-pattern", "drop-the-rope", "parts-of-me", "kind-boundaries", "values-clarification"],
+      tools: ["untangle-the-pattern", "drop-the-rope", "parts-of-me", "roots-and-messages", "kind-boundaries", "values-clarification"],
       category: "growth",
       status: "published",
       lastReviewed: "2026-11-05",

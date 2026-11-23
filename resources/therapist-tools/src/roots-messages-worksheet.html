@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Roots &amp; Messages · Worksheet</title>
+<link rel="stylesheet" href="worksheet.css">
+<style>
+.lede { font-size: 13.5px; line-height: 1.5; color: #5A6B60; }
+.steps { display: flex; gap: 10px; }
+.step { flex: 1; display: flex; gap: 8px; align-items: flex-start; background: #F6F1E8; border-radius: 12px; padding: 9px 10px; }
+.step .n { flex: none; width: 22px; height: 22px; border-radius: 50%; background: #7A9B84; color: #fff; font: 600 12px/22px Inter, sans-serif; text-align: center; }
+.step b { display: block; font-size: 12.5px; font-weight: 600; }
+.step span { font-size: 11px; line-height: 1.35; color: #5A6B60; }
+.legend { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; font-size: 11.5px; color: #46584D; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sec { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 20px; margin: 0; }
+.sec small { font-family: Inter, sans-serif; font-weight: 400; font-size: 12.5px; color: #5A6B60; margin-left: 8px; }
+.msgs { display: flex; flex-direction: column; gap: 9px; }
+.msgrow { display: grid; grid-template-columns: 128px minmax(0, 1fr) 176px; gap: 10px; align-items: stretch; }
+.box { border: 1.4px solid #D9CDBB; border-radius: 12px; background: #fff; position: relative; }
+.box.env { background: #FFFCF5; }
+.box .lbl { position: absolute; top: 5px; left: 10px; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: #A08B72; font-weight: 600; }
+.crl { display: flex; justify-content: space-around; align-items: center; padding: 6px 4px; }
+.crl div { display: grid; justify-items: center; gap: 3px; font-size: 10px; color: #5A6B60; }
+.crl i { width: 20px; height: 20px; border-radius: 50%; border: 1.6px solid currentColor; display: block; }
+.crl .c { color: #5F8E70; } .crl .r { color: #B98A33; } .crl .l { color: #9A8C7C; }
+.rewrite { display: grid; grid-template-columns: 1fr 34px 1fr; gap: 8px; align-items: center; }
+.arrow { text-align: center; font-size: 22px; color: #B98A33; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { font-size: 11px; color: #5A6B60; border: 1px solid #DCE5DE; border-radius: 999px; padding: 3px 9px; background: #fff; }
+.prompts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.prompt { background: #F3F7F4; border-radius: 12px; padding: 10px 12px; font-size: 12px; line-height: 1.45; color: #2F4A3A; min-height: 52px; }
+.prompt b { display: block; font-weight: 600; margin-bottom: 2px; }
+</style>
+</head>
+<body>
+<!-- PAGE 1: the map -->
+<div class="page" style="box-sizing:border-box;padding:40px 46px 34px;display:flex;flex-direction:column;gap:12px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px">
+    <div class="stack" style="gap:8px">
+      <h1 class="title">Roots &amp; Messages</h1>
+      <div class="lede">A simple map of the people who shaped you and the messages they passed down. Use names, colors, symbols, or single words. Include only who you want to; it's fine to leave circles empty.</div>
+    </div>
+    <svg width="92" height="70" viewBox="0 0 92 70" aria-hidden="true" style="flex:none">
+      <path d="M46 66 C46 50 44 40 46 26" stroke="#8B6F5A" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M46 66 C38 66 30 68 22 66 M46 66 C54 66 62 68 72 65 M46 64 C42 58 34 56 28 58" stroke="#B9A08A" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="46" cy="20" r="17" fill="#DCEBDD"/><circle cx="30" cy="28" r="12" fill="#E8F1E9"/><circle cx="62" cy="28" r="12" fill="#E8F1E9"/>
+      <rect x="54" y="6" width="22" height="15" rx="2" fill="#FFF6E2" stroke="#C99A3F" stroke-width="1.4" transform="rotate(12 65 13)"/><path d="M55 8 L65 15 L75 10" stroke="#C99A3F" stroke-width="1.2" fill="none" transform="rotate(12 65 13)"/>
+    </svg>
+  </div>
+
+  <div class="steps">
+    <div class="step"><span class="n">1</span><div><b>Place your people</b><span>Write a name under each circle you use.</span></div></div>
+    <div class="step"><span class="n">2</span><div><b>Bring them to life</b><span>Color each circle. Add a symbol and one word.</span></div></div>
+    <div class="step"><span class="n">3</span><div><b>Draw how close</b><span>Connect yourself to each person with a line.</span></div></div>
+    <div class="step"><span class="n">4</span><div><b>Notice messages</b><span>Turn the page to write what was passed down.</span></div></div>
+  </div>
+
+  <svg viewBox="0 0 724 612" width="724" height="640" preserveAspectRatio="xMidYMid meet" style="display:block" font-family="Inter, sans-serif">
+    <defs>
+      <radialGradient id="bg" cx="50%" cy="0%" r="110%"><stop offset="0" stop-color="#FFFDF8"/><stop offset="1" stop-color="#F6EFE4"/></radialGradient>
+      <radialGradient id="halo"><stop offset="0" stop-color="#F9DFA6" stop-opacity=".9"/><stop offset="1" stop-color="#F9DFA6" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect x="0" y="0" width="724" height="612" rx="22" fill="url(#bg)" stroke="#E7DCCB"/>
+    <!-- soft roots at the bottom -->
+
+    <g font-size="10" letter-spacing="1.6" fill="#B3A48F" font-weight="600">
+      <text x="22" y="36">GRANDPARENTS</text><text x="22" y="176">PARENTS &amp; CAREGIVERS</text><text x="22" y="306">YOU &amp; YOUR GENERATION</text><text x="22" y="482">NEXT GENERATION (OPTIONAL)</text>
+    </g>
+    <!-- structure -->
+    <g stroke="#DCCDB8" stroke-width="2" fill="none" stroke-linecap="round">
+      <path d="M126 90 L174 90"/><path d="M150 90 C150 140 190 150 190 200"/>
+      <path d="M550 90 L598 90"/><path d="M574 90 C574 140 534 150 534 200"/>
+      <path d="M222 236 L502 236"/>
+      <path d="M362 236 L362 330"/><path d="M128 330 L596 330"/>
+      <path d="M128 330 L128 360"/><path d="M226 330 L226 360"/><path d="M362 330 L362 352"/><path d="M498 330 L498 360"/><path d="M596 330 L596 360"/>
+      <path d="M362 452 L362 516"/><path d="M262 516 L462 516"/><path d="M262 516 L262 530"/><path d="M362 516 L362 530"/><path d="M462 516 L462 530"/>
+    </g>
+    <!-- partner arc -->
+    <path d="M362 432 C362 476 668 476 668 418" stroke="#DCCDB8" stroke-width="2" fill="none" stroke-dasharray="1 6" stroke-linecap="round"/>
+    <!-- people: empty circles with name lines -->
+    <g fill="#fff" stroke="#C9B8A2" stroke-width="1.6">
+      <circle cx="98" cy="90" r="28"/><circle cx="202" cy="90" r="28"/><circle cx="522" cy="90" r="28"/><circle cx="626" cy="90" r="28"/>
+      <circle cx="190" cy="236" r="32"/><circle cx="534" cy="236" r="32"/><circle cx="362" cy="166" r="22" stroke-dasharray="4 4"/>
+      <circle cx="128" cy="388" r="28"/><circle cx="226" cy="388" r="28"/><circle cx="498" cy="388" r="28"/><circle cx="596" cy="388" r="28"/>
+      <circle cx="668" cy="388" r="0" />
+      <circle cx="262" cy="558" r="24" stroke-dasharray="4 4"/><circle cx="362" cy="558" r="24" stroke-dasharray="4 4"/><circle cx="462" cy="558" r="24" stroke-dasharray="4 4"/>
+    </g>
+    <circle cx="362" cy="392" r="62" fill="url(#halo)"/>
+    <circle cx="362" cy="392" r="40" fill="#FFF6E0" stroke="#E0B55E" stroke-width="2.4"/>
+    <text x="362" y="398" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="700" font-size="17" fill="#8B6A2E">me</text>
+    <!-- partner (dashed, optional) -->
+    <circle cx="668" cy="392" r="26" fill="#fff" stroke="#C9B8A2" stroke-width="1.6" stroke-dasharray="4 4"/>
+    <!-- name lines -->
+    <g stroke="#D9CDBB" stroke-width="1.2">
+      <path d="M68 140 L128 140"/><path d="M172 140 L232 140"/><path d="M492 140 L552 140"/><path d="M596 140 L656 140"/>
+      <path d="M156 290 L224 290"/><path d="M500 290 L568 290"/><path d="M332 210 L392 210"/>
+      <path d="M98 438 L158 438"/><path d="M196 438 L256 438"/><path d="M468 438 L528 438"/><path d="M566 438 L626 438"/><path d="M640 438 L696 438"/>
+      <path d="M236 600 L288 600"/><path d="M336 600 L388 600"/><path d="M436 600 L488 600"/>
+    </g>
+    <g font-size="10.5" fill="#9A8A76" text-anchor="middle">
+      <text x="98" y="130">grandparent</text><text x="202" y="130">grandparent</text><text x="522" y="130">grandparent</text><text x="626" y="130">grandparent</text>
+      <text x="190" y="281">parent</text><text x="534" y="281">parent</text><text x="362" y="201">caregiver</text>
+      <text x="128" y="428">sibling</text><text x="226" y="428">sibling</text><text x="498" y="428">sibling</text><text x="596" y="428">sibling</text><text x="668" y="428">partner</text>
+      <text x="262" y="592">child</text><text x="362" y="592">child</text><text x="462" y="592">child</text>
+    </g>
+    <text x="22" y="320" font-size="10" fill="#B3A48F" font-style="italic">older siblings on the left, younger on the right</text>
+  </svg>
+
+  <div class="legend">
+    <b style="font-size:11.5px;font-weight:600;color:#24352B">Lines from you:</b>
+    <span><svg width="38" height="10"><path d="M2 5 L36 5" stroke="#6E9C7F" stroke-width="3"/></svg>Close</span>
+    <span><svg width="38" height="10"><path d="M2 5 Q 6 1 10.5 5 T 19 5 T 27.5 5 T 36 5" stroke="#C9A04F" stroke-width="2" fill="none"/></svg>Loving but complicated</span>
+    <span><svg width="38" height="10"><path d="M3 5 L36 5" stroke="#8FA3B8" stroke-width="2.4" stroke-dasharray="1.5 5" stroke-linecap="round"/></svg>Distant</span>
+    <span><svg width="38" height="10"><path d="M2 5 L6 1.5 L10 8.5 L14 1.5 L18 8.5 L22 1.5 L26 8.5 L30 1.5 L34 8.5 L36 5" stroke="#C4714A" stroke-width="1.8" fill="none"/></svg>Tense</span>
+    <span><svg width="38" height="10"><path d="M2 5 L36 5" stroke="#9A8C7C" stroke-width="2.2" stroke-dasharray="9 6"/><path d="M17 1 L17 9 M21 1 L21 9" stroke="#9A8C7C" stroke-width="1.6"/></svg>Cut off</span>
+  </div>
+  <div class="legend" style="color:#5A6B60">
+    <span>Symbol ideas: 🌳 steady · 🌊 deep · 🔥 intense · 🌙 quiet · ☀️ warm · 🪨 tough · 🌸 gentle · 🛡️ protective · 🍲 nurturing · ❓ unknown</span>
+  </div>
+  <div class="foot">Roots &amp; Messages · inspired by the genogram and family systems work · wooheekwak.me</div>
+</div>
+
+<!-- PAGE 2: messages -->
+<div class="page" style="page-break-before:always;box-sizing:border-box;padding:36px 46px 34px;display:flex;flex-direction:column;gap:12px">
+  <div class="stack" style="gap:6px">
+    <h2 class="sec" style="font-size:28px">Messages passed down</h2>
+    <div class="lede">Some were said out loud; many were shown, or simply understood. Culture counts too. Write a message, who it came from, then circle what you'll do with it.</div>
+  </div>
+  <div class="chips"><span>Work hard, don't complain</span><span>Family comes first</span><span>Don't show weakness</span><span>Education is everything</span><span>Keep the peace</span><span>Feelings are private</span><span>You can always come home</span><span>Make us proud</span><span>Take care of others first</span><span>You are loved as you are</span></div>
+
+  <div class="msgs">
+    <div class="msgrow" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#A08B72;font-weight:600"><span>From</span><span>The message</span><span style="text-align:center">Carry · Rewrite · Leave</span></div>
+    <!-- 6 rows -->
+    <div class="msgrow" style="height:48px"><div class="box"></div><div class="box env"></div><div class="box crl"><div class="c"><i></i>🌱</div><div class="r"><i></i>✏️</div><div class="l"><i></i>🍂</div></div></div>
+    <div class="msgrow" style="height:48px"><div class="box"></div><div class="box env"></div><div class="box crl"><div class="c"><i></i>🌱</div><div class="r"><i></i>✏️</div><div class="l"><i></i>🍂</div></div></div>
+    <div class="msgrow" style="height:48px"><div class="box"></div><div class="box env"></div><div class="box crl"><div class="c"><i></i>🌱</div><div class="r"><i></i>✏️</div><div class="l"><i></i>🍂</div></div></div>
+    <div class="msgrow" style="height:48px"><div class="box"></div><div class="box env"></div><div class="box crl"><div class="c"><i></i>🌱</div><div class="r"><i></i>✏️</div><div class="l"><i></i>🍂</div></div></div>
+    <div class="msgrow" style="height:48px"><div class="box"></div><div class="box env"></div><div class="box crl"><div class="c"><i></i>🌱</div><div class="r"><i></i>✏️</div><div class="l"><i></i>🍂</div></div></div>
+    <div class="legend" style="justify-content:flex-end;font-size:10.5px;color:#5A6B60;margin-top:-2px"><span>🌱 carry forward</span><span>✏️ rewrite it</span><span>🍂 leave behind</span></div>
+  </div>
+
+  <div class="stack" style="gap:8px">
+    <h2 class="sec">Rewrite a message<small>Honor what it meant, and make it yours.</small></h2>
+    <div class="rewrite">
+      <div class="box env" style="height:54px"><span class="lbl">What I was told</span></div>
+      <div class="arrow">→</div>
+      <div class="box" style="height:54px;border-color:#D9B25F;background:#FFFBF0"><span class="lbl" style="color:#B98A33">My version</span></div>
+    </div>
+    <div class="rewrite">
+      <div class="box env" style="height:54px"><span class="lbl">What I was told</span></div>
+      <div class="arrow">→</div>
+      <div class="box" style="height:54px;border-color:#D9B25F;background:#FFFBF0"><span class="lbl" style="color:#B98A33">My version</span></div>
+    </div>
+  </div>
+
+  <div class="stack" style="gap:8px">
+    <h2 class="sec">Strengths in my family line<small>What got passed down that you're proud of?</small></h2>
+    <div class="box" style="height:50px;background:#F3F7F4;border-color:#CFE0D4"></div>
+  </div>
+
+  <div class="stack" style="gap:8px">
+    <h2 class="sec">Reflect, write, or draw</h2>
+    <div class="prompts">
+      <div class="prompt"><b>Looking at your map,</b>what stands out? Where do you feel the most warmth, and the most weight?</div>
+      <div class="prompt"><b>One message you're grateful for:</b>what did it give you, and who would you thank for it?</div>
+      <div class="prompt"><b>What would you like the next generation</b>to receive from you? (Your children, students, or anyone you influence.)</div>
+      <div class="prompt"><b>Draw it:</b>pick one person and draw a symbol, color, or scene that captures them, in the margin or on the back.</div>
+    </div>
+  </div>
+  <div class="foot">You are part of this story, and you also get to write the next page. · Original worksheet by Woohee (Elise) Kwak · wooheekwak.me</div>
+</div>
+</body>
+</html>
