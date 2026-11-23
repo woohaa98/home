@@ -214,6 +214,70 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .opt.bal[aria-pressed="true"] .bal-icon { background: var(--accent); border-color: var(--accent); }
 .opt.bal[aria-pressed="true"] .bal-icon::after { inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12.5l3.2 3.2L17 9' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat; }
 /* ---- visuals ---- */
+/* ---------- visuals: the thread, the loop, the scale ---------- */
+.thread { width: 100%; height: auto; display: block; margin: 0 0 6px; }
+.thread .t-tangle { stroke: var(--warm); }
+.thread .t-smooth { stroke: var(--accent); }
+.thread path.draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.4s ease forwards; }
+.thread path.draw.d2 { animation-delay: 1.4s; animation-duration: 1.6s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.thread-caps { display: flex; justify-content: space-between; gap: 16px; font-size: 12.5px; color: var(--muted); margin: -2px 2px 16px; }
+.thread-caps span:last-child { text-align: right; color: var(--accent); }
+.thread-caps .old { font-family: var(--font-display); font-style: italic; color: var(--warm-ink); text-decoration: line-through; text-decoration-color: rgba(196,113,74,.5); opacity: .8; max-width: 46%; }
+.thread-caps .new { font-family: var(--font-display); font-style: italic; font-size: 14.5px; color: var(--accent); max-width: 52%; }
+.cyc { width: 100%; max-width: 440px; height: auto; display: block; margin: 4px auto 14px; }
+.cyc .dot { filter: drop-shadow(0 0 4px rgba(196,113,74,.6)); }
+.build { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; position: relative; margin: 0 0 22px; padding: 16px 8px 30px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+.build .bn { display: grid; justify-items: center; text-align: center; gap: 3px; position: relative; z-index: 1; min-width: 0; padding: 0 4px; }
+.build .bi { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; background: var(--bg); border: 1.5px dashed var(--line); transition: all .3s; }
+.build .bn.done .bi { background: var(--warm-soft); border: 1.5px solid #E8C2AE; }
+.build .bn.now .bi { background: #fff; border: 2px solid var(--warm); box-shadow: 0 0 0 5px rgba(196,113,74,.12); animation: nowpulse 2.4s ease-in-out infinite; }
+@keyframes nowpulse { 50% { box-shadow: 0 0 0 9px rgba(196,113,74,.05); } }
+.build b { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.build .bn.done b, .build .bn.now b { color: var(--ink); }
+.build small { font-size: 12px; color: var(--muted); line-height: 1.35; font-family: var(--font-display); font-style: italic; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.build .line { position: absolute; left: 12.5%; right: 12.5%; top: 39px; height: 0; border-top: 2px dashed var(--line); z-index: 0; }
+.build .back { position: absolute; left: 37.5%; right: 12.5%; bottom: 8px; height: 22px; border: 2px dashed var(--line); border-top: 0; border-radius: 0 0 14px 14px; font-size: 11px; color: var(--muted); text-align: center; }
+.build .back span { position: relative; top: 8px; background: var(--surface); padding: 0 6px; }
+.build.closed .back { border-color: #E8C2AE; color: var(--warm-ink); }
+@media (max-width: 560px) { .build small { display: none; } .build .bi { width: 40px; height: 40px; font-size: 18px; } .build .line { top: 36px; } .build b { font-size: 11.5px; } }
+.tcloud { position: relative; margin: 6px 0 26px 4px; padding: 20px 24px; border-radius: 40px 46px 38px 44px; background: var(--cloud, #FBF0EA); border: 1px solid #EED7CA; transition: background .3s; max-width: 560px; }
+.tcloud::before, .tcloud::after { content: ""; position: absolute; border-radius: 50%; background: var(--cloud, #FBF0EA); border: 1px solid #EED7CA; transition: background .3s; }
+.tcloud::before { width: 18px; height: 18px; left: 26px; bottom: -22px; }
+.tcloud::after { width: 10px; height: 10px; left: 14px; bottom: -36px; }
+.tcloud .tc-q { font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.4; margin: 0; color: var(--ink); }
+.tcloud .tc-q.empty { color: var(--muted); font-size: 16px; }
+.tcloud .tc-b { margin: 8px 0 0; font-size: 13px; color: var(--warm-ink); }
+.feelviz { display: flex; align-items: center; gap: 18px; margin: 4px 0 18px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+.feelviz svg { width: 120px; height: 120px; flex: none; }
+.feelviz .orb { transform-origin: 60px 60px; animation: orb var(--sp, 3s) ease-in-out infinite; }
+.feelviz .ring { transform-origin: 60px 60px; animation: ring var(--sp, 3s) ease-out infinite; }
+@keyframes orb { 50% { transform: scale(1.06); } }
+@keyframes ring { from { transform: scale(.7); opacity: .6; } to { transform: scale(1.25); opacity: 0; } }
+.feelviz .fw { font-family: var(--font-display); font-size: 19px; line-height: 1.35; margin: 0 0 4px; }
+.feelviz .fw.empty { color: var(--muted); font-size: 16px; font-style: italic; }
+.feelviz .fi { margin: 0; font-size: 13.5px; color: var(--muted); }
+.avoid { margin: 4px 0 18px; padding: 14px 16px 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+.avoid svg { width: 100%; height: auto; display: block; }
+.avoid .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.2s ease forwards .2s; }
+.avoid .lab { opacity: 0; animation: fadein .6s ease forwards; }
+@keyframes fadein { to { opacity: 1; } }
+.scalewrap { margin: 2px 0 14px; display: grid; justify-items: center; }
+.scalewrap svg { width: 100%; max-width: 420px; height: auto; overflow: visible; }
+.scalewrap .beam { transform-origin: 210px 52px; transition: transform .6s cubic-bezier(.3,1.4,.5,1); }
+.scalewrap .pan { transition: transform .6s cubic-bezier(.3,1.4,.5,1); }
+.scalewrap .verdict { font-size: 13.5px; color: var(--muted); margin: 2px 0 0; text-align: center; min-height: 1.4em; }
+@media (max-width: 560px) {
+  .cyc text.ex { font-size: 14.5px; } .cyc text.nl { font-size: 12.5px; }
+  .avoid { padding: 10px 8px 4px; } .avoid text { font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .thread path.draw, .avoid .draw { animation: none; stroke-dashoffset: 0; }
+  .avoid .lab { animation: none; opacity: 1; }
+  .build .bn.now .bi, .feelviz .orb, .feelviz .ring { animation: none; }
+  .cyc .dot { display: none; }
+}
+@media print { .build, .feelviz, .avoid, .tcloud { break-inside: avoid; } .thread path.draw { animation: none; stroke-dashoffset: 0; } }
 .map { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 18px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
 .map .m { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); padding: 4px 10px; border-radius: 999px; }
 .map .m i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: inline-block; }
@@ -596,6 +660,109 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <div class="row after"><span>After</span><span class="bar2"><i style="width:${a / max * 100}%"></i></span><span class="num">${a}${unit}</span></div></div>`;
   }
 
+
+  /* ---------- illustrations ---------- */
+  // A thread: tangled on the left, loosening into a calm line on the right.
+  const TANGLE_D = "M8 62 C 34 62, 44 22, 72 30 C 100 38, 62 96, 46 72 C 30 48, 92 18, 108 52 C 120 80, 72 92, 80 64 C 88 36, 140 30, 150 58 C 158 84, 118 92, 122 66 C 126 42, 168 48, 196 60";
+  const SMOOTH_D = "M196 60 C 236 44, 262 76, 302 60 S 372 44, 410 60 S 482 76, 532 60";
+  function threadSVG(full = true) {
+    return `<svg class="thread" viewBox="0 0 540 110" aria-hidden="true">
+      <path d="${TANGLE_D}" pathLength="1" class="t-tangle${full ? " draw" : ""}" fill="none" stroke-width="2.6" stroke-linecap="round" opacity=".85"/>
+      <path d="${SMOOTH_D}" pathLength="1" class="t-smooth${full ? " draw d2" : ""}" fill="none" stroke-width="2.6" stroke-linecap="round"/>
+      <circle cx="532" cy="60" r="4.5" fill="var(--accent)"/>
+    </svg>`;
+  }
+  // The intro loop: thought → feeling → action → back to the thought, with a dot that keeps circling.
+  function cycleIntroSVG() {
+    const cx = 190, cy = 186, R = 104, n = [[-90, "💭", "Thought"], [30, "💗", "Feeling"], [150, "🏃", "Action"]];
+    const pt = (deg, r = R) => [cx + r * Math.cos(deg * Math.PI / 180), cy + r * Math.sin(deg * Math.PI / 180)];
+    const arc = (a, b) => { const [x1, y1] = pt(a + 27), [x2, y2] = pt(b - 27); return `M${x1.toFixed(1)} ${y1.toFixed(1)} A ${R} ${R} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}`; };
+    const ex = [["“I won't look good", "next to everyone else.”"], ["Insecure, anxious,", "embarrassed in advance"], ["Skip the party.", "Relief now…"]];
+    const exPos = [[cx, 30, "middle"], [pt(30)[0], pt(30)[1] + 62, "middle"], [pt(150)[0], pt(150)[1] + 62, "middle"]];
+    let s = `<svg class="cyc" viewBox="0 0 380 340" role="img" aria-label="A loop: a thought leads to a feeling, the feeling leads to an action, and the action feeds the thought." font-family="DM Sans, sans-serif">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#C4714A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+      <circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#F1E4DA" stroke-width="16"/>
+      ${[[-90, 30], [30, 150], [150, 270]].map(([a, b]) => `<path d="${arc(a, b)}" fill="none" stroke="#C4714A" stroke-width="2" marker-end="url(#ah)"/>`).join("")}
+      <path id="cyc-path" d="M${cx} ${cy - R} A ${R} ${R} 0 1 1 ${cx - .1} ${cy - R}" fill="none" stroke="none"/>
+      <circle class="dot" r="5.5" fill="#C4714A"><animateMotion dur="6s" repeatCount="indefinite" rotate="auto"><mpath href="#cyc-path"/></animateMotion></circle>
+      <text x="${cx}" y="${cy - 4}" text-anchor="middle" font-size="12" fill="#9A5232" font-family="Lora, serif" font-style="italic">…and each time around,</text>
+      <text x="${cx}" y="${cy + 13}" text-anchor="middle" font-size="12" fill="#9A5232" font-family="Lora, serif" font-style="italic">the thought feels truer</text>`;
+    n.forEach(([deg, emo, lab], i) => { const [x, y] = pt(deg);
+      s += `<circle cx="${x}" cy="${y}" r="34" fill="#fff" stroke="#E8C2AE" stroke-width="1.5"/>
+        <text x="${x}" y="${y + 2}" text-anchor="middle" font-size="20">${emo}</text>
+        <text x="${x}" y="${y + 21}" text-anchor="middle" font-size="11" font-weight="600" fill="#2A2F35" class="nl">${lab}</text>`;
+      const [tx, ty, an] = exPos[i];
+      s += ex[i].map((l, j) => `<text x="${tx}" y="${ty + (i === 0 ? -14 + j * 15 : j * 15)}" text-anchor="${an}" font-size="12.5" fill="#5A6370" class="ex">${l}</text>`).join("");
+    });
+    return s + `</svg>`;
+  }
+  // Steps 1–4: the loop builds as you go.
+  function buildHTML(at) {
+    const items = [["📍", "Situation", situationText()], ["💭", "Thought", allThoughts()[0] ? `“${allThoughts()[0]}”` : ""], ["💗", "Feeling", d.feelings.slice(0, 2).join(", ")], ["🏃", "Action", behaviorList()[0] || ""]];
+    const closed = at === 4 && behaviorList().length && d.results.length;
+    return `<div class="build${closed ? " closed" : ""}" id="build" aria-hidden="true"><span class="line"></span>
+      ${items.map(([e, l, v], i) => `<div class="bn ${i + 1 < at ? "done" : i + 1 === at ? "now" : ""}"><span class="bi">${e}</span><b>${l}</b><small>${esc(short(v || "", 46))}</small></div>`).join("")}
+      <span class="back"><span>↺ feeds the thought</span></span></div>`;
+  }
+  function cloudInner() {
+    const t = allThoughts();
+    return `<p class="tc-q${t.length ? "" : " empty"}">${t.length ? t.slice(0, 3).map((x) => `“${esc(x)}”`).join("<br>") : "Tap a thought below. It will appear here."}</p>
+      ${t.length ? `<p class="tc-b">Feels ${d.belief}% true right now</p>` : ""}`;
+  }
+  const cloudBg = () => `rgba(196,113,74,${(0.05 + d.belief / 100 * 0.2).toFixed(3)})`;
+  function feelInner() {
+    const k = d.intensity / 10, r = 22 + k * 20;
+    const mix = (a, b) => Math.round(a + (b - a) * k);
+    const col = `rgb(${mix(220, 226)},${mix(232, 140)},${mix(224, 104)})`;
+    return `<svg viewBox="0 0 120 120" aria-hidden="true" style="--sp:${(3.6 - k * 2.2).toFixed(2)}s">
+        <circle class="ring" cx="60" cy="60" r="${r}" fill="none" stroke="${col}" stroke-width="2"/>
+        <circle class="orb" cx="60" cy="60" r="${r}" fill="${col}" opacity=".85"/>
+        <text x="60" y="65" text-anchor="middle" font-size="15" font-weight="600" fill="#fff" font-family="DM Sans, sans-serif">${d.intensity}/10</text>
+      </svg>
+      <div><p class="fw${d.feelings.length ? "" : " empty"}">${d.feelings.length ? esc(d.feelings.join(" · ")) : "Tap how it feels below"}</p>
+      <p class="fi">${d.intensity <= 3 ? "Mild, but noticeable" : d.intensity <= 6 ? "Strong enough to steer what you do" : "Big. No wonder you want it to stop."}</p></div>`;
+  }
+  function avoidHTML() {
+    return `<div class="avoid" role="img" aria-label="A curve showing discomfort over time: avoiding brings quick relief, then the discomfort comes back stronger the next time.">
+      <svg viewBox="0 0 520 170" aria-hidden="true" font-family="DM Sans, sans-serif">
+        <line x1="40" y1="140" x2="505" y2="140" stroke="#E8DDD0" stroke-width="1.5"/><line x1="40" y1="20" x2="40" y2="140" stroke="#E8DDD0" stroke-width="1.5"/>
+        <text x="34" y="26" font-size="11" fill="#8A929C" text-anchor="end">high</text><text x="505" y="158" font-size="11" fill="#8A929C" text-anchor="end">time →</text>
+        <text transform="translate(16 92) rotate(-90)" font-size="11" fill="#8A929C" text-anchor="middle">discomfort</text>
+        <path class="draw" pathLength="1" d="M44 70 C 90 50, 110 40, 130 46 C 150 52, 160 118, 190 120 C 230 122, 250 110, 290 86 C 330 62, 350 48, 390 40 C 430 32, 460 28, 500 26" fill="none" stroke="#C4714A" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="130" cy="46" r="4" fill="#C4714A" class="lab" style="animation-delay:.6s"/>
+        <text x="138" y="40" font-size="12" fill="#5A6370" class="lab" style="animation-delay:.7s">the urge to get away</text>
+        <text x="170" y="136" font-size="12" fill="#476B56" class="lab" style="animation-delay:1.2s">quick relief</text>
+        <text x="500" y="16" font-size="12" fill="#9A5232" text-anchor="end" class="lab" style="animation-delay:2s">…then it comes back stronger</text>
+      </svg></div>`;
+  }
+  // Step 6: a balance scale that tips with what you tap.
+  function scaleHTML() {
+    const pan = (x, cls, lab, col) => `<g class="pan ${cls}"><line x1="${x}" y1="52" x2="${x - 44}" y2="118" stroke="#B9AC9C" stroke-width="1.4"/><line x1="${x}" y1="52" x2="${x + 44}" y2="118" stroke="#B9AC9C" stroke-width="1.4"/>
+        <path d="M${x - 58} 118 Q ${x} 146, ${x + 58} 118 Z" fill="${col}" stroke="#D8CBBB" stroke-width="1.2"/>
+        <g class="w"></g><text x="${x}" y="166" text-anchor="middle" font-size="12.5" fill="#5A6370" font-family="DM Sans, sans-serif">${lab}</text></g>`;
+    return `<div class="scalewrap" aria-hidden="true"><svg viewBox="0 0 420 180">
+      <path d="M210 52 L190 172 L230 172 Z" fill="#EDE4D8"/><rect x="170" y="168" width="80" height="8" rx="4" fill="#E2D6C6"/>
+      <g class="beam"><rect x="80" y="48" width="260" height="8" rx="4" fill="#C9B9A6"/>${pan(90, "pl", "Feels true", "#FBF0EA")}${pan(330, "pr", "Doesn't quite fit", "#EEF4F0")}</g>
+      <circle cx="210" cy="52" r="8" fill="#B9A58F"/>
+    </svg><p class="verdict" id="verdict"></p></div>`;
+  }
+  function paintScale() {
+    const box = $("stage").querySelector(".scalewrap"); if (!box) return;
+    const f = d.evFor.length, a = d.evAgainst.length + (d.evOwn.trim() ? 1 : 0), deg = Math.max(-14, Math.min(14, (a - f) * 4.5));
+    box.querySelector(".beam").style.transform = `rotate(${deg}deg)`;
+    // keep the pans hanging straight down while the beam tilts
+    box.querySelectorAll(".pan").forEach((g, i) => { const x = i ? 330 : 90; g.style.transformOrigin = `${x}px 52px`; g.style.transform = `rotate(${-deg}deg)`; });
+    const dots = (n, x, col) => Array.from({ length: Math.min(n, 6) }, (_, k) => `<circle cx="${x - 30 + (k % 3) * 30}" cy="${112 - Math.floor(k / 3) * 15}" r="7" fill="${col}"/>`).join("");
+    box.querySelector(".pl .w").innerHTML = dots(f, 90, "#D99A79"); box.querySelector(".pr .w").innerHTML = dots(a, 330, "#7FA48D");
+    $("verdict").textContent = !f && !a ? "Tap what fits on each side, and watch the scale." : a > f ? "The evidence leans away from the thought." : a === f ? "Evenly balanced. The thought isn't the whole story." : "It feels heavy. Is anything missing on the other side?";
+  }
+  function paintViz() {
+    const b = $("build"); if (b) b.outerHTML = buildHTML(d.step);
+    const c = $("tcloud"); if (c) { c.innerHTML = cloudInner(); c.style.setProperty("--cloud", cloudBg()); }
+    const fv = $("feelviz"); if (fv) fv.innerHTML = feelInner();
+    const nb = $("new-thought"); if (nb) nb.textContent = balancedText() ? `“${short(balancedText(), 90)}”` : "your more balanced thought";
+    paintScale();
+  }
   /* ---------- views ---------- */
   const views = {
     0: () => `
@@ -603,17 +770,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <p class="step-label">How it works</p>
         <h2 class="q" tabindex="-1">Thoughts, feelings, and actions <em>feed each other</em></h2>
         <p class="hint">In cognitive behavioral therapy (CBT), we look at how they connect. A rigid thought ("I won't do a good job") brings a feeling (anxiety), which leads to an action (putting it off). The action brings quick relief, but it also keeps the thought from ever being tested, so the pattern repeats.</p>
-        <div class="triangle">
-          <div><b>Thought</b><span>"I won't look good next to everyone else."</span></div>
-          <div><b>Feeling</b><span>Insecure, anxious, embarrassed in advance.</span></div>
-          <div><b>Action</b><span>Skip the party. Relief now, more isolation later.</span></div>
-        </div>
+        ${cycleIntroSVG()}
+        ${threadSVG()}
+        <div class="thread-caps"><span>Tangled: the old loop</span><span>Loosened: a new path</span></div>
         <p class="hint" style="margin-bottom:0">You'll map one of your patterns, spot the thinking trap, weigh the evidence, find a more balanced thought, and choose one small step to test it. The aim isn't to think positively. It's to think more <em>accurately</em> and flexibly.</p>
       </article>
       ${nav("Start", true, false)}`,
 
     1: () => `
-      ${stepMap(1)}
+      ${buildHTML(1)}
       ${label(1, "The situation")}
       <h2 class="q" tabindex="-1">Where does this pattern <em>show up</em>?</h2>
       <p class="hint">Pick the closest match. Think of one recent, specific time.</p>
@@ -624,10 +789,11 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     2: () => {
       const th = theme(), lists = [[th === "social" ? "About people and how I come across" : "About doing well", THOUGHTS[th]], ["Other common ones", THOUGHTS[th === "social" ? "work" : "social"].concat(THOUGHTS.any)]];
       return `
-      ${stepMap(2)}
+      ${buildHTML(2)}
       ${label(2, "The thought")}
       <h2 class="q" tabindex="-1">What goes through your <em>mind</em>?</h2>
       <p class="hint">These are "automatic thoughts": quick, convincing, and often unquestioned. Tap any that sound familiar.</p>
+      <div class="tcloud" id="tcloud" style="--cloud:${cloudBg()}" aria-live="polite">${cloudInner()}</div>
       ${lists.map(([t, l], i) => `<p class="group-name">${t}</p>${i === 0 ? chips("thoughts", l.map((x) => x[0])) : `<details class="own-words"${l.some(([x]) => d.thoughts.includes(x)) ? " open" : ""}><summary>Show more thoughts</summary>${chips("thoughts", l.map((x) => x[0]))}</details>`}`).join("")}
       ${ownLine("thoughtOwn", "Say it in your own words (optional)", "e.g. Everyone will think my essay is stupid")}
       ${scale("belief", "Right now, how much do you believe this thought?", "0 · not at all", "100 · completely", 100, "%")}
@@ -635,19 +801,21 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     },
 
     3: () => `
-      ${stepMap(3)}
+      ${buildHTML(3)}
       ${label(3, "The feeling")}
       <h2 class="q" tabindex="-1">When you think that, how do you <em>feel</em>?</h2>
+      <div class="feelviz" id="feelviz" aria-hidden="true">${feelInner()}</div>
       <p class="hint">Tap any that fit.</p>
       ${chips("feelings", FEELINGS)}
       ${scale("intensity", "How strong is the feeling?", "0 · barely", "10 · overwhelming")}
       ${nav("Continue", d.feelings.length)}`,
 
     4: () => `
-      ${stepMap(4)}
+      ${buildHTML(4)}
       ${label(4, "What you do")}
       <h2 class="q" tabindex="-1">What do you usually <em>do</em> next?</h2>
-      <p class="hint">No judgment. These are understandable ways to get away from an uncomfortable feeling.</p>
+      <p class="hint">No judgment. These are understandable ways to get away from an uncomfortable feeling. Here's the catch:</p>
+      ${avoidHTML()}
       ${chips("behaviors", BEHAVIORS[theme()])}
       ${ownLine("behaviorOwn", "Something else (optional)", "e.g. Clean my whole room instead")}
       <p class="group-name" style="margin-top:22px">And then what happens?</p>
@@ -674,6 +842,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <h2 class="q" tabindex="-1">Is the thought <em>100 percent</em> true?</h2>
       <p class="prompt-card">"${esc(thoughtMain())}"</p>
       <p class="hint">Be a fair judge. Tap what fits on each side.</p>
+      ${scaleHTML()}
       <div class="two-col">
         <div class="col-box"><h3>What makes it feel true</h3>${chips("evFor", EVIDENCE_FOR)}</div>
         <div class="col-box against"><h3>What doesn't quite fit</h3>${chips("evAgainst", EVIDENCE_AGAINST[theme()])}</div>
@@ -688,6 +857,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${stepMap(7)}
       ${label(7, "Reframe and take a step")}
       <h2 class="q" tabindex="-1">A more <em>balanced</em> thought</h2>
+      ${threadSVG()}
+      <div class="thread-caps"><span class="old">“${esc(short(thoughtMain(), 60))}”</span><span class="new" id="new-thought" aria-live="polite">${balancedText() ? `“${esc(short(balancedText(), 90))}”` : "your more balanced thought"}</span></div>
       <p class="hint">Not forced positivity. Something you can actually believe, that makes room for both the worry and the facts. Pick one, or write your own.</p>
       <div class="options">${BALANCED[theme()].map((b) => `<button type="button" class="opt bal" data-set="balanced" data-val="${esc(b)}" aria-pressed="${d.balanced === b && !d.balancedOwn.trim()}"><span class="bal-icon" aria-hidden="true"></span><span><b>${esc(b)}</b></span></button>`).join("")}</div>
       ${ownLine("balancedOwn", "Write my own balanced thought", "e.g. I can turn in something decent, and I can learn from feedback")}
@@ -711,6 +882,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <div class="print-head" id="print-head"><b>Untangle the Pattern · Summary</b><span id="ph-line"></span></div>
         <p class="step-label">Your summary</p>
         <h2 class="q" tabindex="-1">Your pattern, <em>untangled</em></h2>
+        ${threadSVG()}
 
         <div class="card-sec" style="border-top:0;padding-top:4px"><h3>1 · The loop you noticed</h3>${cycleHTML()}
           ${traps.length ? `<p style="font-size:14px;color:var(--muted);margin:14px 0 6px">Thinking traps that keep it going:</p><div class="trap-tags">${traps.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
@@ -784,6 +956,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     $("stage").innerHTML = views[d.step]();
     if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
     [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i < d.step));
+    paintScale();
     if (focus) {
       window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
       const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true });
@@ -793,6 +966,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const n = $("stage").querySelector('[data-act="next"]'); if (n && okFor[d.step]) n.disabled = !okFor[d.step]();
     const emo = $("emo-note"); if (emo) emo.hidden = !d.evFor.includes("It just feels really true");
     const op = $("outcome-print"); if (op) { const t = [d.outcome, d.outcomeNote.trim()].filter(Boolean).join(". "); op.hidden = !t; $("outcome-text").textContent = t; }
+    paintViz();
     save();
   }
 
