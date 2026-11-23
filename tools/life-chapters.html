@@ -216,6 +216,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .restory { display: grid; gap: 10px; margin: 14px 0 0; }
 .restory .old { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(90,99,112,.35); }
 .restory .new { background: #F2F8F3; border: 1px solid #CFE0D4; border-radius: 14px; padding: 14px 16px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.ch-story { margin: 6px 0 2px; font-family: var(--font-display); font-style: italic; font-size: 15.5px; line-height: 1.55; color: var(--ink); }
+.ch-editor textarea, #stage textarea[data-field="nextStory"] { min-height: 84px; font-size: 15.5px; }
 .next-title { font-family: var(--font-display); font-style: italic; font-size: clamp(22px, 4vw, 28px); color: var(--accent); margin: 0 0 4px; }
 .feedback-line a { color: var(--accent); font-weight: 500; }
 </style>
@@ -398,8 +400,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const MAXCH = 6;
 
   /* ================== STATE (not saved) ================== */
-  const newCh = () => ({ title: "", own: "", age: "", tone: "", carried: [] });
-  const blank = () => ({ step: 0, chapters: [newCh()], open: 0, hardest: -1, helped: [], old: "", oldOwn: "", newPick: "", newOwn: "", nextTitle: "", nextOwn: "", bring: [], leave: [] });
+  const newCh = () => ({ title: "", own: "", age: "", tone: "", carried: [], story: "" });
+  const blank = () => ({ step: 0, chapters: [newCh()], open: 0, hardest: -1, helped: [], old: "", oldOwn: "", newPick: "", newOwn: "", nextTitle: "", nextOwn: "", nextStory: "", bring: [], leave: [] });
   let d = blank(), lastView = -1;
   const STEPS = 5;
   $("progress").innerHTML = "<li></li>".repeat(STEPS);
@@ -430,12 +432,14 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <div class="chipset">${TONES.map(([t, col]) => `<button type="button" class="chip" data-tone="${t}" aria-pressed="${c.tone === t}"><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${col};margin-right:6px"></span>${t}</button>`).join("")}</div>
       <p class="group-name">What did you carry out of it? <span style="text-transform:none;letter-spacing:0">(tap any)</span></p>
       <div class="chipset">${CARRIED.map((t) => `<button type="button" class="chip" data-carry="${esc(t)}" aria-pressed="${c.carried.includes(t)}">${esc(t)}</button>`).join("")}</div>
-      <button type="button" class="btn btn-ghost" data-act="done-ch" style="margin-top:6px">Done with this chapter</button>
+      <p class="group-name">In your own words <span style="text-transform:none;letter-spacing:0">(optional)</span></p>
+      <textarea data-chf="story" rows="3" maxlength="400" aria-label="This chapter in your own words" placeholder="What was this chapter about for you? A moment, a person, what you learned. A sentence or two is plenty.">${esc(c.story)}</textarea>
+      <button type="button" class="btn btn-ghost" data-act="done-ch" style="margin-top:10px">Done with this chapter</button>
     </div>`;
   }
   function timelineHTML(withEdit) {
     return `<ol class="tl">${d.chapters.map((c, i) => d.open === i && withEdit ? `<li><span class="dot" style="background:${toneColor(c.tone)}"></span><div>${editor(i)}</div></li>` :
-      `<li><span class="dot" style="background:${toneColor(c.tone)}"></span><div><b>${esc(chTitle(c))}</b><small>${esc(chSub(c)) || "&nbsp;"}</small>${withEdit ? `<button type="button" class="edit" data-edit="${i}">Edit</button> · <button type="button" class="edit" data-del="${i}">Remove</button>` : ""}</div></li>`).join("")}</ol>`;
+      `<li><span class="dot" style="background:${toneColor(c.tone)}"></span><div><b>${esc(chTitle(c))}</b><small>${esc(chSub(c)) || "&nbsp;"}</small>${c.story.trim() ? `<p class="ch-story">${esc(c.story.trim())}</p>` : ""}${withEdit ? `<button type="button" class="edit" data-edit="${i}">Edit</button> · <button type="button" class="edit" data-del="${i}">Remove</button>` : ""}</div></li>`).join("")}</ol>`;
   }
 
   const views = {
@@ -463,7 +467,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       return `
       ${label("Step 3 of 4 · The thread")}
       <h2 class="q" tabindex="-1">The thread through your <em>story</em></h2>
-      <div class="thread">${t1 ? `<b>${esc(cap(t1))}</b> shows up in ${th.count[t1]} of your chapters${th.top[1] ? `, along with <b>${esc(th.top[1])}</b>` : ""}. ${d.helped.length ? `And in your hardest chapter, you were carried by ${esc(listText(d.helped))}.` : ""} These aren't just things that happened to you. They're part of who you are.` : `Every chapter you've lived through has shaped you. ${d.helped.length ? `In your hardest one, you were carried by ${esc(listText(d.helped))}.` : ""}`}</div>
+      <div class="thread">${t1 ? (th.count[t1] > 1 ? `<b>${esc(cap(t1))}</b> shows up in ${th.count[t1]} of your chapters${th.top[1] ? `, along with <b>${esc(th.top[1])}</b>` : ""}.` : `<b>${esc(cap(listText(th.top.slice(0, 3))))}</b> ${th.top.length > 1 ? "stand" : "stands"} out across your chapters.`) + ` ${d.helped.length ? `And in your hardest chapter, you were carried by ${esc(listText(d.helped))}.` : ""} These aren't just things that happened to you. They're part of who you are.` : `Every chapter you've lived through has shaped you. ${d.helped.length ? `In your hardest one, you were carried by ${esc(listText(d.helped))}.` : ""}`}</div>
       <p class="group-name">Is there an old story you tell about yourself? <span style="text-transform:none;letter-spacing:0">(optional)</span></p>
       <div class="chipset">${OLD_STORIES.map((t) => `<button type="button" class="chip" data-old="${esc(t)}" aria-pressed="${d.old === t && !d.oldOwn.trim()}">"${esc(t)}"</button>`).join("")}</div>
       <input type="text" data-field="oldOwn" maxlength="80" aria-label="Your own old story" placeholder="Or in your own words" value="${esc(d.oldOwn)}">
@@ -484,6 +488,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <div class="chipset">${bringOpts.map((t) => `<button type="button" class="chip" data-bring="${esc(t)}" aria-pressed="${d.bring.includes(t)}">${esc(t)}</button>`).join("")}</div>` : ""}
       <p class="group-name" style="margin-top:14px">What are you ready to leave behind?</p>
       <div class="chipset">${LEAVE.map((t) => `<button type="button" class="chip" data-leave="${esc(t)}" aria-pressed="${d.leave.includes(t)}">${esc(t)}</button>`).join("")}</div>
+      <p class="group-name" style="margin-top:14px">In your own words <span style="text-transform:none;letter-spacing:0">(optional)</span></p>
+      <textarea data-field="nextStory" rows="3" maxlength="400" aria-label="The next chapter in your own words" placeholder="What do you hope this chapter holds? How do you want to feel in it?">${esc(d.nextStory)}</textarea>
       ${nav("See My Story", !!nextTitle())}`;
     },
 
@@ -492,8 +498,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <div class="print-head"><b>Life Chapters</b><span id="ph-line"></span></div>
         ${label("Your story so far")}
         <h2 class="q" tabindex="-1">My life in <em>chapters</em></h2>
-        <ol class="tl">${d.chapters.filter((c) => c.own.trim() || c.title).map((c) => `<li><span class="dot" style="background:${toneColor(c.tone)}"></span><div><b>${esc(chTitle(c))}</b><small>${esc(chSub(c)) || "&nbsp;"}</small></div></li>`).join("")}
-          <li><span class="dot next"></span><div><p class="next-title">${esc(nextTitle())}</p><small>The chapter I'm beginning${d.bring.length ? ` · bringing ${esc(listText(d.bring))}` : ""}${d.leave.length ? ` · leaving behind ${esc(listText(d.leave))}` : ""}</small></div></li></ol>
+        <ol class="tl">${d.chapters.filter((c) => c.own.trim() || c.title).map((c) => `<li><span class="dot" style="background:${toneColor(c.tone)}"></span><div><b>${esc(chTitle(c))}</b><small>${esc(chSub(c)) || "&nbsp;"}</small>${c.story.trim() ? `<p class="ch-story">${esc(c.story.trim())}</p>` : ""}</div></li>`).join("")}
+          <li><span class="dot next"></span><div><p class="next-title">${esc(nextTitle())}</p><small>The chapter I'm beginning${d.bring.length ? ` · bringing ${esc(listText(d.bring))}` : ""}${d.leave.length ? ` · leaving behind ${esc(listText(d.leave))}` : ""}</small>${d.nextStory.trim() ? `<p class="ch-story">${esc(d.nextStory.trim())}</p>` : ""}</div></li></ol>
         ${threadLine() ? `<div class="card-sec"><h3>The thread</h3><p>${esc(threadLine())}</p></div>` : ""}
         ${newStory() ? `<div class="card-sec"><h3>A truer story</h3><div class="restory">${oldStory() ? `<div class="old">${esc(oldStory())}</div>` : ""}<div class="new">${esc(newStory())}</div></div></div>` : ""}
         <p class="callout" style="margin-top:20px"><strong>You are the author.</strong> The chapters behind you shaped you, but they don't decide how the next one goes.</p>
@@ -512,7 +518,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
   function threadLine() {
     const th = thread(), t1 = th.top[0];
-    const a = t1 ? `${cap(t1)} runs through ${th.count[t1]} of my chapters${th.top[1] ? `, along with ${th.top[1]}` : ""}.` : "";
+    const a = !t1 ? "" : th.count[t1] > 1 ? `${cap(t1)} runs through ${th.count[t1]} of my chapters${th.top[1] ? `, along with ${th.top[1]}` : ""}.` : `${cap(listText(th.top.slice(0, 3)))} ${th.top.length > 1 ? "stand" : "stands"} out in my story.`;
     const b = d.helped.length ? ` In my hardest chapter, I was carried by ${listText(d.helped)}.` : "";
     return (a + b).trim();
   }
@@ -528,16 +534,19 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   function storyText() {
     const L = ["LIFE CHAPTERS · my story so far", ""];
     if (therapist) L.push(`For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`, "");
-    named().forEach((c, i) => L.push(`${i + 1}. ${chTitle(c)}${chSub(c) ? ` (${chSub(c)})` : ""}`));
-    L.push(`Next: ${nextTitle()}${d.bring.length ? `, bringing ${listText(d.bring)}` : ""}${d.leave.length ? `, leaving behind ${listText(d.leave)}` : ""}`, "");
+    named().forEach((c, i) => { L.push(`${i + 1}. ${chTitle(c)}${chSub(c) ? ` (${chSub(c)})` : ""}`); if (c.story.trim()) L.push(`   ${c.story.trim()}`); });
+    L.push(`Next: ${nextTitle()}${d.bring.length ? `, bringing ${listText(d.bring)}` : ""}${d.leave.length ? `, leaving behind ${listText(d.leave)}` : ""}`);
+    if (d.nextStory.trim()) L.push(`   ${d.nextStory.trim()}`);
+    L.push("");
     if (threadLine()) L.push("The thread: " + threadLine(), "");
     if (newStory()) { if (oldStory()) L.push(`Old story: "${oldStory()}"`); L.push(`A truer story: "${newStory()}"`, ""); }
     L.push("You are the author. The chapters behind you shaped you, but they don't decide how the next one goes.", "", "Life Chapters · wooheekwak.me/tools/life-chapters.html");
     return L.join("\n");
   }
   function photoSpec() {
-    const tl = named().map((c) => ({ dot: toneColor(c.tone), title: chTitle(c), sub: chSub(c) }));
-    tl.push({ dashed: true, title: nextTitle(), sub: "The chapter I'm beginning" + (d.bring.length ? " · bringing " + listText(d.bring) : "") });
+    const withStory = (sub, story) => [sub, story.trim() ? "“" + story.trim() + "”" : ""].filter(Boolean).join("\n");
+    const tl = named().map((c) => ({ dot: toneColor(c.tone), title: chTitle(c), sub: withStory(chSub(c), c.story) }));
+    tl.push({ dashed: true, title: nextTitle(), sub: withStory("The chapter I'm beginning" + (d.bring.length ? " · bringing " + listText(d.bring) : ""), d.nextStory) });
     const blocks = [{ timeline: tl }];
     if (threadLine()) blocks.push({ h: "The thread", text: threadLine() });
     if (newStory()) blocks.push({ h: "A truer story", quote: newStory() });
