@@ -303,6 +303,20 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   .loop li { break-inside: avoid; }
 }
 .feedback-line a { color: var(--accent); font-weight: 500; }
+
+/* ---- share with your therapist (session mode) ---- */
+.share-th { margin: 24px 0 4px; background: #fff; border: 1px solid #CFE0D4; border-radius: 20px; padding: 20px 22px 16px; box-shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06); text-align: left; }
+.share-th .st-h { margin: 0 0 2px; font-family: var(--font-display); font-size: 22px; }
+.share-th .st-h b { font-weight: 400; font-style: italic; color: #476B56; }
+.share-th .st-sub { margin: 0 0 14px; color: var(--muted); font-size: 14.5px; }
+.share-th .st-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.share-th .st-tip { margin: 12px 0 0; font-size: 13px; color: var(--muted); line-height: 1.55; }
+#print-summary { display: none; }
+@media print {
+  .share-th { display: none !important; }
+  body.printing-summary > *:not(#print-summary) { display: none !important; }
+  body.printing-summary #print-summary { display: block !important; font: 12pt/1.6 Georgia, serif; white-space: pre-wrap; color: #222; }
+}
 </style>
 </head>
 <body>
@@ -323,7 +337,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <div class="session-banner" id="session-banner" role="note" hidden>
       <span aria-hidden="true">🌿</span>
       <div><b>Shared by your therapist, <span class="th-name"></span></b>
-      <p>Your progress saves on this device. At the end, you'll save a summary to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div>
+      <p>Work through this at your own pace. At the end, you can email your summary to <span class="th-name"></span> or save it as a PDF for your next session. Nothing is sent anywhere unless you choose to share it.</p></div>
     </div>
 
     <div class="toolbar">
@@ -487,6 +501,31 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; });
     } else therapist = null;
   })();
+
+  /* ---------- share with your therapist (session mode) ----------
+     The summary leaves this device only through the person's own email app or printer. */
+  let shareText = () => "", shareSubject = "My summary", sharePrint = null;
+  const shareBox = () => {
+    if (!therapist) return "";
+    const first = therapist.name.split(" ")[0];
+    return `<div class="share-th no-print">
+      <p class="st-h">Share this with <b>${esc(therapist.name)}</b></p>
+      <p class="st-sub">Your summary is ready to explore together in your next session.</p>
+      <div class="st-row"><button type="button" class="btn btn-primary" data-share="email">Email It to ${esc(first)}</button><button type="button" class="btn btn-ghost" data-share="print">Print or Save as PDF</button></div>
+      <p class="st-tip"><b>Email It</b> opens your own email app with your summary written in${therapist.reply ? `, addressed to ${esc(therapist.reply)}` : `; add ${esc(first)}'s email address`}. You can read or change anything before you send it. Email isn't fully private, so only share what you're comfortable sending that way.</p>
+    </div>`;
+  };
+  function printSummaryText() {
+    const box = document.createElement("div"); box.id = "print-summary"; box.textContent = shareText();
+    document.body.appendChild(box); document.body.classList.add("printing-summary");
+    const done = () => { document.body.classList.remove("printing-summary"); box.remove(); window.removeEventListener("afterprint", done); };
+    window.addEventListener("afterprint", done); window.print(); setTimeout(() => { if (document.getElementById("print-summary")) done(); }, 1500);
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-share]"); if (!b || !therapist) return;
+    if (b.dataset.share === "email") window.location.href = `mailto:${therapist.reply ? encodeURIComponent(therapist.reply) : ""}?subject=${encodeURIComponent(shareSubject + " · for our session")}&body=${encodeURIComponent(shareText())}`;
+    else (sharePrint || printSummaryText)();
+  });
 
   $("progress").innerHTML = "<li></li>".repeat(STEPS - 1);
 
@@ -717,7 +756,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
             </div>
           </div>
         </div>
-        ${therapist ? `<p class="hint" style="margin:20px 0 0">Print or save this as a PDF and bring it to your next session with ${esc(therapist.name)}.${therapist.reply ? ` If you've both agreed to use email, you can send it to ${esc(therapist.reply)}; email isn't fully private.` : ""}</p>` : ""}
+        ${shareBox()}
       </article>
       <div class="actions">
         <button type="button" class="btn btn-primary" data-act="print">Print or Save as PDF</button>
@@ -811,8 +850,9 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const ph = $("ph-line"); if (ph) ph.textContent = (therapist ? `For a session with ${therapist.name} · ` : "") + date;
   }
   window.addEventListener("beforeprint", prepPrint);
+  shareText = untangleText; shareSubject = "My untangled pattern"; sharePrint = () => window.print();
 
-  function copyText() {
+  function untangleText() {
     const L = ["UNTANGLE THE PATTERN", ""];
     if (therapist) L.push(`For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`, "");
     L.push(`Situation: ${situationText()}`, `Thought: ${allThoughts().join("; ")}`, `Feeling: ${d.feelings.join(", ")} (${d.intensity}/10)`,
@@ -825,7 +865,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const oc = [d.outcome, d.outcomeNote.trim()].filter(Boolean).join(". "); if (oc) L.push(`What happened: ${oc}`);
     if (d.outcome && d.outcome !== "I haven't tried it yet") L.push(`Feared outcome next time: ${d.predict}% → ${d.predictAfter}%`);
     L.push("", "Untangle the Pattern · wooheekwak.me");
-    const text = L.join("\n");
+    return L.join("\n");
+  }
+  function copyText() {
+    const text = untangleText();
     const done = (m) => { $("copy-status").textContent = m; };
     const fb = () => { const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done("Copied."); } catch (_) { done("Couldn't copy."); } ta.remove(); };
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done("Copied."), fb); else fb();
