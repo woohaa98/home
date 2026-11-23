@@ -335,7 +335,12 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
      The summary leaves this device only through the person's own email app or printer. */
   let shareText = () => "", shareSubject = "My summary", sharePrint = null;
   const shareBox = () => {
-    if (!therapist) return "";
+    if (!therapist) return `<div class="share-th no-print">
+      <p class="st-h">Bring this to your <b>therapy session</b></p>
+      <p class="st-sub">Your summary, ready to explore together with your therapist.</p>
+      <div class="st-row"><button type="button" class="btn btn-primary" data-share="email">Email It</button><button type="button" class="btn btn-ghost" data-share="print">Print or Save as PDF</button></div>
+      <p class="st-tip"><b>Email It</b> opens your own email app with your summary written in, so you can send it to your therapist or anyone you choose. You can read or change anything before you send it. Email isn't fully private, so only share what you're comfortable sending that way.</p>
+    </div>`;
     const first = therapist.name.split(" ")[0];
     return `<div class="share-th no-print">
       <p class="st-h">Share this with <b>${esc(therapist.name)}</b></p>
@@ -351,8 +356,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     window.addEventListener("afterprint", done); window.print(); setTimeout(() => { if (document.getElementById("print-summary")) done(); }, 1500);
   }
   document.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-share]"); if (!b || !therapist) return;
-    if (b.dataset.share === "email") window.location.href = `mailto:${therapist.reply ? encodeURIComponent(therapist.reply) : ""}?subject=${encodeURIComponent(shareSubject + " · for our session")}&body=${encodeURIComponent(shareText())}`;
+    const b = e.target.closest("[data-share]"); if (!b) return;
+    if (b.dataset.share === "email") window.location.href = `mailto:${therapist && therapist.reply ? encodeURIComponent(therapist.reply) : ""}?subject=${encodeURIComponent(shareSubject + (therapist ? " · for our session" : " · for my therapy session"))}&body=${encodeURIComponent(shareText())}`;
     else (sharePrint || printSummaryText)();
   });
   const header = () => therapist ? `For a session with ${therapist.name} · ${new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}\n\n` : "";
