@@ -761,6 +761,10 @@
     transform: translateY(0);
   }
 
+  .nav-links a, .nav-logo { white-space: nowrap; }
+  .nav-links { margin-left: 28px; }
+  @media (max-width: 1240px) { .nav-links { gap: 24px; } }
+  @media (max-width: 1080px) { .nav-links { gap: 16px; } .nav-links a { letter-spacing: 0.06em; } }
   /* ---- RESPONSIVE ---- */
   @media (max-width: 900px) {
     nav { padding: 18px 28px; }
@@ -1071,6 +1075,7 @@
     <li><a href="#counseling">Counseling</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#therapy-resources">Resources</a></li>
+    <li><a href="therapists/">For Therapists</a></li>
     <li><a href="#blog">Writing</a></li>
     <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
   </ul>
