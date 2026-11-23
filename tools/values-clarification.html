@@ -228,6 +228,52 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .gap-bars b { font-weight: 600; text-align: right; color: var(--muted); }
 .carry { margin-top: 6px; background: var(--accent-soft); border-radius: 14px; padding: 14px 16px; font-family: var(--font-display); font-size: 18px; line-height: 1.5; }
 .details-h { margin: 8px 0 10px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+/* values vs goals */
+.vg-callout { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px 12px; margin: 0 0 22px; box-shadow: var(--shadow); }
+.vg-h { margin: 0 0 12px; font-family: var(--font-display); font-size: 19px; text-align: center; }
+.vg-h em { color: var(--sage); }
+.vg-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vg-vs > div { border-radius: 14px; padding: 12px 10px; text-align: center; display: grid; gap: 2px; }
+.vg-vs .goal { background: var(--sand); }
+.vg-vs .value { background: var(--sage-soft); box-shadow: inset 0 0 0 1.5px #CFE0D4; }
+.vg-vs .ic { font-size: 20px; line-height: 1.2; }
+.vg-vs small { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.vg-vs b { font-family: var(--font-display); font-weight: 400; font-size: 18px; }
+.vg-vs .what { font-size: 13.5px; color: var(--muted); }
+.vg-vs .value .what em { color: var(--sage); font-style: normal; font-weight: 600; }
+.vg-vs .goal .what em { font-style: normal; font-weight: 600; color: var(--accent); }
+.vg-line { margin: 12px 0 4px; font-size: 14.5px; text-align: center; color: var(--ink); }
+.vg { margin: 4px 0 0; }
+.vg summary { cursor: pointer; font-size: 13.5px; color: var(--accent); text-align: center; list-style: none; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
+.vg summary::-webkit-details-marker { display: none; }
+.vg[open] summary { margin-bottom: 4px; }
+.vg-scene { margin: 12px 0 10px; }
+.vg-svg { width: 100%; height: auto; display: block; }
+.vg-needle { animation: sway 5s ease-in-out infinite; transform-origin: 0 0; }
+@keyframes sway { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+.vg-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .vg-legend { grid-template-columns: 1fr; } }
+.vg-legend p { margin: 0; font-size: 14.5px; line-height: 1.55; background: var(--sand); border-radius: 12px; padding: 10px 12px; }
+.vg-legend b.g { color: var(--accent); } .vg-legend b.v { color: var(--sage); }
+.vg-tap { margin: 16px 0 8px; font-size: 14px; color: var(--muted); }
+.vg-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; perspective: 900px; }
+@media (max-width: 560px) { .vg-cards { grid-template-columns: 1fr; } }
+.vg-card { position: relative; appearance: none; border: 0; padding: 0; background: none; cursor: pointer; height: 96px; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.4,.1,.3,1); font: inherit; }
+.vg-card[aria-pressed="true"] { transform: rotateY(180deg); }
+.vg-card span { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10px 12px; border-radius: 14px; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.vg-card .front { background: var(--accent-soft); border: 1px solid #EBCFC0; font-family: var(--font-display); font-size: 18px; color: var(--ink); }
+.vg-card .back { background: var(--sage-soft); border: 1px solid #CFE0D4; transform: rotateY(180deg); font-size: 14px; line-height: 1.5; color: var(--sage); font-weight: 500; }
+.vg-card small { display: block; font-family: var(--font-body); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; font-weight: 400; }
+.vg-note { margin: 14px 0 0; font-family: var(--font-display); font-style: italic; font-size: 16.5px; text-align: center; }
+.vg-note em { color: var(--accent); }
+/* your compass */
+.vc { margin: 6px auto 18px; max-width: 440px; text-align: center; }
+.vc-svg { width: 100%; height: auto; display: block; }
+.vc figcaption { font-size: 14px; color: var(--muted); line-height: 1.55; margin-top: 2px; }
+.vc figcaption b { color: var(--accent); font-weight: 600; }
+.vc-needle.settle { animation: settle 1.6s cubic-bezier(.3,.8,.3,1); }
+@keyframes settle { 0% { transform: rotate(-70deg); } 35% { transform: rotate(22deg); } 60% { transform: rotate(-9deg); } 80% { transform: rotate(4deg); } 100% { transform: rotate(0); } }
+.vc.in-insight { max-width: 380px; margin: 4px auto 0; }
 .sum-stage { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
 .sum-stage b { color: var(--ink); font-weight: 500; }
 .sum-q { font-family: var(--font-display); font-style: italic; color: var(--muted); margin: 10px 0 2px !important; }
@@ -304,6 +350,51 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <!-- 2. Choose -->
     <section id="s-choose" hidden aria-labelledby="q-choose">
       <h2 class="q" id="q-choose" tabindex="-1">Which values <em>speak to you</em>?</h2>
+      <div class="vg-callout">
+        <p class="vg-h">You're choosing <em>values</em>, not goals</p>
+        <div class="vg-vs">
+          <div class="goal"><span class="ic" aria-hidden="true">🏁</span><small>A goal</small><b>Run a marathon</b><span class="what">something you <em>finish</em></span></div>
+          <div class="value"><span class="ic" aria-hidden="true">🧭</span><small>A value</small><b>Health</b><span class="what">a way you <em>keep living</em></span></div>
+        </div>
+        <p class="vg-line">Pick the values that describe who you are and how you want to live, not things you want to achieve.</p>
+      <details class="vg" id="vg">
+        <summary>See more examples</summary>
+        <div class="vg-scene" aria-hidden="true">
+          <svg viewBox="0 0 600 200" class="vg-svg">
+            <defs><linearGradient id="vgsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBF3EA"/><stop offset="1" stop-color="#F1ECE3"/></linearGradient></defs>
+            <rect width="600" height="200" rx="16" fill="url(#vgsky)"/>
+            <circle cx="545" cy="52" r="22" fill="#F6D9B5" opacity=".8"/>
+            <path d="M0 60 L600 60" stroke="#E6DACA" stroke-dasharray="2 6"/>
+            <path id="vg-path" d="M30 182 C 120 182, 120 120, 210 128 S 330 160, 380 112 S 470 70, 600 62" fill="none" stroke="#DCCDB7" stroke-width="10" stroke-linecap="round"/>
+            <path d="M30 182 C 120 182, 120 120, 210 128 S 330 160, 380 112 S 470 70, 600 62" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="6 8" opacity=".9"/>
+            <g class="flag" transform="translate(150 140)"><path d="M0 0 V-34" stroke="#8A7A66" stroke-width="2"/><path d="M0 -34 L22 -28 L0 -22 Z" fill="#C4714A"/><text x="4" y="14" font-size="15" fill="#5A6370" font-family="DM Sans, sans-serif">Walk daily</text></g>
+            <g class="flag" transform="translate(300 146)"><path d="M0 0 V-34" stroke="#8A7A66" stroke-width="2"/><path d="M0 -34 L22 -28 L0 -22 Z" fill="#C4714A"/><text x="-26" y="18" font-size="15" fill="#5A6370" font-family="DM Sans, sans-serif">Run a 10K</text></g>
+            <g class="flag" transform="translate(430 96)"><path d="M0 0 V-34" stroke="#8A7A66" stroke-width="2"/><path d="M0 -34 L22 -28 L0 -22 Z" fill="#C4714A"/><text x="-14" y="18" font-size="15" fill="#5A6370" font-family="DM Sans, sans-serif">Cook at home</text></g>
+            <circle r="8" fill="#476B56" stroke="#fff" stroke-width="2.5"><animateMotion dur="10s" repeatCount="indefinite" rotate="0"><mpath href="#vg-path"/></animateMotion></circle>
+            <g transform="translate(74 52)">
+              <circle r="30" fill="#fff" stroke="#D9C7AE" stroke-width="2"/><circle r="24" fill="none" stroke="#EFE3D1"/>
+              <text y="-14" text-anchor="middle" font-size="8" fill="#A08A70" font-family="DM Sans, sans-serif">N</text>
+              <g class="vg-needle"><path d="M0 -20 L5 0 L0 4 L-5 0 Z" fill="#9A5232" transform="rotate(68)"/><path d="M0 20 L5 0 L0 -4 L-5 0 Z" fill="#C9BBA8" transform="rotate(68)"/></g>
+              <circle r="2.5" fill="#3A3027"/>
+            </g>
+            <rect x="112" y="24" width="52" height="18" rx="9" fill="#EEF4F0" stroke="#CFE0D4"/>
+            <text x="138" y="37" text-anchor="middle" font-size="10" letter-spacing="1.5" fill="#476B56" font-family="DM Sans, sans-serif" font-weight="600">VALUE</text>
+            <text x="172" y="40" font-size="21" fill="#3A3027" font-family="Lora, serif" font-style="italic">Health</text>
+            <text x="112" y="62" font-size="13.5" fill="#476B56" font-family="Lora, serif" font-style="italic">the direction you keep walking</text>
+            <rect x="196" y="176" width="150" height="18" rx="9" fill="#F5EFE6" stroke="#E6DACA"/>
+            <text x="271" y="189" text-anchor="middle" font-size="10" letter-spacing="1.2" fill="#9A5232" font-family="DM Sans, sans-serif" font-weight="600">GOALS ALONG THE WAY</text>
+          </svg>
+        </div>
+        <div class="vg-legend"><p><b class="g">Goals</b> are places you arrive. You reach them, check them off, and set new ones.</p><p><b class="v">Values</b> are the direction you keep walking. You're never "done" with them. They describe <em>who you are</em> along the way.</p></div>
+        <p class="vg-tap">Tap a goal to see what might be underneath it:</p>
+        <div class="vg-cards">
+          <button type="button" class="vg-card" aria-pressed="false"><span class="front"><small>Goal</small>Get promoted</span><span class="back"><small>Could be about</small>Recognition · Security · Growth · Influence</span></button>
+          <button type="button" class="vg-card" aria-pressed="false"><span class="front"><small>Goal</small>Run a marathon</span><span class="back"><small>Could be about</small>Health · Achievement · Adventure · Belonging</span></button>
+          <button type="button" class="vg-card" aria-pressed="false"><span class="front"><small>Goal</small>Buy a home</span><span class="back"><small>Could be about</small>Family · Security · Independence · Belonging</span></button>
+        </div>
+        <p class="vg-note">Two people can chase the same goal for very different reasons. Your values are the <em>why</em>, and the why is you.</p>
+      </details>
+      </div>
       <p class="hint">Choose every value that feels important to how you want to live and work. Go with your gut; you'll narrow down next. Aim for about 8 to 15.</p>
       <div class="toolbar">
         <span class="counter" id="choose-count" aria-live="polite"></span>
@@ -322,6 +413,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <h2 class="q" id="q-top" tabindex="-1">If you could keep only <em>five</em>…</h2>
       <p class="hint">Which values would you hold on to, even when life gets busy or choices get hard? It's okay if this feels difficult. That's part of the clarity.</p>
       <div class="toolbar"><span class="counter" id="top-count" aria-live="polite"></span></div>
+      <figure class="vc" id="compass-top" aria-hidden="true"></figure>
       <div class="values" id="top-values"></div>
     </section>
 
@@ -329,6 +421,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <section id="s-rank" hidden aria-labelledby="q-rank">
       <h2 class="q" id="q-rank" tabindex="-1">Put them in <em>order</em></h2>
       <p class="hint">Use the arrows to move the value that matters most to the top. When two values compete, which would you choose?</p>
+      <figure class="vc" id="compass-rank" aria-hidden="true"></figure>
       <ol class="rank" id="rank"></ol>
     </section>
 
@@ -766,12 +859,44 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   $("own-value").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); addOwn(); } });
 
   /* 3. top five */
+  /* ---------- your values compass ---------- */
+  function compassSVG(list, big) {
+    const n = list.length, R = 100, cx = 220, cy = 160;
+    const rose = [0, 45, 90, 135, 180, 225, 270, 315].map((a, i) => { const L = i % 2 ? 46 : 84, w = i % 2 ? 7 : 11; return `<path d="M0 ${-L} L${w} 0 L0 ${L * 0.12} L${-w} 0 Z" transform="rotate(${a})" fill="${i % 2 ? "#EFE5D7" : "#E7DACB"}"/>`; }).join("");
+    const pts = list.map((v, i) => {
+      const a = (-90 + i * 360 / n) * Math.PI / 180, x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
+      const lx = cx + Math.cos(a) * (R + 22), ly = cy + Math.sin(a) * (R + 22) + 4, anchor = Math.abs(Math.cos(a)) < 0.3 ? "middle" : Math.cos(a) > 0 ? "start" : "end";
+      const label = v.length > 26 ? v.slice(0, 25) + "…" : v;
+      let lines = [label];
+      if (anchor !== "middle" && label.length > 11 && label.includes(" ")) { const mid = label.length / 2; let k = -1, best = 99; [...label].forEach((ch, j) => { if (ch === " " && Math.abs(j - mid) < best) { best = Math.abs(j - mid); k = j; } }); lines = [label.slice(0, k), label.slice(k + 1)]; }
+      const y0 = (i === 0 ? ly - 6 : ly) - (lines.length - 1) * 8;
+      return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${i === 0 ? 7 : 5}" fill="${i === 0 ? "#9A5232" : "#476B56"}" stroke="#fff" stroke-width="2"/>
+        <text x="${lx.toFixed(1)}" y="${y0.toFixed(1)}" text-anchor="${anchor}" font-family="Lora, serif" font-size="${i === 0 ? 18 : 15}" ${i === 0 ? 'font-style="italic" fill="#9A5232"' : 'fill="#3A3027"'}>${lines.map((l, j) => `<tspan x="${lx.toFixed(1)}" dy="${j ? 17 : 0}">${esc(l)}</tspan>`).join("")}</text>`;
+    }).join("");
+    const empty = !n ? `<text x="${cx}" y="${cy + 4}" text-anchor="middle" font-family="Lora, serif" font-style="italic" font-size="14" fill="#A99C8C">Choose your five</text>` : "";
+    return `<svg viewBox="0 0 440 312" class="vc-svg${big ? " big" : ""}">
+      <circle cx="${cx}" cy="${cy}" r="${R}" fill="#FFFDF8" stroke="#D9C7AE" stroke-width="2"/>
+      <circle cx="${cx}" cy="${cy}" r="${R - 12}" fill="none" stroke="#EFE3D1" stroke-dasharray="2 5"/>
+      <g transform="translate(${cx} ${cy})">${rose}</g>
+      ${n ? `<g class="vc-needle" style="transform-origin:${cx}px ${cy}px"><path d="M${cx} ${cy - R + 18} L${cx + 9} ${cy} L${cx} ${cy + 8} L${cx - 9} ${cy} Z" fill="#9A5232"/><path d="M${cx} ${cy + 52} L${cx + 7} ${cy} L${cx - 7} ${cy} Z" fill="#CDBFAE"/></g><circle cx="${cx}" cy="${cy}" r="5" fill="#3A3027"/>` : ""}
+      ${pts}${empty}
+    </svg>`;
+  }
+  let lastNorth = {};
+  function paintCompass(id, list) {
+    const el = $(id); if (!el) return;
+    const north = list[0] || "";
+    el.innerHTML = compassSVG(list) + `<figcaption>${list.length ? `Your compass, pointing toward <b>${esc(north)}</b>. Not a list of things to finish, but the direction you choose to walk, whatever goals come and go.` : "As you choose your five, your compass will form here."}</figcaption>`;
+    if (north && lastNorth[id] !== north && !reduceMotion) { const nd = el.querySelector(".vc-needle"); if (nd) nd.classList.add("settle"); }
+    lastNorth[id] = north;
+  }
   function renderTop() {
     if (S.chosen.length <= 5) S.top = S.chosen.slice();
     $("top-values").innerHTML = S.chosen.map((n) => valButton(n, S.top.includes(n), "top")).join("");
     $("top-count").innerHTML = S.chosen.length <= 5
       ? `You chose ${S.chosen.length}, so all of them carry forward.`
       : `<b>${S.top.length}</b> of 5 chosen`;
+    paintCompass("compass-top", S.top);
   }
   $("top-values").addEventListener("click", (e) => {
     const b = e.target.closest(".val"); if (!b) return;
@@ -783,6 +908,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     $("top-values").querySelector(`[data-v="${CSS.escape(n)}"]`).focus();
   });
 
+  $("vg").addEventListener("click", (e) => { const c = e.target.closest(".vg-card"); if (c) c.setAttribute("aria-pressed", c.getAttribute("aria-pressed") !== "true"); });
+
   /* 4. rank */
   const UP = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 12V4M4 8l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   const DOWN = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4v8M4 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -790,6 +917,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     S.ranked = S.ranked.filter((x) => S.top.includes(x)).concat(S.top.filter((x) => !S.ranked.includes(x)));
     save();
     $("rank").innerHTML = S.ranked.map((n, i) => `<li><span class="num" aria-hidden="true">${i + 1}</span><span class="txt"><b>${esc(n)}</b><small>${esc(info(n)[1])}</small></span><span class="moves"><button type="button" class="icon-btn" data-move="-1" data-i="${i}" aria-label="Move ${esc(n)} up" ${i === 0 ? "disabled" : ""}>${UP}</button><button type="button" class="icon-btn" data-move="1" data-i="${i}" aria-label="Move ${esc(n)} down" ${i === S.ranked.length - 1 ? "disabled" : ""}>${DOWN}</button></span></li>`).join("");
+    paintCompass("compass-rank", S.ranked);
     if (focus) { const el = $("rank").querySelector(focus); if (el && !el.disabled) el.focus(); else { const alt = $("rank").querySelectorAll(".icon-btn:not(:disabled)")[0]; if (alt) alt.focus(); } }
   }
   $("rank").addEventListener("click", (e) => {
@@ -943,7 +1071,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const r = insights(); const el = $("insight"); el.hidden = !r; if (!r) return;
     const bars = r.scored.map((x) => `<div class="${x.n === r.gap.n && x.l < 7 ? "low" : ""}"><span>${esc(x.n)}</span><span class="track"><i style="width:${x.l * 10}%"></i></span><b>${x.l}/10</b></div>`).join("");
     const ins = (ic, h, body) => `<div class="ins"><span class="ic" aria-hidden="true">${ic}</span><div><h4>${h}</h4>${body}</div></div>`;
-    el.innerHTML = `<h3 id="ins-h">Your compass</h3><p class="compass">“${esc(r.compass)}”</p>`
+    el.innerHTML = `<h3 id="ins-h">Your compass</h3><div class="vc in-insight" aria-hidden="true">${compassSVG(S.ranked.slice(0, 5))}</div><p class="compass">“${esc(r.compass)}”</p>`
       + ins("🧭", "Where your values are living, and where they aren't", `<div class="gap-bars" aria-hidden="true">${bars}</div><p>${esc(r.gapText)}</p><p class="soft">${esc(r.gapSoft)}</p>`)
       + (r.best ? ins("✨", "At your best", `<p>${esc(r.best)}</p>`) : "")
       + (r.tension ? ins("⚖️", "A tension to hold", `<p>${esc(r.tension)}</p>`) : "")
