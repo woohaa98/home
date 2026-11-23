@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Best Possible Self · Woohee (Elise) Kwak</title>
+<meta name="description" content="Imagine your life a year or more from now, going as well as it reasonably could. Receive a letter from your future self and choose one small step toward it. Based on Best Possible Self research.">
+<!-- Privacy: no analytics, tracking, or data requests. Nothing is saved. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 22px; }
+.progress { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+.ground-btn { appearance: none; font: inherit; font-size: 13.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--accent); white-space: nowrap; transition: border-color .2s; }
+.ground-btn:hover { border-color: var(--accent); }
+.grounding { display: flex; gap: 14px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: 0 0 22px; }
+.grounding strong { display: block; color: var(--accent); font-weight: 600; }
+.grounding p { margin: 0; font-size: 14.5px; }
+.grounding .x { appearance: none; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; margin-left: auto; padding: 0 4px; }
+
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
+
+.options { display: grid; gap: 10px; }
+.options.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .options.two { grid-template-columns: 1fr; } }
+.opt {
+  appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 15px 18px;
+  transition: border-color .2s, background-color .2s;
+}
+.opt:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 20px; line-height: 1.2; }
+.opt b { display: block; font-weight: 600; font-size: 15.5px; }
+.opt small { display: block; color: var(--muted); font-size: 14px; margin-top: 1px; }
+.opt.dashed { border-style: dashed; }
+.group-name { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+.group-name:first-child { margin-top: 0; }
+
+.field { margin-top: 16px; }
+.field > label { display: block; font-weight: 500; margin-bottom: 8px; }
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 16px; line-height: 1.6; padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); resize: vertical; }
+textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.15); }
+::placeholder { color: #8C939C; }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.scale { margin-top: 26px; padding: 18px 20px; background: var(--sand); border-radius: 16px; }
+.scale label { font-weight: 500; display: block; margin-bottom: 8px; }
+.scale input[type=range] { width: 100%; accent-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.scale output { font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+.note { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 14px 0 0; }
+.note strong { color: var(--warm-ink); }
+
+.prompt-card { background: var(--sand); border-radius: 16px; padding: 18px 20px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.subcount { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+.reflection { display: flex; gap: 14px; align-items: flex-start; border-left: 3px solid var(--warm); background: var(--surface); border-radius: 0 14px 14px 0; padding: 14px 18px; margin: 16px 0 0; box-shadow: var(--shadow); }
+.reflection .mark { color: var(--warm); font-size: 18px; line-height: 1.5; }
+.reflection p { margin: 0; font-family: var(--font-display); font-size: 17px; line-height: 1.55; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(24px, 6vw, 44px); }
+.welcome-list { margin: 0 0 18px; padding-left: 20px; }
+.welcome-list li { margin-bottom: 6px; }
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 20px; }
+.safety strong { color: var(--warm-ink); }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-weight: 500; }
+.check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+
+.part-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 16px; }
+.summary { display: grid; gap: 12px; margin: 6px 0 0; }
+.summary div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.summary dd { margin: 0; white-space: pre-wrap; }
+@media (max-width: 520px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.pick-hint { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.answers { margin-bottom: 6px; }
+.own-words { margin: 8px 0 0; }
+.own-words summary { cursor: pointer; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; list-style: none; }
+.own-words summary::-webkit-details-marker { display: none; }
+.own-words[open] summary { margin-bottom: 8px; }
+.message-card { margin: 22px 0 0; background: var(--accent-soft); border-radius: 16px; padding: 18px 20px; }
+.message-card .mc-label { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.message-card .mc-text { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+@media print {
+  body { background: #fff; }
+  .topbar, header, .toolbar, .grounding, .actions, .disclaimer, .no-print { display: none !important; }
+  .card { box-shadow: none; border: 0; padding: 0; }
+}
+
+
+
+/* ---- shared by Small Steps, Kind Boundaries, Gentle Start-Up ---- */
+.privacy-line { font-size: 13.5px; color: var(--muted); margin: -20px 0 28px; }
+.session-banner { display: flex; gap: 12px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: -12px 0 28px; font-size: 14.5px; }
+.session-banner b { display: block; color: var(--accent); font-weight: 600; }
+.session-banner p { margin: 0; }
+.explain { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 0 0 18px; }
+.explain div { background: var(--sand); border-radius: 14px; padding: 14px 16px; }
+.explain b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 17px; margin-bottom: 2px; }
+.explain span { font-size: 14px; color: var(--muted); }
+.callout { background: var(--accent-soft); border-radius: 16px; padding: 14px 18px; margin: 16px 0 0; font-size: 15px; }
+.callout strong { color: var(--accent); }
+.callout.warm { background: var(--warm-soft); }
+.callout.warm strong { color: var(--warm-ink); }
+.script { background: #F2F8F3; border: 1px solid #CFE0D4; border-radius: 18px; padding: 20px 22px; margin: 6px 0 0; }
+.script .k { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 8px; }
+.script p.say { font-family: var(--font-display); font-size: 20px; line-height: 1.5; margin: 0; }
+.script textarea { width: 100%; font: inherit; font-family: var(--font-display); font-size: 19px; line-height: 1.5; padding: 12px 14px; border: 1px solid #CFE0D4; border-radius: 12px; background: #fff; color: var(--ink); resize: vertical; min-height: 120px; }
+.tone { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 12px; }
+.card-sec { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.card-sec h3 { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.card-sec p { margin: 0; }
+.card-sec ul { margin: 0; padding-left: 20px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-row span { font-size: 13px; background: var(--sand); border-radius: 999px; padding: 4px 12px; }
+.print-head { display: none; }
+.erase-row { margin-top: 14px; font-size: 14px; }
+.vbtn { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; background: #fff; border: 1px solid #CFE0D4; color: var(--accent); border-radius: 999px; padding: 9px 16px; min-height: 42px; }
+.vbtn:disabled { opacity: .45; cursor: not-allowed; }
+@media print {
+  .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
+  .print-head b { display: block; font-size: 13pt; color: #000; }
+  .session-banner, .erase-row, .rel, .privacy-line, .no-print { display: none !important; }
+}
+
+.photo-box { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+.photo-tip { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
+.photo-box img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 14px; border: 1px solid var(--line); margin: 0 auto; -webkit-touch-callout: default; }
+@media print { .photo-box { display: none !important; } }
+.opt.bal { background: #F2F8F3; border-color: #CFE0D4; align-items: center; }
+.opt.bal b { font-weight: 500; font-family: var(--font-display); font-size: 17px; color: #2F4A3A; }
+.opt.bal:hover { border-color: var(--accent); background: #EAF3EC; }
+.opt.bal[aria-pressed="true"] { background: #DDEDE1; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.12); }
+.opt[disabled] { opacity: .45; cursor: not-allowed; }
+
+.horizon { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 560px) { .horizon { grid-template-columns: 1fr; } }
+.dom { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; margin: 0 0 14px; }
+.dom h3 { margin: 0 0 10px; font-size: 16px; font-weight: 600; }
+.dom input[type=text] { margin-top: 4px; }
+.letter { background: #FFFDF9; border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 4vw, 30px); box-shadow: var(--shadow); }
+.letter textarea { font-family: var(--font-display); font-size: 17.5px; line-height: 1.7; min-height: 340px; border: 0; padding: 0; background: transparent; }
+.letter textarea:focus { outline: none; }
+.letter.editable { border: 1.5px dashed #CFE0D4; transition: border-color .2s; }
+.letter.editable:focus-within { border: 1.5px solid var(--accent); }
+.edit-hint { margin: 0 0 10px; font-size: 13px; color: var(--accent); letter-spacing: .02em; }
+.letter-say { font-family: var(--font-display); font-size: 18px; line-height: 1.75; white-space: pre-wrap; margin: 0; }
+.feel-note { margin-top: 12px; }
+.feedback-line a { color: var(--accent); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Hope &amp; Future Self</p>
+      <h1>Best Possible <em>Self</em></h1>
+      <p class="lede">Imagine your life ahead, going as well as it reasonably could. Not perfect, just good and true to you. Then receive a letter from that future self, and choose one small step toward it. Mostly tapping, about 7 minutes.</p>
+      <p class="privacy-line">Your answers stay on this device. Nothing is saved, tracked, or sent anywhere.</p>
+    </header>
+    <div class="session-banner" id="session-banner" role="note" hidden><span aria-hidden="true">🌿</span>
+      <div><b>Shared by your therapist, <span class="th-name"></span></b><p>Imagine your best possible self here, then save, print, or email your letter to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div></div>
+    <div class="toolbar"><ol class="progress" id="progress" aria-hidden="true"></ol></div>
+    <section id="stage"></section>
+    <section class="rel" aria-labelledby="rel-h" style="margin-top:48px">
+      <p class="eyebrow" style="margin-bottom:6px">Keep exploring</p>
+      <h2 id="rel-h" style="font-family:var(--font-display);font-weight:400;font-size:24px;margin:0 0 12px">Related</h2>
+      <div class="options two">
+        <a class="opt" style="text-decoration:none" href="life-chapters.html"><span><b>Life Chapters</b><small>Name the chapters so far and title the one you're beginning.</small></span></a>
+        <a class="opt" style="text-decoration:none" href="../resources/resource.html?id=values-vs-goals"><span><b>Values vs. Goals</b><small>A direction you live versus a destination you reach.</small></span></a>
+      </div>
+    </section>
+  </main>
+  <footer class="disclaimer">
+    <p>Based on the Best Possible Self exercise from positive psychology research (Laura King, 2001, and later studies), which has been linked to greater optimism and well-being. A self-guided reflection, not therapy.</p>
+    <p>If imagining the future feels hard right now, that's okay, and it's worth talking about with someone you trust. If you're in crisis in the U.S., call or text 988, or call 911.</p>
+    <p>Your answers stay on your device. Nothing is saved, tracked, or sent anywhere.</p>
+    <p class="feedback-line">These tools are evolving, and your feedback helps shape them. <a href="mailto:wooheekwak@outlook.com?subject=Feedback%20on%20Best%20Possible%20Self&amp;body=What%20helped%3A%0A%0AWhat%20was%20confusing%20or%20could%20be%20better%3A%0A%0A%28Please%20leave%20out%20personal%20or%20health%20details.%29%0A">Share feedback</a> (please leave out personal or health details).</p>
+  </footer>
+</div>
+<script>
+(() => {
+  "use strict";
+  const SESSION_KEY = "wk-bps-session";
+
+  /* ---------- shared helpers ---------- */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const listText = (a) => a.length < 2 ? (a[0] || "") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
+  const low = (t) => /^I[ ']/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
+
+  /* session mode (?from=Name&reply=email), as in the other tools */
+  let therapist = null;
+  (function () {
+    const q = new URLSearchParams(location.search), from = (q.get("from") || "").trim().slice(0, 60);
+    try {
+      if (from) {
+        const t = { name: from.toLowerCase() === "elise" ? "Elise Kwak" : from, reply: "" };
+        const r = (q.get("reply") || "").trim().slice(0, 120);
+        if (r && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(r)) t.reply = r; else if (from.toLowerCase() === "elise") t.reply = "elise@selfspaceseattle.com";
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(t)); therapist = t;
+      } else { const raw = sessionStorage.getItem(SESSION_KEY); if (raw) therapist = JSON.parse(raw); }
+    } catch (_) { if (from) therapist = { name: from, reply: "" }; }
+    if (therapist && therapist.name) { $("session-banner").hidden = false; document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; }); }
+    else therapist = null;
+  })();
+  const sessionNote = () => therapist ? `<p class="hint" style="margin:20px 0 0">Print or save this as a PDF and bring it to your next session with ${esc(therapist.name)}.${therapist.reply ? ` If you've both agreed to use email, you can send it to ${esc(therapist.reply)}; email isn't fully private.` : ""}</p>` : "";
+
+  function copyText(text) {
+    const done = (m) => { const s = $("copy-status"); if (s) s.textContent = m; };
+    const fb = () => { const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done("Copied."); } catch (_) { done("Couldn't copy."); } ta.remove(); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done("Copied."), fb); else fb();
+  }
+  function emailMe(subject, text) {
+    window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
+    const s = $("copy-status"); if (s) s.textContent = "Your email app should open. Add your own address and send.";
+  }
+  function printNow() {
+    const ph = $("ph-line"); if (ph) ph.textContent = (therapist ? `For a session with ${therapist.name} · ` : "") + new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    window.print();
+  }
+
+
+  /* ---------- Save as photo (drawn on this device; nothing is uploaded) ---------- */
+  const photoBoxHTML = (alt, file) => `<div class="photo-box" id="photo-box" hidden>
+      <p class="photo-tip" id="photo-tip">Here's your card.</p>
+      <img id="photo-img" alt="${esc(alt)}">
+      <div class="actions" style="margin-top:14px">
+        <button type="button" class="btn btn-primary" id="photo-share" hidden>Save or Email</button>
+        <a class="btn btn-ghost" id="photo-dl" download="${esc(file)}" style="text-decoration:none;display:inline-flex;align-items:center">Download</a>
+        <button type="button" class="btn-text" data-act="photo-close">Close</button>
+      </div>
+    </div>`;
+  function wrapLines(ctx, text, maxW) { const out = []; String(text).split("\n").forEach((para) => { let line = ""; para.split(/\s+/).forEach((w) => { const t = line ? line + " " + w : w; if (ctx.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; }); out.push(line); }); return out; }
+  function rrect(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r); ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h); ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r); ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath(); }
+  /* spec: { eyebrow, title, blocks: [{ h, text } | { h, quote } | { h, list: [] } | { timeline: [{ dot, title, sub, dashed }] }], footer } */
+  async function makeCard(spec) {
+    try { await Promise.all(['italic 400 40px "Lora"', '400 40px "Lora"', '400 30px "DM Sans"', '600 30px "DM Sans"'].map((f) => document.fonts.load(f))); } catch (_) {}
+    const W = 1080, P = 90, inner = W - P * 2;
+    const C = { bg: "#FDFAF6", ink: "#2A2F35", muted: "#5A6370", sage: "#476B56", soft: "#EEF4F0", line: "#E8DDD0" };
+    const m = document.createElement("canvas").getContext("2d"), ops = [];
+    const text = (font, color, str, lh, gap, opts = {}) => { m.font = font; const lines = wrapLines(m, str, inner - (opts.indent || 0) - (opts.box ? 64 : 0)); ops.push({ k: "text", font, color, lines, lh, gap, ...opts }); };
+    if (spec.eyebrow) text('600 26px "DM Sans"', C.muted, spec.eyebrow.toUpperCase(), 34, 12, { spacing: true });
+    if (spec.title) text('400 56px "Lora"', C.ink, spec.title, 66, 44);
+    (spec.blocks || []).forEach((b) => {
+      if (b.h) text('600 24px "DM Sans"', C.sage, b.h.toUpperCase(), 32, 12, { spacing: true });
+      if (b.quote) text('italic 400 38px "Lora"', C.ink, b.quote, 52, 40, { box: true });
+      if (b.text) text('400 30px "DM Sans"', C.ink, b.text, 42, 40);
+      if (b.list) { b.list.forEach((li, i) => text('400 29px "DM Sans"', C.ink, "• " + li, 40, i === b.list.length - 1 ? 40 : 8)); }
+      if (b.timeline) b.timeline.forEach((it, i) => {
+        m.font = '600 32px "DM Sans"'; const t1 = wrapLines(m, it.title, inner - 80);
+        m.font = '400 25px "DM Sans"'; const t2 = it.sub ? wrapLines(m, it.sub, inner - 80) : [];
+        ops.push({ k: "tl", it, t1, t2, last: i === b.timeline.length - 1, h: t1.length * 40 + t2.length * 34 + (i === b.timeline.length - 1 ? 40 : 30) });
+      });
+    });
+    const hOf = (o) => o.k === "tl" ? o.h : o.lines.length * o.lh + (o.box ? 56 : 0) + o.gap;
+    let H = P + ops.reduce((n, o) => n + hOf(o), 0) + P + 40;
+    const cv = document.createElement("canvas"); cv.width = W; cv.height = Math.max(H, 1350);
+    const ctx = cv.getContext("2d");
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, cv.height); ctx.fillStyle = C.sage; ctx.fillRect(0, 0, W, 14);
+    ctx.textBaseline = "top";
+    let y = P + Math.max(0, (cv.height - H) / 2);
+    for (const o of ops) {
+      if (o.k === "tl") {
+        const cx = P + 18;
+        if (!o.last) { ctx.strokeStyle = C.line; ctx.lineWidth = 4; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(cx, y + 30); ctx.lineTo(cx, y + o.h + 4); ctx.stroke(); }
+        ctx.beginPath(); ctx.arc(cx, y + 18, 15, 0, Math.PI * 2);
+        if (o.it.dashed) { ctx.setLineDash([6, 5]); ctx.strokeStyle = C.sage; ctx.lineWidth = 4; ctx.fillStyle = "#fff"; ctx.fill(); ctx.stroke(); ctx.setLineDash([]); }
+        else { ctx.fillStyle = o.it.dot || C.sage; ctx.fill(); }
+        ctx.fillStyle = C.ink; ctx.font = '600 32px "DM Sans"'; if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+        o.t1.forEach((ln, i) => ctx.fillText(ln, P + 64, y + i * 40));
+        ctx.fillStyle = C.muted; ctx.font = '400 25px "DM Sans"'; o.t2.forEach((ln, i) => ctx.fillText(ln, P + 64, y + o.t1.length * 40 + 4 + i * 34));
+        y += o.h; continue;
+      }
+      if (o.box) { const bh = o.lines.length * o.lh + 56; ctx.fillStyle = C.soft; rrect(ctx, P, y, inner, bh, 24); ctx.fill(); }
+      ctx.font = o.font; ctx.fillStyle = o.color; if ("letterSpacing" in ctx) ctx.letterSpacing = o.spacing ? "4px" : "0px";
+      o.lines.forEach((ln, i) => ctx.fillText(ln, P + (o.box ? 32 : 0), y + (o.box ? 28 : 0) + i * o.lh));
+      y += hOf(o);
+    }
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    ctx.font = '400 22px "DM Sans"'; ctx.fillStyle = C.muted; ctx.fillText(spec.footer || "wooheekwak.me", P, cv.height - P + 20);
+    return new Promise((res) => cv.toBlob(res, "image/png"));
+  }
+  let photoUrl = null;
+  async function showPhoto(btn, spec, file) {
+    const label = btn.textContent; btn.disabled = true; btn.textContent = "Making your card…";
+    let blob = null; try { blob = await makeCard(spec); } catch (_) {}
+    btn.disabled = false; btn.textContent = label;
+    if (!blob) { const s = $("copy-status"); if (s) s.textContent = "Couldn't make the photo on this device. Try Copy or Print instead."; return; }
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    photoUrl = URL.createObjectURL(blob); $("photo-img").src = photoUrl; $("photo-dl").href = photoUrl;
+    let f = null, canShare = false;
+    try { f = new File([blob], file, { type: "image/png" }); canShare = !!(navigator.canShare && navigator.canShare({ files: [f] })); } catch (_) {}
+    $("photo-share").hidden = !canShare; $("photo-share").onclick = async () => { try { await navigator.share({ files: [f] }); } catch (_) {} };
+    $("photo-tip").textContent = canShare ? "Here's your card. Tap “Save or Email” and choose Save Image to keep it in Photos, or Mail to send it." : "Here's your card. Use Download, or press and hold (or right-click) the picture to save it.";
+    $("photo-box").hidden = false; $("photo-box").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+  }
+
+
+  /* ================== CONTENT (edit freely) ================== */
+  const HORIZONS = [["1", "One year from now", "Close enough to feel real"], ["5", "Five years from now", "Room for bigger change"], ["10", "Ten years from now", "The long view"]];
+  const DOMAINS = [
+    { id: "rel", icon: "💞", name: "Relationships", lead: "My relationships", images: ["I have people I can be fully myself with", "My closest relationships feel warm and easy", "I feel deeply connected with my partner", "I see good friends regularly", "My family feels like a safe place", "I've made peace with someone important"], steps: ["Text one person I miss", "Plan one unhurried meal with someone I love", "Say one honest, kind thing I usually hold back"] },
+    { id: "work", icon: "🌿", name: "Work & purpose", lead: "My work", images: ["My work feels meaningful to me", "I've grown into a role that fits who I am", "I made a change I was once afraid to make", "I'm using my strengths most days", "I work at a pace that feels sustainable", "I'm known for something I care about"], steps: ["Spend 20 minutes on something that matters to me", "Reach out to one person doing work I admire", "Write down what I'd try if I weren't afraid"] },
+    { id: "body", icon: "🫶", name: "Body & health", lead: "My body", images: ["I wake up rested most days", "I move my body in ways I enjoy", "I treat my body with kindness", "I have energy for what matters", "I have steady routines that care for me"], steps: ["Go to bed 20 minutes earlier one night", "Take a 10-minute walk outside", "Make one meal that nourishes me"] },
+    { id: "inner", icon: "🕊️", name: "Inner life", lead: "Inside", images: ["I'm kinder to myself", "I feel more at peace with uncertainty", "I trust my own judgment", "I've let go of an old story about myself", "I have a practice that grounds me", "I feel at home in who I am"], steps: ["Sit quietly for 5 minutes", "Answer one self-critical thought kindly", "Write one page, just for me"] },
+    { id: "home", icon: "🏡", name: "Home & daily life", lead: "My days", images: ["My home feels calm and like mine", "My days have room to breathe", "I've let go of what I don't need", "I live somewhere I love"], steps: ["Clear one small surface", "Block one hour this week with nothing scheduled", "Let go of one thing I don't need"] },
+    { id: "play", icon: "🎨", name: "Creativity & play", lead: "For joy", images: ["I make things just for the joy of it", "I have a hobby that absorbs me", "I laugh often", "I'm learning something new", "I explore new places"], steps: ["Do one thing just for fun", "Try a beginner class or tutorial", "Put something creative on my calendar"] },
+    { id: "comm", icon: "🌏", name: "Community & giving", lead: "Around me", images: ["I belong to a community I care about", "I give back in a way that feels meaningful", "I help others who are where I once was", "I feel connected to my culture and roots"], steps: ["Look up one local group or event", "Offer help to one person", "Reach out to someone from my community"] }
+  ];
+  const FEELS = ["hopeful", "calm", "excited", "moved", "motivated", "unsure", "a little sad"];
+  const MAXD = 3;
+
+  /* ================== STATE (not saved) ================== */
+  const blank = () => ({ step: 0, horizon: "", doms: [], picks: {}, own: {}, feel: [], step1: "", stepOwn: "", name: "", letter: "", edited: false });
+  let d = blank(), lastView = -1;
+  const STEPS = 5;
+  $("progress").innerHTML = "<li></li>".repeat(STEPS);
+  const dom = (id) => DOMAINS.find((x) => x.id === id);
+  const horizon = () => HORIZONS.find(([k]) => k === d.horizon);
+  const futureYear = () => new Date().getFullYear() + (+d.horizon || 1);
+  const imagesFor = (id) => (d.picks[id] || []).concat((d.own[id] || "").trim() ? [(d.own[id] || "").trim().replace(/[.!]+$/, "")] : []);
+  const firstStep = () => d.stepOwn.trim() || d.step1;
+  const sentence = (t) => t.charAt(0).toUpperCase() + t.slice(1).replace(/[.!]+$/, "") + ".";
+
+  function buildLetter() {
+    const h = horizon(), when = h ? h[1].toLowerCase() : "a little while from now";
+    const nm = d.name.trim(); const L = [`Dear ${nm || "me"},`, ``, `I'm writing from ${futureYear()}, ${when}, and I want you to know how things turned out. Not perfectly, but well, and in a way that feels true to who we are.`, ``];
+    let firstPara = true;
+    d.doms.forEach((id) => { const imgs = imagesFor(id); if (!imgs.length) return;
+      let para = imgs.map(sentence).join(" ");
+      if (firstPara) { para = "These days, " + (/^I[ ']/.test(para) ? para : para.charAt(0).toLowerCase() + para.slice(1)); firstPara = false; }
+      L.push(para, ""); });
+    L.push(`It didn't happen all at once. There were hard days, and some days we didn't feel like trying. But you kept choosing small steps, and they added up.`);
+    if (firstStep()) L.push(``, `It started with one small step, the week you decided to "${firstStep().charAt(0).toLowerCase() + firstStep().slice(1).replace(/[.!]+$/, "")}." Thank you for doing that.`);
+    L.push(``, `Be gentle with yourself on the way here. I'm proud of you.`, ``, `With love,`, `${nm ? nm + "," : "Me,"} in ${futureYear()}`);
+    return L.join("\n");
+  }
+
+  /* ================== VIEWS ================== */
+  const label = (t) => `<p class="step-label">${t}</p>`;
+  const nav = (txt, ok = true, back = true) => `<div class="actions"><button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${txt}</button>${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}</div>`;
+  const anyImage = () => d.doms.some((id) => imagesFor(id).length);
+
+  const views = {
+    0: () => `
+      ${label("Step 1 of 4 · Look ahead")}
+      <h2 class="q" tabindex="-1">How far ahead do you want to <em>imagine</em>?</h2>
+      <p class="hint">Picture a future where things have gone as well as they reasonably could. You've worked hard, had some luck, and grown. Not a fantasy, and not perfect. Just a good life that feels like yours.</p>
+      <div class="horizon">${HORIZONS.map(([k, t, s]) => `<button type="button" class="opt" data-hz="${k}" aria-pressed="${d.horizon === k}"><span><b>${t}</b><small>${s}</small></span></button>`).join("")}</div>
+      <p class="group-name" style="margin-top:22px">Which parts of life do you want to imagine? <span style="text-transform:none;letter-spacing:0">(pick up to 3)</span></p>
+      <div class="options two">${DOMAINS.map((x) => { const on = d.doms.includes(x.id); return `<button type="button" class="opt" data-dom="${x.id}" aria-pressed="${on}"${!on && d.doms.length >= MAXD ? " disabled" : ""}><span class="icon" aria-hidden="true">${x.icon}</span><span><b>${esc(x.name)}</b></span></button>`; }).join("")}</div>
+      ${nav("Imagine It", d.horizon && d.doms.length)}`,
+
+    1: () => `
+      ${label("Step 2 of 4 · Picture it")}
+      <h2 class="q" tabindex="-1">${horizon() ? esc(horizon()[1]) : "In the future"}, what's <em>true</em>?</h2>
+      <p class="hint">Tap what you see in that life. Let yourself imagine the details: where you are, who's with you, how it feels.</p>
+      ${d.doms.map((id) => { const x = dom(id); return `<div class="dom"><h3><span aria-hidden="true">${x.icon}</span> ${esc(x.name)}</h3>
+        <div class="chipset">${x.images.map((t) => `<button type="button" class="chip" data-img="${esc(t)}" data-d="${id}" aria-pressed="${(d.picks[id] || []).includes(t)}">${esc(t)}</button>`).join("")}</div>
+        <input type="text" data-own="${id}" maxlength="120" aria-label="In your own words, ${esc(x.name)}" placeholder="Something more specific, in your own words (optional)" value="${esc(d.own[id] || "")}"></div>`; }).join("")}
+      ${nav("Continue", anyImage())}`,
+
+    2: () => `
+      ${label("Step 3 of 4 · Notice")}
+      <h2 class="q" tabindex="-1">As you imagine this, how do you <em>feel</em>?</h2>
+      <p class="hint">Take a breath and let the picture settle. There's no right answer.</p>
+      <div class="chipset">${FEELS.map((t) => `<button type="button" class="chip" data-feel="${esc(t)}" aria-pressed="${d.feel.includes(t)}">${esc(t)}</button>`).join("")}</div>
+      <div id="feel-note">${feelNote()}</div>
+      <p class="group-name" style="margin-top:22px">One small step toward it, this week</p>
+      <div class="options">${d.doms.flatMap((id) => dom(id).steps.map((s) => [id, s])).map(([id, s]) => `<button type="button" class="opt bal" data-step="${esc(s)}" aria-pressed="${d.step1 === s && !d.stepOwn.trim()}"><span class="icon" aria-hidden="true">${dom(id).icon}</span><span><b style="font-weight:500">${esc(s)}</b></span></button>`).join("")}</div>
+      <input type="text" data-field="stepOwn" maxlength="100" style="margin-top:8px" aria-label="Your own small step" placeholder="Or my own small step" value="${esc(d.stepOwn)}">
+      ${nav("Read My Letter", !!firstStep())}`,
+
+    3: () => {
+      if (!d.edited) d.letter = buildLetter();
+      return `
+      ${label("Step 4 of 4 · A letter from your future self")}
+      <h2 class="q" tabindex="-1">A letter from <em>${futureYear()}</em></h2>
+      <p class="hint">Read it slowly. Then make it yours: add your name, and change, add, or delete any words so it sounds like you.</p>
+      <div class="field" style="margin:0 0 14px"><label for="lt-name">Your first name <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+        <input type="text" id="lt-name" data-field="name" maxlength="40" autocomplete="off" placeholder="e.g. Woohee" value="${esc(d.name)}"></div>
+      <div class="letter editable"><p class="edit-hint">✎ Tap anywhere in the letter to edit</p><textarea id="letter" data-field="letter" aria-label="Your letter from your future self. You can edit it.">${esc(d.letter)}</textarea></div>
+      <p class="erase-row" style="margin-top:8px"><button type="button" class="btn-text" data-act="reset-letter"${d.edited ? "" : " hidden"} id="reset-letter">Reset to the original wording</button></p>
+      ${nav("Keep My Letter")}`;
+    },
+
+    4: () => `
+      <article class="card fade-in">
+        <div class="print-head"><b>Best Possible Self · A letter from ${futureYear()}</b><span id="ph-line"></span></div>
+        ${label("Your best possible self")}
+        <h2 class="q" tabindex="-1">A letter from <em>${futureYear()}</em></h2>
+        <div class="letter"><p class="letter-say">${esc(d.letter || buildLetter())}</p></div>
+        <div class="card-sec"><h3>My first small step</h3><p>${esc(sentence(firstStep()))}</p></div>
+        <p class="callout" style="margin-top:20px"><strong>Come back to this.</strong> Rereading your letter, or imagining this future for a few minutes now and then, can help you keep it in view.</p>
+        ${sessionNote()}
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="photo">Save as Photo</button>
+        <button type="button" class="btn btn-ghost" data-act="email">Email It</button>
+        <button type="button" class="btn btn-ghost" data-act="print">Print or Save as PDF</button>
+        <button type="button" class="btn btn-ghost" data-act="copy">Copy</button>
+        <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      ${photoBoxHTML("Your letter from your future self.", "my-future-self-letter.png")}
+      <p class="erase-row"><button type="button" class="btn-text" data-act="back">← Back</button> · <button type="button" class="btn-text" data-act="restart">Start again</button></p>`
+  };
+  function feelNote() {
+    if (d.feel.includes("unsure") || d.feel.includes("a little sad")) return `<p class="callout warm feel-note">It's okay if imagining this brings up doubt or sadness. It can mean this future really matters to you, or that things feel heavy right now. You don't have to believe it fully. Just let it be one possibility.</p>`;
+    if (d.feel.length) return `<p class="callout feel-note">Notice that feeling. It's a small taste of what you're moving toward.</p>`;
+    return "";
+  }
+
+  function render(focus = true) {
+    const same = lastView === d.step; lastView = d.step;
+    $("stage").innerHTML = views[d.step]();
+    if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
+    [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i <= d.step));
+    const ta = $("letter"); if (ta) { ta.style.height = "auto"; ta.style.height = ta.scrollHeight + 6 + "px"; }
+    if (focus) { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true }); }
+  }
+  function sync() {
+    const n = $("stage").querySelector('[data-act="next"]'); if (!n) return;
+    if (d.step === 0) n.disabled = !(d.horizon && d.doms.length);
+    if (d.step === 1) n.disabled = !anyImage();
+    if (d.step === 2) n.disabled = !firstStep();
+  }
+  function letterText() {
+    const L = [`BEST POSSIBLE SELF · a letter from ${futureYear()}`, ""];
+    if (therapist) L.push(`For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`, "");
+    L.push(d.letter || buildLetter(), "", "My first small step: " + sentence(firstStep()), "", "Best Possible Self · wooheekwak.me/tools/best-possible-self.html");
+    return L.join("\n");
+  }
+  function photoSpec() {
+    return { eyebrow: `A letter from ${futureYear()}`, blocks: [{ text: d.letter || buildLetter() }, { h: "My first small step", quote: sentence(firstStep()) }], footer: "Best Possible Self · wooheekwak.me" };
+  }
+
+  $("stage").addEventListener("input", (e) => {
+    const t = e.target;
+    if (t.dataset.own) { d.own[t.dataset.own] = t.value; d.edited = false; sync(); return; }
+    const f = t.dataset.field; if (!f) return; d[f] = t.value;
+    if (f === "name") {
+      const nm = t.value.trim(), ta = $("letter");
+      if (!d.edited) d.letter = buildLetter();
+      else d.letter = d.letter.replace(/^Dear [^\n]*,/, `Dear ${nm || "me"},`).replace(/^[^\n,]*, in (\d{4})$/m, `${nm || "Me"}, in $1`);
+      if (ta) { ta.value = d.letter; ta.style.height = "auto"; ta.style.height = ta.scrollHeight + 6 + "px"; }
+      return;
+    }
+    if (f === "letter") { d.edited = true; t.style.height = "auto"; t.style.height = t.scrollHeight + 6 + "px"; const r = $("reset-letter"); if (r) r.hidden = false; }
+    else d.edited = false;
+    if (f === "stepOwn" && t.value.trim()) $("stage").querySelectorAll("[data-step]").forEach((b) => b.setAttribute("aria-pressed", "false"));
+    sync();
+  });
+  $("stage").addEventListener("click", (e) => {
+    const t = e.target;
+    const hz = t.closest("[data-hz]"); if (hz) { d.horizon = hz.dataset.hz; d.edited = false; $("stage").querySelectorAll("[data-hz]").forEach((b) => b.setAttribute("aria-pressed", b === hz)); sync(); return; }
+    const dm = t.closest("[data-dom]"); if (dm) { const v = dm.dataset.dom, i = d.doms.indexOf(v); if (i >= 0) d.doms.splice(i, 1); else if (d.doms.length < MAXD) d.doms.push(v); d.edited = false; render(false); return; }
+    const im = t.closest("[data-img]"); if (im) { const id = im.dataset.d, v = im.dataset.img, a = d.picks[id] = d.picks[id] || [], i = a.indexOf(v); i >= 0 ? a.splice(i, 1) : a.push(v); im.setAttribute("aria-pressed", i < 0); d.edited = false; sync(); return; }
+    const fe = t.closest("[data-feel]"); if (fe) { const v = fe.dataset.feel, i = d.feel.indexOf(v); i >= 0 ? d.feel.splice(i, 1) : d.feel.push(v); fe.setAttribute("aria-pressed", i < 0); $("feel-note").innerHTML = feelNote(); return; }
+    const st = t.closest("[data-step]"); if (st) { d.step1 = st.dataset.step; d.stepOwn = ""; const inp = $("stage").querySelector('[data-field="stepOwn"]'); if (inp) inp.value = ""; $("stage").querySelectorAll("[data-step]").forEach((b) => b.setAttribute("aria-pressed", b === st)); d.edited = false; sync(); return; }
+    const btn = t.closest("[data-act]"), a = btn?.dataset.act; if (!a) return;
+    if (a === "next") { d.step = Math.min(d.step + 1, STEPS - 1); render(); }
+    else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
+    else if (a === "restart") { d = blank(); render(); }
+    else if (a === "reset-letter") { d.edited = false; d.letter = buildLetter(); render(false); }
+    else if (a === "photo") showPhoto(btn, photoSpec(), "my-future-self-letter.png");
+    else if (a === "photo-close") $("photo-box").hidden = true;
+    else if (a === "email") emailMe(`A letter from my future self (${futureYear()})`, letterText());
+    else if (a === "print") printNow();
+    else if (a === "copy") copyText(letterText());
+  });
+  render(false);
+})();
+</script>
+</body>
+</html>
