@@ -230,6 +230,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .dial-q { font-weight: 500; margin: 0 0 6px; }
 .timer-box { margin-top: 16px; background: var(--surface); border: 1px solid #CFE0D4; border-radius: 18px; padding: 16px 18px; text-align: center; }
 .timer-box .t { font-family: var(--font-display); font-size: 40px; line-height: 1; margin: 4px 0 8px; font-variant-numeric: tabular-nums; }
+.timer-box .remind { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; }
+.timer-box input[type=date], .timer-box input[type=time] { font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.timer-box textarea { font-size: 15px; text-align: left; }
+.rope-mini { background: linear-gradient(180deg, #FBF6EF, #F3EEE6); border-radius: 16px; padding: 6px 0 0; margin: 4px 0 14px; }
 .willing { font-family: var(--font-display); font-size: clamp(20px, 3.6vw, 24px); line-height: 1.5; margin: 6px 0 0; }
 .willing em { color: var(--accent); }
 </style>
@@ -415,31 +419,35 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const PAIN = 5;
 
   /* ================== VISUAL: tug of war ================== */
-  function ropeSVG(s) {
-    const k = s / 10, size = 0.75 + k * 0.75; // the feeling grows as you pull
-    const sag = 34 - k * 30;                   // rope goes taut with struggle
-    const pullX = 150 - k * 30;               // you lean back
-    const dropped = s === 0;
-    const rope = dropped ? `M${pullX + 8} 150 Q 260 182 360 170` : `M${pullX + 8} 112 Q 255 ${112 + sag} ${384 - k * 10} 112`;
-    return `<svg class="rope-svg" viewBox="0 0 520 210" aria-hidden="true">
-      <ellipse cx="260" cy="190" rx="240" ry="10" fill="rgba(120,90,60,.07)"/>
+  const lerp = (a, b, t) => a + (b - a) * t;
+  // s: how hard you pull (0 to 10). t: how far the rope has dropped (0 = in your hands, 1 = on the ground).
+  function ropeSVG(s, t = 0, small = false) {
+    const k = s / 10, size = (0.75 + k * 0.75) * (1 - t * 0.12);
+    const pullX = 150 - k * 30, lean = -k * 14 * (1 - t);
+    const L = [lerp(pullX + 8, pullX + 22, t), lerp(112, 184, t)], R = [lerp(384 - k * 10, 368, t), lerp(112, 184, t)];
+    const C = [lerp(255, 268, t), lerp(112 + (34 - k * 30), 194, t)];
+    const arm = [lerp(70, 34, t), lerp(112, 136, t)];
+    const mouthY = lerp(s >= 5 ? 132 : 144, 145, t), blobY = t * 10;
+    const tone = t > 0.6 ? "#D9C6BD" : s >= 7 ? "#B98C7A" : s >= 3 ? "#C8A698" : "#D9C6BD";
+    return `<svg class="rope-svg" viewBox="0 0 520 210" aria-hidden="true"${small ? ' style="max-width:320px;margin:0 auto"' : ""}>
       <defs><radialGradient id="pitg" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#6E5A4B" stop-opacity=".55"/><stop offset=".7" stop-color="#9C8574" stop-opacity=".25"/><stop offset="1" stop-color="#C8B8A6" stop-opacity="0"/></radialGradient></defs>
+      <ellipse cx="260" cy="190" rx="240" ry="10" fill="rgba(120,90,60,.07)"/>
       <ellipse cx="262" cy="188" rx="58" ry="12" fill="url(#pitg)"/>
-      <text x="262" y="207" text-anchor="middle" font-size="11" fill="#8A7E72" font-family="DM Sans, sans-serif">the pit</text>
-      <g transform="translate(${pullX - 40}, 0) rotate(${dropped ? 0 : -k * 14} 40 150)">
+      ${small ? "" : `<text x="262" y="207" text-anchor="middle" font-size="11" fill="#8A7E72" font-family="DM Sans, sans-serif">the pit</text>`}
+      <g transform="translate(${pullX - 40}, 0) rotate(${lean.toFixed(1)} 40 150)">
         <circle cx="40" cy="64" r="17" fill="#C9D9CF"/>
         <path d="M40 82 C28 90 26 120 30 150 L50 150 C54 120 52 90 40 82 Z" fill="#C9D9CF"/>
         <path d="M34 150 L28 182 M46 150 L54 182" stroke="#C9D9CF" stroke-width="9" stroke-linecap="round"/>
-        <path d="M44 100 L${dropped ? 30 : 70} ${dropped ? 132 : 112}" stroke="#C9D9CF" stroke-width="8" stroke-linecap="round"/>
+        <path d="M44 100 L${arm[0].toFixed(1)} ${arm[1].toFixed(1)}" stroke="#C9D9CF" stroke-width="8" stroke-linecap="round"/>
       </g>
-      <path class="rope" d="${rope}" fill="none" stroke="#B9A385" stroke-width="5" stroke-linecap="round" stroke-dasharray="${dropped ? "0" : "0"}"/>
-      <g class="blob" style="transform: scale(${size.toFixed(2)})">
-        <path d="M410 88 C440 70 478 86 482 118 C488 150 462 172 430 170 C398 168 380 146 384 118 C386 102 396 94 410 88 Z" fill="${s >= 7 ? "#B98C7A" : s >= 3 ? "#C8A698" : "#D9C6BD"}"/>
+      <path d="M${L[0].toFixed(1)} ${L[1].toFixed(1)} Q ${C[0].toFixed(1)} ${C[1].toFixed(1)} ${R[0].toFixed(1)} ${R[1].toFixed(1)}" fill="none" stroke="#B9A385" stroke-width="5" stroke-linecap="round"/>
+      <g transform="translate(0 ${blobY.toFixed(1)})"><g class="blob" style="transform: scale(${size.toFixed(3)})">
+        <path d="M410 88 C440 70 478 86 482 118 C488 150 462 172 430 170 C398 168 380 146 384 118 C386 102 396 94 410 88 Z" fill="${tone}"/>
         <circle cx="420" cy="118" r="3.2" fill="#5A4A44"/><circle cx="446" cy="116" r="3.2" fill="#5A4A44"/>
-        <path d="M422 138 Q434 ${s >= 5 ? 132 : 144} 446 138" stroke="#5A4A44" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      </g>
-      <text x="${pullX}" y="40" text-anchor="middle" font-size="12" fill="#5A6370" font-family="DM Sans, sans-serif">you</text>
-      <text x="432" y="${s >= 7 ? 46 : 62}" text-anchor="middle" font-size="12" fill="#5A6370" font-family="DM Sans, sans-serif">${esc(d.feel[0] || "the feeling")}</text>
+        <path d="M422 138 Q434 ${mouthY.toFixed(1)} 446 138" stroke="#5A4A44" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </g></g>
+      ${small ? "" : `<text x="${pullX}" y="40" text-anchor="middle" font-size="12" fill="#5A6370" font-family="DM Sans, sans-serif">you</text>
+      <text x="432" y="${s >= 7 && t < 0.5 ? 46 : 62}" text-anchor="middle" font-size="12" fill="#5A6370" font-family="DM Sans, sans-serif">${esc(d.feel[0] || "the feeling")}</text>`}
     </svg>`;
   }
   function ropeMsg(s) {
@@ -448,13 +456,34 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (s <= 6) return "The harder you pull, the more the feeling pulls back.";
     return "Pulling with everything you have. The feeling grows, and you're stuck at the edge of the pit.";
   }
+  let dropT = 0, dropAnim = null;
+  function paintRope(sv, t) {
+    $("rope-box").innerHTML = ropeSVG(sv, t);
+    const r = Math.round(sv); $("eq-str").textContent = r; $("eq-suf").textContent = PAIN * r;
+    $("eq-suf").style.color = r >= 7 ? "#B0452A" : r >= 3 ? "#B07A63" : "#476B56";
+  }
   function updateRope() {
-    const s = d.struggle;
-    $("rope-box").innerHTML = ropeSVG(s);
-    $("eq-str").textContent = s; $("eq-suf").textContent = PAIN * s;
-    $("eq-suf").style.color = s >= 7 ? "#B0452A" : s >= 3 ? "#B07A63" : "#476B56";
+    const s = d.struggle; if (s > 0) dropT = 0; else if (!dropAnim) dropT = 1;
+    paintRope(s, dropT);
     $("rope-msg").textContent = ropeMsg(s);
     const btn = $("drop-btn"); if (btn) btn.textContent = s === 0 ? "Pick it back up" : "Drop the rope";
+  }
+  function animateDrop() {
+    const s0 = d.struggle, dur = reduceMotion ? 0 : 1800, t0 = performance.now();
+    d.struggle = 0; $("struggle").value = 0;
+    $("drop-btn").textContent = "Pick it back up";
+    if (!dur) { dropT = 1; updateRope(); return; }
+    $("rope-msg").textContent = "Letting go…";
+    const ease = (x) => 1 - Math.pow(1 - x, 3), bounce = (x) => x < 0.75 ? ease(x / 0.75) * 1.04 : 1.04 - 0.04 * ((x - 0.75) / 0.25);
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const p1 = Math.min(1, p / 0.4), p2 = Math.max(0, (p - 0.35) / 0.65);
+      const sv = lerp(s0, 0, ease(p1)), t = Math.min(1.04, bounce(p2));
+      paintRope(sv, Math.min(1, t));
+      if (p < 1 && $("rope-box")) dropAnim = requestAnimationFrame(step);
+      else { dropAnim = null; dropT = 1; updateRope(); }
+    };
+    cancelAnimationFrame(dropAnim); dropAnim = requestAnimationFrame(step);
   }
 
   /* ================== VIEWS ================== */
@@ -529,6 +558,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <div class="print-head"><b>Drop the Rope</b><span id="ph-line"></span></div>
         ${label("My willing step")}
         <h2 class="q" tabindex="-1">I'm dropping the <em>rope</em></h2>
+        <div class="rope-mini" aria-hidden="true">${ropeSVG(0, 1, true)}</div>
         <p class="willing">I'm willing to feel <em>${esc(feelText())}</em> so I can move toward <em>${esc(lcFirst(whyText()))}</em>.</p>
         <div class="card-sec"><h3>My smallest start</h3><p>${esc(startText())}${avoidText() ? ` · ${esc(lcFirst(avoidText()))}` : ""}</p></div>
         <div class="card-sec"><h3>When I want to avoid it</h3><ul>
@@ -538,12 +568,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <p class="callout" style="margin-top:20px"><strong>The feeling can come along.</strong> You don't have to feel ready, motivated, or calm to take one small step.</p>
         ${sessionNote()}
       </article>
-      <div class="timer-box no-print" id="timer-box">
-        <p class="hint" style="margin:0">Ready? Start your smallest step now, with the feeling along for the ride.</p>
-        <p class="t" id="run-t">2:00</p>
-        <div class="actions" style="justify-content:center;margin:0"><button type="button" class="btn btn-primary" data-act="run" id="run-btn">Start 2 Minutes</button></div>
-        <p class="hint" id="run-note" style="margin:8px 0 0"></p>
-      </div>
+      ${followThrough()}
       <div class="actions">
         <button type="button" class="btn btn-primary" data-act="photo">Save as Photo</button>
         <button type="button" class="btn btn-ghost" data-act="email">Email It</button>
@@ -579,16 +604,62 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     };
     next();
   }
-  /* ---------- 2-minute start ---------- */
-  function runStart() {
-    clearInterval(runTimer); let left = 120;
-    const msgs = { 100: "The feeling can come along. Keep going.", 60: "Halfway. Notice: you're doing it.", 20: "Almost there." };
+  /* ---------- follow-through, matched to the smallest start ---------- */
+  const KIND = { "Do it for just 2 minutes": "t2", "Do the smallest first part": "t5", "Open the file, email, or app": "now", "Write one sentence": "now", "Put it on my calendar": "cal", "Ask someone for help": "msg", "Tell someone I'm starting": "msg" };
+  const fmt = (n) => `${Math.floor(n / 60)}:${String(n % 60).padStart(2, "0")}`;
+  function timerHTML(mins, lead) {
+    return `<p class="hint" style="margin:0">${lead}</p><p class="t" id="run-t">${fmt(mins * 60)}</p>
+      <div class="actions" style="justify-content:center;margin:0"><button type="button" class="btn btn-primary" data-act="run" data-mins="${mins}" id="run-btn">Start ${mins} Minutes</button></div>
+      <p class="hint" id="run-note" style="margin:8px 0 0"></p>`;
+  }
+  function followThrough() {
+    const kind = d.startOwn.trim() ? "own" : KIND[d.start] || "own", task = lcFirst(avoidText());
+    let inner = "";
+    if (kind === "t2") inner = timerHTML(2, "Ready? Start your 2 minutes now, with the feeling along for the ride.");
+    else if (kind === "t5") inner = timerHTML(5, "Ready? Give the smallest first part 5 minutes, with the feeling along for the ride.");
+    else if (kind === "now") inner = `<p class="hint" style="margin:0">This one takes less than a minute. Could you do it right now, before the feeling talks you out of it?</p>
+      <div class="actions" style="justify-content:center;margin:12px 0 0"><button type="button" class="btn btn-primary" data-act="did-it" id="did-btn">I Did It</button></div>
+      <p class="hint" id="did-note" style="margin:8px 0 0"></p>`;
+    else if (kind === "cal") inner = `<p class="hint" style="margin:0">Pick a time, and it goes on your own calendar with a reminder.</p>
+      <div class="remind" style="justify-content:center"><input type="date" id="cal-date" value="${(() => { const t = new Date(Date.now() + 864e5); return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`; })()}" aria-label="Day"><input type="time" id="cal-time" value="10:00" aria-label="Time">
+      <button type="button" class="btn btn-primary" data-act="cal" style="min-height:42px;padding:10px 18px">Add to Calendar</button></div>
+      <p class="hint" id="cal-note" style="margin:8px 0 0">Your calendar keeps it, not this site.</p>`;
+    else if (kind === "msg") {
+      const ask = d.start === "Ask someone for help";
+      const msg = ask ? `Hi, I've been putting off ${task}, and I could use a hand. Would you be up for helping me with it, or just keeping me company while I start?` : `Hi, I've been putting off ${task}. I'm starting it now, and I'm telling you so I follow through. Feel free to check in on me!`;
+      inner = `<p class="hint" style="margin:0">${ask ? "Asking for help is a willing step too." : "Saying it out loud makes it easier to follow through."} Here's a message you can edit and send:</p>
+      <textarea id="msg-text" rows="4" style="margin-top:10px" aria-label="Your message">${esc(msg)}</textarea>
+      <div class="actions" style="justify-content:center;margin:10px 0 0">
+        <button type="button" class="btn btn-primary" data-act="msg-sms" style="min-height:42px">Text It</button>
+        <button type="button" class="btn btn-ghost" data-act="msg-email" style="min-height:42px">Email It</button>
+        <button type="button" class="btn btn-ghost" data-act="msg-copy" style="min-height:42px">Copy</button></div>
+      <p class="hint" id="msg-note" style="margin:8px 0 0">It opens your own messages or email app, and you choose who it goes to.</p>`;
+    }
+    else inner = `<p class="hint" style="margin:0">Want a little structure to begin? <button type="button" class="btn-text" data-act="own-timer" data-mins="2">2-minute timer</button> · <button type="button" class="btn-text" data-act="own-timer" data-mins="5">5-minute timer</button></p><div id="own-timer"></div>`;
+    return `<div class="timer-box no-print" id="timer-box">${inner}</div>`;
+  }
+  function saveIcs() {
+    const dt = $("cal-date").value, tm = $("cal-time").value || "10:00"; if (!dt) return;
+    const p2 = (n) => String(n).padStart(2, "0"), [y, mo, da] = dt.split("-"), [hh, mm] = tm.split(":");
+    const now = new Date(), stamp = `${now.getUTCFullYear()}${p2(now.getUTCMonth() + 1)}${p2(now.getUTCDate())}T${p2(now.getUTCHours())}${p2(now.getUTCMinutes())}00Z`;
+    const ex = (t) => t.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+    const title = "Start: " + avoidText(), body = `My smallest start. I'm willing to feel ${feelText()} so I can move toward ${lcFirst(whyText())}. The feeling can come along.`;
+    const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//wooheekwak.me//Drop the Rope//EN", "BEGIN:VEVENT", `UID:${Date.now()}@wooheekwak.me`, `DTSTAMP:${stamp}`, `DTSTART:${y}${mo}${da}T${hh}${mm}00`, "DURATION:PT15M",
+      `SUMMARY:${ex(title)}`, `DESCRIPTION:${ex(body)}`, "BEGIN:VALARM", "ACTION:DISPLAY", "TRIGGER:-PT5M", `DESCRIPTION:${ex(title)}`, "END:VALARM", "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+    const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" })), a = document.createElement("a");
+    a.href = url; a.download = "my-smallest-start.ics"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 4000);
+    $("cal-note").textContent = "Done. Open the file to add it to your calendar. That's your willing step.";
+  }
+  function runStart(mins = 2) {
+    clearInterval(runTimer); let left = mins * 60;
+    if (!$("run-t")) return;
+    const msgs = { [left - 20]: "The feeling can come along. Keep going.", [Math.floor(left / 2)]: "Halfway. Notice: you're doing it.", 20: "Almost there." };
     $("run-btn").textContent = "Restart"; $("run-note").textContent = "You've started. That's the hardest part.";
     runTimer = setInterval(() => {
       left--; if (!$("run-t")) { clearInterval(runTimer); return; }
       $("run-t").textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
       if (msgs[left]) $("run-note").textContent = msgs[left];
-      if (left <= 0) { clearInterval(runTimer); $("run-note").textContent = "Two minutes done. Keep going if you'd like, or stop here. Either way, you did it."; $("run-btn").textContent = "Two More Minutes"; }
+      if (left <= 0) { clearInterval(runTimer); $("run-note").textContent = "Time's up. Keep going if you'd like, or stop here. Either way, you did it."; $("run-btn").textContent = `${mins} More Minutes`; }
     }, 1000);
   }
 
@@ -627,7 +698,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 
   $("stage").addEventListener("input", (e) => {
     const t = e.target, f = t.dataset.field; if (!f) return;
-    if (t.type === "range") { d[f] = +t.value; if (f === "struggle") updateRope(); if (f === "willing") $("dial-note").textContent = dialNote(); return; }
+    if (t.type === "range") { d[f] = +t.value; if (f === "struggle") { cancelAnimationFrame(dropAnim); dropAnim = null; updateRope(); } if (f === "willing") $("dial-note").textContent = dialNote(); return; }
     d[f] = t.value;
     if (f === "avoidOwn" && t.value.trim()) $("stage").querySelectorAll("[data-avoid]").forEach((b) => b.setAttribute("aria-pressed", "false"));
     if (f === "whyOwn" && t.value.trim()) $("stage").querySelectorAll('[data-k="why"]').forEach((b) => b.setAttribute("aria-pressed", "false"));
@@ -646,9 +717,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (a === "next") { d.step = Math.min(d.step + 1, STEPS - 1); render(); }
     else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
     else if (a === "restart") { d = blank(); render(); }
-    else if (a === "drop") { d.struggle = d.struggle === 0 ? 8 : 0; $("struggle").value = d.struggle; updateRope(); }
+    else if (a === "drop") { if (dropAnim) return; if (d.struggle === 0) { d.struggle = 8; $("struggle").value = 8; updateRope(); } else animateDrop(); }
     else if (a === "room-start") runRoom();
-    else if (a === "run") runStart();
+    else if (a === "run") runStart(+btn.dataset.mins || 2);
+    else if (a === "own-timer") { $("own-timer").innerHTML = timerHTML(+btn.dataset.mins, "Start whenever you're ready."); }
+    else if (a === "did-it") { btn.disabled = true; btn.textContent = "Done ✓"; $("did-note").textContent = "You did it, even with the feeling there. Notice how it feels now. Want to keep going a little longer?"; }
+    else if (a === "cal") saveIcs();
+    else if (a === "msg-sms") { window.location.href = "sms:?&body=" + encodeURIComponent($("msg-text").value); }
+    else if (a === "msg-email") { window.location.href = "mailto:?subject=" + encodeURIComponent("A small favor") + "&body=" + encodeURIComponent($("msg-text").value); }
+    else if (a === "msg-copy") { const s0 = $("copy-status"); copyText($("msg-text").value); $("msg-note").textContent = "Copied. Paste it wherever you message them."; }
     else if (a === "photo") showPhoto(btn, photoSpec(), "my-willing-step.png");
     else if (a === "photo-close") $("photo-box").hidden = true;
     else if (a === "email") emailMe("My willing step", cardText());
