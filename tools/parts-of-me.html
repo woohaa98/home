@@ -67,8 +67,20 @@ h1 em, .q em { color: var(--warm); font-style: italic; }
 .sys figcaption { font-size: 14px; color: var(--muted); line-height: 1.55; max-width: 46ch; margin: 4px auto 0; }
 .sys figcaption b { color: var(--ink); font-weight: 600; }
 .picon { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 19px; background: var(--sand); }
-.blend-svg { width: 100%; max-width: 380px; height: auto; display: block; margin: 6px auto 4px; }
-.blend-svg circle { transition: cx .4s ease, opacity .4s; }
+.rel-svg { width: 100%; max-width: 400px; height: auto; display: block; margin: 4px auto; }
+.rel-svg .self-glow { animation: selfglow 5s ease-in-out infinite; }
+.rel-svg .flow { animation: flow 1.6s linear infinite; }
+.rel-svg circle, .rel-svg text { transition: cx .4s ease, x .4s ease, opacity .4s; }
+@media (prefers-reduced-motion: reduce) { .rel-svg .self-glow, .rel-svg .flow { animation: none; } }
+.relfig { margin: 0 0 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 16px 14px; box-shadow: var(--shadow); }
+.relfig.final { box-shadow: none; background: #FFFCF5; }
+.relfig figcaption { text-align: center; font-size: 14px; color: var(--muted); margin-top: 2px; }
+.learned { border-top: 1px solid var(--line); margin-top: 6px; padding-top: 10px; display: grid; gap: 6px; }
+.learned-h { margin: 0 0 2px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.lrow { margin: 0; font-size: 14px; line-height: 1.5; display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 8px; }
+.lrow span { color: var(--muted); }
+.lrow.empty { color: #B9AC9B; }
+@media (max-width: 480px) { .lrow { grid-template-columns: 1fr; gap: 0; } }
 @media (prefers-reduced-motion: reduce) { .sys .self-glow, .sys .fore circle, .sys .fore text, .sys .flow { animation: none; } }
 .step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
 .q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
@@ -364,16 +376,50 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     return "We all have many parts. Many are protectors, gathered around a calm, wise <b>Self</b> that can listen to each of them.";
   }
   const mapBlock = () => `<figure class="sys">${systemMap()}<figcaption>${mapCaption()}</figcaption></figure>`;
-  function blendSVG(b) {
-    const k = b / 10, sep = 112 * (1 - k), cx = 180, P = FAMILY[partGroup()] || FAMILY.manager;
-    const sx = cx - sep / 2 - 6, px = cx + sep / 2 + 6;
-    return `<svg viewBox="0 0 360 150" class="blend-svg" aria-hidden="true">
-      <circle cx="${sx.toFixed(1)}" cy="72" r="50" fill="#FFF4D6" stroke="#E2B865" stroke-width="2" opacity=".92"/>
-      <circle cx="${px.toFixed(1)}" cy="72" r="50" fill="${P.soft}" stroke="${P.color}" stroke-width="2" opacity="${(0.65 + k * 0.3).toFixed(2)}"/>
-      <text x="${(sx - 18).toFixed(1)}" y="77" text-anchor="middle" font-size="14" fill="#7A5A1E" font-family="Lora, serif" font-style="italic">Self</text>
-      <text x="${(px + 18).toFixed(1)}" y="80" text-anchor="middle" font-size="20">${ICONS[d.part] || "✏️"}</text>
-      <text x="180" y="142" text-anchor="middle" font-size="12" fill="#5A6370" font-family="DM Sans, sans-serif">${b >= 7 ? "Very blended: it's hard to tell where the part ends and you begin" : b >= 4 ? "Partly blended: you can sense it, and a little space is opening" : "Unblended: you can see the part clearly, from your Self"}</text>
+  /* ---------- Self and the part, side by side (steps 4 to 7) ---------- */
+  const SOFTER = ["It softened a little", "It relaxed", "It felt surprised", "It felt seen"], GUARD = ["It's still on guard", "It didn't trust me yet"];
+  function relationSVG(o) {
+    const sep = o.sep, cx = 180, sx = cx - sep / 2, px = cx + sep / 2, F = FAMILY[partGroup()] || FAMILY.manager;
+    const nm = partName(), lbl = nm.length > 22 ? nm.slice(0, 21) + "…" : nm;
+    const overlap = sep < 88;
+    const line = o.line && !overlap ? (o.line === "heart"
+      ? `<line x1="${sx + 46}" y1="78" x2="${px - 42}" y2="78" stroke="#E0B55E" stroke-width="2"/><text class="heart" font-size="14" y="83"><tspan>💛</tspan><animate attributeName="x" from="${sx + 40}" to="${px - 52}" dur="2.6s" repeatCount="indefinite"/></text>`
+      : `<line x1="${sx + 46}" y1="78" x2="${px - 42}" y2="78" stroke="#D4A24C" stroke-width="2" stroke-dasharray="3 5" class="flow"/>`) : "";
+    return `<svg viewBox="0 0 360 170" class="rel-svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="rhalo"><stop offset="0" stop-color="#F9DFA6" stop-opacity=".9"/><stop offset=".6" stop-color="#F6D490" stop-opacity=".35"/><stop offset="1" stop-color="#F6D490" stop-opacity="0"/></radialGradient>
+        <radialGradient id="rcore" cx=".4" cy=".35"><stop offset="0" stop-color="#FFFDF5"/><stop offset=".7" stop-color="#FFF3D6"/><stop offset="1" stop-color="#F8E2AE"/></radialGradient>
+        <radialGradient id="pglow"><stop offset="0" stop-color="#F9DFA6" stop-opacity=".7"/><stop offset="1" stop-color="#F9DFA6" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle cx="${sx.toFixed(1)}" cy="78" r="66" fill="url(#rhalo)" class="self-glow" style="transform-origin:${sx.toFixed(1)}px 78px"/>
+      ${o.glow ? `<circle cx="${px.toFixed(1)}" cy="78" r="62" fill="url(#pglow)" class="self-glow" style="transform-origin:${px.toFixed(1)}px 78px"/>` : ""}
+      ${line}
+      <circle cx="${px.toFixed(1)}" cy="78" r="40" fill="${overlap ? F.soft : o.glow ? "#FFFBF0" : "#fff"}" stroke="${o.glow ? "#E0B55E" : F.color}" stroke-width="${o.glow ? 2.6 : 2.2}" opacity="${overlap ? .9 : 1}"/>
+      <circle cx="${sx.toFixed(1)}" cy="78" r="44" fill="url(#rcore)" stroke="#E0B55E" stroke-width="2" opacity="${overlap ? .85 : 1}"/>
+      <text x="${(overlap ? sx - 14 : sx).toFixed(1)}" y="84" text-anchor="middle" font-size="19" fill="#7A5A1E" font-family="Lora, serif" font-style="italic">Self</text>
+      <text x="${(overlap ? px + 16 : px).toFixed(1)}" y="87" text-anchor="middle" font-size="24">${ICONS[d.part] || "✏️"}</text>
+      ${o.guard ? `<text x="${(px + 30).toFixed(1)}" y="${56}" text-anchor="middle" font-size="15">🛡️</text>` : ""}
+      <text x="${(overlap ? cx + 40 : px).toFixed(1)}" y="140" text-anchor="middle" font-size="13" fill="#2A2F35" font-family="Lora, serif" font-style="italic">${esc(lbl)}</text>
+      ${overlap ? "" : `<text x="${sx.toFixed(1)}" y="140" text-anchor="middle" font-size="10" letter-spacing="1.2" fill="#A07F3E" font-family="DM Sans, sans-serif">YOUR SELF</text>`}
+      ${o.caption ? `<text x="180" y="164" text-anchor="middle" font-size="12" fill="#5A6370" font-family="DM Sans, sans-serif">${esc(o.caption)}</text>` : ""}
     </svg>`;
+  }
+  function blendSVG(b) {
+    const k = b / 10;
+    return relationSVG({ sep: 30 + 120 * (1 - k), caption: b >= 7 ? "Very blended: hard to tell where the part ends and you begin" : b >= 4 ? "Partly blended: a little space is opening" : "Unblended: you can see the part clearly, from your Self" });
+  }
+  const LEARN = { q1: "😟 It fears", q2: "🛡️ Protects me from", q3: "⏳ Working since", q4: "💛 It needs" };
+  function learnedHTML(all) {
+    const rows = QUESTIONS.map((q) => [LEARN[q.key], answerText(q)]).filter(([, v]) => v || all);
+    if (!rows.length) return "";
+    return `<div class="learned"><p class="learned-h">What you${all ? "'re learning" : " learned"} about ${esc(midName())}</p>${rows.map(([k, v]) => `<p class="lrow${v ? "" : " empty"}"><span>${k}</span>${v ? esc(v) : "…"}</p>`).join("")}</div>`;
+  }
+  function thanksState() { const t = d.thanks; return { glow: t.some((x) => SOFTER.includes(x)), guard: t.some((x) => GUARD.includes(x)) }; }
+  function relBlock() {
+    if (step === 5) return `<figure class="relfig" id="relfig">${relationSVG({ sep: 150, line: "listen" })}${learnedHTML(true)}</figure>`;
+    if (step === 6) { const st = thanksState(); return `<figure class="relfig" id="relfig">${relationSVG({ sep: 150, line: "heart", glow: st.glow, guard: st.guard })}<figcaption>${st.glow ? `${esc(cap(midName()))} feels your appreciation. Notice that.` : st.guard ? "It's still on guard, and that's okay. Trust is built slowly." : "Offer a moment of thanks, from your Self to this part."}</figcaption></figure>`; }
+    if (step === 7) { const st = thanksState(); return `<figure class="relfig final">${relationSVG({ sep: 150, line: "heart", glow: st.glow, guard: st.guard })}${learnedHTML(false)}</figure>`; }
+    return "";
   }
 
   const BODY_PLACES = ["Chest", "Throat", "Stomach", "Shoulders", "Jaw", "Head", "Back", "Hands", "Whole body", "Hard to say"];
@@ -603,6 +649,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       return `
       <p class="step-label">Step 5 of 7 · Getting to know ${esc(partName())}</p>
       <h2 class="q" tabindex="-1">Stay <em>curious</em></h2>
+      ${relBlock()}
       <p class="subcount">Question ${sub + 1} of ${QUESTIONS.length}</p>
       <p class="prompt-card">${esc(cur.q(midName()))}</p>
       <p class="pick-hint">${cur.single ? "Tap the one that fits best." : "Tap any that fit. Go with your first sense."}</p>
@@ -623,6 +670,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     6: () => `
       <p class="step-label">Step 6 of 7 · Appreciation</p>
       <h2 class="q" tabindex="-1">Thank ${esc(partName())} for its <em>care</em></h2>
+      ${relBlock()}
       <p class="hint">This part has been working hard for you, maybe for a long time. Take a breath and offer it a moment of genuine appreciation, even just for its intention. You might say inwardly: "Thank you for trying to protect me."</p>
       <p class="pick-hint">How does it respond? Tap any that fit.</p>
       <div class="chipset answers" role="group" aria-label="How does it respond?">
@@ -654,6 +702,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <p class="part-pill">${esc(partName())}</p>
         <h2 class="q" tabindex="-1">Your Parts of Me <em>card</em></h2>
         <p class="hint">A record of today's exploration. You can copy it, print it, or bring it to a session.</p>
+        ${relBlock()}
         <dl class="summary">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}
           <div id="exp-row" ${experimentText() ? "" : "hidden"}><dt>A small experiment</dt><dd id="exp-val">${esc(experimentText())}</dd></div>
         </dl>
@@ -933,6 +982,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (step === 5 || step === 6) {
       const slot = $("reflect-slot");
       if (slot) slot.innerHTML = reflectBlock(step === 5 ? QUESTIONS[sub].key : "thanks");
+      const rf = $("relfig"); if (rf) rf.outerHTML = relBlock();
     }
     if (step === 7) {
       const t = experimentText();
