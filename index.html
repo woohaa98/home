@@ -808,16 +808,21 @@
   .finder-theme span { font-size: 1.05rem; }
   .finder-theme:hover { border-color: var(--sage); }
   .finder-theme[aria-expanded="true"] { background: var(--sage-dark, #476B56); border-color: var(--sage-dark, #476B56); color: #fff; }
-  .finder-opts:not([hidden]) { margin-top: 14px; animation: finderIn .3s ease both; }
+  .finder-opts:not([hidden]) { margin-top: 16px; animation: finderIn .3s ease both; }
+  .finder-opts { position: relative; background: #EEF4F0; border-radius: 18px; padding: 14px; }
+  .finder-opts::before { content: "Which of these fits best?"; grid-column: 1 / -1; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage-dark, #476B56); margin: 0 0 2px 4px; }
+  .finder-opts button { display: flex; gap: 12px; align-items: flex-start; }
+  .finder-opts button::before { content: ""; flex: none; width: 16px; height: 16px; margin-top: 2px; border-radius: 50%; border: 1.5px solid #A9BFB0; background: #fff; box-sizing: border-box; transition: all .2s; }
+  .finder-opts button[aria-pressed="true"]::before { border: 5px solid var(--sage-dark, #476B56); }
   @keyframes finderIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) { .finder-opts:not([hidden]) { animation: none; } }
   .finder-care { margin: 14px 0 0; font-size: 0.92rem; color: var(--text-mid); }
   .finder-care-btn { font: inherit; background: none; border: 0; padding: 0; cursor: pointer; color: var(--terracotta); text-decoration: underline; text-underline-offset: 3px; }
   .finder-care-btn[aria-pressed="true"] { font-weight: 600; }
   .finder-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
-  .finder-opts button { font: inherit; font-size: 0.95rem; text-align: left; cursor: pointer; background: var(--cream); border: 1px solid var(--divider); border-radius: 14px; padding: 13px 16px; color: var(--text-dark); line-height: 1.45; transition: border-color 0.2s, background-color 0.2s; }
+  .finder-opts button { font: inherit; font-size: 0.93rem; text-align: left; cursor: pointer; background: #fff; border: 1px solid #D5E3D9; border-radius: 12px; padding: 12px 14px; color: var(--text-dark); line-height: 1.45; transition: border-color 0.2s, box-shadow 0.2s; }
   .finder-opts button:hover { border-color: var(--sage); }
-  .finder-opts button[aria-pressed="true"] { background: #EEF4F0; border-color: var(--sage); }
+  .finder-opts button[aria-pressed="true"] { border-color: var(--sage-dark, #476B56); box-shadow: 0 0 0 1px var(--sage-dark, #476B56); }
   .finder-result { margin-top: 16px; padding: 16px 18px; border-radius: 16px; background: #EEF4F0; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; }
   .finder-result p { margin: 0; color: var(--text-dark); font-size: 0.95rem; line-height: 1.55; flex: 1 1 320px; }
   .finder-result p b { font-weight: 600; }
@@ -1402,7 +1407,7 @@
     <p class="finder-q" id="finder-q">Not sure where to start? <span>Pick what feels closest, then choose what fits.</span></p>
     <div class="finder-themes" role="group" aria-labelledby="finder-q">
       <button type="button" class="finder-theme" data-theme="feel" aria-expanded="false" aria-controls="fg-feel"><span aria-hidden="true">🌊</span>Big feelings &amp; anxious thoughts</button>
-      <button type="button" class="finder-theme" data-theme="stuck" aria-expanded="false" aria-controls="fg-stuck"><span aria-hidden="true">🪢</span>Stuck, low, or putting things off</button>
+      <button type="button" class="finder-theme" data-theme="stuck" aria-expanded="false" aria-controls="fg-stuck"><span aria-hidden="true">🌫️</span>Stuck, low, or putting things off</button>
       <button type="button" class="finder-theme" data-theme="rel" aria-expanded="false" aria-controls="fg-rel"><span aria-hidden="true">🤝</span>Relationships &amp; boundaries</button>
       <button type="button" class="finder-theme" data-theme="self" aria-expanded="false" aria-controls="fg-self"><span aria-hidden="true">🧭</span>Who I am &amp; what's next</button>
       <button type="button" class="finder-theme" data-theme="family" aria-expanded="false" aria-controls="fg-family"><span aria-hidden="true">🌳</span>Family &amp; culture</button>
