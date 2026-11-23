@@ -205,7 +205,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .dom input[type=text] { margin-top: 4px; }
 .letter { background: #FFFDF9; border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 4vw, 30px); box-shadow: var(--shadow); }
 .letter textarea { font-family: var(--font-display); font-size: 17.5px; line-height: 1.7; min-height: 340px; border: 0; padding: 0; background: transparent; }
-.letter textarea:focus { outline: 2px dashed #CFE0D4; outline-offset: 8px; }
+.letter textarea:focus { outline: none; }
+.letter.editable { border: 1.5px dashed #CFE0D4; transition: border-color .2s; }
+.letter.editable:focus-within { border: 1.5px solid var(--accent); }
+.edit-hint { margin: 0 0 10px; font-size: 13px; color: var(--accent); letter-spacing: .02em; }
 .letter-say { font-family: var(--font-display); font-size: 18px; line-height: 1.75; white-space: pre-wrap; margin: 0; }
 .feel-note { margin-top: 12px; }
 .feedback-line a { color: var(--accent); font-weight: 500; }
@@ -379,7 +382,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const MAXD = 3;
 
   /* ================== STATE (not saved) ================== */
-  const blank = () => ({ step: 0, horizon: "", doms: [], picks: {}, own: {}, feel: [], step1: "", stepOwn: "", letter: "", edited: false });
+  const blank = () => ({ step: 0, horizon: "", doms: [], picks: {}, own: {}, feel: [], step1: "", stepOwn: "", name: "", letter: "", edited: false });
   let d = blank(), lastView = -1;
   const STEPS = 5;
   $("progress").innerHTML = "<li></li>".repeat(STEPS);
@@ -392,7 +395,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 
   function buildLetter() {
     const h = horizon(), when = h ? h[1].toLowerCase() : "a little while from now";
-    const L = [`Dear me,`, ``, `I'm writing from ${futureYear()}, ${when}, and I want you to know how things turned out. Not perfectly, but well, and in a way that feels true to who we are.`, ``];
+    const nm = d.name.trim(); const L = [`Dear ${nm || "me"},`, ``, `I'm writing from ${futureYear()}, ${when}, and I want you to know how things turned out. Not perfectly, but well, and in a way that feels true to who we are.`, ``];
     let firstPara = true;
     d.doms.forEach((id) => { const imgs = imagesFor(id); if (!imgs.length) return;
       let para = imgs.map(sentence).join(" ");
@@ -400,7 +403,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       L.push(para, ""); });
     L.push(`It didn't happen all at once. There were hard days, and some days we didn't feel like trying. But you kept choosing small steps, and they added up.`);
     if (firstStep()) L.push(``, `It started with one small step, the week you decided to "${firstStep().charAt(0).toLowerCase() + firstStep().slice(1).replace(/[.!]+$/, "")}." Thank you for doing that.`);
-    L.push(``, `Be gentle with yourself on the way here. I'm proud of you.`, ``, `With love,`, `Me, in ${futureYear()}`);
+    L.push(``, `Be gentle with yourself on the way here. I'm proud of you.`, ``, `With love,`, `${nm ? nm + "," : "Me,"} in ${futureYear()}`);
     return L.join("\n");
   }
 
@@ -444,8 +447,11 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       return `
       ${label("Step 4 of 4 · A letter from your future self")}
       <h2 class="q" tabindex="-1">A letter from <em>${futureYear()}</em></h2>
-      <p class="hint">Read it slowly. Change any words so it sounds like you.</p>
-      <div class="letter"><textarea id="letter" data-field="letter" aria-label="Your letter from your future self">${esc(d.letter)}</textarea></div>
+      <p class="hint">Read it slowly. Then make it yours: add your name, and change, add, or delete any words so it sounds like you.</p>
+      <div class="field" style="margin:0 0 14px"><label for="lt-name">Your first name <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+        <input type="text" id="lt-name" data-field="name" maxlength="40" autocomplete="off" placeholder="e.g. Woohee" value="${esc(d.name)}"></div>
+      <div class="letter editable"><p class="edit-hint">✎ Tap anywhere in the letter to edit</p><textarea id="letter" data-field="letter" aria-label="Your letter from your future self. You can edit it.">${esc(d.letter)}</textarea></div>
+      <p class="erase-row" style="margin-top:8px"><button type="button" class="btn-text" data-act="reset-letter"${d.edited ? "" : " hidden"} id="reset-letter">Reset to the original wording</button></p>
       ${nav("Keep My Letter")}`;
     },
 
@@ -503,7 +509,14 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const t = e.target;
     if (t.dataset.own) { d.own[t.dataset.own] = t.value; d.edited = false; sync(); return; }
     const f = t.dataset.field; if (!f) return; d[f] = t.value;
-    if (f === "letter") { d.edited = true; t.style.height = "auto"; t.style.height = t.scrollHeight + 6 + "px"; }
+    if (f === "name") {
+      const nm = t.value.trim(), ta = $("letter");
+      if (!d.edited) d.letter = buildLetter();
+      else d.letter = d.letter.replace(/^Dear [^\n]*,/, `Dear ${nm || "me"},`).replace(/^[^\n,]*, in (\d{4})$/m, `${nm || "Me"}, in $1`);
+      if (ta) { ta.value = d.letter; ta.style.height = "auto"; ta.style.height = ta.scrollHeight + 6 + "px"; }
+      return;
+    }
+    if (f === "letter") { d.edited = true; t.style.height = "auto"; t.style.height = t.scrollHeight + 6 + "px"; const r = $("reset-letter"); if (r) r.hidden = false; }
     else d.edited = false;
     if (f === "stepOwn" && t.value.trim()) $("stage").querySelectorAll("[data-step]").forEach((b) => b.setAttribute("aria-pressed", "false"));
     sync();
@@ -519,6 +532,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (a === "next") { d.step = Math.min(d.step + 1, STEPS - 1); render(); }
     else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
     else if (a === "restart") { d = blank(); render(); }
+    else if (a === "reset-letter") { d.edited = false; d.letter = buildLetter(); render(false); }
     else if (a === "photo") showPhoto(btn, photoSpec(), "my-future-self-letter.png");
     else if (a === "photo-close") $("photo-box").hidden = true;
     else if (a === "email") emailMe(`A letter from my future self (${futureYear()})`, letterText());
