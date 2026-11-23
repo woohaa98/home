@@ -75,6 +75,18 @@ h1 em, .q em { color: var(--warm); font-style: italic; }
 .relfig { margin: 0 0 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 16px 14px; box-shadow: var(--shadow); }
 .relfig.final { box-shadow: none; background: #FFFCF5; }
 .relfig figcaption { text-align: center; font-size: 14px; color: var(--muted); margin-top: 2px; }
+.thanks-moment { position: relative; text-align: center; margin: 0 0 6px; padding: 26px 20px 22px; border-radius: 22px; background: radial-gradient(120% 90% at 50% 0%, #FFF6DF, #FFFBF2 55%, #FFFDF8); border: 1px solid #F0DDB0; box-shadow: 0 10px 34px rgba(224,181,94,.18); }
+.tm-label { margin: 0 0 10px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #A07F3E; }
+.tm-words { margin: 0 auto 16px; max-width: 22ch; font-family: var(--font-display); font-style: italic; font-size: clamp(24px, 5.4vw, 32px); line-height: 1.35; color: #5C4413; }
+.tm-words span { display: inline-block; opacity: 0; animation: word .9s ease forwards; }
+@keyframes word { from { opacity: 0; transform: translateY(6px); filter: blur(2px); } to { opacity: 1; transform: none; filter: none; } }
+.tm-alts { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 0 0 16px; }
+.tm-alt { appearance: none; font: inherit; font-size: 13px; cursor: pointer; padding: 6px 12px; border-radius: 999px; border: 1px solid #EAD7AC; background: rgba(255,255,255,.7); color: #7A5A1E; }
+.tm-alt[aria-pressed="true"] { background: #F6E3B4; border-color: #D9B25F; }
+.tm-breath { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
+.btn.tm-send { background: #C08A2B; border-color: #C08A2B; color: #fff; box-shadow: 0 6px 18px rgba(192,138,43,.28); }
+.btn.tm-send:hover { background: #A8771F; border-color: #A8771F; }
+@media (prefers-reduced-motion: reduce) { .tm-words span { animation: none; opacity: 1; } }
 .learned { border-top: 1px solid var(--line); margin-top: 6px; padding-top: 10px; display: grid; gap: 6px; }
 .learned-h { margin: 0 0 2px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-align: center; }
 .lrow { margin: 0; font-size: 14px; line-height: 1.5; display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 8px; }
@@ -377,11 +389,14 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   }
   const mapBlock = () => `<figure class="sys">${systemMap()}<figcaption>${mapCaption()}</figcaption></figure>`;
   /* ---------- Self and the part, side by side (steps 4 to 7) ---------- */
+  const PHRASES = ["Thank you for trying to protect me.", "Thank you for working so hard.", "I see how much you care.", "You don't have to do this alone."];
   const SOFTER = ["It softened a little", "It relaxed", "It felt surprised", "It felt seen"], GUARD = ["It's still on guard", "It didn't trust me yet"];
   function relationSVG(o) {
     const sep = o.sep, cx = 180, sx = cx - sep / 2, px = cx + sep / 2, F = FAMILY[partGroup()] || FAMILY.manager;
     const nm = partName(), lbl = nm.length > 22 ? nm.slice(0, 21) + "…" : nm;
     const overlap = sep < 88;
+    const sendFx = o.send && !overlap ? `<g class="send-heart"><text font-size="30" y="90" text-anchor="middle">💛<animate attributeName="x" from="${sx}" to="${px}" dur="1.4s" fill="freeze" calcMode="spline" keySplines=".4 0 .2 1"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="1.6s" fill="freeze"/></text></g>
+      <circle cx="${px.toFixed(1)}" cy="78" r="40" fill="none" stroke="#E0B55E" stroke-width="3" opacity="0"><animate attributeName="r" values="40;40;66" keyTimes="0;.7;1" dur="2s" fill="freeze"/><animate attributeName="opacity" values="0;0;.9;0" keyTimes="0;.68;.75;1" dur="2s" fill="freeze"/></circle>` : "";
     const line = o.line && !overlap ? (o.line === "heart"
       ? `<line x1="${sx + 46}" y1="78" x2="${px - 42}" y2="78" stroke="#E0B55E" stroke-width="2"/><text class="heart" font-size="14" y="83"><tspan>💛</tspan><animate attributeName="x" from="${sx + 40}" to="${px - 52}" dur="2.6s" repeatCount="indefinite"/></text>`
       : `<line x1="${sx + 46}" y1="78" x2="${px - 42}" y2="78" stroke="#D4A24C" stroke-width="2" stroke-dasharray="3 5" class="flow"/>`) : "";
@@ -398,6 +413,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <circle cx="${sx.toFixed(1)}" cy="78" r="44" fill="url(#rcore)" stroke="#E0B55E" stroke-width="2" opacity="${overlap ? .85 : 1}"/>
       <text x="${(overlap ? sx - 14 : sx).toFixed(1)}" y="84" text-anchor="middle" font-size="19" fill="#7A5A1E" font-family="Lora, serif" font-style="italic">Self</text>
       <text x="${(overlap ? px + 16 : px).toFixed(1)}" y="87" text-anchor="middle" font-size="24">${ICONS[d.part] || "✏️"}</text>
+      ${sendFx}
       ${o.guard ? `<text x="${(px + 30).toFixed(1)}" y="${56}" text-anchor="middle" font-size="15">🛡️</text>` : ""}
       <text x="${(overlap ? cx + 40 : px).toFixed(1)}" y="140" text-anchor="middle" font-size="13" fill="#2A2F35" font-family="Lora, serif" font-style="italic">${esc(lbl)}</text>
       ${overlap ? "" : `<text x="${sx.toFixed(1)}" y="140" text-anchor="middle" font-size="10" letter-spacing="1.2" fill="#A07F3E" font-family="DM Sans, sans-serif">YOUR SELF</text>`}
@@ -414,10 +430,11 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (!rows.length) return "";
     return `<div class="learned"><p class="learned-h">What you${all ? "'re learning" : " learned"} about ${esc(midName())}</p>${rows.map(([k, v]) => `<p class="lrow${v ? "" : " empty"}"><span>${k}</span>${v ? esc(v) : "…"}</p>`).join("")}</div>`;
   }
+  let sendNow = false;
   function thanksState() { const t = d.thanks; return { glow: t.some((x) => SOFTER.includes(x)), guard: t.some((x) => GUARD.includes(x)) }; }
   function relBlock() {
     if (step === 5) return `<figure class="relfig" id="relfig">${relationSVG({ sep: 150, line: "listen" })}${learnedHTML(true)}</figure>`;
-    if (step === 6) { const st = thanksState(); return `<figure class="relfig" id="relfig">${relationSVG({ sep: 150, line: "heart", glow: st.glow, guard: st.guard })}<figcaption>${st.glow ? `${esc(cap(midName()))} feels your appreciation. Notice that.` : st.guard ? "It's still on guard, and that's okay. Trust is built slowly." : "Offer a moment of thanks, from your Self to this part."}</figcaption></figure>`; }
+    if (step === 6) { const st = thanksState(); return `<figure class="relfig" id="relfig">${relationSVG({ sep: 150, line: d.sent ? "heart" : "listen", glow: st.glow || (d.sent && !st.guard && !d.thanks.length), guard: st.guard, send: sendNow })}<figcaption>${st.glow ? `${esc(cap(midName()))} feels your appreciation. Notice that.` : st.guard ? "It's still on guard, and that's okay. Trust is built slowly." : d.sent ? "It received your thanks. Take a breath, and notice how it responds." : "When you're ready, send your thanks from your Self to this part."}</figcaption></figure>`; }
     if (step === 7) { const st = thanksState(); return `<figure class="relfig final">${relationSVG({ sep: 150, line: "heart", glow: st.glow, guard: st.guard })}${learnedHTML(false)}</figure>`; }
     return "";
   }
@@ -492,7 +509,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const STEPS = 8;
   const blank = () => ({ agree: false, topic: "", topicCustom: "", category: "", part: "", partCustom: "", bodyPlaces: [], body: "", blend: 5,
-                         q1: "", q2: "", q3: "", q4: "", a1: [], a2: [], a3: [], a4: [], thanks: [], appreciation: "", experiment: "", experimentCustom: "" });
+                         q1: "", q2: "", q3: "", q4: "", a1: [], a2: [], a3: [], a4: [], thanks: [], appreciation: "", phrase: 0, sent: false, experiment: "", experimentCustom: "" });
   let d = blank();
   let step = 0, sub = 0;
   const shown = {};          // which reflections have been revealed, by key
@@ -671,8 +688,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <p class="step-label">Step 6 of 7 · Appreciation</p>
       <h2 class="q" tabindex="-1">Thank ${esc(partName())} for its <em>care</em></h2>
       ${relBlock()}
-      <p class="hint">This part has been working hard for you, maybe for a long time. Take a breath and offer it a moment of genuine appreciation, even just for its intention. You might say inwardly: "Thank you for trying to protect me."</p>
-      <p class="pick-hint">How does it respond? Tap any that fit.</p>
+      <p class="hint">This part has been working hard for you, maybe for a long time, even if its ways don't always help. Offer it a moment of genuine appreciation, even just for its intention.</p>
+      <div class="thanks-moment">
+        <p class="tm-label">Say it slowly, inwardly</p>
+        <p class="tm-words" id="tm-words">${PHRASES[d.phrase].split(" ").map((w, i) => `<span style="animation-delay:${(i * 0.18).toFixed(2)}s">${esc(w)}</span>`).join(" ")}</p>
+        <div class="tm-alts" role="group" aria-label="Choose the words">${PHRASES.map((ph, i) => `<button type="button" class="tm-alt" data-phrase="${i}" aria-pressed="${d.phrase === i}">${esc(ph)}</button>`).join("")}</div>
+        <p class="tm-breath">Breathe in… and as you breathe out, send it to ${esc(midName())}.</p>
+        <button type="button" class="btn btn-primary tm-send" data-act="send-thanks">${d.sent ? "Send It Again 💛" : "Send It 💛"}</button>
+      </div>
+      <p class="pick-hint" style="margin-top:22px">How does it respond? Tap any that fit.</p>
       <div class="chipset answers" role="group" aria-label="How does it respond?">
         ${THANKS.map((t) => `<button type="button" class="chip" data-answer="thanks" data-val="${esc(t)}" aria-pressed="${d.thanks.includes(t)}">${esc(t)}</button>`).join("")}
       </div>
@@ -694,6 +718,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         ["In my body", [d.bodyPlaces.join(", "), d.body.trim()].filter(Boolean).join(". ")],
         ["How blended", `${d.blend} of 10`],
         ...QUESTIONS.map((q) => [q.label, answerText(q)]),
+        ["What I told it", d.sent ? PHRASES[d.phrase] : ""],
         ["Its response to thanks", thanksList().join("; ")]
       ].filter((r) => r[1]);
       return `
@@ -1009,6 +1034,13 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   });
 
   $("stage").addEventListener("click", (e) => {
+    const ph = e.target.closest("[data-phrase]");
+    if (ph) { d.phrase = +ph.dataset.phrase; $("stage").querySelectorAll("[data-phrase]").forEach((b) => b.setAttribute("aria-pressed", b === ph)); $("tm-words").innerHTML = PHRASES[d.phrase].split(" ").map((w, i) => `<span style="animation-delay:${(i * 0.18).toFixed(2)}s">${esc(w)}</span>`).join(" "); return; }
+    if (e.target.closest('[data-act="send-thanks"]')) {
+      d.sent = true; sendNow = !reduceMotion; const rf = $("relfig"); if (rf) rf.outerHTML = relBlock(); sendNow = false;
+      const b = e.target.closest('[data-act="send-thanks"]'); b.textContent = "Send It Again 💛";
+      return;
+    }
     const setBtn = e.target.closest("[data-set]");
     if (setBtn) {
       const k = setBtn.dataset.set, v = setBtn.dataset.val;
