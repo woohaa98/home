@@ -277,6 +277,29 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .strengths b { color: var(--accent); }
 .gentle { font-size: 14px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; padding: 10px 14px; margin: 0 0 18px; }
 @media print { .map-wrap { box-shadow: none; } .people-row, .editor { display: none !important; } }
+.session-prep { margin: 22px 0 0; background: #FFFBF0; border: 1px solid #EBD9AE; border-radius: 20px; padding: 18px 20px 16px; }
+.sp-eyebrow { margin: 0 0 4px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: #8B6A2E; }
+.sp-h { margin: 0 0 4px; font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+.sp-h em { color: #B98A33; }
+.session-prep textarea { width: 100%; box-sizing: border-box; font: inherit; }
+.print-only { display: none; }
+@media print {
+  .print-only { display: block !important; }
+  .session-notes { page-break-before: always; break-before: page; font-size: 10.5pt; color: #222; }
+  .session-notes h2 { font-family: var(--font-display); font-weight: 400; font-size: 20pt; margin: 0 0 2px; }
+  .session-notes h2 span { font-style: italic; color: #8B6A2E; font-size: 14pt; }
+  .session-notes h3 { font-size: 9pt; letter-spacing: .12em; text-transform: uppercase; color: #476B56; margin: 16px 0 6px; }
+  .session-notes .pn-date { margin: 0 0 12px; color: #666; }
+  .session-notes .pn-start { background: #FFF8E8; border: 1px solid #EBD9AE; border-radius: 10px; padding: 8px 12px; }
+  .session-notes .pn-start p { margin: 4px 0; }
+  .session-notes table { width: 100%; border-collapse: collapse; }
+  .session-notes th { text-align: left; font-size: 8.5pt; color: #777; font-weight: 600; border-bottom: 1px solid #ccc; padding: 4px 6px; }
+  .session-notes td { border-bottom: 1px solid #eee; padding: 5px 6px; vertical-align: top; }
+  .session-notes td small { color: #777; }
+  .session-notes .pn-foot { margin-top: 18px; font-size: 8.5pt; color: #888; }
+  .map-wrap { break-inside: avoid; }
+  .cols { break-inside: avoid; }
+}
 .feedback-line a { color: var(--accent); font-weight: 500; }
 </style>
 </head>
@@ -482,10 +505,11 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   ];
   const MESSAGES = ["Work hard, and don't complain.", "Family comes first.", "Don't show weakness.", "Education is everything.", "Keep the peace.", "Feelings are private.",
     "You can always come home.", "Be grateful for what you have.", "Take care of others first.", "Make us proud.", "Save, don't waste.", "Faith will carry you.", "Don't trust outsiders.", "You are loved as you are."];
+  const EXPLORE = ["A relationship on my map", "A message I'm ready to rewrite", "Guilt or family expectations", "Culture and belonging", "Grief or loss", "Someone missing from my map", "Strengths I want to build on"];
   const STRENGTHS = ["resilience", "hard work", "faith", "humor", "loyalty", "food & hospitality", "courage to start over", "creativity", "caring for each other", "love of learning"];
 
   /* ================== STATE (not saved) ================== */
-  const blank = () => ({ step: 0, on: ["mom", "dad"], p: {}, sel: "you", rel: {}, prel: "", msgs: [], from: {}, own: "", crl: {}, mine: {}, strengths: [] });
+  const blank = () => ({ step: 0, on: ["mom", "dad"], p: {}, sel: "you", rel: {}, prel: "", msgs: [], from: {}, own: "", crl: {}, mine: {}, strengths: [], stand: "", explore: [], exploreOwn: "" });
   let d = blank(), lastView = -1, popped = new Set();
   const STEPS = 6;
   $("progress").innerHTML = "<li></li>".repeat(STEPS);
@@ -691,20 +715,57 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
           <div class="c3"><h3>🍂 I'll leave</h3>${grp("leave").length ? `<ul>${grp("leave").map((m) => `<li>${esc(m)}</li>`).join("")}</ul>` : `<p class="hint" style="margin:0">Nothing marked</p>`}</div>
         </div>
         ${d.strengths.length ? `<p class="strengths">Strengths in my family line: <b>${esc(listText(d.strengths))}</b></p>` : ""}
-        <p class="callout" style="margin-top:18px"><strong>You are part of this story, and you also get to write the next page.</strong> What you choose to carry, change, or set down shapes what the next generation receives.</p>
-        ${sessionNote()}
+        <p class="callout no-print" style="margin-top:18px"><strong>You are part of this story, and you also get to write the next page.</strong> What you choose to carry, change, or set down shapes what the next generation receives.</p>
+        <div class="session-prep no-print">
+          <p class="sp-eyebrow">🌿 For your session</p>
+          <h3 class="sp-h">Where would you like to <em>start</em>?</h3>
+          <p class="hint" style="margin:0 0 10px">Optional. This helps your therapist meet you where you are.</p>
+          <div class="field" style="margin:0 0 14px"><label for="stand">Looking at your map, what stands out to you?</label>
+            <textarea id="stand" data-field="stand" rows="2" maxlength="300" placeholder="e.g. How many messages came from my dad's side. How close I still feel to Halmeoni.">${esc(d.stand)}</textarea></div>
+          <p class="group-name" style="margin-top:0">I'd like to explore</p>
+          <div class="chipset">${EXPLORE.map((t) => `<button type="button" class="chip" data-explore="${esc(t)}" aria-pressed="${d.explore.includes(t)}">${esc(t)}</button>`).join("")}</div>
+          <input type="text" data-field="exploreOwn" maxlength="120" aria-label="Something else to explore" placeholder="Or in your own words" value="${esc(d.exploreOwn)}">
+        </div>
+        ${therapist ? sessionNote() : bringBox()}
+        ${sessionPrint()}
       </article>
       <div class="actions">
         <button type="button" class="btn btn-primary" data-act="photo">Save as Photo</button>
-        <button type="button" class="btn btn-ghost" data-act="print">Print or Save as PDF</button>
-        <button type="button" class="btn btn-ghost" data-act="email">Email It</button>
-        <button type="button" class="btn btn-ghost" data-act="copy">Copy</button>
+        <button type="button" class="btn btn-ghost" data-act="copy">Copy Text</button>
         <span class="status" id="copy-status" role="status" aria-live="polite"></span>
       </div>
       ${photoBoxHTML("Your family map.", "my-family-map.png")}
       <p class="erase-row"><button type="button" class="btn-text" data-act="back">← Back</button> · <button type="button" class="btn-text" data-act="restart">Start again</button></p>`;
     }
   };
+  const relLabel = (k) => k && k !== "unsure" ? RELS.find((x) => x.id === k).label : k === "unsure" ? "Not sure" : "";
+  const exploreList = () => d.explore.concat(d.exploreOwn.trim() ? [d.exploreOwn.trim()] : []);
+  const choiceText = (m) => { const c = d.crl[m]; return c === "carry" ? "Carry forward" : c === "leave" ? "Leave behind" : c === "rewrite" ? "Rewrite" + (d.mine[m] && d.mine[m].trim() ? `: “${d.mine[m].trim()}”` : "") : "Not decided"; };
+  function bringBox() {
+    return `<div class="share-th no-print">
+      <p class="st-h">Bring this to your <b>therapy session</b></p>
+      <p class="st-sub">Your map and notes, ready to explore together.</p>
+      <div class="st-row"><button type="button" class="btn btn-primary" data-act="print">Print or Save as PDF</button><button type="button" class="btn btn-ghost" data-act="email">Email It</button></div>
+      <p class="st-tip"><b>Print or Save as PDF</b> makes a two-page copy: your map, then your session notes. <b>Email It</b> opens your own email app with your notes written in, so you can send them to your therapist or anyone you choose. To include the map picture, use <b>Save as Photo</b> below and attach it. Email isn't fully private, so only share what you're comfortable sending that way.</p>
+    </div>`;
+  }
+  function sessionPrint() {
+    const ids = people().filter((x) => x !== "you");
+    return `<section class="print-only session-notes">
+      <h2>Session notes${therapist ? ` <span>for ${esc(therapist.name)}</span>` : ""}</h2>
+      <p class="pn-date">${esc(nameOf("you") === "You" ? "" : nameOf("you") + " · ")}${new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}</p>
+      ${d.stand.trim() || exploreList().length ? `<div class="pn-start">${d.stand.trim() ? `<p><b>What stands out to me:</b> ${esc(d.stand.trim())}</p>` : ""}${exploreList().length ? `<p><b>I'd like to explore:</b> ${esc(exploreList().join("; "))}</p>` : ""}</div>` : ""}
+      <h3>People on my map</h3>
+      <table><thead><tr><th>Person</th><th>Symbol &amp; word</th><th>How close I feel</th></tr></thead><tbody>
+      ${ids.map((x) => `<tr><td><b>${esc(nameOf(x))}</b>${P(x).name.trim() || role(x).side ? `<br><small>${esc(role(x).role)}${role(x).side ? ", " + esc(role(x).side) : ""}</small>` : ""}</td><td>${[P(x).sym, esc(wordOf(x))].filter(Boolean).join(" ") || "–"}</td><td>${esc(relLabel(d.rel[x])) || "–"}</td></tr>`).join("")}
+      ${d.prel ? `<tr><td colspan="2"><b>Between ${esc(nameOf("mom"))} and ${esc(nameOf("dad"))}</b></td><td>${esc(relLabel(d.prel))}</td></tr>` : ""}
+      </tbody></table>
+      ${d.msgs.length ? `<h3>Messages passed down</h3><table><thead><tr><th>Message</th><th>From</th><th>What I'll do with it</th></tr></thead><tbody>
+      ${d.msgs.map((m) => `<tr><td>“${esc(m)}”</td><td>${esc(fromText(m)) || "–"}</td><td>${esc(choiceText(m))}</td></tr>`).join("")}</tbody></table>` : ""}
+      ${d.strengths.length ? `<h3>Strengths in my family line</h3><p>${esc(cap(listText(d.strengths)))}</p>` : ""}
+      <p class="pn-foot">Roots &amp; Messages · wooheekwak.me · Made on my own device; nothing was sent anywhere.</p>
+    </section>`;
+  }
   function fromText(m) { const f = d.from[m] || []; return listText(f.map((x) => x === "culture" ? "my culture" : x === "family" ? "the whole family" : nameOf(x))); }
   function msgCard(m) {
     const on = d.msgs.includes(m), f = d.from[m] || [];
@@ -723,11 +784,19 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   }
   function summaryText() {
     const L = ["ROOTS & MESSAGES · my family map", ""];
-    if (therapist) L.push(`For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`, "");
+    L.push(`${therapist ? "For a session with " + therapist.name + " · " : ""}${new Date().toLocaleDateString()}`, "");
+    if (d.stand.trim() || exploreList().length) {
+      L.push("WHERE I'D LIKE TO START");
+      if (d.stand.trim()) L.push("What stands out to me: " + d.stand.trim());
+      if (exploreList().length) L.push("I'd like to explore: " + exploreList().join("; "));
+      L.push("");
+    }
+    L.push("People on my map:");
     people().forEach((id) => { if (id === "you") return; const p = P(id), r = role(id); const bits = [p.sym, wordOf(id), d.rel[id] && d.rel[id] !== "unsure" ? RELS.find((x) => x.id === d.rel[id]).label.toLowerCase() : ""].filter(Boolean);
-      L.push(`${nameOf(id)} (${r.role}${r.side ? ", " + r.side : ""})${bits.length ? ": " + bits.join(" · ") : ""}`); });
+      const tag = p.name.trim() ? ` (${r.role}${r.side ? ", " + r.side : ""})` : r.side ? ` (${r.side})` : "";
+      L.push(`- ${nameOf(id)}${tag}${bits.length ? ": " + bits.join(" · ") : ""}`); });
     if (d.prel) L.push(`Between ${nameOf("mom")} and ${nameOf("dad")}: ${RELS.find((x) => x.id === d.prel).label.toLowerCase()}`);
-    L.push("", "Messages passed down:");
+    if (!d.msgs.length) L.push("", "Messages passed down: none marked yet"); else L.push("", "Messages passed down:");
     d.msgs.forEach((m) => { const c = d.crl[m]; L.push(`- "${m}"${fromText(m) ? " (from " + fromText(m) + ")" : ""}${c ? " → " + (c === "carry" ? "carry forward" : c === "leave" ? "leave behind" : "rewrite" + (d.mine[m] && d.mine[m].trim() ? ': "' + d.mine[m].trim() + '"' : "")) : ""}`); });
     if (d.strengths.length) L.push("", "Strengths in my family line: " + listText(d.strengths));
     L.push("", "Roots & Messages · wooheekwak.me/tools/roots-and-messages.html");
@@ -748,6 +817,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (grp("rewrite").length) blocks.push({ h: "I'll rewrite", list: grp("rewrite").map((m) => d.mine[m] && d.mine[m].trim() ? d.mine[m].trim() : m) });
     if (grp("leave").length) blocks.push({ h: "I'll leave behind", list: grp("leave") });
     if (d.strengths.length) blocks.push({ h: "Strengths in my family line", text: cap(listText(d.strengths)) });
+    if (exploreList().length) blocks.push({ h: "I'd like to explore", list: exploreList() });
     showPhoto(btn, { eyebrow: "Roots & Messages", title: "My family map", blocks, footer: "Roots & Messages · wooheekwak.me" }, "my-family-map.png");
   }
   const cap = (t) => t ? t.charAt(0).toUpperCase() + t.slice(1) : t;
@@ -778,6 +848,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const mg = t.closest("[data-msg]"); if (mg) { const m = mg.dataset.msg, i = d.msgs.indexOf(m); i >= 0 ? d.msgs.splice(i, 1) : d.msgs.push(m); render(false); return; }
     const fr = t.closest("[data-from]"); if (fr) { const m = fr.dataset.from, w = fr.dataset.who, a = d.from[m] = d.from[m] || [], i = a.indexOf(w); i >= 0 ? a.splice(i, 1) : a.push(w); fr.setAttribute("aria-pressed", i < 0); paintMap(); return; }
     const cr = t.closest("[data-crl]"); if (cr) { const m = d.msgs[+cr.dataset.crl]; d.crl[m] = d.crl[m] === cr.dataset.c ? "" : cr.dataset.c; render(false); const inp = $("stage").querySelector(`[data-mine="${cr.dataset.crl}"]`); if (inp && d.crl[m] === "rewrite") inp.focus(); return; }
+    const ex = t.closest("[data-explore]"); if (ex) { const v = ex.dataset.explore, i = d.explore.indexOf(v); i >= 0 ? d.explore.splice(i, 1) : d.explore.push(v); ex.setAttribute("aria-pressed", i < 0); return; }
     const st = t.closest("[data-str]"); if (st) { const v = st.dataset.str, i = d.strengths.indexOf(v); i >= 0 ? d.strengths.splice(i, 1) : d.strengths.push(v); st.setAttribute("aria-pressed", i < 0); return; }
     const btn = t.closest("[data-act]"), a = btn?.dataset.act; if (!a) return;
     if (a === "next") { d.step = Math.min(d.step + 1, STEPS); if (d.step === 2) d.sel = "you"; render(); }
@@ -787,10 +858,11 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     else if (a === "restart") { d = blank(); popped = new Set(); render(); }
     else if (a === "photo") photo(btn);
     else if (a === "photo-close") $("photo-box").hidden = true;
-    else if (a === "email") emailMe("My family map: Roots & Messages", summaryText());
+    else if (a === "email") emailMe("My family map: Roots & Messages · for my therapy session", summaryText());
     else if (a === "print") printNow();
     else if (a === "copy") copyText(summaryText());
   });
+  window.addEventListener("beforeprint", () => { const el = document.querySelector(".session-notes"); if (el) el.outerHTML = sessionPrint(); });
   shareText = summaryText; shareSubject = "My family map"; sharePrint = printNow;
   render(false);
 })();
