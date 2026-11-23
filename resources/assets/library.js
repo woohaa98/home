@@ -38,6 +38,8 @@ window.RESOURCE_LIBRARY = {
     "untangle-the-pattern": { title: "Untangle the Pattern", href: "../tools/untangle-the-pattern.html", blurb: "See how a rigid thought drives a habit, then reframe it and test one small step." },
     "small-steps":          { title: "Small Steps", href: "../tools/small-steps.html", blurb: "Behavioral activation: pick 1 to 3 small steps for today, matched to your energy." },
     "kind-boundaries":      { title: "Kind Boundaries", href: "../tools/kind-boundaries.html", blurb: "Build a clear, kind way to say no or ask for what you need (DEAR MAN)." },
+    "life-chapters":        { title: "Life Chapters", href: "../tools/life-chapters.html", blurb: "Name your life's chapters, notice the thread, and title the next one." },
+    "best-possible-self":   { title: "Best Possible Self", href: "../tools/best-possible-self.html", blurb: "Imagine your future going well, and get a letter from your future self." },
     "gentle-start-up":      { title: "Gentle Start-Up", href: "../tools/gentle-start-up.html", blurb: "For couples: raise a concern with I feel… about… I need…, plus repair phrases." },
   },
 
@@ -187,7 +189,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 5 */
     {
       id: "attachment-styles",
-      tools: ["parts-of-me", "gentle-start-up", "kind-boundaries"],
+      tools: ["parts-of-me", "life-chapters", "gentle-start-up", "kind-boundaries"],
       category: "relationships",
       status: "published",
       lastReviewed: "2026-11-02",
@@ -223,7 +225,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 6 */
     {
       id: "values-vs-goals",
-      tools: ["values-clarification", "small-steps"],
+      tools: ["values-clarification", "best-possible-self", "small-steps"],
       category: "identity",
       status: "published",
       lastReviewed: "2026-11-02",

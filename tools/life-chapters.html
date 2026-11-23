@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Chapters · Woohee (Elise) Kwak</title>
+<meta name="description" content="Name the chapters of your life so far, notice the thread that runs through them, gently re-author an old story, and title the chapter you're beginning. Based on narrative therapy.">
+<!-- Privacy: no analytics, tracking, or data requests. Nothing is saved. -->
+<link rel="preload" href="../resources/assets/fonts/lora-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../resources/assets/fonts/dm-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Lora"; src: url("../resources/assets/fonts/lora-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../resources/assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #FDFAF6; --surface: #FFFFFF; --ink: #2A2F35; --muted: #5A6370; --line: #E8DDD0;
+  --accent: #476B56; --accent-ink: #FFFFFF; --accent-soft: #EEF4F0;
+  --warm: #C4714A; --warm-ink: #9A5232; --warm-soft: #FBF0EA; --sand: #F5EFE6; --focus: #3D4A5C;
+  --radius: 20px;
+  --shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 28px 20px 56px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 48px; font-size: 14px; }
+.topbar a { text-decoration: none; color: var(--muted); transition: color .2s; }
+.topbar a:hover { color: var(--ink); }
+.brand { font-family: var(--font-display); font-size: 20px; color: var(--ink) !important; font-weight: 500; }
+
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.01em; }
+h1 em, .q em { color: var(--warm); font-style: italic; }
+.lede { color: var(--muted); max-width: 56ch; margin: 0 0 32px; }
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 0 22px; }
+.progress { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; flex: 1; }
+.progress li { height: 4px; flex: 1; border-radius: 4px; background: var(--line); transition: background .3s; }
+.progress li.on { background: var(--accent); }
+.ground-btn { appearance: none; font: inherit; font-size: 13.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; color: var(--accent); white-space: nowrap; transition: border-color .2s; }
+.ground-btn:hover { border-color: var(--accent); }
+.grounding { display: flex; gap: 14px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: 0 0 22px; }
+.grounding strong { display: block; color: var(--accent); font-weight: 600; }
+.grounding p { margin: 0; font-size: 14.5px; }
+.grounding .x { appearance: none; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; margin-left: auto; padding: 0 4px; }
+
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
+.hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
+
+.options { display: grid; gap: 10px; }
+.options.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 560px) { .options.two { grid-template-columns: 1fr; } }
+.opt {
+  appearance: none; font: inherit; color: inherit; text-align: left; cursor: pointer; width: 100%;
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 15px 18px;
+  transition: border-color .2s, background-color .2s;
+}
+.opt:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.opt .icon { font-size: 20px; line-height: 1.2; }
+.opt b { display: block; font-weight: 600; font-size: 15.5px; }
+.opt small { display: block; color: var(--muted); font-size: 14px; margin-top: 1px; }
+.opt.dashed { border-style: dashed; }
+.group-name { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+.group-name:first-child { margin-top: 0; }
+
+.field { margin-top: 16px; }
+.field > label { display: block; font-weight: 500; margin-bottom: 8px; }
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 16px; line-height: 1.6; padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); resize: vertical; }
+textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.15); }
+::placeholder { color: #8C939C; }
+
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+.chip { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-height: 40px; color: var(--ink); transition: all .2s; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.scale { margin-top: 26px; padding: 18px 20px; background: var(--sand); border-radius: 16px; }
+.scale label { font-weight: 500; display: block; margin-bottom: 8px; }
+.scale input[type=range] { width: 100%; accent-color: var(--accent); }
+.scale .ends { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.scale output { font-family: var(--font-display); font-size: 20px; color: var(--accent); }
+.note { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 14px 0 0; }
+.note strong { color: var(--warm-ink); }
+
+.prompt-card { background: var(--sand); border-radius: 16px; padding: 18px 20px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.subcount { font-size: 13.5px; color: var(--muted); margin: 0 0 8px; }
+.reflection { display: flex; gap: 14px; align-items: flex-start; border-left: 3px solid var(--warm); background: var(--surface); border-radius: 0 14px 14px 0; padding: 14px 18px; margin: 16px 0 0; box-shadow: var(--shadow); }
+.reflection .mark { color: var(--warm); font-size: 18px; line-height: 1.5; }
+.reflection p { margin: 0; font-family: var(--font-display); font-size: 17px; line-height: 1.55; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }
+.btn { appearance: none; border: 1px solid transparent; border-radius: 999px; cursor: pointer; font: 500 15px/1 var(--font-body); padding: 15px 26px; min-height: 48px; transition: background-color .2s, color .2s, border-color .2s, opacity .2s, transform .2s; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-1px); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-text { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 15px 6px; }
+.btn-text:hover { color: var(--ink); }
+.status { font-size: 14px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 6px); box-shadow: var(--shadow); padding: clamp(24px, 6vw, 44px); }
+.welcome-list { margin: 0 0 18px; padding-left: 20px; }
+.welcome-list li { margin-bottom: 6px; }
+.safety { background: var(--warm-soft); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; margin: 0 0 20px; }
+.safety strong { color: var(--warm-ink); }
+.check { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; font-weight: 500; }
+.check input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--accent); flex: none; }
+
+.part-pill { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; margin: 0 0 16px; }
+.summary { display: grid; gap: 12px; margin: 6px 0 0; }
+.summary div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.summary div:last-child { border-bottom: 0; }
+.summary dt { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.summary dd { margin: 0; white-space: pre-wrap; }
+@media (max-width: 520px) { .summary div { grid-template-columns: 1fr; gap: 2px; } }
+.pick-hint { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.answers { margin-bottom: 6px; }
+.own-words { margin: 8px 0 0; }
+.own-words summary { cursor: pointer; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; list-style: none; }
+.own-words summary::-webkit-details-marker { display: none; }
+.own-words[open] summary { margin-bottom: 8px; }
+.message-card { margin: 22px 0 0; background: var(--accent-soft); border-radius: 16px; padding: 18px 20px; }
+.message-card .mc-label { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.message-card .mc-text { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.closing-line { font-family: var(--font-display); font-style: italic; font-size: 20px; text-align: center; color: var(--muted); margin: 28px 0 0; }
+
+.disclaimer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.disclaimer p { margin: 0 0 6px; }
+
+.fade-in { animation: fadeUp .5s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+@media print {
+  body { background: #fff; }
+  .topbar, header, .toolbar, .grounding, .actions, .disclaimer, .no-print { display: none !important; }
+  .card { box-shadow: none; border: 0; padding: 0; }
+}
+
+
+
+/* ---- shared by Small Steps, Kind Boundaries, Gentle Start-Up ---- */
+.privacy-line { font-size: 13.5px; color: var(--muted); margin: -20px 0 28px; }
+.session-banner { display: flex; gap: 12px; align-items: flex-start; background: var(--accent-soft); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: -12px 0 28px; font-size: 14.5px; }
+.session-banner b { display: block; color: var(--accent); font-weight: 600; }
+.session-banner p { margin: 0; }
+.explain { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 0 0 18px; }
+.explain div { background: var(--sand); border-radius: 14px; padding: 14px 16px; }
+.explain b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 17px; margin-bottom: 2px; }
+.explain span { font-size: 14px; color: var(--muted); }
+.callout { background: var(--accent-soft); border-radius: 16px; padding: 14px 18px; margin: 16px 0 0; font-size: 15px; }
+.callout strong { color: var(--accent); }
+.callout.warm { background: var(--warm-soft); }
+.callout.warm strong { color: var(--warm-ink); }
+.script { background: #F2F8F3; border: 1px solid #CFE0D4; border-radius: 18px; padding: 20px 22px; margin: 6px 0 0; }
+.script .k { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 8px; }
+.script p.say { font-family: var(--font-display); font-size: 20px; line-height: 1.5; margin: 0; }
+.script textarea { width: 100%; font: inherit; font-family: var(--font-display); font-size: 19px; line-height: 1.5; padding: 12px 14px; border: 1px solid #CFE0D4; border-radius: 12px; background: #fff; color: var(--ink); resize: vertical; min-height: 120px; }
+.tone { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 12px; }
+.card-sec { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.card-sec h3 { margin: 0 0 6px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.card-sec p { margin: 0; }
+.card-sec ul { margin: 0; padding-left: 20px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-row span { font-size: 13px; background: var(--sand); border-radius: 999px; padding: 4px 12px; }
+.print-head { display: none; }
+.erase-row { margin-top: 14px; font-size: 14px; }
+.vbtn { appearance: none; font: inherit; font-size: 14.5px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; background: #fff; border: 1px solid #CFE0D4; color: var(--accent); border-radius: 999px; padding: 9px 16px; min-height: 42px; }
+.vbtn:disabled { opacity: .45; cursor: not-allowed; }
+@media print {
+  .print-head { display: block !important; border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 14px; font-size: 10pt; color: #444; }
+  .print-head b { display: block; font-size: 13pt; color: #000; }
+  .session-banner, .erase-row, .rel, .privacy-line, .no-print { display: none !important; }
+}
+
+.photo-box { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+.photo-tip { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
+.photo-box img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 14px; border: 1px solid var(--line); margin: 0 auto; -webkit-touch-callout: default; }
+@media print { .photo-box { display: none !important; } }
+.opt.bal { background: #F2F8F3; border-color: #CFE0D4; align-items: center; }
+.opt.bal b { font-weight: 500; font-family: var(--font-display); font-size: 17px; color: #2F4A3A; }
+.opt.bal:hover { border-color: var(--accent); background: #EAF3EC; }
+.opt.bal[aria-pressed="true"] { background: #DDEDE1; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(71,107,86,.12); }
+.opt[disabled] { opacity: .45; cursor: not-allowed; }
+
+.tl { list-style: none; margin: 0; padding: 0; position: relative; }
+.tl li { position: relative; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; padding: 0 0 18px; }
+.tl li::before { content: ""; position: absolute; left: 14px; top: 22px; bottom: 0; width: 2px; background: var(--line); }
+.tl li:last-child::before { display: none; }
+.tl .dot { width: 22px; height: 22px; border-radius: 50%; margin: 2px 0 0 4px; background: var(--accent); box-shadow: 0 0 0 4px var(--bg); position: relative; z-index: 1; }
+.tl .dot.next { background: #fff; border: 2.5px dashed var(--accent); width: 17px; height: 17px; }
+.tl b { display: block; font-weight: 600; font-size: 16px; }
+.tl small { display: block; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.tl .edit { appearance: none; border: 0; background: none; font: inherit; font-size: 13.5px; color: var(--accent); text-decoration: underline; cursor: pointer; padding: 0; margin-top: 2px; }
+.ch-editor { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; margin: 4px 0 16px; box-shadow: var(--shadow); }
+.ch-editor .group-name { margin-top: 14px; }
+.ch-editor .group-name:first-child { margin-top: 0; }
+.ch-editor input[type=text] { margin-top: 6px; }
+.thread { background: var(--accent-soft); border-radius: 16px; padding: 16px 18px; margin: 0 0 18px; }
+.thread b { color: var(--accent); }
+.restory { display: grid; gap: 10px; margin: 14px 0 0; }
+.restory .old { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(90,99,112,.35); }
+.restory .new { background: #F2F8F3; border: 1px solid #CFE0D4; border-radius: 14px; padding: 14px 16px; font-family: var(--font-display); font-style: italic; font-size: 19px; line-height: 1.5; }
+.next-title { font-family: var(--font-display); font-style: italic; font-size: clamp(22px, 4vw, 28px); color: var(--accent); margin: 0 0 4px; }
+.feedback-line a { color: var(--accent); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar" aria-label="Site">
+    <a class="brand" href="../">Woohee (Elise) Kwak</a>
+    <a href="../#tools">← All tools</a>
+  </nav>
+  <main id="main">
+    <header>
+      <p class="eyebrow">Interactive Tools · Identity &amp; Life Transitions</p>
+      <h1>Life <em>Chapters</em></h1>
+      <p class="lede">Your life is a story still being written. Name the chapters so far, notice the thread that has carried you through, gently rewrite an old story about yourself, and give a title to the chapter you're beginning. Mostly tapping, about 8 minutes.</p>
+      <p class="privacy-line">Your answers stay on this device. Nothing is saved, tracked, or sent anywhere.</p>
+    </header>
+    <div class="session-banner" id="session-banner" role="note" hidden><span aria-hidden="true">🌿</span>
+      <div><b>Shared by your therapist, <span class="th-name"></span></b><p>Map your chapters here, then save, print, or email your timeline to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div></div>
+    <div class="toolbar"><ol class="progress" id="progress" aria-hidden="true"></ol></div>
+    <section id="stage"></section>
+    <section class="rel" aria-labelledby="rel-h" style="margin-top:48px">
+      <p class="eyebrow" style="margin-bottom:6px">Keep exploring</p>
+      <h2 id="rel-h" style="font-family:var(--font-display);font-weight:400;font-size:24px;margin:0 0 12px">Related tools</h2>
+      <div class="options two">
+        <a class="opt" style="text-decoration:none" href="best-possible-self.html"><span><b>Best Possible Self</b><small>Imagine the life ahead, going as well as it reasonably could.</small></span></a>
+        <a class="opt" style="text-decoration:none" href="values-clarification.html"><span><b>Values Clarification</b><small>Discover what matters most to you, and how to live it.</small></span></a>
+      </div>
+    </section>
+  </main>
+  <footer class="disclaimer">
+    <p>Inspired by narrative therapy (Michael White and David Epston), which invites us to notice that we are not our problems, and that our lives hold more than one story. A self-guided reflection, not therapy.</p>
+    <p>Looking back can stir up painful memories. You don't have to include any chapter you're not ready to revisit. If you're in crisis in the U.S., call or text 988, or call 911.</p>
+    <p>Your answers stay on your device. Nothing is saved, tracked, or sent anywhere.</p>
+    <p class="feedback-line">These tools are evolving, and your feedback helps shape them. <a href="mailto:wooheekwak@outlook.com?subject=Feedback%20on%20Life%20Chapters&amp;body=What%20helped%3A%0A%0AWhat%20was%20confusing%20or%20could%20be%20better%3A%0A%0A%28Please%20leave%20out%20personal%20or%20health%20details.%29%0A">Share feedback</a> (please leave out personal or health details).</p>
+  </footer>
+</div>
+<script>
+(() => {
+  "use strict";
+  const SESSION_KEY = "wk-chapters-session";
+
+  /* ---------- shared helpers ---------- */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const listText = (a) => a.length < 2 ? (a[0] || "") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
+  const low = (t) => /^I[ ']/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);
+
+  /* session mode (?from=Name&reply=email), as in the other tools */
+  let therapist = null;
+  (function () {
+    const q = new URLSearchParams(location.search), from = (q.get("from") || "").trim().slice(0, 60);
+    try {
+      if (from) {
+        const t = { name: from.toLowerCase() === "elise" ? "Elise Kwak" : from, reply: "" };
+        const r = (q.get("reply") || "").trim().slice(0, 120);
+        if (r && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(r)) t.reply = r; else if (from.toLowerCase() === "elise") t.reply = "elise@selfspaceseattle.com";
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(t)); therapist = t;
+      } else { const raw = sessionStorage.getItem(SESSION_KEY); if (raw) therapist = JSON.parse(raw); }
+    } catch (_) { if (from) therapist = { name: from, reply: "" }; }
+    if (therapist && therapist.name) { $("session-banner").hidden = false; document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; }); }
+    else therapist = null;
+  })();
+  const sessionNote = () => therapist ? `<p class="hint" style="margin:20px 0 0">Print or save this as a PDF and bring it to your next session with ${esc(therapist.name)}.${therapist.reply ? ` If you've both agreed to use email, you can send it to ${esc(therapist.reply)}; email isn't fully private.` : ""}</p>` : "";
+
+  function copyText(text) {
+    const done = (m) => { const s = $("copy-status"); if (s) s.textContent = m; };
+    const fb = () => { const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done("Copied."); } catch (_) { done("Couldn't copy."); } ta.remove(); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(() => done("Copied."), fb); else fb();
+  }
+  function emailMe(subject, text) {
+    window.location.href = "mailto:?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(text);
+    const s = $("copy-status"); if (s) s.textContent = "Your email app should open. Add your own address and send.";
+  }
+  function printNow() {
+    const ph = $("ph-line"); if (ph) ph.textContent = (therapist ? `For a session with ${therapist.name} · ` : "") + new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    window.print();
+  }
+
+
+  /* ---------- Save as photo (drawn on this device; nothing is uploaded) ---------- */
+  const photoBoxHTML = (alt, file) => `<div class="photo-box" id="photo-box" hidden>
+      <p class="photo-tip" id="photo-tip">Here's your card.</p>
+      <img id="photo-img" alt="${esc(alt)}">
+      <div class="actions" style="margin-top:14px">
+        <button type="button" class="btn btn-primary" id="photo-share" hidden>Save or Email</button>
+        <a class="btn btn-ghost" id="photo-dl" download="${esc(file)}" style="text-decoration:none;display:inline-flex;align-items:center">Download</a>
+        <button type="button" class="btn-text" data-act="photo-close">Close</button>
+      </div>
+    </div>`;
+  function wrapLines(ctx, text, maxW) { const out = []; String(text).split("\n").forEach((para) => { let line = ""; para.split(/\s+/).forEach((w) => { const t = line ? line + " " + w : w; if (ctx.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; }); out.push(line); }); return out; }
+  function rrect(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r); ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h); ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r); ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath(); }
+  /* spec: { eyebrow, title, blocks: [{ h, text } | { h, quote } | { h, list: [] } | { timeline: [{ dot, title, sub, dashed }] }], footer } */
+  async function makeCard(spec) {
+    try { await Promise.all(['italic 400 40px "Lora"', '400 40px "Lora"', '400 30px "DM Sans"', '600 30px "DM Sans"'].map((f) => document.fonts.load(f))); } catch (_) {}
+    const W = 1080, P = 90, inner = W - P * 2;
+    const C = { bg: "#FDFAF6", ink: "#2A2F35", muted: "#5A6370", sage: "#476B56", soft: "#EEF4F0", line: "#E8DDD0" };
+    const m = document.createElement("canvas").getContext("2d"), ops = [];
+    const text = (font, color, str, lh, gap, opts = {}) => { m.font = font; const lines = wrapLines(m, str, inner - (opts.indent || 0) - (opts.box ? 64 : 0)); ops.push({ k: "text", font, color, lines, lh, gap, ...opts }); };
+    if (spec.eyebrow) text('600 26px "DM Sans"', C.muted, spec.eyebrow.toUpperCase(), 34, 12, { spacing: true });
+    if (spec.title) text('400 56px "Lora"', C.ink, spec.title, 66, 44);
+    (spec.blocks || []).forEach((b) => {
+      if (b.h) text('600 24px "DM Sans"', C.sage, b.h.toUpperCase(), 32, 12, { spacing: true });
+      if (b.quote) text('italic 400 38px "Lora"', C.ink, b.quote, 52, 40, { box: true });
+      if (b.text) text('400 30px "DM Sans"', C.ink, b.text, 42, 40);
+      if (b.list) { b.list.forEach((li, i) => text('400 29px "DM Sans"', C.ink, "• " + li, 40, i === b.list.length - 1 ? 40 : 8)); }
+      if (b.timeline) b.timeline.forEach((it, i) => {
+        m.font = '600 32px "DM Sans"'; const t1 = wrapLines(m, it.title, inner - 80);
+        m.font = '400 25px "DM Sans"'; const t2 = it.sub ? wrapLines(m, it.sub, inner - 80) : [];
+        ops.push({ k: "tl", it, t1, t2, last: i === b.timeline.length - 1, h: t1.length * 40 + t2.length * 34 + (i === b.timeline.length - 1 ? 40 : 30) });
+      });
+    });
+    const hOf = (o) => o.k === "tl" ? o.h : o.lines.length * o.lh + (o.box ? 56 : 0) + o.gap;
+    let H = P + ops.reduce((n, o) => n + hOf(o), 0) + P + 40;
+    const cv = document.createElement("canvas"); cv.width = W; cv.height = Math.max(H, 1350);
+    const ctx = cv.getContext("2d");
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, cv.height); ctx.fillStyle = C.sage; ctx.fillRect(0, 0, W, 14);
+    ctx.textBaseline = "top";
+    let y = P + Math.max(0, (cv.height - H) / 2);
+    for (const o of ops) {
+      if (o.k === "tl") {
+        const cx = P + 18;
+        if (!o.last) { ctx.strokeStyle = C.line; ctx.lineWidth = 4; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(cx, y + 30); ctx.lineTo(cx, y + o.h + 4); ctx.stroke(); }
+        ctx.beginPath(); ctx.arc(cx, y + 18, 15, 0, Math.PI * 2);
+        if (o.it.dashed) { ctx.setLineDash([6, 5]); ctx.strokeStyle = C.sage; ctx.lineWidth = 4; ctx.fillStyle = "#fff"; ctx.fill(); ctx.stroke(); ctx.setLineDash([]); }
+        else { ctx.fillStyle = o.it.dot || C.sage; ctx.fill(); }
+        ctx.fillStyle = C.ink; ctx.font = '600 32px "DM Sans"'; if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+        o.t1.forEach((ln, i) => ctx.fillText(ln, P + 64, y + i * 40));
+        ctx.fillStyle = C.muted; ctx.font = '400 25px "DM Sans"'; o.t2.forEach((ln, i) => ctx.fillText(ln, P + 64, y + o.t1.length * 40 + 4 + i * 34));
+        y += o.h; continue;
+      }
+      if (o.box) { const bh = o.lines.length * o.lh + 56; ctx.fillStyle = C.soft; rrect(ctx, P, y, inner, bh, 24); ctx.fill(); }
+      ctx.font = o.font; ctx.fillStyle = o.color; if ("letterSpacing" in ctx) ctx.letterSpacing = o.spacing ? "4px" : "0px";
+      o.lines.forEach((ln, i) => ctx.fillText(ln, P + (o.box ? 32 : 0), y + (o.box ? 28 : 0) + i * o.lh));
+      y += hOf(o);
+    }
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    ctx.font = '400 22px "DM Sans"'; ctx.fillStyle = C.muted; ctx.fillText(spec.footer || "wooheekwak.me", P, cv.height - P + 20);
+    return new Promise((res) => cv.toBlob(res, "image/png"));
+  }
+  let photoUrl = null;
+  async function showPhoto(btn, spec, file) {
+    const label = btn.textContent; btn.disabled = true; btn.textContent = "Making your card…";
+    let blob = null; try { blob = await makeCard(spec); } catch (_) {}
+    btn.disabled = false; btn.textContent = label;
+    if (!blob) { const s = $("copy-status"); if (s) s.textContent = "Couldn't make the photo on this device. Try Copy or Print instead."; return; }
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    photoUrl = URL.createObjectURL(blob); $("photo-img").src = photoUrl; $("photo-dl").href = photoUrl;
+    let f = null, canShare = false;
+    try { f = new File([blob], file, { type: "image/png" }); canShare = !!(navigator.canShare && navigator.canShare({ files: [f] })); } catch (_) {}
+    $("photo-share").hidden = !canShare; $("photo-share").onclick = async () => { try { await navigator.share({ files: [f] }); } catch (_) {} };
+    $("photo-tip").textContent = canShare ? "Here's your card. Tap “Save or Email” and choose Save Image to keep it in Photos, or Mail to send it." : "Here's your card. Use Download, or press and hold (or right-click) the picture to save it.";
+    $("photo-box").hidden = false; $("photo-box").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+  }
+
+
+  /* ================== CONTENT (edit freely) ================== */
+  const TITLE_IDEAS = ["Early years", "Growing up", "Finding my place", "Leaving home", "A new country", "Starting over", "Building", "The hard years", "Falling apart", "Finding my way", "Becoming a parent", "Coming back to myself"];
+  const TONES = [["joyful", "#E3A95C"], ["hopeful", "#8FB59A"], ["proud", "#C4714A"], ["tender", "#D9A1A0"], ["quiet", "#A9B7C4"], ["uncertain", "#B6A98F"], ["lonely", "#8E9DB3"], ["hard", "#7D6F86"], ["chaotic", "#B07A63"], ["brave", "#476B56"]];
+  const CARRIED = ["resilience", "adaptability", "independence", "humor", "faith", "caring for others", "courage", "my voice", "patience", "hard work", "curiosity", "knowing how to begin again"];
+  const HELPED = ["a person who believed in me", "family", "friends", "faith or spirituality", "my own determination", "humor", "nature", "creativity", "a community", "therapy or support", "time"];
+  const OLD_STORIES = ["I'm always behind", "I have to do it all alone", "I'm not enough", "I don't really belong anywhere", "Things always fall apart", "I'm too much", "I have to earn my worth"];
+  const NEW_STORY = {
+    "resilience": "I've come through hard things before, and I'm still here.",
+    "adaptability": "I know how to adjust and find my footing, again and again.",
+    "independence": "I can stand on my own, and I can also let people in.",
+    "humor": "I can find lightness, even in the hardest seasons.",
+    "faith": "I'm held by something bigger than this moment.",
+    "caring for others": "My care for others is one of my gifts, and I deserve that care too.",
+    "courage": "I've done brave things, even while I was scared.",
+    "my voice": "I've learned to speak up for what matters to me.",
+    "patience": "I know how to wait for things to grow.",
+    "hard work": "I keep showing up, and that has carried me far.",
+    "curiosity": "I meet life with curiosity, even when it's hard.",
+    "knowing how to begin again": "I know how to begin again."
+  };
+  const NEXT_TITLES = ["Coming home to myself", "Slower and kinder", "Room to grow", "Becoming", "Lighter", "Rooted", "The brave chapter", "My own way"];
+  const LEAVE = ["an old story about myself", "perfectionism", "people-pleasing", "rushing", "the fear of not being enough", "doing it all alone"];
+  const MAXCH = 6;
+
+  /* ================== STATE (not saved) ================== */
+  const newCh = () => ({ title: "", own: "", age: "", tone: "", carried: [] });
+  const blank = () => ({ step: 0, chapters: [newCh()], open: 0, hardest: -1, helped: [], old: "", oldOwn: "", newPick: "", newOwn: "", nextTitle: "", nextOwn: "", bring: [], leave: [] });
+  let d = blank(), lastView = -1;
+  const STEPS = 5;
+  $("progress").innerHTML = "<li></li>".repeat(STEPS);
+  const chTitle = (c) => (c.own.trim() || c.title || "Untitled chapter");
+  const toneColor = (t) => (TONES.find(([n]) => n === t) || [0, "#476B56"])[1];
+  const named = () => d.chapters.filter((c) => c.own.trim() || c.title);
+  function thread() {
+    const count = {}; d.chapters.forEach((c) => c.carried.forEach((x) => { count[x] = (count[x] || 0) + 1; }));
+    const top = Object.keys(count).sort((a, b) => count[b] - count[a]);
+    return { top, count };
+  }
+  const oldStory = () => d.oldOwn.trim() || d.old;
+  const newStory = () => d.newOwn.trim() || d.newPick;
+  const nextTitle = () => d.nextOwn.trim() || d.nextTitle;
+  const chSub = (c) => [c.age.trim(), c.tone, c.carried.length ? "carried " + listText(c.carried) : ""].filter(Boolean).join(" · ");
+
+  /* ================== VIEWS ================== */
+  const label = (t) => `<p class="step-label">${t}</p>`;
+  const nav = (txt, ok = true, back = true) => `<div class="actions"><button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${txt}</button>${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}</div>`;
+  function editor(i) {
+    const c = d.chapters[i];
+    return `<div class="ch-editor">
+      <p class="group-name">Chapter ${i + 1}: give it a title</p>
+      <div class="chipset">${TITLE_IDEAS.map((t) => `<button type="button" class="chip" data-title="${esc(t)}" aria-pressed="${c.title === t && !c.own.trim()}">${esc(t)}</button>`).join("")}</div>
+      <input type="text" data-chf="own" maxlength="50" aria-label="Your own chapter title" placeholder="Or your own title, e.g. The Seoul years" value="${esc(c.own)}">
+      <input type="text" data-chf="age" maxlength="30" aria-label="Roughly when (optional)" placeholder="Roughly when, optional, e.g. ages 0 to 18" value="${esc(c.age)}">
+      <p class="group-name">How did this chapter feel, mostly?</p>
+      <div class="chipset">${TONES.map(([t, col]) => `<button type="button" class="chip" data-tone="${t}" aria-pressed="${c.tone === t}"><span aria-hidden="true" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${col};margin-right:6px"></span>${t}</button>`).join("")}</div>
+      <p class="group-name">What did you carry out of it? <span style="text-transform:none;letter-spacing:0">(tap any)</span></p>
+      <div class="chipset">${CARRIED.map((t) => `<button type="button" class="chip" data-carry="${esc(t)}" aria-pressed="${c.carried.includes(t)}">${esc(t)}</button>`).join("")}</div>
+      <button type="button" class="btn btn-ghost" data-act="done-ch" style="margin-top:6px">Done with this chapter</button>
+    </div>`;
+  }
+  function timelineHTML(withEdit) {
+    return `<ol class="tl">${d.chapters.map((c, i) => d.open === i && withEdit ? `<li><span class="dot" style="background:${toneColor(c.tone)}"></span><div>${editor(i)}</div></li>` :
+      `<li><span class="dot" style="background:${toneColor(c.tone)}"></span><div><b>${esc(chTitle(c))}</b><small>${esc(chSub(c)) || "&nbsp;"}</small>${withEdit ? `<button type="button" class="edit" data-edit="${i}">Edit</button> · <button type="button" class="edit" data-del="${i}">Remove</button>` : ""}</div></li>`).join("")}</ol>`;
+  }
+
+  const views = {
+    0: () => `
+      ${label("Step 1 of 4 · Your chapters so far")}
+      <h2 class="q" tabindex="-1">If your life were a book, what would the <em>chapters</em> be?</h2>
+      <p class="hint">Most people find 3 to 5 chapters. They can follow ages, places, relationships, or big changes. There's no right way, and you can skip anything you're not ready to revisit.</p>
+      ${timelineHTML(true)}
+      ${d.chapters.length < MAXCH && d.open === -1 ? `<button type="button" class="btn btn-ghost" data-act="add-ch">+ Add another chapter</button>` : ""}
+      ${nav("Continue", named().length >= 2 && d.open === -1, false)}
+      ${named().length < 2 || d.open !== -1 ? `<p class="hint" style="margin-top:8px">${d.open !== -1 ? "Tap \"Done with this chapter\" when you're ready." : "Add at least two chapters to continue."}</p>` : ""}`,
+
+    1: () => `
+      ${label("Step 2 of 4 · What carried you")}
+      <h2 class="q" tabindex="-1">Which chapter was the <em>hardest</em>?</h2>
+      <div class="options">${d.chapters.map((c, i) => `<button type="button" class="opt" data-hard="${i}" aria-pressed="${d.hardest === i}"><span><b>${esc(chTitle(c))}</b>${chSub(c) ? `<small>${esc(chSub(c))}</small>` : ""}</span></button>`).join("")}</div>
+      ${d.hardest >= 0 ? `<p class="group-name" style="margin-top:22px">What helped you get through it?</p>
+      <div class="chipset">${HELPED.map((t) => `<button type="button" class="chip" data-help="${esc(t)}" aria-pressed="${d.helped.includes(t)}">${esc(t)}</button>`).join("")}</div>
+      <p class="callout">You made it through that chapter. Whatever got you here is still part of you.</p>` : ""}
+      ${nav("See the Thread", d.hardest >= 0)}`,
+
+    2: () => {
+      const th = thread(), t1 = th.top[0];
+      const opts = th.top.slice(0, 3).map((x) => NEW_STORY[x]).filter(Boolean);
+      return `
+      ${label("Step 3 of 4 · The thread")}
+      <h2 class="q" tabindex="-1">The thread through your <em>story</em></h2>
+      <div class="thread">${t1 ? `<b>${esc(cap(t1))}</b> shows up in ${th.count[t1]} of your chapters${th.top[1] ? `, along with <b>${esc(th.top[1])}</b>` : ""}. ${d.helped.length ? `And in your hardest chapter, you were carried by ${esc(listText(d.helped))}.` : ""} These aren't just things that happened to you. They're part of who you are.` : `Every chapter you've lived through has shaped you. ${d.helped.length ? `In your hardest one, you were carried by ${esc(listText(d.helped))}.` : ""}`}</div>
+      <p class="group-name">Is there an old story you tell about yourself? <span style="text-transform:none;letter-spacing:0">(optional)</span></p>
+      <div class="chipset">${OLD_STORIES.map((t) => `<button type="button" class="chip" data-old="${esc(t)}" aria-pressed="${d.old === t && !d.oldOwn.trim()}">"${esc(t)}"</button>`).join("")}</div>
+      <input type="text" data-field="oldOwn" maxlength="80" aria-label="Your own old story" placeholder="Or in your own words" value="${esc(d.oldOwn)}">
+      ${oldStory() ? `<p class="hint" style="margin-top:16px">That story probably made sense once. It may have helped you cope. But your chapters tell another true story too. Which feels true?</p>
+      <div class="options">${(opts.length ? opts : ["I've come through hard things before, and I'm still here.", "I know how to begin again."]).map((t) => `<button type="button" class="opt bal" data-new="${esc(t)}" aria-pressed="${d.newPick === t && !d.newOwn.trim()}"><span><b style="font-weight:500">"${esc(t)}"</b></span></button>`).join("")}</div>
+      <input type="text" data-field="newOwn" maxlength="100" style="margin-top:8px" aria-label="Your new story" placeholder="Or write your own" value="${esc(d.newOwn)}">` : ""}
+      ${nav("Title the Next Chapter")}`;
+    },
+
+    3: () => {
+      const th = thread(), bringOpts = [...new Set(th.top.concat(d.helped))];
+      return `
+      ${label("Step 4 of 4 · The next chapter")}
+      <h2 class="q" tabindex="-1">What will you call the chapter you're <em>beginning</em>?</h2>
+      <div class="chipset">${NEXT_TITLES.map((t) => `<button type="button" class="chip" data-next="${esc(t)}" aria-pressed="${d.nextTitle === t && !d.nextOwn.trim()}">${esc(t)}</button>`).join("")}</div>
+      <input type="text" data-field="nextOwn" maxlength="50" aria-label="Your own title" placeholder="Or your own title" value="${esc(d.nextOwn)}">
+      ${bringOpts.length ? `<p class="group-name" style="margin-top:22px">What will you bring with you?</p>
+      <div class="chipset">${bringOpts.map((t) => `<button type="button" class="chip" data-bring="${esc(t)}" aria-pressed="${d.bring.includes(t)}">${esc(t)}</button>`).join("")}</div>` : ""}
+      <p class="group-name" style="margin-top:14px">What are you ready to leave behind?</p>
+      <div class="chipset">${LEAVE.map((t) => `<button type="button" class="chip" data-leave="${esc(t)}" aria-pressed="${d.leave.includes(t)}">${esc(t)}</button>`).join("")}</div>
+      ${nav("See My Story", !!nextTitle())}`;
+    },
+
+    4: () => `
+      <article class="card fade-in">
+        <div class="print-head"><b>Life Chapters</b><span id="ph-line"></span></div>
+        ${label("Your story so far")}
+        <h2 class="q" tabindex="-1">My life in <em>chapters</em></h2>
+        <ol class="tl">${d.chapters.filter((c) => c.own.trim() || c.title).map((c) => `<li><span class="dot" style="background:${toneColor(c.tone)}"></span><div><b>${esc(chTitle(c))}</b><small>${esc(chSub(c)) || "&nbsp;"}</small></div></li>`).join("")}
+          <li><span class="dot next"></span><div><p class="next-title">${esc(nextTitle())}</p><small>The chapter I'm beginning${d.bring.length ? ` · bringing ${esc(listText(d.bring))}` : ""}${d.leave.length ? ` · leaving behind ${esc(listText(d.leave))}` : ""}</small></div></li></ol>
+        ${threadLine() ? `<div class="card-sec"><h3>The thread</h3><p>${esc(threadLine())}</p></div>` : ""}
+        ${newStory() ? `<div class="card-sec"><h3>A truer story</h3><div class="restory">${oldStory() ? `<div class="old">${esc(oldStory())}</div>` : ""}<div class="new">${esc(newStory())}</div></div></div>` : ""}
+        <p class="callout" style="margin-top:20px"><strong>You are the author.</strong> The chapters behind you shaped you, but they don't decide how the next one goes.</p>
+        ${sessionNote()}
+      </article>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" data-act="photo">Save as Photo</button>
+        <button type="button" class="btn btn-ghost" data-act="email">Email It</button>
+        <button type="button" class="btn btn-ghost" data-act="print">Print or Save as PDF</button>
+        <button type="button" class="btn btn-ghost" data-act="copy">Copy</button>
+        <span class="status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      ${photoBoxHTML("Your life chapters timeline.", "my-life-chapters.png")}
+      <p class="erase-row"><button type="button" class="btn-text" data-act="back">← Back</button> · <button type="button" class="btn-text" data-act="restart">Start again</button></p>`
+  };
+  const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+  function threadLine() {
+    const th = thread(), t1 = th.top[0];
+    const a = t1 ? `${cap(t1)} runs through ${th.count[t1]} of my chapters${th.top[1] ? `, along with ${th.top[1]}` : ""}.` : "";
+    const b = d.helped.length ? ` In my hardest chapter, I was carried by ${listText(d.helped)}.` : "";
+    return (a + b).trim();
+  }
+
+  function render(focus = true) {
+    const same = lastView === d.step; lastView = d.step;
+    $("stage").innerHTML = views[d.step]();
+    if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
+    [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i <= d.step));
+    if (focus) { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true }); }
+  }
+  function sync() { const n = $("stage").querySelector('[data-act="next"]'); if (n && d.step === 3) n.disabled = !nextTitle(); }
+  function storyText() {
+    const L = ["LIFE CHAPTERS · my story so far", ""];
+    if (therapist) L.push(`For a session with ${therapist.name} · ${new Date().toLocaleDateString()}`, "");
+    named().forEach((c, i) => L.push(`${i + 1}. ${chTitle(c)}${chSub(c) ? ` (${chSub(c)})` : ""}`));
+    L.push(`Next: ${nextTitle()}${d.bring.length ? `, bringing ${listText(d.bring)}` : ""}${d.leave.length ? `, leaving behind ${listText(d.leave)}` : ""}`, "");
+    if (threadLine()) L.push("The thread: " + threadLine(), "");
+    if (newStory()) { if (oldStory()) L.push(`Old story: "${oldStory()}"`); L.push(`A truer story: "${newStory()}"`, ""); }
+    L.push("You are the author. The chapters behind you shaped you, but they don't decide how the next one goes.", "", "Life Chapters · wooheekwak.me/tools/life-chapters.html");
+    return L.join("\n");
+  }
+  function photoSpec() {
+    const tl = named().map((c) => ({ dot: toneColor(c.tone), title: chTitle(c), sub: chSub(c) }));
+    tl.push({ dashed: true, title: nextTitle(), sub: "The chapter I'm beginning" + (d.bring.length ? " · bringing " + listText(d.bring) : "") });
+    const blocks = [{ timeline: tl }];
+    if (threadLine()) blocks.push({ h: "The thread", text: threadLine() });
+    if (newStory()) blocks.push({ h: "A truer story", quote: newStory() });
+    return { eyebrow: "My life in chapters", blocks, footer: "Life Chapters · wooheekwak.me" };
+  }
+
+  $("stage").addEventListener("input", (e) => {
+    const t = e.target;
+    if (t.dataset.chf) { const c = d.chapters[d.open]; c[t.dataset.chf] = t.value; if (t.dataset.chf === "own" && t.value.trim()) $("stage").querySelectorAll("[data-title]").forEach((b) => b.setAttribute("aria-pressed", "false")); return; }
+    const f = t.dataset.field; if (!f) return; d[f] = t.value;
+    if (f === "oldOwn" && (!!t.value.trim()) !== !!$("stage").querySelector("[data-new]")) { render(false); const i = $("stage").querySelector('[data-field="oldOwn"]'); i.focus(); i.setSelectionRange(i.value.length, i.value.length); }
+    sync();
+  });
+  $("stage").addEventListener("click", (e) => {
+    const t = e.target, c = d.chapters[d.open];
+    const ti = t.closest("[data-title]"); if (ti && c) { c.title = ti.dataset.title; c.own = ""; const inp = $("stage").querySelector('[data-chf="own"]'); if (inp) inp.value = ""; $("stage").querySelectorAll("[data-title]").forEach((b) => b.setAttribute("aria-pressed", b === ti)); return; }
+    const to = t.closest("[data-tone]"); if (to && c) { c.tone = c.tone === to.dataset.tone ? "" : to.dataset.tone; $("stage").querySelectorAll("[data-tone]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.tone === c.tone)); const dot = to.closest("li").querySelector(".dot"); if (dot) dot.style.background = toneColor(c.tone); return; }
+    const ca = t.closest("[data-carry]"); if (ca && c) { const v = ca.dataset.carry, i = c.carried.indexOf(v); i >= 0 ? c.carried.splice(i, 1) : c.carried.push(v); ca.setAttribute("aria-pressed", i < 0); return; }
+    const ed = t.closest("[data-edit]"); if (ed) { d.open = +ed.dataset.edit; render(false); return; }
+    const de = t.closest("[data-del]"); if (de) { d.chapters.splice(+de.dataset.del, 1); if (!d.chapters.length) { d.chapters.push(newCh()); d.open = 0; } render(false); return; }
+    const hd = t.closest("[data-hard]"); if (hd) { d.hardest = +hd.dataset.hard; render(false); return; }
+    const hp = t.closest("[data-help]"); if (hp) { const v = hp.dataset.help, i = d.helped.indexOf(v); i >= 0 ? d.helped.splice(i, 1) : d.helped.push(v); hp.setAttribute("aria-pressed", i < 0); return; }
+    const ol = t.closest("[data-old]"); if (ol) { d.old = d.old === ol.dataset.old ? "" : ol.dataset.old; d.oldOwn = ""; render(false); return; }
+    const nw = t.closest("[data-new]"); if (nw) { d.newPick = nw.dataset.new; d.newOwn = ""; const inp = $("stage").querySelector('[data-field="newOwn"]'); if (inp) inp.value = ""; $("stage").querySelectorAll("[data-new]").forEach((b) => b.setAttribute("aria-pressed", b === nw)); return; }
+    const nx = t.closest("[data-next]"); if (nx) { d.nextTitle = nx.dataset.next; d.nextOwn = ""; const inp = $("stage").querySelector('[data-field="nextOwn"]'); if (inp) inp.value = ""; $("stage").querySelectorAll("[data-next]").forEach((b) => b.setAttribute("aria-pressed", b === nx)); sync(); return; }
+    const br = t.closest("[data-bring]"); if (br) { const v = br.dataset.bring, i = d.bring.indexOf(v); i >= 0 ? d.bring.splice(i, 1) : d.bring.push(v); br.setAttribute("aria-pressed", i < 0); return; }
+    const lv = t.closest("[data-leave]"); if (lv) { const v = lv.dataset.leave, i = d.leave.indexOf(v); i >= 0 ? d.leave.splice(i, 1) : d.leave.push(v); lv.setAttribute("aria-pressed", i < 0); return; }
+    const btn = t.closest("[data-act]"), a = btn?.dataset.act; if (!a) return;
+    if (a === "done-ch") { d.open = -1; render(false); }
+    else if (a === "add-ch") { d.chapters.push(newCh()); d.open = d.chapters.length - 1; render(false); }
+    else if (a === "next") { d.chapters = d.chapters.filter((x) => x.own.trim() || x.title); if (d.hardest >= d.chapters.length) d.hardest = -1; d.step = Math.min(d.step + 1, STEPS - 1); render(); }
+    else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
+    else if (a === "restart") { d = blank(); render(); }
+    else if (a === "photo") showPhoto(btn, photoSpec(), "my-life-chapters.png");
+    else if (a === "photo-close") $("photo-box").hidden = true;
+    else if (a === "email") emailMe("My life chapters", storyText());
+    else if (a === "print") printNow();
+    else if (a === "copy") copyText(storyText());
+  });
+  render(false);
+})();
+</script>
+</body>
+</html>
