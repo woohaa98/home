@@ -55,19 +55,21 @@ h1 em, .q em { color: var(--warm); font-style: italic; }
 .grounding .x { appearance: none; background: none; border: 0; font-size: 22px; line-height: 1; color: var(--muted); cursor: pointer; margin-left: auto; padding: 0 4px; }
 
 .sys { margin: 0 0 18px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px 14px; box-shadow: var(--shadow); text-align: center; }
-.sys-svg { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto; }
-.sys .fam { opacity: .3; transition: opacity .5s; }
+.sys-svg { width: 100%; max-width: 380px; height: auto; display: block; margin: 0 auto; }
+.sys .fam { opacity: .35; transition: opacity .5s; }
 .sys .fam.on { opacity: 1; }
-.sys .self-glow { animation: selfglow 4s ease-in-out infinite; transform-origin: 180px 158px; }
-@keyframes selfglow { 0%, 100% { transform: scale(.92); opacity: .8; } 50% { transform: scale(1.06); opacity: 1; } }
-.sys .fore { animation: stepfwd .7s cubic-bezier(.3,1.4,.5,1) both; transform-box: fill-box; transform-origin: center; }
+.sys .self-glow { animation: selfglow 5s ease-in-out infinite; transform-origin: 180px 150px; }
+.sys .flow { animation: flow 1.6s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -16; } }
+@keyframes selfglow { 0%, 100% { transform: scale(.9); opacity: .75; } 50% { transform: scale(1.08); opacity: 1; } }
+.sys .fore circle, .sys .fore text:first-of-type { animation: stepfwd .7s cubic-bezier(.3,1.4,.5,1) both; transform-box: fill-box; transform-origin: center; }
 @keyframes stepfwd { 0% { transform: scale(.4); opacity: 0; } 100% { transform: none; opacity: 1; } }
 .sys figcaption { font-size: 14px; color: var(--muted); line-height: 1.55; max-width: 46ch; margin: 4px auto 0; }
 .sys figcaption b { color: var(--ink); font-weight: 600; }
 .picon { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 19px; background: var(--sand); }
 .blend-svg { width: 100%; max-width: 380px; height: auto; display: block; margin: 6px auto 4px; }
 .blend-svg circle { transition: cx .4s ease, opacity .4s; }
-@media (prefers-reduced-motion: reduce) { .sys .self-glow, .sys .fore { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .sys .self-glow, .sys .fore circle, .sys .fore text, .sys .flow { animation: none; } }
 .step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
 .q { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 4.5vw, 32px); line-height: 1.2; margin: 0 0 6px; outline: none; }
 .hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; max-width: 58ch; }
@@ -320,41 +322,39 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 
   /* ---------- the inner system map ---------- */
   function systemMap() {
-    const W = 360, H = 324, cx = 180, cy = 158;
-    const pos = { manager: [72, 84], firefighter: [288, 84], identity: [180, 248] };
+    const W = 360, H = 322, cx = 180, cy = 150, R = 112;
+    const ang = { manager: -150, firefighter: -30, identity: 90 };
     const active = d.category && d.category !== "unsure" ? d.category : null;
     const chosen = d.part ? (d.part === "custom" ? { id: "custom", g: active || "manager", label: partName() } : allParts().find((x) => x.id === d.part)) : null;
-    const fam = Object.keys(pos).map((g) => {
-      const [x, y] = pos[g], F = FAMILY[g], on = chosen ? chosen.g === g : (!active || active === g), list = PARTS[g];
-      const dots = list.map(([id], i) => {
-        const a = (i / list.length) * Math.PI * 2 - Math.PI / 2, r = 34, px = x + Math.cos(a) * r, py = y + Math.sin(a) * r;
-        const isC = chosen && chosen.id === id;
-        return isC ? "" : `<text x="${px.toFixed(1)}" y="${(py + 5).toFixed(1)}" text-anchor="middle" font-size="14">${ICONS[id] || "•"}</text>`;
-      }).join("");
-      return `<g class="fam${on ? " on" : ""}"><circle cx="${x}" cy="${y}" r="50" fill="${F.soft}" stroke="${F.color}" stroke-width="1.5" stroke-dasharray="3 4"/>
-        ${chosen && chosen.g === g ? "" : `<text x="${x}" y="${y + 7}" text-anchor="middle" font-size="20">${F.icon}</text>`}${dots}
-        <text x="${x}" y="${g === "identity" ? y + 66 : y - 58}" text-anchor="middle" font-size="11" letter-spacing="1" fill="#5A6370" font-family="DM Sans, sans-serif">${F.name.toUpperCase()}</text></g>`;
+    const P = (g) => { const a = ang[g] * Math.PI / 180; return [cx + Math.cos(a) * R, cy + Math.sin(a) * R]; };
+    const links = Object.keys(ang).map((g) => {
+      const [x, y] = P(g), on = chosen ? chosen.g === g : (!active || active === g), hot = chosen && chosen.g === g;
+      const dx = x - cx, dy = y - cy, L = Math.hypot(dx, dy), x1 = cx + dx / L * 58, y1 = cy + dy / L * 58, x2 = x - dx / L * 36, y2 = y - dy / L * 36;
+      return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${hot ? "#D4A24C" : "#E4D8C8"}" stroke-width="${hot ? 2 : 1.4}" ${hot ? 'stroke-dasharray="3 5" class="flow"' : ""} opacity="${on ? 1 : .4}"/>`;
     }).join("");
-    let fore = "";
-    if (chosen) {
-      const [mx, my] = pos[chosen.g] || pos.manager;
-      const lbl = chosen.label.length > 22 ? chosen.label.slice(0, 21) + "…" : chosen.label;
-      const ly = chosen.g === "identity" ? my - 46 : my + 34, lw = Math.max(96, lbl.length * 6.6 + 20), lx = Math.min(Math.max(mx, lw / 2 + 4), 360 - lw / 2 - 4);
-      const dx = cx - mx, dy = cy - my, dist = Math.hypot(dx, dy), ex = cx - dx / dist * 30, ey = cy - dy / dist * 30, sx2 = mx + dx / dist * 28, sy2 = my + dy / dist * 28;
-      fore = `<path d="M${sx2.toFixed(1)} ${sy2.toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)}" stroke="#C9A66B" stroke-width="2" stroke-dasharray="3 5"/>
-        <g class="fore"><circle cx="${mx}" cy="${my}" r="25" fill="#fff" stroke="${FAMILY[chosen.g].color}" stroke-width="2.5"/>
-        <text x="${mx}" y="${my + 8}" text-anchor="middle" font-size="23">${ICONS[chosen.id] || "✏️"}</text>
-        <rect x="${(lx - lw / 2).toFixed(1)}" y="${ly}" width="${lw.toFixed(1)}" height="20" rx="10" fill="#fff" stroke="${FAMILY[chosen.g].color}"/>
-        <text x="${lx.toFixed(1)}" y="${ly + 14}" text-anchor="middle" font-size="11.5" fill="#2A2F35" font-family="DM Sans, sans-serif">${esc(lbl)}</text></g>`;
-    }
+    const fams = Object.keys(ang).map((g) => {
+      const [x, y] = P(g), F = FAMILY[g], on = chosen ? chosen.g === g : (!active || active === g), isC = chosen && chosen.g === g;
+      const below = g === "identity", ly = below ? y + 54 : y - 46;
+      const name = isC ? (chosen.label.length > 22 ? chosen.label.slice(0, 21) + "…" : chosen.label) : F.name;
+      return `<g class="fam${on ? " on" : ""}${isC ? " fore" : ""}">
+        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isC ? 34 : 30}" fill="${isC ? "#fff" : F.soft}" stroke="${F.color}" stroke-width="${isC ? 2.5 : 1.2}"/>
+        <text x="${x.toFixed(1)}" y="${(y + 8).toFixed(1)}" text-anchor="middle" font-size="${isC ? 26 : 22}">${isC ? (ICONS[chosen.id] || "✏️") : F.icon}</text>
+        ${isC ? `<text x="${x.toFixed(1)}" y="${ly}" text-anchor="middle" font-size="14" fill="#2A2F35" font-family="Lora, serif" font-style="italic">${esc(name)}</text>`
+              : `<text x="${x.toFixed(1)}" y="${ly}" text-anchor="middle" font-size="10.5" letter-spacing="1.6" fill="#6B7380" font-family="DM Sans, sans-serif">${esc(name.toUpperCase())}</text>`}
+      </g>`;
+    }).join("");
     return `<svg viewBox="0 0 ${W} ${H}" class="sys-svg" aria-hidden="true">
-      <defs><radialGradient id="selfg"><stop offset="0" stop-color="#FFF4D6"/><stop offset=".6" stop-color="#F7DDA4"/><stop offset="1" stop-color="#F2CC85" stop-opacity="0"/></radialGradient></defs>
-      ${fam}
-      <circle cx="${cx}" cy="${cy}" r="46" fill="url(#selfg)" class="self-glow"/>
-      <circle cx="${cx}" cy="${cy}" r="26" fill="#FFF8E6" stroke="#E2B865" stroke-width="2"/>
-      <text x="${cx}" y="${cy + 2}" text-anchor="middle" font-size="15" fill="#7A5A1E" font-family="Lora, serif" font-style="italic">Self</text>
-      <text x="${cx}" y="${cy + 15}" text-anchor="middle" font-size="7.5" fill="#9A7A3E" font-family="DM Sans, sans-serif">calm · curious</text>
-      ${fore}
+      <defs>
+        <radialGradient id="selfhalo"><stop offset="0" stop-color="#F9DFA6" stop-opacity=".95"/><stop offset=".55" stop-color="#F6D490" stop-opacity=".45"/><stop offset="1" stop-color="#F6D490" stop-opacity="0"/></radialGradient>
+        <radialGradient id="selfcore" cx=".4" cy=".35"><stop offset="0" stop-color="#FFFDF5"/><stop offset=".7" stop-color="#FFF3D6"/><stop offset="1" stop-color="#F8E2AE"/></radialGradient>
+      </defs>
+      ${links}
+      <circle cx="${cx}" cy="${cy}" r="78" fill="url(#selfhalo)" class="self-glow"/>
+      <circle cx="${cx}" cy="${cy}" r="48" fill="url(#selfcore)" stroke="#E0B55E" stroke-width="2"/>
+      <circle cx="${cx}" cy="${cy}" r="42" fill="none" stroke="#EFD59B" stroke-width="1"/>
+      <text x="${cx}" y="${cy + 3}" text-anchor="middle" font-size="24" fill="#7A5A1E" font-family="Lora, serif" font-style="italic">Self</text>
+      <text x="${cx}" y="${cy + 19}" text-anchor="middle" font-size="7" letter-spacing=".5" fill="#A07F3E" font-family="DM Sans, sans-serif">CALM · CURIOUS · KIND</text>
+      ${fams}
     </svg>`;
   }
   function mapCaption() {
