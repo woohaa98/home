@@ -229,8 +229,24 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .carry { margin-top: 6px; background: var(--accent-soft); border-radius: 14px; padding: 14px 16px; font-family: var(--font-display); font-size: 18px; line-height: 1.5; }
 .details-h { margin: 8px 0 10px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 /* values vs goals */
-.vg { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px 18px; margin: 0 0 22px; box-shadow: var(--shadow); }
-.vg summary { cursor: pointer; font-weight: 600; font-size: 15px; color: var(--slate); padding: 4px 0; }
+.vg-callout { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px 12px; margin: 0 0 22px; box-shadow: var(--shadow); }
+.vg-h { margin: 0 0 12px; font-family: var(--font-display); font-size: 19px; text-align: center; }
+.vg-h em { color: var(--sage); }
+.vg-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vg-vs > div { border-radius: 14px; padding: 12px 10px; text-align: center; display: grid; gap: 2px; }
+.vg-vs .goal { background: var(--sand); }
+.vg-vs .value { background: var(--sage-soft); box-shadow: inset 0 0 0 1.5px #CFE0D4; }
+.vg-vs .ic { font-size: 20px; line-height: 1.2; }
+.vg-vs small { font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.vg-vs b { font-family: var(--font-display); font-weight: 400; font-size: 18px; }
+.vg-vs .what { font-size: 13.5px; color: var(--muted); }
+.vg-vs .value .what em { color: var(--sage); font-style: normal; font-weight: 600; }
+.vg-vs .goal .what em { font-style: normal; font-weight: 600; color: var(--accent); }
+.vg-line { margin: 12px 0 4px; font-size: 14.5px; text-align: center; color: var(--ink); }
+.vg { margin: 4px 0 0; }
+.vg summary { cursor: pointer; font-size: 13.5px; color: var(--accent); text-align: center; list-style: none; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
+.vg summary::-webkit-details-marker { display: none; }
+.vg[open] summary { margin-bottom: 4px; }
 .vg-scene { margin: 12px 0 10px; }
 .vg-svg { width: 100%; height: auto; display: block; }
 .vg-needle { animation: sway 5s ease-in-out infinite; transform-origin: 0 0; }
@@ -334,8 +350,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <!-- 2. Choose -->
     <section id="s-choose" hidden aria-labelledby="q-choose">
       <h2 class="q" id="q-choose" tabindex="-1">Which values <em>speak to you</em>?</h2>
-      <details class="vg" id="vg" open>
-        <summary>Values vs. goals: what's the difference?</summary>
+      <div class="vg-callout">
+        <p class="vg-h">You're choosing <em>values</em>, not goals</p>
+        <div class="vg-vs">
+          <div class="goal"><span class="ic" aria-hidden="true">🏁</span><small>A goal</small><b>Run a marathon</b><span class="what">something you <em>finish</em></span></div>
+          <div class="value"><span class="ic" aria-hidden="true">🧭</span><small>A value</small><b>Health</b><span class="what">a way you <em>keep living</em></span></div>
+        </div>
+        <p class="vg-line">Pick the values that describe who you are and how you want to live, not things you want to achieve.</p>
+      <details class="vg" id="vg">
+        <summary>See more examples</summary>
         <div class="vg-scene" aria-hidden="true">
           <svg viewBox="0 0 600 200" class="vg-svg">
             <defs><linearGradient id="vgsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBF3EA"/><stop offset="1" stop-color="#F1ECE3"/></linearGradient></defs>
@@ -367,6 +390,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         </div>
         <p class="vg-note">Two people can chase the same goal for very different reasons. Your values are the <em>why</em>, and the why is you.</p>
       </details>
+      </div>
       <p class="hint">Choose every value that feels important to how you want to live and work. Go with your gut; you'll narrow down next. Aim for about 8 to 15.</p>
       <div class="toolbar">
         <span class="counter" id="choose-count" aria-live="polite"></span>
