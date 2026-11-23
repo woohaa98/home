@@ -223,10 +223,12 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .body-svg { width: 180px; height: auto; display: block; }
 .body-svg .zone { cursor: pointer; outline: none; }
 .body-svg .zone .hit { fill: transparent; }
-.body-svg .zone .dot { fill: transparent; stroke: transparent; transition: fill .25s; }
-.body-svg .zone:hover .dot { fill: rgba(196,113,74,.15); }
-.body-svg .zone:focus-visible .dot { stroke: var(--focus); stroke-dasharray: 3 2; }
-.body-svg .zone.on .dot { fill: rgba(196,113,74,.45); stroke: #C4714A; stroke-width: 1.2; }
+.body-svg .sil, .mini-body .sil { filter: drop-shadow(0 2px 6px rgba(120,90,60,.10)); }
+.body-svg .zone .dot { fill: url(#glow); opacity: 0; transition: opacity .35s ease; }
+.body-svg .zone:hover .dot { opacity: .35; }
+.body-svg .zone:focus-visible .dot { opacity: .5; }
+.body-svg .zone:focus-visible .hit { stroke: var(--focus); stroke-width: 1; stroke-dasharray: 3 2; }
+.body-svg .zone.on .dot { opacity: 1; }
 .region-list { display: grid; gap: 8px; width: 100%; }
 .region-list .chip { text-align: left; }
 
@@ -240,9 +242,9 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .player { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 22px; align-items: center; }
 @media (max-width: 560px) { .player { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
 .mini-body { width: 130px; height: auto; }
-.mini-body .rg { fill: rgba(196,113,74,0); transition: fill .4s; }
-.mini-body .rg.on { fill: rgba(196,113,74,.5); animation: glow 3s ease-in-out infinite; }
-@keyframes glow { 0%,100% { fill: rgba(196,113,74,.25); } 50% { fill: rgba(196,113,74,.6); } }
+.mini-body .rg { fill: url(#glow); opacity: 0; transition: opacity .4s; }
+.mini-body .rg.on { opacity: 1; animation: glow 3s ease-in-out infinite; }
+@keyframes glow { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
 .orb-wrap { display: grid; place-items: center; height: 120px; }
 .orb { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff, var(--accent-soft) 60%, #CFE0D4); border: 1px solid #B8D4C0; transform: scale(.7); transition: transform 1s ease-in-out; }
 .p-title { font-family: var(--font-display); font-size: 22px; margin: 0 0 4px; }
@@ -605,28 +607,25 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     ["l_knee", 79, 264, 10, 9], ["r_knee", 121, 264, 10, 9], ["l_leg", 78, 293, 9, 18], ["r_leg", 122, 293, 9, 18], ["l_foot", 77, 325, 13, 8], ["r_foot", 123, 325, 13, 8]
   ];
   const regionOf = (z) => Object.keys(REGIONS).find((r) => REGIONS[r].zones.includes(z));
-  const SIL = (fill = "#FFFFFF") => {
-    const a = `fill="${fill}" stroke="#D9CCBC" stroke-width="1.2"`;
-    return `<ellipse cx="100" cy="36" rx="24" ry="26" ${a}/><rect x="91" y="60" width="18" height="14" rx="5" ${a}/>
-      <path d="M68 74 Q60 88 59 106 Q57 132 61 158 Q65 176 72 190 L128 190 Q135 176 139 158 Q143 132 141 106 Q140 88 132 74 Z" ${a}/>
-      <path d="M72 190 Q70 200 68 212 L132 212 Q130 200 128 190 Z" ${a}/>
-      <path d="M68 78 Q51 94 45 118 Q41 143 43 166 L56 166 Q57 143 59 117 Q64 95 76 80 Z" ${a}/>
-      <path d="M132 78 Q149 94 155 118 Q159 143 157 166 L144 166 Q143 143 141 117 Q136 95 124 80 Z" ${a}/>
-      <ellipse cx="49" cy="172" rx="12" ry="14" ${a}/><ellipse cx="151" cy="172" rx="12" ry="14" ${a}/>
-      <path d="M72 212 Q68 235 66 262 Q64 290 66 318 L88 318 Q90 290 90 262 Q90 236 88 212 Z" ${a}/>
-      <path d="M112 212 Q110 236 110 262 Q110 290 112 318 L134 318 Q136 290 134 262 Q132 235 128 212 Z" ${a}/>
-      <ellipse cx="77" cy="325" rx="14" ry="9" ${a}/><ellipse cx="123" cy="325" rx="14" ry="9" ${a}/>`;
+  const BODY_D = "M108 58 C109 64 109 68 111 71 C119 74 131 74 138 79 C146 85 150 96 152 108 C155 128 157 146 158 161 C162 169 163 183 154 186 C146 188 144 179 145 170 C144 150 142 129 139 113 C138 129 134 146 133 160 C133 176 138 192 136 206 C135 232 132 254 130 268 C129 286 130 302 128 316 C134 320 140 325 137 330 C130 334 117 333 115 328 C114 310 113 290 114 270 C114 250 112 228 106 214 C103 210 101 209 100 209 C99 209 97 210 94 214 C88 228 86 250 86 270 C87 290 86 310 85 328 C83 333 70 334 63 330 C60 325 66 320 72 316 C70 302 71 286 70 268 C68 254 65 232 64 206 C62 192 67 176 67 160 C66 146 62 129 61 113 C58 129 56 150 55 170 C56 179 54 188 46 186 C37 183 38 169 42 161 C43 146 45 128 48 108 C50 96 54 85 62 79 C69 74 81 74 89 71 C91 68 91 64 92 58 Z";
+  let silN = 0;
+  const SIL = (whole = false) => {
+    const id = "bg" + (++silN);
+    return `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${whole ? "#F5D6C3" : "#F2E7DB"}"/><stop offset="1" stop-color="${whole ? "#ECBFA6" : "#E7D8C8"}"/></linearGradient>
+      <clipPath id="bc${silN}"><ellipse cx="100" cy="34" rx="21" ry="24"/><path d="${BODY_D}"/></clipPath>
+      <radialGradient id="glow"><stop offset="0" stop-color="#C4714A" stop-opacity=".75"/><stop offset=".55" stop-color="#C4714A" stop-opacity=".32"/><stop offset="1" stop-color="#C4714A" stop-opacity="0"/></radialGradient></defs>
+      <g class="sil"><ellipse cx="100" cy="34" rx="21" ry="24" fill="url(#${id})"/><path d="${BODY_D}" fill="url(#${id})"/></g>`;
   };
   function bodyMap() {
     return `<svg class="body-svg" viewBox="0 0 200 338" role="group" aria-label="Body map: tap where you feel it">${SIL()}
       ${ZONES.map(([id, cx, cy, rx, ry]) => { const r = regionOf(id); return `<g class="zone${d.regions.includes(r) ? " on" : ""}" data-zone="${id}" data-region="${r}" tabindex="0" role="button" aria-label="${esc(REGIONS[r].label)}" aria-pressed="${d.regions.includes(r)}">
-        <ellipse class="hit" cx="${cx}" cy="${cy}" rx="${Math.max(rx + 3, 12)}" ry="${Math.max(ry + 3, 12)}"/><ellipse class="dot" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/></g>`; }).join("")}</svg>`;
+        <ellipse class="hit" cx="${cx}" cy="${cy}" rx="${Math.max(rx + 3, 12)}" ry="${Math.max(ry + 3, 12)}"/><ellipse class="dot" clip-path="url(#bc${silN})" cx="${cx}" cy="${cy}" rx="${rx * 1.35}" ry="${ry * 1.35}"/></g>`; }).join("")}</svg>`;
   }
   function miniBody(region) {
     const zs = region && REGIONS[region] ? REGIONS[region].zones : [];
     const all = region === "whole" || region === "savor";
-    return `<svg class="mini-body" viewBox="0 0 200 338" aria-hidden="true">${SIL(all ? "#F6E2D6" : "#FFFFFF")}
-      ${ZONES.map(([id, cx, cy, rx, ry]) => `<ellipse class="rg${zs.includes(id) ? " on" : ""}" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/>`).join("")}</svg>`;
+    return `<svg class="mini-body" viewBox="0 0 200 338" aria-hidden="true">${SIL(all)}
+      ${ZONES.map(([id, cx, cy, rx, ry]) => `<ellipse class="rg${zs.includes(id) ? " on" : ""}" clip-path="url(#bc${silN})" cx="${cx}" cy="${cy}" rx="${rx * 1.4}" ry="${ry * 1.4}"/>`).join("")}</svg>`;
   }
 
   /* ================== VIEWS ================== */
