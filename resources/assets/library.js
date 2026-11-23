@@ -40,6 +40,7 @@ window.RESOURCE_LIBRARY = {
     "kind-boundaries":      { title: "Kind Boundaries", href: "../tools/kind-boundaries.html", blurb: "Build a clear, kind way to say no or ask for what you need (DEAR MAN)." },
     "life-chapters":        { title: "Life Chapters", href: "../tools/life-chapters.html", blurb: "Name your life's chapters, notice the thread, and title the next one." },
     "best-possible-self":   { title: "Best Possible Self", href: "../tools/best-possible-self.html", blurb: "Imagine your future going well, and get a letter from your future self." },
+    "drop-the-rope":        { title: "Drop the Rope", href: "../tools/drop-the-rope.html", blurb: "What you resist persists: make room for discomfort and take one willing step." },
     "gentle-start-up":      { title: "Gentle Start-Up", href: "../tools/gentle-start-up.html", blurb: "For couples: raise a concern with I feel… about… I need…, plus repair phrases." },
   },
 
@@ -259,7 +260,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 7 */
     {
       id: "perfectionism",
-      tools: ["untangle-the-pattern", "parts-of-me", "kind-boundaries", "values-clarification"],
+      tools: ["untangle-the-pattern", "drop-the-rope", "parts-of-me", "kind-boundaries", "values-clarification"],
       category: "growth",
       status: "published",
       lastReviewed: "2026-11-05",
@@ -295,7 +296,7 @@ window.RESOURCE_LIBRARY = {
     /* ---------------------------------------------------------- 8 */
     {
       id: "turning-toward-emotions",
-      tools: ["meet-the-feeling", "gentle-start-up"],
+      tools: ["meet-the-feeling", "drop-the-rope", "gentle-start-up"],
       category: "awareness",
       status: "published",
       lastReviewed: "2026-11-09",
