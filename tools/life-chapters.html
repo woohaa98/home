@@ -272,6 +272,14 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .pg-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); font-size: 24px; line-height: 1; cursor: pointer; color: var(--ink); }
 .pg-btn:hover { border-color: var(--accent); color: var(--accent); }
 #print-book { display: none; }
+.mini-book { display: flex; flex-direction: column; align-items: center; margin: 0 0 30px; }
+.mini-frame { --k: .56; width: calc(400px * var(--k)); height: calc(560px * var(--k)); }
+@media (min-width: 700px) { .mini-frame { --k: .62; } }
+.mini-frame .book { width: 400px; max-width: none; transform: scale(var(--k)); transform-origin: top left; pointer-events: none; }
+.mini-frame .book-inner { height: 560px; }
+.mini-cap { margin: 14px 0 0; font-family: var(--font-display); font-style: italic; font-size: 14px; color: var(--muted); }
+.faint, .toc-t.faint, .pg-title.faint { color: #B9AC9B !important; }
+@media print { .mini-book { display: none !important; } }
 @media print {
   body.printing-book .wrap { display: none !important; }
   body.printing-book #print-book { display: block !important; }
@@ -299,6 +307,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <div class="session-banner" id="session-banner" role="note" hidden><span aria-hidden="true">🌿</span>
       <div><b>Shared by your therapist, <span class="th-name"></span></b><p>Map your chapters here, then save, print, or email your timeline to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div></div>
     <div class="toolbar"><ol class="progress" id="progress" aria-hidden="true"></ol></div>
+    <div class="mini-book" id="mini-book" aria-hidden="true">
+      <div class="mini-frame"><div class="book"><div class="book-inner" id="mbook-inner"></div></div></div>
+      <p class="mini-cap">Your book, taking shape</p>
+    </div>
     <section id="stage"></section>
     <section class="rel" aria-labelledby="rel-h" style="margin-top:48px">
       <p class="eyebrow" style="margin-bottom:6px">Keep exploring</p>
@@ -591,23 +603,24 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII"];
   const coverColor = () => (COVERS.find(([n]) => n === d.cover) || COVERS[0])[1];
   const bTitle = () => d.bookTitle.trim() || "My Story So Far";
-  function bookPages() {
-    const chs = named(), P = [];
-    P.push({ cls: "cover", html: `<div class="cv-band"></div><div class="cv-frame"><p class="cv-orn">❦</p><h3 class="cv-title">${esc(bTitle())}</h3>${d.author.trim() ? `<p class="cv-by">by ${esc(d.author.trim())}</p>` : `<p class="cv-by">a life in chapters</p>`}<p class="cv-orn sm">✦</p></div>` });
-    P.push({ html: `<p class="pg-kicker">Contents</p><ol class="toc">${chs.map((c, i) => `<li><span class="toc-n">${ROMAN[i]}</span><span class="toc-t">${esc(chTitle(c))}</span><span class="toc-dot" style="background:${toneColor(c.tone)}"></span></li>`).join("")}
-        <li class="toc-next"><span class="toc-n">${ROMAN[chs.length] || "∞"}</span><span class="toc-t">${esc(nextTitle())}</span><span class="toc-dot open"></span></li></ol>
+  function bookPages(draft = false) {
+    const chs = draft ? d.chapters : named(), P = [];
+    const t = (c) => c.own.trim() || c.title;
+    P.push({ key: "cover", cls: "cover", html: `<div class="cv-band"></div><div class="cv-frame"><p class="cv-orn">❦</p><h3 class="cv-title">${esc(bTitle())}</h3>${d.author.trim() ? `<p class="cv-by">by ${esc(d.author.trim())}</p>` : `<p class="cv-by">a life in chapters</p>`}<p class="cv-orn sm">✦</p></div>` });
+    P.push({ key: "toc", html: `<p class="pg-kicker">Contents</p><ol class="toc">${chs.map((c, i) => `<li><span class="toc-n">${ROMAN[i]}</span><span class="toc-t${t(c) ? "" : " faint"}">${t(c) ? esc(t(c)) : "Untitled chapter"}</span><span class="toc-dot" style="background:${c.tone ? toneColor(c.tone) : "#E6DACA"}"></span></li>`).join("")}
+        <li class="toc-next"><span class="toc-n">${ROMAN[chs.length] || "∞"}</span><span class="toc-t${nextTitle() ? "" : " faint"}">${nextTitle() ? esc(nextTitle()) : "The chapter you're beginning"}</span><span class="toc-dot open"></span></li></ol>
         ${threadLine() || newStory() ? `<p class="toc-note">Author's note · at the back</p>` : ""}
-        ${therapist ? `<p class="toc-note" style="margin-top:6px">For a session with ${esc(therapist.name)} · ${new Date().toLocaleDateString()}</p>` : ""}` });
-    chs.forEach((c, i) => P.push({ html: `<p class="pg-kicker">Chapter ${WORDS[i]}</p><h3 class="pg-title">${esc(chTitle(c))}</h3>
+        ${therapist && !draft ? `<p class="toc-note" style="margin-top:6px">For a session with ${esc(therapist.name)} · ${new Date().toLocaleDateString()}</p>` : ""}` });
+    chs.forEach((c, i) => P.push({ key: "ch" + i, html: `<p class="pg-kicker">Chapter ${WORDS[i]}</p><h3 class="pg-title${t(c) ? "" : " faint"}">${t(c) ? esc(t(c)) : "Untitled chapter"}</h3>
         <p class="pg-meta">${[c.age.trim(), c.tone].filter(Boolean).map(esc).join(" · ")}${c.tone ? `<span class="tone-ribbon" style="background:${toneColor(c.tone)}"></span>` : ""}</p>
-        ${c.story.trim() ? `<p class="pg-story"><span class="dropcap">${esc(c.story.trim().charAt(0))}</span>${esc(c.story.trim().slice(1))}</p>` : `<p class="pg-story faint">Some chapters are held more in the heart than in words.</p>`}
+        ${c.story.trim() ? `<p class="pg-story"><span class="dropcap">${esc(c.story.trim().charAt(0))}</span>${esc(c.story.trim().slice(1))}</p>` : `<p class="pg-story faint">${draft ? "Your own words will appear here as you write." : "Some chapters are held more in the heart than in words."}</p>`}
         ${c.carried.length ? `<p class="pg-carried"><span>What I carried from this chapter</span>${esc(listText(c.carried))}</p>` : ""}
-        ${d.hardest === d.chapters.indexOf(c) && d.helped.length ? `<p class="pg-carried"><span>What carried me through</span>${esc(listText(d.helped))}</p>` : ""}
+        ${d.hardest === i && d.helped.length ? `<p class="pg-carried"><span>What carried me through</span>${esc(listText(d.helped))}</p>` : ""}
         <p class="pg-orn">❦</p>` }));
-    if (threadLine() || newStory()) P.push({ html: `<p class="pg-kicker">Author's note</p><h3 class="pg-title">The thread</h3>
+    if (threadLine() || newStory()) P.push({ key: "note", html: `<p class="pg-kicker">Author's note</p><h3 class="pg-title">The thread</h3>
         ${threadLine() ? `<p class="pg-story">${esc(threadLine())}</p>` : ""}
         ${newStory() ? `${oldStory() ? `<p class="pg-old">I used to tell myself: "${esc(oldStory())}"</p>` : ""}<p class="pg-new">"${esc(newStory())}"</p>` : ""}<p class="pg-orn">❦</p>` });
-    P.push({ cls: "next", html: `<p class="pg-kicker">Chapter ${WORDS[chs.length] || "Next"} · beginning now</p><h3 class="pg-title">${esc(nextTitle())}</h3>
+    P.push({ key: "next", cls: "next", html: `<p class="pg-kicker">Chapter ${WORDS[chs.length] || "Next"} · beginning now</p><h3 class="pg-title${nextTitle() ? "" : " faint"}">${nextTitle() ? esc(nextTitle()) : "The chapter you're beginning"}</h3>
         ${d.nextStory.trim() ? `<p class="pg-story">${esc(d.nextStory.trim())}</p>` : ""}
         ${d.bring.length ? `<p class="pg-carried"><span>Bringing with me</span>${esc(listText(d.bring))}</p>` : ""}
         ${d.leave.length ? `<p class="pg-carried"><span>Leaving behind</span>${esc(listText(d.leave))}</p>` : ""}
@@ -615,27 +628,47 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <p class="pg-tbc">to be continued, by you ✎</p>` });
     return P;
   }
-  const pageEl = (pg, n, total) => `<div class="bpage ${pg.cls || ""}" style="--cover:${coverColor()}">${pg.html}${pg.cls === "cover" ? "" : `<span class="pg-num">${n}</span>`}</div>`;
+  const pageEl = (pg, n) => `<div class="bpage ${pg.cls || ""}" style="--cover:${coverColor()}">${pg.html}${pg.cls === "cover" ? "" : `<span class="pg-num">${n}</span>`}</div>`;
+  /* Flip a book (inner element) from page `from` to page `to`. */
+  function flip(inner, P, from, to, done) {
+    if (reduceMotion || from === to) { inner.innerHTML = pageEl(P[to], to); done(); return; }
+    const old = inner.firstElementChild, fresh = document.createElement("div"); fresh.innerHTML = pageEl(P[to], to); const nw = fresh.firstElementChild;
+    if (to > from) { inner.insertBefore(nw, old); old.classList.add("flip-out"); }
+    else { nw.classList.add("flip-in-start"); inner.appendChild(nw); void nw.offsetWidth; nw.classList.remove("flip-in-start"); nw.classList.add("flip-in"); }
+    setTimeout(done, 720);
+  }
+  /* ---- the full book (last step) ---- */
   let turning = false;
   function paintBook() {
     const P = bookPages(); d.page = Math.max(0, Math.min(d.page, P.length - 1));
-    $("book-inner").innerHTML = pageEl(P[d.page], d.page, P.length);
+    $("book-inner").innerHTML = pageEl(P[d.page], d.page);
     $("pg-label").textContent = d.page === 0 ? "Cover · tap › to open" : `Page ${d.page} of ${P.length - 1}`;
-    $("book").classList.toggle("closed", d.page === 0);
   }
   function turn(dir) {
     const P = bookPages(), to = d.page + dir;
     if (turning || to < 0 || to >= P.length) return;
-    if (reduceMotion) { d.page = to; paintBook(); return; }
-    turning = true;
-    const inner = $("book-inner"), old = inner.firstElementChild;
-    const fresh = document.createElement("div"); fresh.innerHTML = pageEl(P[to], to, P.length); const nw = fresh.firstElementChild;
-    if (dir > 0) { inner.insertBefore(nw, old); old.classList.add("flip-out"); }
-    else { nw.classList.add("flip-in-start"); inner.appendChild(nw); void nw.offsetWidth; nw.classList.remove("flip-in-start"); nw.classList.add("flip-in"); }
-    d.page = to; $("book").classList.toggle("closed", to === 0);
+    turning = true; const from = d.page; d.page = to;
     $("pg-label").textContent = to === 0 ? "Cover · tap › to open" : `Page ${to} of ${P.length - 1}`;
-    setTimeout(() => { turning = false; paintBook(); }, 720);
+    flip($("book-inner"), P, from, to, () => { turning = false; paintBook(); });
   }
+  /* ---- the little book that grows as you write (steps 1 to 4) ---- */
+  let mPage = 0, mTurning = false, mOpened = false, mPending = false;
+  function miniTarget(P) {
+    const key = d.step === 0 ? (d.open >= 0 ? "ch" + d.open : "toc") : d.step === 1 ? (d.hardest >= 0 ? "ch" + d.hardest : "toc") : d.step === 2 ? "note" : "next";
+    const i = P.findIndex((p) => p.key === key); return i >= 0 ? i : 1;
+  }
+  function refreshMini() {
+    const wrap = $("mini-book"); if (!wrap) return;
+    wrap.hidden = d.step >= 4; if (d.step >= 4) return;
+    if (mTurning) { mPending = true; return; }
+    const P = bookPages(true), inner = $("mbook-inner");
+    if (!mOpened) { mPage = 0; inner.innerHTML = pageEl(P[0], 0); return; }
+    const to = miniTarget(P);
+    if (to === mPage && inner.firstElementChild) { inner.innerHTML = pageEl(P[to], to); return; }
+    mTurning = true; const from = mPage; mPage = to;
+    flip(inner, P, from, to, () => { mTurning = false; inner.innerHTML = pageEl(bookPages(true)[mPage], mPage); if (mPending) { mPending = false; refreshMini(); } });
+  }
+  function openMini() { if (mOpened) return; refreshMini(); setTimeout(() => { mOpened = true; refreshMini(); }, reduceMotion ? 0 : 1100); }
   function printBook() {
     const P = bookPages(), box = document.createElement("div"); box.id = "print-book";
     box.innerHTML = P.map((pg, i) => pageEl(pg, i, P.length)).join("");
@@ -656,6 +689,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (same) $("stage").querySelectorAll(".fade-in").forEach((el) => el.classList.remove("fade-in"));
     [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i <= d.step));
     if (d.step === 4) { d.page = 0; paintBook(); }
+    if (mOpened) refreshMini(); else openMini();
     if (focus) { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true }); }
   }
   function sync() { const n = $("stage").querySelector('[data-act="next"]'); if (n && d.step === 3) n.disabled = !nextTitle(); }
@@ -711,13 +745,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     else if (a === "add-ch") { d.chapters.push(newCh()); d.open = d.chapters.length - 1; render(false); }
     else if (a === "next") { d.chapters = d.chapters.filter((x) => x.own.trim() || x.title); if (d.hardest >= d.chapters.length) d.hardest = -1; d.step = Math.min(d.step + 1, STEPS - 1); render(); }
     else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
-    else if (a === "restart") { d = blank(); render(); }
+    else if (a === "restart") { d = blank(); mOpened = false; render(); }
     else if (a === "photo") showPhoto(btn, photoSpec(), "my-life-chapters.png");
     else if (a === "photo-close") $("photo-box").hidden = true;
     else if (a === "email") emailMe("My life chapters", storyText());
     else if (a === "print") printBook();
     else if (a === "copy") copyText(storyText());
   });
+  $("stage").addEventListener("input", () => requestAnimationFrame(refreshMini));
+  $("stage").addEventListener("click", () => requestAnimationFrame(refreshMini));
   document.addEventListener("keydown", (e) => { if (d.step !== 4 || /input|textarea/i.test(document.activeElement?.tagName || "")) return; if (e.key === "ArrowRight") turn(1); else if (e.key === "ArrowLeft") turn(-1); });
   let sx = null;
   $("stage").addEventListener("pointerdown", (e) => { if (e.target.closest("#book")) sx = e.clientX; });
