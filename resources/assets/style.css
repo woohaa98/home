@@ -379,3 +379,4 @@ a { color: var(--terracotta-ink); }
   .sheet-foot p:last-child { white-space: nowrap; }
   a { color: inherit; text-decoration: none; }
 }
+.share-tool em.personal { color: #7A6A58; background: #F5EFE6; }

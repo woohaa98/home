@@ -42,7 +42,7 @@
 <main id="main" class="wrap">
   <section class="category clin-section share" id="share" aria-labelledby="cat-share">
     <div class="category-head"><span class="category-letter" aria-hidden="true">01</span><h2 id="cat-share">Share a Tool with a Client</h2></div>
-    <p class="category-blurb">Pick a tool, add your client's email, and your own email app opens with a ready-to-send message and link. When your client opens it, the tool shows that it came from you. Tools marked "Includes a session summary" end with a summary clients can print, save as a PDF, or email, to bring to your next session.</p>
+    <p class="category-blurb">Pick a tool, add your client's email, and your own email app opens with a ready-to-send message and link. When your client opens it, the tool shows that it came from you. Tools marked "Includes a session summary" end with a <b>Share this with you</b> box: your client can email their summary to you from their own email app, or save it as a PDF to bring to session. Daily Nourishment is a personal practice, with nothing to send back.</p>
 
     <form class="share-form" id="share-form" novalidate>
       <fieldset class="share-tools">
@@ -150,7 +150,7 @@
     <div class="using-grid">
       <div><h3>Invite, don't assign</h3><p>Offer tools as an experiment. "Want to try this before next time?" leaves room to say no, and a skipped exercise is useful information too.</p></div>
       <div><h3>Follow their meaning</h3><p>Worksheets and summaries are conversation starters, not assessments. Ask what stood out rather than interpreting answers for them.</p></div>
-      <div><h3>Privacy by design</h3><p>The interactive tools keep everything on the client's device. Nothing is sent to this site. Clients bring results to session, or email them if you've both agreed to that.</p></div>
+      <div><h3>Privacy by design</h3><p>The interactive tools keep everything on the client's device. Nothing is sent to this site. At the end, clients choose whether to email their summary to you from their own email app or bring a PDF to session. Agree together on whether email is okay.</p></div>
       <div><h3>Within your scope</h3><p>Use these alongside your clinical judgment and your practice's policies. They are not crisis tools; share crisis resources (like 988 in the U.S.) as needed.</p></div>
     </div>
   </section>
@@ -196,11 +196,11 @@
       intro: "Here's a values exercise I'd love for you to try before our next session. It helps you find and rank what matters most to you, put it in your own words, and see which kinds of work might fit." },
     { id: "untangle-the-pattern", title: "Untangle the Pattern", blurb: "CBT: thought, feeling, action loop, reframe, and a small step", summary: true, mins: "about 10 minutes",
       intro: "Here's the CBT exercise we talked about. It walks you through the pattern step by step: the situation, the thought, how you feel, what you do, and then how to loosen the thought and test it with one small step." },
-    { id: "meet-the-feeling", title: "Meet the Feeling", blurb: "Name a feeling, find it in the body, ease it, and let it pass (RAIN)", mins: "5 to 8 minutes",
+    { id: "meet-the-feeling", title: "Meet the Feeling", blurb: "Name a feeling, find it in the body, ease it, and let it pass (RAIN)", summary: true, mins: "5 to 8 minutes",
       intro: "Here's a short practice for when a feeling is big or hard to name. It helps you find the right word, notice where it sits in your body, ease that place with a guided exercise, and let it pass in its own time." },
-    { id: "ride-the-wave", title: "Ride the Wave", blurb: "OCD, panic, and urges: ERP-informed practice in not acting on the urge", mins: "about 10 minutes",
+    { id: "ride-the-wave", title: "Ride the Wave", blurb: "OCD, panic, and urges: ERP-informed practice in not acting on the urge", summary: true, mins: "about 10 minutes",
       intro: "Here's the practice we talked about for when anxiety or the urge to do something hits. It walks you through the cycle and helps you ride the wave instead of reacting." },
-    { id: "parts-of-me", title: "Parts of Me", blurb: "Get to know a protective part (IFS-informed)", mins: "10 to 15 minutes",
+    { id: "parts-of-me", title: "Parts of Me", blurb: "Get to know a protective part (IFS-informed)", summary: true, mins: "10 to 15 minutes",
       intro: "Here's a gentle reflection for getting to know one part of you, like the inner critic or the part that pushes, and what it's trying to protect." },
     { id: "small-steps", title: "Small Steps", blurb: "Behavioral activation: 1 to 3 small steps for today", summary: true, mins: "about 3 minutes",
       intro: "Here's a short exercise for choosing one to three small, doable steps for today, matched to your energy, and noticing how your mood responds. You can save your steps as a photo or set a daily reminder." },
@@ -214,7 +214,7 @@
       intro: "Here's a short exercise for imagining your life ahead going as well as it reasonably could. It ends with a letter from your future self and one small step you can take this week." },
     { id: "drop-the-rope", title: "Drop the Rope", blurb: "ACT: avoidance, willingness, one small step", summary: true, mins: "about 6 minutes",
       intro: "Here's a short exercise for something you've been putting off. It shows why struggling with uncomfortable feelings can keep us stuck, guides a one-minute practice for making room for them, and helps you choose one small, willing step." },
-    { id: "daily-nourishment", title: "Daily Nourishment Check-In", blurb: "What's filling you up and what's draining you", mins: "a few minutes",
+    { id: "daily-nourishment", title: "Daily Nourishment Check-In", blurb: "What's filling you up and what's draining you", personal: true, mins: "a few minutes",
       intro: "Here's a quick daily check-in on what's nourishing you and what's draining you. It can be a nice way to notice patterns between sessions." }
   ];
   var KEY = "wk-share-therapist";
@@ -223,7 +223,7 @@
 
   $("share-grid").innerHTML = TOOLS.map(function (t, i) {
     return '<label class="share-tool"><input type="radio" name="sh-tool" value="' + t.id + '"' + (i === 0 ? " checked" : "") + '>' +
-      '<span><b>' + t.title + '</b><small>' + t.blurb + '</small>' + (t.summary ? '<em>Includes a session summary</em>' : "") + '</span></label>';
+      '<span><b>' + t.title + '</b><small>' + t.blurb + '</small>' + (t.summary ? '<em>Includes a session summary</em>' : t.personal ? '<em class="personal">Personal practice · nothing to send back</em>' : "") + '</span></label>';
   }).join("");
 
   try { var saved = JSON.parse(localStorage.getItem(KEY) || "{}"); if (saved.name) $("sh-name").value = saved.name; if (saved.reply) $("sh-reply").value = saved.reply; } catch (e) {}
@@ -242,8 +242,8 @@
     var first = $("sh-first").value.trim(), name = $("sh-name").value.trim();
     var lines = ["Hi" + (first ? " " + first : "") + ",", "", tool.intro + " It takes " + tool.mins + ", and your answers stay on your own device.", "", "[link]", ""];
     if (tool.summary) {
-      lines.push("When you finish, please print your summary or save it as a PDF and bring it to our next session, or open it on your phone." +
-        ($("sh-reply").value.trim() ? " You can also email it to me at " + $("sh-reply").value.trim() + ", but regular email isn't fully private, so only share what you're comfortable sending that way." : ""), "");
+      lines.push("When you finish, you'll see a box to share your summary with me. You can email it to me from your own email app" +
+        ($("sh-reply").value.trim() ? " (it will be addressed to " + $("sh-reply").value.trim() + ")" : "") + ", or save it as a PDF to bring to our next session. Regular email isn't fully private, so only share what you're comfortable sending that way.", "");
     } else {
       lines.push("There's nothing to send back. Just notice what comes up, and we can talk about it next time if you'd like.", "");
     }
