@@ -767,10 +767,27 @@
   @media (max-width: 1080px) { .nav-links { gap: 16px; } .nav-links a { letter-spacing: 0.06em; } }
   /* ---- RESPONSIVE ---- */
   @media (max-width: 900px) {
-    nav { padding: 18px 28px; }
-    .nav-links { display: none; }
+    nav { padding: 12px 0 0; flex-wrap: wrap; }
+    .nav-logo { padding: 0 20px 8px; font-size: 1.05rem; }
+    .nav-links {
+      display: flex; gap: 6px; width: 100%; margin: 0; padding: 0 20px 10px;
+      overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6px, #000 calc(100% - 28px), transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, #000 6px, #000 calc(100% - 28px), transparent 100%);
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links li { flex: none; scroll-snap-align: start; }
+    .nav-links a {
+      display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px;
+      border-radius: 100px; border: 1px solid var(--divider); background: rgba(255,255,255,.7);
+      font-size: 0.74rem; letter-spacing: 0.06em;
+    }
+    .nav-links a.is-current { border-color: var(--terracotta); color: var(--terracotta); background: #fff; }
+    .nav-cta { padding: 0 14px !important; border-color: var(--terracotta) !important; }
+    [id] { scroll-margin-top: 112px; }
     section { padding: 72px 28px; }
-    #hero { padding: 100px 28px 60px; }
+    #hero { padding: 132px 28px 60px; }
     .services-layout, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
     .personas-grid, .work-grid, .blog-grid { grid-template-columns: 1fr; }
     .personas-grid { grid-template-columns: 1fr; }
@@ -1747,6 +1764,24 @@
 </script>
 <script>
 /* Tool finder: suggests a tool from one tap. Nothing is stored or sent. */
+(function () {
+  /* Highlight the menu tab for the section in view (on-page only, nothing is tracked). */
+  var links = [].slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  var strip = document.querySelector(".nav-links");
+  if (!("IntersectionObserver" in window) || !links.length) return;
+  var byId = {}; links.forEach(function (a) { var el = document.getElementById(a.getAttribute("href").slice(1)); if (el) byId[el.id] = a; });
+  var setCurrent = function (a) {
+    links.forEach(function (x) { x.classList.toggle("is-current", x === a); if (x === a) x.setAttribute("aria-current", "true"); else x.removeAttribute("aria-current"); });
+    if (a && strip && strip.scrollWidth > strip.clientWidth) {
+      var li = a.parentNode, left = li.offsetLeft - 20;
+      if (left < strip.scrollLeft || li.offsetLeft + li.offsetWidth > strip.scrollLeft + strip.clientWidth) strip.scrollTo({ left: left, behavior: "smooth" });
+    }
+  };
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting && byId[e.target.id]) setCurrent(byId[e.target.id]); });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  Object.keys(byId).forEach(function (id) { io.observe(document.getElementById(id)); });
+})();
 (function () {
   var F = document.getElementById("finder"); if (!F) return;
   var INFO = {
