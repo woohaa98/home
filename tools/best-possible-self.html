@@ -222,6 +222,18 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .lh-date { margin: 14px 0 0; text-align: right; font-family: var(--font-display); font-style: italic; color: #7A6A58; font-size: 15px; }
 .stationery textarea, .stationery .letter-say { font-family: var(--font-display); font-style: italic; font-size: 17.5px; line-height: 32px; color: #3A3027; border: 0; padding: 0; background: transparent repeating-linear-gradient(180deg, transparent 0 31px, #EFE3D1 31px 32px); background-attachment: local; width: 100%; resize: none; white-space: pre-wrap; margin: 0; min-height: 320px; }
 .stationery textarea:focus { outline: none; }
+.mini-letter { margin: 0 0 30px; display: flex; flex-direction: column; align-items: center; }
+.ml-paper { width: min(420px, 100%); padding: 20px 26px 18px; }
+.ml-paper .lh { margin-bottom: 8px; transform: scale(.8); transform-origin: top center; }
+.ml-paper .lh-date { margin-top: 8px; font-size: 13px; }
+.ml-body { position: relative; height: 190px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14px, #000 80%, transparent); mask-image: linear-gradient(180deg, transparent 0, #000 14px, #000 80%, transparent); background: repeating-linear-gradient(180deg, transparent 0 23px, #EFE3D1 23px 24px); background-attachment: local; }
+.ml-line { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 14px; line-height: 24px; color: #3A3027; }
+.ml-line.faint { color: #B9AC9B; }
+.ml-gap { margin: 0; height: 24px; }
+.ml-line.ink { animation: ink 1.6s ease both; }
+@keyframes ink { 0% { opacity: 0; filter: blur(3px); color: #1E1812; } 40% { opacity: 1; filter: blur(.4px); } 100% { opacity: 1; filter: none; color: #3A3027; } }
+.mini-cap { margin: 12px 0 0; font-family: var(--font-display); font-style: italic; font-size: 14px; color: var(--muted); }
+@media print { .mini-letter { display: none !important; } }
 .env-scene { margin: 6px 0 24px; text-align: center; }
 .envelope { position: relative; width: min(360px, 92%); aspect-ratio: 1.55; margin: min(170px, 46vw) auto 8px; perspective: 1100px; transition: margin .8s ease; }
 .envelope.stage-closed { margin-top: 24px; }
@@ -281,6 +293,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <div class="session-banner" id="session-banner" role="note" hidden><span aria-hidden="true">🌿</span>
       <div><b>Shared by your therapist, <span class="th-name"></span></b><p>Imagine your best possible self here, then save, print, or email your letter to bring to your next session. Nothing is sent anywhere unless you choose to share it.</p></div></div>
     <div class="toolbar"><ol class="progress" id="progress" aria-hidden="true"></ol></div>
+    <div class="mini-letter" id="mini-letter" aria-hidden="true">
+      <div class="stationery ml-paper"><div id="ml-head"></div><div class="ml-body" id="ml-body"></div></div>
+      <p class="mini-cap">Your letter, being written</p>
+    </div>
     <section id="stage"></section>
     <section class="rel" aria-labelledby="rel-h" style="margin-top:48px">
       <p class="eyebrow" style="margin-bottom:6px">Keep exploring</p>
@@ -549,6 +565,24 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const initial = () => (d.name.trim().charAt(0) || "").toUpperCase() || "✦";
   const futureDate = () => { const t = new Date(); t.setFullYear(futureYear()); return t.toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" }); };
   const letterhead = () => `<div class="lh"><span class="mono">${esc(initial())}</span><p class="lh-from">Written from ${futureYear()}</p><div class="lh-rule"></div><p class="lh-date">${esc(futureDate())}</p></div>`;
+  /* ---------- the letter that writes itself (steps 1 to 3) ---------- */
+  let mlPrev = [];
+  function refreshMiniLetter() {
+    const box = $("mini-letter"); if (!box) return;
+    box.hidden = d.step >= 3; if (d.step >= 3) return;
+    $("ml-head").innerHTML = letterhead();
+    const lines = buildLetter().split("\n"), body = $("ml-body"), fresh = [];
+    body.innerHTML = lines.map((ln, i) => {
+      const hint = i === 3 && d.step >= 1 && !anyImage() ? `<p class="ml-line faint" data-i="hint">Tap what you see, and it will appear here…</p><p class="ml-gap"></p>` : "";
+      if (!ln.trim()) return `<p class="ml-gap"></p>` + hint;
+      const isNew = mlPrev.length && !mlPrev.includes(ln);
+      if (isNew) fresh.push(i);
+      return `<p class="ml-line${isNew ? " ink" : ""}" data-i="${i}">${esc(ln)}</p>` + hint;
+    }).join("");
+    mlPrev = lines;
+    const target = fresh.length ? body.querySelector(`[data-i="${fresh[0]}"]`) : (d.step === 1 && !anyImage() ? body.querySelector('[data-i="hint"]') : null);
+    if (target) { const top = target.offsetTop - body.clientHeight / 2; body.scrollTo({ top, behavior: reduceMotion ? "auto" : "smooth" }); }
+  }
   function feelNote() {
     if (d.feel.includes("unsure") || d.feel.includes("a little sad")) return `<p class="callout warm feel-note">It's okay if imagining this brings up doubt or sadness. It can mean this future really matters to you, or that things feel heavy right now. You don't have to believe it fully. Just let it be one possibility.</p>`;
     if (d.feel.length) return `<p class="callout feel-note">Notice that feeling. It's a small taste of what you're moving toward.</p>`;
@@ -562,6 +596,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     [...$("progress").children].forEach((li, i) => li.classList.toggle("on", i <= d.step));
     const ta = $("letter"); if (ta) { ta.style.height = "auto"; ta.style.height = ta.scrollHeight + 6 + "px"; }
     if (d.step === 4) sealSequence();
+    refreshMiniLetter();
     if (focus) { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true }); }
   }
   /* ---------- seal the letter, then open it ---------- */
@@ -628,7 +663,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const btn = t.closest("[data-act]"), a = btn?.dataset.act; if (!a) return;
     if (a === "next") { d.step = Math.min(d.step + 1, STEPS - 1); render(); }
     else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
-    else if (a === "restart") { d = blank(); render(); }
+    else if (a === "restart") { d = blank(); mlPrev = []; render(); }
     else if (a === "open-letter") openLetter();
     else if (a === "reset-letter") { d.edited = false; d.letter = buildLetter(); render(false); }
     else if (a === "photo") showPhoto(btn, photoSpec(), "my-future-self-letter.png");
@@ -637,6 +672,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     else if (a === "print") printNow();
     else if (a === "copy") copyText(letterText());
   });
+  $("stage").addEventListener("input", () => requestAnimationFrame(refreshMiniLetter));
+  $("stage").addEventListener("click", () => requestAnimationFrame(refreshMiniLetter));
   render(false);
 })();
 </script>
