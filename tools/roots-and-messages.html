@@ -383,7 +383,12 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
      The summary leaves this device only through the person's own email app or printer. */
   let shareText = () => "", shareSubject = "My summary", sharePrint = null;
   const shareBox = () => {
-    if (!therapist) return "";
+    if (!therapist) return `<div class="share-th no-print">
+      <p class="st-h">Bring this to your <b>therapy session</b></p>
+      <p class="st-sub">Your summary, ready to explore together with your therapist.</p>
+      <div class="st-row"><button type="button" class="btn btn-primary" data-share="email">Email It</button><button type="button" class="btn btn-ghost" data-share="print">Print or Save as PDF</button></div>
+      <p class="st-tip"><b>Email It</b> opens your own email app with your summary written in, so you can send it to your therapist or anyone you choose. You can read or change anything before you send it. Email isn't fully private, so only share what you're comfortable sending that way.</p>
+    </div>`;
     const first = therapist.name.split(" ")[0];
     return `<div class="share-th no-print">
       <p class="st-h">Share this with <b>${esc(therapist.name)}</b></p>
@@ -399,8 +404,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     window.addEventListener("afterprint", done); window.print(); setTimeout(() => { if (document.getElementById("print-summary")) done(); }, 1500);
   }
   document.addEventListener("click", (e) => {
-    const b = e.target.closest("[data-share]"); if (!b || !therapist) return;
-    if (b.dataset.share === "email") window.location.href = `mailto:${therapist.reply ? encodeURIComponent(therapist.reply) : ""}?subject=${encodeURIComponent(shareSubject + " · for our session")}&body=${encodeURIComponent(shareText())}`;
+    const b = e.target.closest("[data-share]"); if (!b) return;
+    if (b.dataset.share === "email") window.location.href = `mailto:${therapist && therapist.reply ? encodeURIComponent(therapist.reply) : ""}?subject=${encodeURIComponent(shareSubject + (therapist ? " · for our session" : " · for my therapy session"))}&body=${encodeURIComponent(shareText())}`;
     else (sharePrint || printSummaryText)();
   });
   const sessionNote = () => shareBox();
@@ -495,7 +500,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     { id: "ptn", role: "Partner", gen: 2, x: 560 },
     { id: "ch1", role: "Child", gen: 3, x: 280 }, { id: "ch2", role: "Child", gen: 3, x: 360 }, { id: "ch3", role: "Child", gen: 3, x: 440 }
   ];
-  const GEN_Y = [78, 200, 322, 478], GEN_NAMES = ["Grandparents", "Parents & caregivers", "You & siblings", "Next generation"];
+  const GEN_Y = [78, 200, 322, 478], GEN_NAMES = ["Grandparents", "Parents & caregivers", "You & siblings", "Next generation", "Others who shaped me"];
+  // People outside the immediate family who shaped the client's upbringing
+  const OTHER_ROLES = ["Aunt", "Uncle", "Cousin", "Godparent", "Family friend", "Teacher or mentor", "Neighbor", "Faith leader", "Coach", "Babysitter or nanny"];
+  const MAX_EXTRAS = 6;
   const COLORS = ["#F3D9C9", "#F6E3B4", "#DCEBDD", "#D7E6EE", "#E6DDF0", "#F2D7DE", "#E8E1D6", "#D9E7E2"];
   const SYMBOLS = ["🌳", "🌊", "🔥", "🌙", "☀️", "🪨", "🌸", "🕊️", "🛡️", "📚", "🍲", "🎵", "🌾", "⭐", "❓"];
   const WORDS = ["warm", "strict", "quiet", "hardworking", "funny", "protective", "anxious", "strong", "gentle", "distant", "generous", "proud", "absent", "faithful"];
@@ -509,16 +517,16 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const STRENGTHS = ["resilience", "hard work", "faith", "humor", "loyalty", "food & hospitality", "courage to start over", "creativity", "caring for each other", "love of learning"];
 
   /* ================== STATE (not saved) ================== */
-  const blank = () => ({ step: 0, on: ["mom", "dad"], p: {}, sel: "you", rel: {}, prel: "", msgs: [], from: {}, own: "", crl: {}, mine: {}, strengths: [], stand: "", explore: [], exploreOwn: "" });
+  const blank = () => ({ step: 0, on: ["mom", "dad"], extras: [], xn: 0, p: {}, sel: "you", rel: {}, prel: "", msgs: [], from: {}, own: "", crl: {}, mine: {}, strengths: [], stand: "", explore: [], exploreOwn: "" });
   let d = blank(), lastView = -1, popped = new Set();
   const STEPS = 6;
   $("progress").innerHTML = "<li></li>".repeat(STEPS);
-  const role = (id) => ROLES.find((r) => r.id === id);
+  const role = (id) => ROLES.find((r) => r.id === id) || d.extras.find((x) => x.id === id) || { id, role: "Someone", gen: 4 };
   const P = (id) => (d.p[id] = d.p[id] || { name: "", color: "", sym: "", word: "", wordOwn: "" });
   const nameOf = (id) => id === "you" ? (P("you").name.trim() || "You") : (P(id).name.trim() || role(id).role);
   const colorOf = (id, i) => P(id).color || (id === "you" ? "#FFF3D6" : COLORS[(i || 0) % COLORS.length]);
   const wordOf = (id) => P(id).wordOwn.trim() || P(id).word;
-  const people = () => ["you"].concat(ROLES.filter((r) => d.on.includes(r.id)).map((r) => r.id));
+  const people = () => ["you"].concat(ROLES.filter((r) => d.on.includes(r.id)).map((r) => r.id), d.extras.map((x) => x.id));
   const allMsgs = () => d.msgs.concat(d.own.trim() ? [] : []);
 
   /* ================== THE MAP ================== */
@@ -541,6 +549,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const SAMPLE = { close: "M2 5 L32 5", distant: "M3 5 L32 5", cutoff: "M2 5 L32 5",
     mixed: "M2 5 Q 5.75 1, 9.5 5 T 17 5 T 24.5 5 T 32 5", tense: "M2 5 L6 1.5 L10 8.5 L14 1.5 L18 8.5 L22 1.5 L26 8.5 L30 1.5 L32 5" };
   function relSample(kind) { return `<svg viewBox="0 0 34 10" aria-hidden="true"><path d="${SAMPLE[kind]}" fill="none" ${REL_STYLE[kind].replace(/stroke-width="[\d.]+"/, 'stroke-width="2"')}/>${kind === "cutoff" ? '<path d="M15 1 L15 9 M19 1 L19 9" stroke="#9A8C7C" stroke-width="1.6"/>' : ""}</svg>`; }
+  const hasKidsOn = () => ["ch1", "ch2", "ch3"].some((id) => d.on.includes(id));
+  const otherY = () => hasKidsOn() ? GEN_Y[3] + 140 : (d.on.includes("ptn") ? GEN_Y[2] + 172 : GEN_Y[2] + 150);
   function layout() {
     const pos = { you: [320, GEN_Y[2]] };
     ROLES.forEach((r) => { if (d.on.includes(r.id) && r.gen < 2) pos[r.id] = [r.x, GEN_Y[r.gen]]; });
@@ -551,16 +561,22 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (on("ptn")) pos.ptn = [Math.min(rx + 96, 600), GEN_Y[2]];
     const kids = ["ch1", "ch2", "ch3"].filter(on), kx = pos.ptn ? (320 + pos.ptn[0]) / 2 : 320;
     kids.forEach((id, i) => { pos[id] = [kx + (i - (kids.length - 1) / 2) * 84, GEN_Y[3]]; });
+    const oy = otherY();
+    d.extras.forEach((x, i) => { pos[x.id] = [320 + (i - (d.extras.length - 1) / 2) * 88, oy]; });
     return pos;
   }
   function mapSVG(opts = {}) {
-    const pos = layout(), ids = people(), W = 640, hasKids = ids.some((id) => id !== "you" && role(id).gen === 3), H = hasKids ? 540 : (d.on.includes("ptn") ? 420 : 390);
+    const pos = layout(), ids = people(), W = 640, hasKids = ids.some((id) => id !== "you" && role(id).gen === 3);
+    const H = d.extras.length ? otherY() + 70 : hasKids ? 540 : (d.on.includes("ptn") ? 420 : 390);
     const usedGens = new Set(ids.map((id) => id === "you" ? 2 : role(id).gen));
     let s = `<svg viewBox="0 0 ${W} ${H}" class="map-svg" role="img" aria-label="Your family map" font-family="DM Sans, sans-serif">`;
     s += `<defs><radialGradient id="yhalo"><stop offset="0" stop-color="#F9DFA6" stop-opacity=".85"/><stop offset="1" stop-color="#F9DFA6" stop-opacity="0"/></radialGradient></defs>`;
     // generation bands
     [0, 1, 2, 3].forEach((g) => { if (!usedGens.has(g) && g !== 2) return; if (g === 3 && !hasKids) return;
       s += `<text x="14" y="${GEN_Y[g] - 40}" font-size="10" letter-spacing="1.6" fill="#B3A48F">${GEN_NAMES[g].toUpperCase()}</text>`; });
+    if (d.extras.length) { const oy = otherY();
+      s += `<text x="14" y="${oy - 46}" font-size="10" letter-spacing="1.6" fill="#B3A48F">${GEN_NAMES[4].toUpperCase()}</text>`;
+      s += `<path d="M40 ${oy - 34} H600" stroke="#EADFCF" stroke-width="1.2" stroke-dasharray="2 6" stroke-linecap="round"/>`; }
     // family structure (soft tree lines)
     const L = (x1, y1, x2, y2) => `<path d="M${x1} ${y1} L${x2} ${y2}" stroke="#E2D6C4" stroke-width="2" fill="none" stroke-linecap="round"/>`;
     const pair = (a, b, childId) => { if (!pos[a] && !pos[b]) return ""; let out = ""; const A = pos[a], B = pos[b];
@@ -583,7 +599,16 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (kids.length) { const kx = pos.ptn ? (pos.you[0] + pos.ptn[0]) / 2 : pos.you[0], top = pos.ptn ? GEN_Y[2] + 92 - 23 : GEN_Y[2] + 64, ky = GEN_Y[3] - 50, xs = kids.map((id) => pos[id][0]);
       s += L(kx, top, kx, ky) + (xs.length > 1 ? L(Math.min(...xs), ky, Math.max(...xs), ky) : "") + kids.map((id) => L(pos[id][0], ky, pos[id][0], pos[id][1] - 28)).join(""); }
     // relationship lines from you
-    ids.forEach((id) => { if (id === "you" || id === "ptn" || !d.rel[id] || d.rel[id] === "unsure") return; const [x2, y2] = pos[id], [x1, y1] = pos.you;
+    // others who shaped me: curve out from the side of "you", clear of the name label
+    ids.forEach((id) => { if (!id.startsWith("x") || !d.rel[id] || d.rel[id] === "unsure") return;
+      const [ex, ey] = pos[id], [ux, uy] = pos.you, left = ex <= ux, sx = ux + (left ? -34 : 34), sy = uy + 4, kind = d.rel[id];
+      const out = left ? -1 : 1, c1x = sx + out * 70, c2x = ex + out * 40;
+      if (kind === "close" || kind === "distant" || kind === "cutoff") {
+        s += `<path d="M${sx} ${sy} C ${c1x} ${sy + 30}, ${c2x} ${ey - 120}, ${ex} ${ey - 30}" fill="none" ${REL_STYLE[kind]} opacity=".9"/>`;
+        if (kind === "cutoff") { const mx = (sx + ex) / 2 + out * 30, my = (sy + ey) / 2; s += `<path d="M${mx - 7} ${my - 5} L${mx + 7} ${my - 5} M${mx - 7} ${my + 3} L${mx + 7} ${my + 3}" stroke="#9A8C7C" stroke-width="2.2"/>`; }
+      } else s += `<path d="${relPath(kind, sx, sy, ex, ey - 30)}" fill="none" ${REL_STYLE[kind]} opacity=".9"/>`;
+    });
+    ids.forEach((id) => { if (id === "you" || id === "ptn" || id.startsWith("x") || !d.rel[id] || d.rel[id] === "unsure") return; const [x2, y2] = pos[id], [x1, y1] = pos.you;
       const dx = x2 - x1, dy = y2 - y1, Ln = Math.hypot(dx, dy), sx = x1 + dx / Ln * 36, sy = y1 + dy / Ln * 36, ex = x2 - dx / Ln * 30, ey = y2 - dy / Ln * 30;
       s += `<path d="${relPath(d.rel[id], sx, sy, ex, ey)}" fill="none" ${REL_STYLE[d.rel[id]]} opacity=".9"/>`;
       if (d.rel[id] === "cutoff") { const mx = (sx + ex) / 2, my = (sy + ey) / 2, nx = -(ey - sy) / Ln, ny = (ex - sx) / Ln; s += [-5, 5].map((o) => `<path d="M${mx + o * (ex - sx) / Ln - nx * 7} ${my + o * (ey - sy) / Ln - ny * 7} L${mx + o * (ex - sx) / Ln + nx * 7} ${my + o * (ey - sy) / Ln + ny * 7}" stroke="#9A8C7C" stroke-width="2.4"/>`).join(""); } });
@@ -625,7 +650,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <h2 class="q" tabindex="-1">Every family passes <em>something</em> down</h2>
         <p class="hint">Habits, values, ways of loving, unspoken rules. Some help us; some we're ready to set down. In this exercise, you'll draw a simple map of your family and notice the messages you've carried.</p>
         <div class="explain">
-          <div><b>🌳 Map it</b><span>Tap to add the people in your family, across three generations.</span></div>
+          <div><b>🌳 Map it</b><span>Tap to add your family across three generations, plus anyone else who shaped you.</span></div>
           <div><b>🎨 Bring them to life</b><span>A color, a symbol, and one word for each person.</span></div>
           <div><b>💌 Notice the messages</b><span>What did your family teach you, out loud or quietly?</span></div>
           <div><b>🌱 Choose</b><span>Which messages will you carry, rewrite, or leave?</span></div>
@@ -637,13 +662,19 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     1: () => `
       ${label("Step 1 of 5 · Who's in your family")}
       <h2 class="q" tabindex="-1">Who belongs on your <em>map</em>?</h2>
-      <p class="hint">Tap to add or remove. Include whoever shaped you, including chosen family or caregivers. You'll name them next.</p>
+      <p class="hint">Tap to add or remove. Include whoever shaped you: chosen family, caregivers, an aunt who helped raise you, a mentor. You'll name them next.</p>
       <div class="gen"><h3>Grandparents</h3>
         <p class="side">Mom's side</p><div class="chipset">${toggle("mgm", "Grandma")}${toggle("mgf", "Grandpa")}</div>
         <p class="side">Dad's side</p><div class="chipset">${toggle("pgm", "Grandma")}${toggle("pgf", "Grandpa")}</div></div>
       <div class="gen"><h3>Parents &amp; caregivers</h3><div class="chipset">${toggle("mom", "Mom")}${toggle("dad", "Dad")}${toggle("cg1", "Another caregiver")}</div></div>
       <div class="gen"><h3>Your generation</h3><div class="chipset">${toggle("os1", "Older sibling")}${d.on.includes("os1") ? toggle("os2", "+ Another older sibling") : ""}${toggle("ys1", "Younger sibling")}${d.on.includes("ys1") ? toggle("ys2", "+ Another younger sibling") : ""}${toggle("ptn", "Partner")}</div></div>
       <div class="gen"><h3>Next generation</h3><div class="chipset">${toggle("ch1", "Child")}${d.on.includes("ch1") ? toggle("ch2", "+ Another child") : ""}${d.on.includes("ch2") ? toggle("ch3", "+ Another child") : ""}</div></div>
+      <div class="gen"><h3>Others who shaped me</h3>
+        <p class="side">Aunts, uncles, family friends, mentors: anyone who made an impact on your upbringing. Tap to add (up to ${MAX_EXTRAS}).</p>
+        ${d.extras.length ? `<div class="chipset" style="margin-bottom:8px">${d.extras.map((x) => `<button type="button" class="chip" data-remove-x="${x.id}" aria-pressed="true" aria-label="Remove ${esc(x.role)}">${esc(x.role)} ✕</button>`).join("")}</div>` : ""}
+        ${d.extras.length < MAX_EXTRAS ? `<div class="chipset">${OTHER_ROLES.map((r) => `<button type="button" class="chip" data-add-x="${esc(r)}">+ ${esc(r)}</button>`).join("")}</div>
+        <div style="display:flex;gap:8px;margin-top:8px;max-width:420px"><input type="text" id="xown" maxlength="24" aria-label="Someone else" placeholder="Someone else, e.g. Older cousin, Piano teacher"><button type="button" class="btn btn-ghost" data-act="add-x" style="min-height:44px;padding:10px 16px">Add</button></div>` : `<p class="hint" style="margin:0">That's the most the map can hold. Remove someone to add another.</p>`}
+      </div>
       ${nav("Bring Them to Life")}`,
 
     2: () => {
@@ -655,7 +686,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <div class="people-row" role="group" aria-label="People">${people().map((x, i) => `<button type="button" class="pchip" data-sel="${x}" aria-pressed="${d.sel === x}">${av(x, i)}<span>${esc(nameOf(x))}</span></button>`).join("")}</div>
       <div class="editor">
         <div class="field" style="margin:0"><label for="pname">${id === "you" ? "Your name (optional)" : `What do you call them? <span style="font-weight:400;color:var(--muted)">(${esc(role(id).role)}${role(id).side ? ", " + esc(role(id).side) : ""})</span>`}</label>
-          <input type="text" id="pname" data-pf="name" maxlength="24" placeholder="${id === "you" ? "e.g. Woohee" : id.startsWith("m") || id.startsWith("p") ? "e.g. Halmeoni, Nana, Abuela" : "e.g. Umma, Appa, Mom"}" value="${esc(p.name)}"></div>
+          <input type="text" id="pname" data-pf="name" maxlength="24" placeholder="${id === "you" ? "e.g. Woohee" : id.startsWith("x") ? "e.g. Imo, Samchon, Ms. Park" : id.startsWith("m") || id.startsWith("p") ? "e.g. Halmeoni, Nana, Abuela" : "e.g. Umma, Appa, Mom"}" value="${esc(p.name)}"></div>
         <p class="group-name">Color</p>
         <div class="swatches" role="group" aria-label="Color">${COLORS.map((c) => `<button type="button" class="sw" data-color="${c}" aria-label="Color" aria-pressed="${p.color === c}" style="background:${c}"></button>`).join("")}</div>
         <p class="group-name">A symbol</p>
@@ -829,7 +860,19 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (t.dataset.mine !== undefined) { d.mine[d.msgs[+t.dataset.mine]] = t.value; return; }
     const f = t.dataset.field; if (f) d[f] = t.value;
   });
-  $("stage").addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target.id === "ownmsg") { e.preventDefault(); addOwn(); } });
+  $("stage").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && e.target.id === "ownmsg") { e.preventDefault(); addOwn(); }
+    if (e.key === "Enter" && e.target.id === "xown" && e.target.value.trim()) { e.preventDefault(); addExtra(e.target.value.trim()); }
+  });
+  function addExtra(label) {
+    if (d.extras.length >= MAX_EXTRAS) return;
+    d.xn += 1; d.extras.push({ id: "x" + d.xn, role: label.slice(0, 24), gen: 4 }); render(false);
+  }
+  function removeExtra(id) {
+    d.extras = d.extras.filter((x) => x.id !== id); delete d.p[id]; delete d.rel[id]; popped.delete(id);
+    Object.keys(d.from).forEach((m) => { d.from[m] = d.from[m].filter((w) => w !== id); });
+    if (d.sel === id) d.sel = "you"; render(false);
+  }
   function addOwn() { const v = d.own.trim().replace(/^["']|["']$/g, ""); if (!v) return; const m = /[.!?]$/.test(v) ? v : v + "."; if (!d.msgs.includes(m)) d.msgs.push(m); d.own = ""; render(false); }
   function selectNode(id) { if (d.step !== 2) return; d.sel = id; render(false); }
   $("map").addEventListener("click", (e) => { const n = e.target.closest("[data-node]"); if (n) selectNode(n.dataset.node); });
@@ -839,6 +882,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const tp = t.closest("[data-toggle-p]"); if (tp) { const id = tp.dataset.togglePart || tp.dataset.toggleP, i = d.on.indexOf(id);
       if (i >= 0) { d.on.splice(i, 1); const dep = { os1: "os2", ys1: "ys2", ch1: "ch2", ch2: "ch3" }; let x = dep[id]; while (x) { d.on = d.on.filter((y) => y !== x); x = dep[x]; } popped.delete(id); }
       else d.on.push(id); render(false); return; }
+    const ax = t.closest("[data-add-x]"); if (ax) { addExtra(ax.dataset.addX); return; }
+    const rx = t.closest("[data-remove-x]"); if (rx) { removeExtra(rx.dataset.removeX); return; }
     const sl = t.closest("[data-sel]"); if (sl) { d.sel = sl.dataset.sel; render(false); return; }
     const co = t.closest("[data-color]"); if (co) { P(d.sel).color = co.dataset.color; render(false); return; }
     const sy = t.closest("[data-sym]"); if (sy) { const p = P(d.sel); p.sym = p.sym === sy.dataset.sym ? "" : sy.dataset.sym; render(false); return; }
@@ -855,6 +900,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
     else if (a === "next-person") { const ids = people(), i = ids.indexOf(d.sel); d.sel = ids[(i + 1) % ids.length]; render(false); const pn = $("pname"); if (pn) pn.focus({ preventScroll: true }); }
     else if (a === "add-msg") addOwn();
+    else if (a === "add-x") { const v = ($("xown") || {}).value || ""; if (v.trim()) addExtra(v.trim()); }
     else if (a === "restart") { d = blank(); popped = new Set(); render(); }
     else if (a === "photo") photo(btn);
     else if (a === "photo-close") $("photo-box").hidden = true;
