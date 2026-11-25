@@ -192,6 +192,23 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .photo-tip { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
 .photo-box img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 14px; border: 1px solid var(--line); margin: 0 auto; -webkit-touch-callout: default; }
 @media print { .photo-box { display: none !important; } }
+.kudos { margin: 22px 0 0; text-align: center; background: linear-gradient(180deg, #EAF3EC 0%, #F6FAF7 100%); border: 1px solid #CFE0D4; border-radius: 20px; padding: 26px 22px 22px; animation: kdIn .5s ease-out both; outline: none; }
+.kudos h3 { font-family: var(--font-display); font-weight: 400; font-size: 34px; margin: 8px 0 6px; color: var(--accent); }
+.kd-line { font-family: var(--font-display); font-size: 19px; line-height: 1.55; margin: 0 auto 8px; max-width: 34em; }
+.kd-line em { color: var(--warm-ink); }
+.kd-sub { color: var(--muted); font-size: 15px; margin: 0 auto; max-width: 34em; }
+.kd-badge { position: relative; width: 84px; height: 84px; margin: 0 auto; }
+.kd-badge svg { width: 84px; height: 84px; }
+.kd-badge circle { fill: var(--accent); animation: kdPop .55s cubic-bezier(.2,1.6,.4,1) both; transform-origin: center; }
+.kd-badge path { fill: none; stroke: #fff; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 40; stroke-dashoffset: 40; animation: kdTick .4s .35s ease-out forwards; }
+.kd-burst i { position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--warm); opacity: 0; transform: rotate(var(--a)) translateY(0); animation: kdBurst .9s calc(.25s + var(--d)) ease-out forwards; }
+.kd-burst i:nth-child(3n) { background: #F2C76E; } .kd-burst i:nth-child(3n+1) { background: #7FA48B; }
+.kd-tag { display: inline-block; margin-left: 6px; font-size: 11.5px; letter-spacing: .04em; text-transform: none; background: var(--accent); color: #fff; border-radius: 999px; padding: 2px 10px; vertical-align: 1px; }
+@keyframes kdIn { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes kdPop { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes kdTick { to { stroke-dashoffset: 0; } }
+@keyframes kdBurst { 0% { opacity: 1; transform: rotate(var(--a)) translateY(0); } 100% { opacity: 0; transform: rotate(var(--a)) translateY(-58px); } }
+@media (prefers-reduced-motion: reduce) { .kudos, .kd-badge circle, .kd-burst i { animation: none; } .kd-badge path { animation: none; stroke-dashoffset: 0; } .kd-burst { display: none; } }
 .al { margin-top: 22px; background: var(--sand); border-radius: 18px; padding: 16px 18px 14px; }
 .al-title { margin: 0 0 12px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 .al-ring { display: grid; grid-template-columns: 1fr 34px 1fr; grid-template-rows: auto 30px auto; align-items: stretch; }
@@ -488,7 +505,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <p class="al-foot">…and next time, ${d.feel.length ? esc(d.feel[0]) : "the feeling"} shows up sooner and stronger. ↺</p>
     </div>`;
   }
-  const blank = () => ({ step: 0, avoid: "", avoidOwn: "", feel: [], escape: [], costs: [], struggle: 8, why: "", whyOwn: "", start: "", startOwn: "", willing: 6 });
+  const blank = () => ({ done: false, step: 0, avoid: "", avoidOwn: "", feel: [], escape: [], costs: [], struggle: 8, why: "", whyOwn: "", start: "", startOwn: "", willing: 6 });
   let d = blank(), lastView = -1, roomTimer = null, roomIdx = 0, runTimer = null;
   const STEPS = 6;
   $("progress").innerHTML = "<li></li>".repeat(STEPS);
@@ -642,7 +659,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <h2 class="q" tabindex="-1">I'm dropping the <em>rope</em></h2>
         <div class="rope-mini" aria-hidden="true">${ropeSVG(0, 1, true)}</div>
         <p class="willing">I'm willing to feel <em>${esc(feelText())}</em> so I can move toward <em>${esc(lcFirst(whyText()))}</em>.</p>
-        <div class="card-sec"><h3>My smallest start</h3><p>${esc(startText())}${avoidText() ? ` · ${esc(lcFirst(avoidText()))}` : ""}</p></div>
+        <div class="card-sec" id="start-sec"><h3>My smallest start${d.done ? ' <span class="kd-tag">✓ Done today</span>' : ""}</h3><p>${esc(startText())}${avoidText() ? ` · ${esc(lcFirst(avoidText()))}` : ""}</p></div>
         <div class="card-sec"><h3>When I want to avoid it</h3><ul>
           <li>Notice: "I'm having the feeling of ${esc(d.feel[0] || "discomfort")}." I'm the one noticing.</li>
           <li>Breathe into it, and let it be here.</li>
@@ -694,6 +711,20 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <div class="actions" style="justify-content:center;margin:0"><button type="button" class="btn btn-primary" data-act="run" data-mins="${mins}" id="run-btn">Start ${mins} Minutes</button></div>
       <p class="hint" id="run-note" style="margin:8px 0 0"></p>`;
   }
+  const PAST = { "Do it for just 2 minutes": "gave it 2 minutes", "Do the smallest first part": "started the first part", "Open the file, email, or app": "opened it", "Write one sentence": "wrote one sentence", "Put it on my calendar": "made a plan", "Ask someone for help": "reached out for help", "Tell someone I'm starting": "told someone you're starting" };
+  function celebrate() {
+    if (d.done) return; d.done = true;
+    const did = d.startOwn.trim() ? "took your step" : PAST[d.start] || "took your step";
+    const dots = Array.from({ length: 12 }, (_, i) => `<i style="--a:${i * 30}deg;--d:${(i % 3) * 0.06}s"></i>`).join("");
+    const k = document.createElement("div"); k.className = "kudos"; k.setAttribute("role", "status"); k.tabIndex = -1;
+    k.innerHTML = `<div class="kd-badge" aria-hidden="true"><span class="kd-burst">${dots}</span><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27 l8 8 l15 -17"/></svg></div>
+      <h3>You did it!</h3>
+      <p class="kd-line">You felt <em>${esc(feelText())}</em> and ${esc(did)} anyway. That's exactly what dropping the rope looks like.</p>
+      <p class="kd-sub">Take a breath and notice how you feel right now. Each time you do this, avoidance loosens its grip a little, and trust in yourself grows.</p>`;
+    const box = $("timer-box"); box.parentNode.insertBefore(k, box);
+    const sec = $("start-sec"); if (sec && !sec.querySelector(".kd-tag")) sec.querySelector("h3").insertAdjacentHTML("beforeend", ' <span class="kd-tag">✓ Done today</span>');
+    k.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" }); k.focus({ preventScroll: true });
+  }
   function followThrough() {
     const kind = d.startOwn.trim() ? "own" : KIND[d.start] || "own", task = lcFirst(avoidText());
     let inner = "";
@@ -741,7 +772,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       left--; if (!$("run-t")) { clearInterval(runTimer); return; }
       $("run-t").textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
       if (msgs[left]) $("run-note").textContent = msgs[left];
-      if (left <= 0) { clearInterval(runTimer); $("run-note").textContent = "Time's up. Keep going if you'd like, or stop here. Either way, you did it."; $("run-btn").textContent = `${mins} More Minutes`; }
+      if (left <= 0) { clearInterval(runTimer); $("run-note").textContent = "Keep going if you'd like, or stop here."; $("run-btn").textContent = `${mins} More Minutes`; celebrate(); }
     }, 1000);
   }
 
@@ -767,7 +798,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     L.push(`What I've been avoiding: ${avoidText()}`, `The feeling underneath: ${feelText()}`);
     if (d.escape.length) L.push(`What I usually do instead: ${listText(d.escape)}`);
     if (d.costs.length) L.push(`What avoiding costs me: ${listText(d.costs)}`);
-    L.push("", `I'm willing to feel ${feelText()} so I can move toward ${lcFirst(whyText())}.`, `My smallest start: ${startText()}`, `Willingness right now: ${d.willing}/10`, "",
+    L.push("", `I'm willing to feel ${feelText()} so I can move toward ${lcFirst(whyText())}.`, `My smallest start: ${startText()}${d.done ? " (done today ✓)" : ""}`, `Willingness right now: ${d.willing}/10`, "",
       "When I want to avoid it:", `- Notice: "I'm having the feeling of ${d.feel[0] || "discomfort"}."`, "- Breathe into it, and let it be here.", "- What I resist persists. I don't have to win the tug-of-war.", "", "Drop the Rope · wooheekwak.me/tools/drop-the-rope.html");
     return L.join("\n");
   }
@@ -804,7 +835,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     else if (a === "room-start") runRoom();
     else if (a === "run") runStart(+btn.dataset.mins || 2);
     else if (a === "own-timer") { $("own-timer").innerHTML = timerHTML(+btn.dataset.mins, "Start whenever you're ready."); }
-    else if (a === "did-it") { btn.disabled = true; btn.textContent = "Done ✓"; $("did-note").textContent = "You did it, even with the feeling there. Notice how it feels now. Want to keep going a little longer?"; }
+    else if (a === "did-it") { btn.disabled = true; btn.textContent = "Done ✓"; $("did-note").textContent = ""; celebrate(); }
     else if (a === "cal") saveIcs();
     else if (a === "msg-sms") { window.location.href = "sms:?&body=" + encodeURIComponent($("msg-text").value); }
     else if (a === "msg-email") { window.location.href = "mailto:?subject=" + encodeURIComponent("A small favor") + "&body=" + encodeURIComponent($("msg-text").value); }
