@@ -110,6 +110,19 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .mood-tip { margin: 10px 0 0; font-size: 13.5px; color: var(--muted); }
 .mood-crisis { margin: 10px 0 0; font-size: 14px; background: var(--warm-soft); border-radius: 12px; padding: 10px 14px; }
 .mood-crisis a { color: var(--warm-ink); font-weight: 600; }
+.moods { display: grid; gap: 10px; margin-top: 6px; }
+.mood-btn { appearance: none; font: inherit; text-align: left; cursor: pointer; display: flex; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px; color: var(--ink); transition: border-color .2s, background .2s; }
+.mood-btn:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.mood-btn[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.mood-btn .mi { font-size: 30px; line-height: 1; width: 44px; text-align: center; flex: none; }
+.mood-btn b { display: block; font-weight: 600; }
+.mood-btn small { display: block; color: var(--muted); font-size: 14px; }
+#mood-say .mood-say { margin-top: 16px; }
+.pull-chips .chip { display: inline-flex; gap: 6px; align-items: center; text-align: left; }
+.more-ideas { margin-top: 18px; }
+.more-ideas > summary { cursor: pointer; font-weight: 600; color: var(--accent); padding: 6px 0; }
+.own-words { margin-top: 16px; }
+.own-words input { width: 100%; margin-top: 6px; }
 /* notice the pull */
 .pull { margin-top: 26px; border: 1px solid var(--line); border-radius: 16px; padding: 20px; background: #fff; }
 .pull h3 { font-family: var(--font-display); font-weight: 400; font-size: 21px; margin: 0 0 4px; }
@@ -459,107 +472,85 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const pc = () => PULL_COPY[tier()];
   const suggested = () => [...new Set(PULLS.filter((x) => d.noticed.includes(x.id)).map((x) => x.cat))];
   const WHEN = ["Right now", "Morning", "Midday", "Afternoon", "Evening"];
-  const GUESS = ["Not at all", "A little", "Some", "A lot"];
-  const IFNOT = ["I'll do it for just 2 minutes", "I'll do the smallest version", "I'll do it badly, and that still counts", "I'll ask someone to do it with me", "I'll start before I think about it"];
   const MAX = 3;
 
   /* ================== STATE (not saved) ================== */
-  const blank = () => ({ step: 0, energy: "", mood: 4, noticed: [], picks: [], own: "", ownOn: false, when: {}, guess: {}, ifnot: "", showAll: false });
+  const blank = () => ({ step: 0, mood: null, noticed: [], picks: [], own: "", ownOn: false, when: "", showAll: false });
   let d = blank(), lastView = -1;
   const STEPS = 4;
   $("progress").innerHTML = "<li></li>".repeat(STEPS);
   const ownStep = () => d.ownOn && d.own.trim() ? [d.own.trim()] : [];
   const allPicks = () => d.picks.concat(ownStep());
-  const catOf = (a) => (CATS.find((c) => c.acts.some(([t]) => t === a)) || { icon: "✨", name: "My own" });
-  const energy = () => ENERGY.find((e) => e.id === d.energy);
-  const effOk = (e) => d.showAll || d.energy !== "empty" || e === "Tiny";
+  const stepFor = (x) => tier() === "low" ? x.gentle : x.opp;
+  const sel = () => PULLS.filter((x) => d.noticed.includes(x.id)).sort((a, b) => d.noticed.indexOf(a.id) - d.noticed.indexOf(b.id));
+  const catOf = (a) => CATS.find((c) => c.acts.some(([t]) => t === a)) || CATS.find((c) => PULLS.some((x) => x.cat === c.id && (x.opp === a || x.gentle === a))) || { icon: "✨", name: "My own" };
+  const energyId = () => d.mood === null ? "low" : d.mood <= 1 ? "empty" : d.mood <= 5 ? "low" : "okay";
+  const energy = () => ENERGY.find((e) => e.id === energyId());
+  const effOk = (e) => d.showAll || energyId() !== "empty" || e === "Tiny";
+  const band = () => d.mood === null ? null : moodBand(d.mood);
 
   /* ================== VIEWS ================== */
-  function moodView() {
-    const b = moodBand(d.mood);
-    return `<div class="mood">
-      <div class="mood-top"><span class="mood-face" id="mood-face" aria-hidden="true">${b.icon}</span>
-        <div><label class="mood-k" for="mood">My mood right now</label><p class="mood-num"><output id="mood-out" for="mood">${d.mood}</output> / 10 · <b id="mood-name">${b.name}</b></p></div></div>
-      <input id="mood" class="mood-range" type="range" min="0" max="10" step="1" value="${d.mood}" data-field="mood" aria-describedby="mood-desc" aria-valuetext="${d.mood} out of 10, ${b.name}">
-      <div class="mood-scale" role="group" aria-label="Or tap the one that fits best">${MOODS.map((m, k) => `<button type="button" data-mood="${MOOD_PICK[k]}" aria-pressed="${m === b}"><span aria-hidden="true">${m.icon}</span>${m.name}</button>`).join("")}</div>
-      <p class="mood-desc" id="mood-desc">${b.desc}</p>
-      <p class="mood-say" id="mood-say" aria-live="polite">${b.say}</p>
-      <div id="mood-crisis">${crisis()}</div>
-      <p class="mood-tip">Not sure? Think of your hardest recent day as a 1 and your best as a 9, and place today between them. There's no wrong number. It's a starting point to compare with later.</p>
-    </div>`;
-  }
-  const crisis = () => d.mood <= 1 ? `<p class="mood-crisis">If you're having thoughts of hurting yourself, you can call or text <a href="tel:988">988</a> any time to reach the Suicide &amp; Crisis Lifeline. You don't have to get through this alone.</p>` : "";
-  function updateMood() {
-    const b = moodBand(d.mood);
-    $("mood-out").textContent = d.mood; $("mood-name").textContent = b.name; $("mood-face").textContent = b.icon; $("mood-desc").textContent = b.desc; $("mood-say").textContent = b.say;
-    $("mood").setAttribute("aria-valuetext", `${d.mood} out of 10, ${b.name}`); $("mood").value = d.mood;
-    $("mood-crisis").innerHTML = crisis();
-    $("pull-h").textContent = pc().h; $("pull-p").textContent = pc().p; $("pull-out").innerHTML = pullOut();
-    $("stage").querySelectorAll("[data-mood]").forEach((x, k) => x.setAttribute("aria-pressed", MOODS[k] === b));
-  }
-  function pullOut() {
-    const c = pc(), sel = PULLS.filter((x) => d.noticed.includes(x.id)).sort((a, b) => d.noticed.indexOf(a.id) - d.noticed.indexOf(b.id)), n = sel.length;
-    const row = (cls, arr, end, firstText) => `<div class="loop ${cls}"><b>${n && cls === "up" ? (c.mine || "Your way back up") : arr[0]}</b>${arr.slice(1).map((t, k) => `<span class="n${k === 0 && n ? " you" : ""}">${esc(k === 0 && n ? firstText : t)}</span>`).join("<i>→</i>")}<i>${end}</i></div>`;
-    const step = (x) => tier() === "low" ? x.gentle : x.opp;
-    const more = n > 1 ? `<div class="pairs"><p class="pairs-k">${c.more || "More ways back up, for what you noticed"}</p><ul>${sel.slice(1).map((x) => `<li><span class="from"><span aria-hidden="true">${x.icon}</span> ${esc(x.label)}</span><i aria-hidden="true">→</i><span class="to">${esc(step(x))}</span></li>`).join("")}</ul></div>` : "";
-    return `<div class="loops">${row("down", c.down, "↺", n ? sel[0].label : "")}${row("up", c.up, "↻", n ? step(sel[0]) : "")}</div>${more}${n ? `<p class="pull-feedback">${c.fb}</p>` : ""}`;
-  }
-
-
-
+  const crisis = () => d.mood !== null && d.mood <= 1 ? `<p class="mood-crisis">If you're having thoughts of hurting yourself, you can call or text <a href="tel:988">988</a> any time to reach the Suicide &amp; Crisis Lifeline. You don't have to get through this alone.</p>` : "";
+  const moodSay = () => band() ? `<p class="mood-say">${band().say}</p>${crisis()}` : "";
   const label = (t) => `<p class="step-label">${t}</p>`;
   const nav = (txt, ok = true, back = true) => `<div class="actions"><button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${txt}</button>${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}</div>`;
   const full = () => allPicks().length >= MAX;
+  const actBtn = (t, e) => { const on = d.picks.includes(t); return `<button type="button" class="act" data-pick="${esc(t)}" aria-pressed="${on}"${!on && full() ? " disabled" : ""}><span class="plus" aria-hidden="true">${on ? "✓" : "+"}</span><span>${esc(t)}</span>${e ? `<span class="eff">${e}</span>` : ""}</button>`; };
+  function pullOut() {
+    const c = pc(), s = sel();
+    if (!s.length) return "";
+    return `<div class="pairs"><p class="pairs-k">${tier() === "low" ? "A gentle way back up, if it feels possible" : "Your way back up"}</p><ul>${s.map((x) => `<li><span class="from"><span aria-hidden="true">${x.icon}</span> ${esc(x.label)}</span><i aria-hidden="true">→</i><span class="to">${esc(stepFor(x))}</span></li>`).join("")}</ul></div><p class="pull-feedback">${c.fb}</p>`;
+  }
 
   const views = {
     0: () => `
       ${label("Step 1 of 3 · Check in")}
-      <h2 class="q" tabindex="-1">How is your energy <em>today</em>?</h2>
-      <div class="options energy">${ENERGY.map((e) => `<button type="button" class="opt" data-energy="${e.id}" aria-pressed="${d.energy === e.id}"><span><b>${esc(e.label)}</b><small>${esc(e.sub)}</small></span></button>`).join("")}</div>
-      ${moodView()}
-      <div class="pull">
-        <h3 id="pull-h">${pc().h}</h3>
-        <p id="pull-p">${pc().p}</p>
-        <div class="chipset" role="group" aria-label="What you've noticed lately">${PULLS.map((x) => `<button type="button" class="chip" data-pull="${x.id}" aria-pressed="${d.noticed.includes(x.id)}"><span aria-hidden="true">${x.icon}</span>${esc(x.label)}</button>`).join("")}</div>
-        <div id="pull-out">${pullOut()}</div>
-      </div>
-      <p class="callout"><strong>Action first, motivation follows.</strong> The best step is one so easy you could do it on a bad day. Five minutes counts.</p>
-      ${nav("Choose Today's Steps", !!d.energy, false)}`,
+      <h2 class="q" tabindex="-1">How is your mood <em>today</em>?</h2>
+      <p class="hint">Tap the one that fits best. There's no wrong answer.</p>
+      <div class="moods" role="group" aria-label="Your mood today">${MOODS.map((m, k) => `<button type="button" class="mood-btn" data-mood="${MOOD_PICK[k]}" aria-pressed="${band() === m}"><span class="mi" aria-hidden="true">${m.icon}</span><span><b>${m.name}</b><small>${m.desc}</small></span></button>`).join("")}</div>
+      <div id="mood-say" aria-live="polite">${moodSay()}</div>
+      ${nav("Continue", d.mood !== null, false)}`,
 
     1: () => `
-      ${label("Step 2 of 3 · Choose")}
-      <h2 class="q" tabindex="-1">Pick <em>1 to 3</em> small steps for today</h2>
-      <p class="hint">${d.energy === "empty" && !d.showAll ? "Showing the tiniest steps, since energy is low. One is plenty. " : (suggested().length ? (tier() === "good" ? "Steps that help keep your early signs at bay are shown first. " : tier() === "low" ? "A few gentle options that fit what you noticed are shown first. One is plenty. Resting can be part of today too. " : "Steps that gently counter what you noticed are shown first. ") : "A mix helps: something enjoyable, something accomplished, or someone to connect with. ")}${d.energy === "empty" ? `<button type="button" class="btn-text" data-act="showall">${d.showAll ? "Show tiny steps only" : "Show all steps"}</button>` : ""}</p>
-      ${[...CATS].sort((x, y) => suggested().includes(y.id) - suggested().includes(x.id)).map((c) => { const acts = c.acts.filter(([, e]) => effOk(e)); return acts.length ? `<div class="cat"><h3><span aria-hidden="true">${c.icon}</span>${esc(c.name)}${suggested().includes(c.id) ? '<span class="sugg">Suggested for you</span>' : ""} <small>${esc(c.sub)}</small></h3>
-        <div class="acts">${acts.map(([t, e]) => { const on = d.picks.includes(t); return `<button type="button" class="act" data-pick="${esc(t)}" aria-pressed="${on}"${!on && full() ? " disabled" : ""}><span class="plus" aria-hidden="true">${on ? "✓" : "+"}</span><span>${esc(t)}</span><span class="eff">${e}</span></button>`; }).join("")}</div></div>` : ""; }).join("")}
-      <details class="own-words"${d.ownOn ? " open" : ""}><summary>Add my own small step</summary>
-        <input type="text" data-field="own" maxlength="80" aria-label="Your own small step" placeholder="e.g. Water the plants" value="${esc(d.own)}"></details>
-      <p class="count-note" id="count-note">${countNote()}</p>
-      ${nav("Make It Doable", allPicks().length >= 1)}`,
+      ${label("Step 2 of 3 · Notice")}
+      <h2 class="q" tabindex="-1">${esc(pc().h)}</h2>
+      <p class="hint">${esc(pc().p)}</p>
+      <div class="chipset pull-chips" role="group" aria-label="What you've noticed">${PULLS.map((x) => `<button type="button" class="chip" data-pull="${x.id}" aria-pressed="${d.noticed.includes(x.id)}"><span aria-hidden="true">${x.icon}</span>${esc(x.label)}</button>`).join("")}</div>
+      <div id="pull-out" aria-live="polite">${pullOut()}</div>
+      ${nav(d.noticed.length ? "Choose My Steps" : "Skip for Now")}`,
 
-    2: () => `
-      ${label("Step 3 of 3 · Make it doable")}
-      <h2 class="q" tabindex="-1">When, and what do you <em>expect</em>?</h2>
-      <p class="hint">Picking a time makes it far more likely to happen. Then guess how much it might help. Low mood often guesses low. Later, you'll get to check.</p>
-      ${allPicks().map((a) => `<div class="plan-item"><h3>${catOf(a).icon} ${esc(a)}</h3>
-        <div class="row"><span>When</span><div class="chipset" role="group" aria-label="When">${WHEN.map((w) => `<button type="button" class="chip" data-when="${w}" data-for="${esc(a)}" aria-pressed="${d.when[a] === w}">${w}</button>`).join("")}</div></div>
-        <div class="row"><span>Might help</span><div class="chipset" role="group" aria-label="How much it might help">${GUESS.map((g) => `<button type="button" class="chip" data-guess="${g}" data-for="${esc(a)}" aria-pressed="${d.guess[a] === g}">${g}</button>`).join("")}</div></div></div>`).join("")}
-      <p class="group-name" style="margin-top:22px">If I don't feel like it when the time comes…</p>
-      <div class="chipset">${IFNOT.map((x) => `<button type="button" class="chip" data-ifnot="${esc(x)}" aria-pressed="${d.ifnot === x}">${esc(x)}</button>`).join("")}</div>
-      ${nav("See My Card")}`,
+    2: () => {
+      const sug = [...new Set(sel().map(stepFor))];
+      const cats = [...CATS].sort((x, y) => suggested().includes(y.id) - suggested().includes(x.id));
+      const ideas = cats.map((c) => { const acts = c.acts.filter(([, e]) => effOk(e)); return acts.length ? `<div class="cat"><h3><span aria-hidden="true">${c.icon}</span>${esc(c.name)} <small>${esc(c.sub)}</small></h3><div class="acts">${acts.map(([t, e]) => actBtn(t, e)).join("")}</div></div>` : ""; }).join("");
+      return `
+      ${label("Step 3 of 3 · Choose")}
+      <h2 class="q" tabindex="-1">Pick <em>1 to 3</em> small steps</h2>
+      <p class="hint">${tier() === "low" ? "One is plenty. Resting can be part of today too." : "Choose what feels doable. Small counts."}</p>
+      ${sug.length ? `<div class="cat"><h3><span aria-hidden="true">💡</span>Suggested for you <small>based on what you noticed</small></h3><div class="acts">${sug.map((t) => actBtn(t, "")).join("")}</div></div>` : ""}
+      <details class="more-ideas"${sug.length ? "" : " open"}><summary>${sug.length ? "More ideas" : "Ideas to choose from"}</summary>
+        ${energyId() === "empty" ? `<p class="hint" style="margin-top:10px">Showing the tiniest steps for a heavy day. <button type="button" class="btn-text" data-act="showall">${d.showAll ? "Show tiny steps only" : "Show all steps"}</button></p>` : ""}
+        ${ideas}
+        <div class="own-words"><label for="own" class="group-name">Or write my own</label><input id="own" type="text" data-field="own" maxlength="80" placeholder="e.g. Water the plants" value="${esc(d.own)}"></div>
+      </details>
+      <p class="count-note" id="count-note">${countNote()}</p>
+      <p class="group-name" style="margin-top:20px">When will you try? <small style="font-weight:400;color:var(--muted)">Picking a time makes it more likely to happen.</small></p>
+      <div class="chipset" role="group" aria-label="When">${WHEN.map((w) => `<button type="button" class="chip" data-when="${w}" aria-pressed="${d.when === w}">${w}</button>`).join("")}</div>
+      ${nav("See My Card", allPicks().length >= 1)}`;
+    },
 
     3: () => {
-      const items = allPicks(), guessed = items.filter((a) => d.guess[a]);
+      const items = allPicks();
       return `
       <article class="card fade-in">
         <div class="print-head"><b>Small Steps · Today</b><span id="ph-line"></span></div>
         ${label(new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }))}
         <h2 class="q" tabindex="-1">Today's small <em>steps</em></h2>
-        <ul class="today">${items.map((a) => `<li><span class="box" aria-hidden="true"></span><span><b>${catOf(a).icon} ${esc(a)}</b><small>${esc(d.when[a] || "Sometime today")}${d.guess[a] ? ` · I guess it might help: ${esc(d.guess[a].toLowerCase())}` : ""}</small></span></li>`).join("")}</ul>
-        ${d.noticed.length ? `<div class="card-sec"><h3>${pc().card}</h3><p>${esc(PULLS.filter((x) => d.noticed.includes(x.id)).map((x) => x.label).join(" · "))}</p></div>` : ""}
-        ${d.ifnot ? `<div class="card-sec"><h3>If I don't feel like it</h3><p>${esc(d.ifnot)}.</p></div>` : ""}
-        <p class="encourage">${esc(energy() ? energy().say : ENERGY[1].say)}</p>
-        <div class="notice"><b>After each step, notice:</b> did your mood shift, even a little? ${guessed.length ? "Compare it with your guess. Low mood often predicts less than we actually feel." : "Low mood often predicts less than we actually feel."} Mood right now: ${d.mood}/10 (${moodBand(d.mood).name.toLowerCase()}).</div>
+        <ul class="today">${items.map((a) => `<li><span class="box" aria-hidden="true"></span><span><b>${catOf(a).icon} ${esc(a)}</b><small>${esc(d.when || "Sometime today")}</small></span></li>`).join("")}</ul>
+        <div class="card-sec"><h3>Mood today</h3><p>${band().icon} ${band().name}</p></div>
+        ${d.noticed.length ? `<div class="card-sec"><h3>${pc().card}</h3><p>${esc(sel().map((x) => x.label).join(" · "))}</p></div>` : ""}
+        <p class="encourage">${esc(energy().say)}</p>
+        <div class="notice"><b>If you don't feel like it when the time comes,</b> try the 2-minute version. That still counts. Afterward, notice: did your mood shift, even a little?</div>
         ${sessionNote()}
       </article>
       <div class="actions">
@@ -595,8 +586,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   }
   function sync() {
     const n = $("stage").querySelector('[data-act="next"]');
-    if (n && d.step === 0) n.disabled = !d.energy;
-    if (n && d.step === 1) n.disabled = !allPicks().length;
+    if (n && d.step === 0) n.disabled = d.mood === null;
+    if (n && d.step === 2) n.disabled = !allPicks().length;
     const c = $("count-note"); if (c) c.textContent = countNote();
     $("stage").querySelectorAll("[data-pick]").forEach((b) => { b.disabled = b.getAttribute("aria-pressed") !== "true" && full(); });
   }
@@ -604,12 +595,11 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   function textSummary() {
     const L = ["SMALL STEPS · " + dateLong(), ""];
     if (therapist) L.push(`For a session with ${therapist.name}`, "");
-    L.push(`Energy: ${energy() ? energy().label : ""} · Mood right now: ${d.mood}/10 (${moodBand(d.mood).name.toLowerCase()})`);
-    if (d.noticed.length) L.push(pc().card + ": " + PULLS.filter((x) => d.noticed.includes(x.id)).map((x) => x.label.toLowerCase()).join("; "));
+    L.push(`Mood today: ${band().name}`);
+    if (d.noticed.length) L.push(pc().card + ": " + sel().map((x) => x.label.toLowerCase()).join("; "));
     L.push("", "Today's small steps:");
-    allPicks().forEach((a) => L.push(`[ ] ${a} (${d.when[a] || "sometime today"}${d.guess[a] ? `; might help: ${d.guess[a].toLowerCase()}` : ""})`));
-    if (d.ifnot) L.push("", "If I don't feel like it: " + d.ifnot + ".");
-    L.push("", energy() ? energy().say : ENERGY[1].say, "", "After each step, notice: did my mood shift, even a little? Compare it with my guess.", "", "Small Steps · wooheekwak.me/tools/small-steps.html");
+    allPicks().forEach((a) => L.push(`[ ] ${a} (${(d.when || "sometime today").toLowerCase()})`));
+        L.push("", energy().say, "", "If I don't feel like it when the time comes, I'll try the 2-minute version. Afterward, notice: did my mood shift, even a little?", "", "Small Steps · wooheekwak.me/tools/small-steps.html");
     return L.join("\n");
   }
 
@@ -625,10 +615,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     add('600 26px "DM Sans"', C.muted, "MY SMALL STEPS", 34, 8, true);
     add('400 28px "DM Sans"', C.muted, dateLong(), 38, 48);
     m.font = '500 32px "DM Sans"';
-    const items = allPicks().map((a) => { m.font = '500 32px "DM Sans"'; const l1 = wrapLines(m, a, inner - 132); m.font = '400 25px "DM Sans"'; const l2 = wrapLines(m, (d.when[a] || "Sometime today") + (d.guess[a] ? " · might help: " + d.guess[a].toLowerCase() : ""), inner - 132); return { l1, l2 }; });
+    const items = allPicks().map((a) => { m.font = '500 32px "DM Sans"'; const l1 = wrapLines(m, a, inner - 132); m.font = '400 25px "DM Sans"'; const l2 = wrapLines(m, (d.when || "Sometime today"), inner - 132); return { l1, l2 }; });
     blocks.push({ items, h: 92 + 28 + items.reduce((n, it) => n + it.l1.length * 42 + it.l2.length * 34 + 30, 0), gap: 44 });
-    if (d.ifnot) { add('600 24px "DM Sans"', C.muted, "IF I DON'T FEEL LIKE IT", 32, 10, true); add('400 30px "DM Sans"', C.ink, d.ifnot + ".", 42, 40); }
-    add('italic 400 42px "Lora"', C.ink, energy() ? energy().say : ENERGY[1].say, 58, 40);
+    add('400 28px "DM Sans"', C.muted, "If I don't feel like it, I'll try the 2-minute version. That still counts.", 38, 30);
+    add('italic 400 42px "Lora"', C.ink, energy().say, 58, 40);
     add('400 27px "DM Sans"', C.sage, "After each step, notice: did my mood shift, even a little?", 38, 0);
     let H = P + 20; blocks.forEach((b) => { H += (b.items ? b.h : b.lines.length * b.lh) + b.gap; }); H += P + 40;
     const cv = document.createElement("canvas"); cv.width = W; cv.height = Math.max(H, 1350);
@@ -685,7 +675,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const p2 = (n) => String(n).padStart(2, "0");
     const local = `${start.getFullYear()}${p2(start.getMonth() + 1)}${p2(start.getDate())}T${p2(hh)}${p2(mm)}00`;
     const now = new Date(), stamp = `${now.getUTCFullYear()}${p2(now.getUTCMonth() + 1)}${p2(now.getUTCDate())}T${p2(now.getUTCHours())}${p2(now.getUTCMinutes())}00Z`;
-    const body = `Choose one small step for today. Action first, motivation follows.\n\nIdeas from my list:\n${allPicks().map((a) => "- " + a).join("\n")}${d.ifnot ? `\n\nIf I don't feel like it: ${d.ifnot}.` : ""}\n\nPlan today's steps: https://wooheekwak.me/tools/small-steps.html`;
+    const body = `Choose one small step for today. Action first, motivation follows.\n\nIdeas from my list:\n${allPicks().map((a) => "- " + a).join("\n")}\n\nIf I don't feel like it, I'll try the 2-minute version.\n\nPlan today's steps: https://wooheekwak.me/tools/small-steps.html`;
     const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//wooheekwak.me//Small Steps//EN", "CALSCALE:GREGORIAN", "BEGIN:VEVENT",
       `UID:${Date.now()}-${Math.random().toString(36).slice(2)}@wooheekwak.me`, `DTSTAMP:${stamp}`, `DTSTART:${local}`, "DURATION:PT10M", "RRULE:FREQ=DAILY;COUNT=14",
       `SUMMARY:${icsEscape("One small step")}`, `DESCRIPTION:${icsEscape(body)}`,
@@ -699,19 +689,15 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 
   $("stage").addEventListener("input", (e) => {
     const t = e.target, f = t.dataset.field; if (!f) return;
-    if (t.type === "range") { d[f] = +t.value; if (f === "mood") updateMood(); else { const o = $(t.id + "-out"); if (o) o.textContent = d[f]; } return; }
     if (f === "own") { const was = allPicks().length; d.own = t.value; d.ownOn = !!t.value.trim(); if (allPicks().length > MAX) { d.ownOn = false; $("count-note").textContent = "Three is plenty for today. Remove one to add your own."; return; } }
     sync();
   });
   $("stage").addEventListener("click", (e) => {
     const t = e.target;
-    const en = t.closest("[data-energy]"); if (en) { d.energy = en.dataset.energy; $("stage").querySelectorAll("[data-energy]").forEach((b) => b.setAttribute("aria-pressed", b === en)); sync(); return; }
-    const md = t.closest("[data-mood]"); if (md) { d.mood = +md.dataset.mood; updateMood(); return; }
-    const pl = t.closest("[data-pull]"); if (pl) { const v = pl.dataset.pull, i = d.noticed.indexOf(v); if (i >= 0) d.noticed.splice(i, 1); else d.noticed.push(v); pl.setAttribute("aria-pressed", i < 0); $("pull-out").innerHTML = pullOut(); return; }
-    const pk = t.closest("[data-pick]"); if (pk) { const v = pk.dataset.pick, i = d.picks.indexOf(v); if (i >= 0) d.picks.splice(i, 1); else if (!full()) d.picks.push(v); else return; pk.setAttribute("aria-pressed", i < 0); pk.querySelector(".plus").textContent = i < 0 ? "✓" : "+"; sync(); return; }
-    const wh = t.closest("[data-when]"); if (wh) { const a = wh.dataset.for; d.when[a] = d.when[a] === wh.dataset.when ? "" : wh.dataset.when; wh.parentElement.querySelectorAll("[data-when]").forEach((b) => b.setAttribute("aria-pressed", d.when[a] === b.dataset.when)); return; }
-    const gu = t.closest("[data-guess]"); if (gu) { const a = gu.dataset.for; d.guess[a] = d.guess[a] === gu.dataset.guess ? "" : gu.dataset.guess; gu.parentElement.querySelectorAll("[data-guess]").forEach((b) => b.setAttribute("aria-pressed", d.guess[a] === b.dataset.guess)); return; }
-    const inn = t.closest("[data-ifnot]"); if (inn) { d.ifnot = d.ifnot === inn.dataset.ifnot ? "" : inn.dataset.ifnot; $("stage").querySelectorAll("[data-ifnot]").forEach((b) => b.setAttribute("aria-pressed", d.ifnot === b.dataset.ifnot)); return; }
+    const md = t.closest("[data-mood]"); if (md) { d.mood = +md.dataset.mood; $("stage").querySelectorAll("[data-mood]").forEach((b) => b.setAttribute("aria-pressed", b === md)); $("mood-say").innerHTML = moodSay(); sync(); return; }
+    const pl = t.closest("[data-pull]"); if (pl) { const v = pl.dataset.pull, i = d.noticed.indexOf(v); if (i >= 0) d.noticed.splice(i, 1); else d.noticed.push(v); pl.setAttribute("aria-pressed", i < 0); $("pull-out").innerHTML = pullOut(); const n = $("stage").querySelector('[data-act="next"]'); if (n) n.textContent = d.noticed.length ? "Choose My Steps" : "Skip for Now"; return; }
+    const pk = t.closest("[data-pick]"); if (pk) { const v = pk.dataset.pick, i = d.picks.indexOf(v); if (i >= 0) d.picks.splice(i, 1); else if (!full()) d.picks.push(v); else return; $("stage").querySelectorAll(`[data-pick="${CSS.escape(v)}"]`).forEach((b) => { b.setAttribute("aria-pressed", i < 0); b.querySelector(".plus").textContent = i < 0 ? "✓" : "+"; }); sync(); return; }
+    const wh = t.closest("[data-when]"); if (wh) { d.when = d.when === wh.dataset.when ? "" : wh.dataset.when; $("stage").querySelectorAll("[data-when]").forEach((b) => b.setAttribute("aria-pressed", d.when === b.dataset.when)); return; }
     const btn = t.closest("[data-act]"), a = btn?.dataset.act; if (!a) return;
     if (a === "next") { d.step = Math.min(d.step + 1, STEPS - 1); render(); }
     else if (a === "back") { d.step = Math.max(d.step - 1, 0); render(); }
