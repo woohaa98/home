@@ -105,6 +105,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .mood-scale button:hover { background: rgba(255,255,255,.6); }
 .mood-scale button[aria-pressed="true"] { background: #fff; border-color: var(--line); color: var(--ink); font-weight: 600; }
 .mood-desc { margin: 14px 0 0; background: #fff; border-radius: 12px; padding: 12px 14px; font-size: 15px; }
+.mood-say { margin: 10px 0 0; display: flex; gap: 10px; align-items: flex-start; font-family: var(--font-display); font-style: italic; font-size: 17px; line-height: 1.5; color: var(--accent); }
+.mood-say::before { content: ""; flex: none; width: 4px; align-self: stretch; border-radius: 4px; background: var(--accent); opacity: .5; }
 .mood-tip { margin: 10px 0 0; font-size: 13.5px; color: var(--muted); }
 .mood-crisis { margin: 10px 0 0; font-size: 14px; background: var(--warm-soft); border-radius: 12px; padding: 10px 14px; }
 .mood-crisis a { color: var(--warm-ink); font-weight: 600; }
@@ -414,11 +416,11 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     { id: "okay", label: "Okay-ish", sub: "Some energy, and I want to build on it", say: "Small steps add up. Today you're choosing the way back up." }
   ];
   const MOODS = [
-    { max: 1, icon: "⛈️", name: "Very low", desc: "Everything feels heavy, numb, or really hard. Even small things take a lot." },
-    { max: 3, icon: "🌧️", name: "Low", desc: "Getting through the day takes effort, and not much feels enjoyable." },
-    { max: 5, icon: "☁️", name: "So-so", desc: "Flat, or going through the motions. Not bad, not good." },
-    { max: 7, icon: "⛅", name: "Okay", desc: "Some interest and energy. Small things can feel good." },
-    { max: 10, icon: "☀️", name: "Good", desc: "Feeling like yourself. Things feel enjoyable and doable." }
+    { max: 1, icon: "⛈️", name: "Very low", desc: "Everything feels heavy, numb, or really hard. Even small things take a lot.", say: "Thank you for checking in on a day this heavy. That takes real effort. Today, getting through counts, and one tiny step is more than enough." },
+    { max: 3, icon: "🌧️", name: "Low", desc: "Getting through the day takes effort, and not much feels enjoyable.", say: "Low days are real, and it makes sense that things feel harder right now. Noticing it is already a step. We'll keep today small and kind." },
+    { max: 5, icon: "☁️", name: "So-so", desc: "Flat, or going through the motions. Not bad, not good.", say: "Flat days count too. You showed up to check in, and that's a steady place to build from." },
+    { max: 7, icon: "⛅", name: "Okay", desc: "Some interest and energy. Small things can feel good.", say: "There's some energy to work with today. That's worth noticing. A small step can help it grow." },
+    { max: 10, icon: "☀️", name: "Good", desc: "Feeling like yourself. Things feel enjoyable and doable.", say: "It's good to feel like yourself. Notice what's helping today. It can be a map for harder days." }
   ];
   const MOOD_PICK = [1, 3, 5, 7, 9];
   const moodBand = (m) => MOODS.find((b) => m <= b.max);
@@ -458,6 +460,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <input id="mood" class="mood-range" type="range" min="0" max="10" step="1" value="${d.mood}" data-field="mood" aria-describedby="mood-desc" aria-valuetext="${d.mood} out of 10, ${b.name}">
       <div class="mood-scale" role="group" aria-label="Or tap the one that fits best">${MOODS.map((m, k) => `<button type="button" data-mood="${MOOD_PICK[k]}" aria-pressed="${m === b}"><span aria-hidden="true">${m.icon}</span>${m.name}</button>`).join("")}</div>
       <p class="mood-desc" id="mood-desc">${b.desc}</p>
+      <p class="mood-say" id="mood-say" aria-live="polite">${b.say}</p>
       <div id="mood-crisis">${crisis()}</div>
       <p class="mood-tip">Not sure? Think of your hardest recent day as a 1 and your best as a 9, and place today between them. There's no wrong number. It's a starting point to compare with later.</p>
     </div>`;
@@ -465,7 +468,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const crisis = () => d.mood <= 1 ? `<p class="mood-crisis">If you're having thoughts of hurting yourself, you can call or text <a href="tel:988">988</a> any time to reach the Suicide &amp; Crisis Lifeline. You don't have to get through this alone.</p>` : "";
   function updateMood() {
     const b = moodBand(d.mood);
-    $("mood-out").textContent = d.mood; $("mood-name").textContent = b.name; $("mood-face").textContent = b.icon; $("mood-desc").textContent = b.desc;
+    $("mood-out").textContent = d.mood; $("mood-name").textContent = b.name; $("mood-face").textContent = b.icon; $("mood-desc").textContent = b.desc; $("mood-say").textContent = b.say;
     $("mood").setAttribute("aria-valuetext", `${d.mood} out of 10, ${b.name}`); $("mood").value = d.mood;
     $("mood-crisis").innerHTML = crisis();
     $("stage").querySelectorAll("[data-mood]").forEach((x, k) => x.setAttribute("aria-pressed", MOODS[k] === b));
