@@ -271,8 +271,6 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .vc-svg { width: 100%; height: auto; display: block; }
 .vc figcaption { font-size: 14px; color: var(--muted); line-height: 1.55; margin-top: 2px; }
 .vc figcaption b { color: var(--accent); font-weight: 600; }
-.vc-needle.settle { animation: settle 1.6s cubic-bezier(.3,.8,.3,1); }
-@keyframes settle { 0% { transform: rotate(-70deg); } 35% { transform: rotate(22deg); } 60% { transform: rotate(-9deg); } 80% { transform: rotate(4deg); } 100% { transform: rotate(0); } }
 .vc.in-insight { max-width: 380px; margin: 4px auto 0; }
 .sum-stage { margin: 0 0 14px; font-size: 14px; color: var(--muted); }
 .sum-stage b { color: var(--ink); font-weight: 500; }
@@ -420,7 +418,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <!-- 4. Rank -->
     <section id="s-rank" hidden aria-labelledby="q-rank">
       <h2 class="q" id="q-rank" tabindex="-1">Put them in <em>order</em></h2>
-      <p class="hint">Use the arrows to move the value that matters most to the top. When two values compete, which would you choose?</p>
+      <p class="hint">All five matter, and a full life makes room for each. Ranking simply helps for the moments when two compete for your time or energy: which would you choose? Use the arrows to order them.</p>
       <figure class="vc" id="compass-rank" aria-hidden="true"></figure>
       <ol class="rank" id="rank"></ol>
     </section>
@@ -429,6 +427,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     <section id="s-define" hidden aria-labelledby="q-define">
       <h2 class="q" id="q-define" tabindex="-1">Make them <em>yours</em></h2>
       <p class="hint">The same word can mean very different things to different people. For each value, tap what it means to you, then notice how fully you're living it right now.</p>
+      <figure class="vc" id="balance-live" aria-hidden="true"></figure>
       <div class="define" id="define"></div>
     </section>
 
@@ -823,7 +822,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const t = e.target;
     if (t.dataset.save) { S[t.dataset.save] = t.value; save(); }
     if (t.dataset.def) { S.defs[t.dataset.def] = t.value; save(); }
-    if (t.dataset.live) { S.living[t.dataset.live] = +t.value; t.closest(".living").querySelector("output").value = t.value; save(); }
+    if (t.dataset.live) { S.living[t.dataset.live] = +t.value; t.closest(".living").querySelector("output").value = t.value; save(); paintBalance(); }
     if (t.dataset.journal) { S.journal[t.dataset.journal] = t.value; save(); clearTimeout(window.__sumT); window.__sumT = setTimeout(renderSummary, 400); }
   });
 
@@ -860,35 +859,45 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 
   /* 3. top five */
   /* ---------- your values compass ---------- */
-  function compassSVG(list, big) {
+  function compassSVG(list, big, living) {
     const n = list.length, R = 100, cx = 220, cy = 160;
-    const rose = [0, 45, 90, 135, 180, 225, 270, 315].map((a, i) => { const L = i % 2 ? 46 : 84, w = i % 2 ? 7 : 11; return `<path d="M0 ${-L} L${w} 0 L0 ${L * 0.12} L${-w} 0 Z" transform="rotate(${a})" fill="${i % 2 ? "#EFE5D7" : "#E7DACB"}"/>`; }).join("");
+    const ang = (i) => (-90 + i * 360 / n) * Math.PI / 180;
+    const rose = [0, 45, 90, 135, 180, 225, 270, 315].map((a, i) => { const L = i % 2 ? 34 : 60, w = i % 2 ? 5 : 8; return `<path d="M0 ${-L} L${w} 0 L0 ${L * 0.12} L${-w} 0 Z" transform="rotate(${a})" fill="${i % 2 ? "#F3ECE1" : "#EDE3D6"}"/>`; }).join("");
+    const spokes = list.map((_, i) => `<line x1="${cx}" y1="${cy}" x2="${(cx + Math.cos(ang(i)) * R).toFixed(1)}" y2="${(cy + Math.sin(ang(i)) * R).toFixed(1)}" stroke="#D9C7AE" stroke-width="1.5" stroke-dasharray="${living ? "2 4" : "0"}"/>`).join("");
+    let shape = "";
+    if (n >= 3) {
+      const rr = (v) => living ? R * Math.max(0.06, (living[v] ?? 5) / 10) : R * 0.62;
+      const poly = list.map((v, i) => `${(cx + Math.cos(ang(i)) * rr(v)).toFixed(1)},${(cy + Math.sin(ang(i)) * rr(v)).toFixed(1)}`).join(" ");
+      shape = `<polygon class="vc-shape" points="${poly}" fill="${living ? "rgba(71,107,86,.22)" : "rgba(71,107,86,.10)"}" stroke="#476B56" stroke-width="2" stroke-linejoin="round"/>`
+        + (living ? list.map((v, i) => `<circle cx="${(cx + Math.cos(ang(i)) * rr(v)).toFixed(1)}" cy="${(cy + Math.sin(ang(i)) * rr(v)).toFixed(1)}" r="4" fill="#476B56"/>`).join("") : "");
+    }
+    const rings = living ? [0.25, 0.5, 0.75].map((f) => `<circle cx="${cx}" cy="${cy}" r="${R * f}" fill="none" stroke="#EFE3D1"/>`).join("") : `<circle cx="${cx}" cy="${cy}" r="${R - 12}" fill="none" stroke="#EFE3D1" stroke-dasharray="2 5"/>`;
     const pts = list.map((v, i) => {
-      const a = (-90 + i * 360 / n) * Math.PI / 180, x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
+      const a = ang(i), x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
       const lx = cx + Math.cos(a) * (R + 22), ly = cy + Math.sin(a) * (R + 22) + 4, anchor = Math.abs(Math.cos(a)) < 0.3 ? "middle" : Math.cos(a) > 0 ? "start" : "end";
       const label = v.length > 26 ? v.slice(0, 25) + "…" : v;
       let lines = [label];
       if (anchor !== "middle" && label.length > 11 && label.includes(" ")) { const mid = label.length / 2; let k = -1, best = 99; [...label].forEach((ch, j) => { if (ch === " " && Math.abs(j - mid) < best) { best = Math.abs(j - mid); k = j; } }); lines = [label.slice(0, k), label.slice(k + 1)]; }
-      const y0 = (i === 0 ? ly - 6 : ly) - (lines.length - 1) * 8;
-      return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${i === 0 ? 7 : 5}" fill="${i === 0 ? "#9A5232" : "#476B56"}" stroke="#fff" stroke-width="2"/>
-        <text x="${lx.toFixed(1)}" y="${y0.toFixed(1)}" text-anchor="${anchor}" font-family="Lora, serif" font-size="${i === 0 ? 18 : 15}" ${i === 0 ? 'font-style="italic" fill="#9A5232"' : 'fill="#3A3027"'}>${lines.map((l, j) => `<tspan x="${lx.toFixed(1)}" dy="${j ? 17 : 0}">${esc(l)}</tspan>`).join("")}</text>`;
+      const y0 = (Math.abs(Math.cos(a)) < 0.3 && Math.sin(a) < 0 ? ly - 6 : ly) - (lines.length - 1) * 8;
+      const score = living ? ` (${living[v] ?? 5})` : "";
+      return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6" fill="#476B56" stroke="#fff" stroke-width="2"/>
+        <text x="${lx.toFixed(1)}" y="${y0.toFixed(1)}" text-anchor="${anchor}" font-family="Lora, serif" font-size="16" fill="#3A3027">${lines.map((l, j) => `<tspan x="${lx.toFixed(1)}" dy="${j ? 17 : 0}">${esc(l)}${j === lines.length - 1 && score ? `<tspan fill="#8A7E70" font-size="13">${score}</tspan>` : ""}</tspan>`).join("")}</text>`;
     }).join("");
     const empty = !n ? `<text x="${cx}" y="${cy + 4}" text-anchor="middle" font-family="Lora, serif" font-style="italic" font-size="14" fill="#A99C8C">Choose your five</text>` : "";
     return `<svg viewBox="0 0 440 312" class="vc-svg${big ? " big" : ""}">
       <circle cx="${cx}" cy="${cy}" r="${R}" fill="#FFFDF8" stroke="#D9C7AE" stroke-width="2"/>
-      <circle cx="${cx}" cy="${cy}" r="${R - 12}" fill="none" stroke="#EFE3D1" stroke-dasharray="2 5"/>
-      <g transform="translate(${cx} ${cy})">${rose}</g>
-      ${n ? `<g class="vc-needle" style="transform-origin:${cx}px ${cy}px"><path d="M${cx} ${cy - R + 18} L${cx + 9} ${cy} L${cx} ${cy + 8} L${cx - 9} ${cy} Z" fill="#9A5232"/><path d="M${cx} ${cy + 52} L${cx + 7} ${cy} L${cx - 7} ${cy} Z" fill="#CDBFAE"/></g><circle cx="${cx}" cy="${cy}" r="5" fill="#3A3027"/>` : ""}
+      ${rings}<g transform="translate(${cx} ${cy})">${rose}</g>${spokes}${shape}
+      ${n ? `<circle cx="${cx}" cy="${cy}" r="4" fill="#3A3027"/>` : ""}
       ${pts}${empty}
     </svg>`;
   }
-  let lastNorth = {};
   function paintCompass(id, list) {
     const el = $(id); if (!el) return;
-    const north = list[0] || "";
-    el.innerHTML = compassSVG(list) + `<figcaption>${list.length ? `Your compass, pointing toward <b>${esc(north)}</b>. Not a list of things to finish, but the direction you choose to walk, whatever goals come and go.` : "As you choose your five, your compass will form here."}</figcaption>`;
-    if (north && lastNorth[id] !== north && !reduceMotion) { const nd = el.querySelector(".vc-needle"); if (nd) nd.classList.add("settle"); }
-    lastNorth[id] = north;
+    el.innerHTML = compassSVG(list) + `<figcaption>${list.length ? `Your compass. Each value is a direction worth walking, and a full life honors all of them. The order only helps when two of them compete for your time or energy.` : "As you choose your five, your compass will form here."}</figcaption>`;
+  }
+  function paintBalance() {
+    const el = $("balance-live"); if (!el) return;
+    el.innerHTML = compassSVG(S.ranked.slice(0, 5), false, S.living) + `<figcaption>Your balance right now. Each point shows how fully you're living that value, from the center (not at all) to the edge (fully). A dip isn't a failure, just a place that may want a little more care.</figcaption>`;
   }
   function renderTop() {
     if (S.chosen.length <= 5) S.top = S.chosen.slice();
@@ -944,6 +953,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         <div class="ends"><span>not at all</span><span>fully</span></div></div></div>`;
     }).join("");
     S.ranked.forEach((n) => { if (S.living[n] === undefined) S.living[n] = 5; }); save();
+    paintBalance();
   }
   $("define").addEventListener("click", (e) => {
     const b = e.target.closest("[data-mean]"); if (!b) return;
@@ -1071,7 +1081,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const r = insights(); const el = $("insight"); el.hidden = !r; if (!r) return;
     const bars = r.scored.map((x) => `<div class="${x.n === r.gap.n && x.l < 7 ? "low" : ""}"><span>${esc(x.n)}</span><span class="track"><i style="width:${x.l * 10}%"></i></span><b>${x.l}/10</b></div>`).join("");
     const ins = (ic, h, body) => `<div class="ins"><span class="ic" aria-hidden="true">${ic}</span><div><h4>${h}</h4>${body}</div></div>`;
-    el.innerHTML = `<h3 id="ins-h">Your compass</h3><div class="vc in-insight" aria-hidden="true">${compassSVG(S.ranked.slice(0, 5))}</div><p class="compass">“${esc(r.compass)}”</p>`
+    el.innerHTML = `<h3 id="ins-h">Your compass</h3><div class="vc in-insight" aria-hidden="true">${compassSVG(S.ranked.slice(0, 5), false, S.living)}</div><p class="compass">“${esc(r.compass)}”</p>`
       + ins("🧭", "Where your values are living, and where they aren't", `<div class="gap-bars" aria-hidden="true">${bars}</div><p>${esc(r.gapText)}</p><p class="soft">${esc(r.gapSoft)}</p>`)
       + (r.best ? ins("✨", "At your best", `<p>${esc(r.best)}</p>`) : "")
       + (r.tension ? ins("⚖️", "A tension to hold", `<p>${esc(r.tension)}</p>`) : "")
