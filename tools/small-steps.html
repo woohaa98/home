@@ -434,6 +434,19 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     { id: "joy", icon: "🎨", label: "Dropping things I used to enjoy", cat: "pleasure" },
     { id: "ready", icon: "⏳", label: "Waiting until I feel ready", cat: "values" }
   ];
+  const tier = () => d.mood <= 3 ? "low" : d.mood <= 5 ? "flat" : "good";
+  const PULL_COPY = {
+    low: { h: "Low mood pulls us to do less", p: "Which of these have you noticed lately? Tap any that fit. They're very common, and they'll help suggest steps that fit you.",
+      down: ["The pull down", "We do less and pull back", "Fewer good moments", "Mood dips further"], up: ["The way back up", "One small step anyway", "A moment of \"I did it\"", "A little more energy"],
+      fb: "That makes sense. Pulling back is how low mood tries to protect us, but it keeps the cycle going. Next, you'll see small steps that gently do the opposite, suggested first.", card: "What I've noticed lately" },
+    flat: { h: "On flat days, it's easy to drift", p: "Which of these have crept in lately? Tap any that fit. Catching them early helps suggest steps that fit you.",
+      down: ["The slow drift", "We start to pull back", "Fewer good moments", "Mood sinks lower"], up: ["The way back up", "One small step anyway", "A moment of \"I did it\"", "A little more energy"],
+      fb: "Good catch. Drifts like these are easier to turn around early. Next, you'll see small steps that gently do the opposite, suggested first.", card: "What I've noticed lately" },
+    good: { h: "Protect what's working", p: "Good days are a great time to build habits for harder ones. Which of these tend to show up when your mood dips? Tap any that fit, or skip this.",
+      down: ["On harder days", "We start to pull back", "Fewer good moments", "Mood dips"], up: ["Keep the upward cycle going", "Keep doing small things", "More good moments", "Energy to keep going"],
+      fb: "Knowing your early signs is a real strength. Next, you'll see small steps that help keep them from creeping back, suggested first.", card: "Early signs to watch for" }
+  };
+  const pc = () => PULL_COPY[tier()];
   const suggested = () => [...new Set(PULLS.filter((x) => d.noticed.includes(x.id)).map((x) => x.cat))];
   const WHEN = ["Right now", "Morning", "Midday", "Afternoon", "Evening"];
   const GUESS = ["Not at all", "A little", "Some", "A lot"];
@@ -471,16 +484,16 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     $("mood-out").textContent = d.mood; $("mood-name").textContent = b.name; $("mood-face").textContent = b.icon; $("mood-desc").textContent = b.desc; $("mood-say").textContent = b.say;
     $("mood").setAttribute("aria-valuetext", `${d.mood} out of 10, ${b.name}`); $("mood").value = d.mood;
     $("mood-crisis").innerHTML = crisis();
+    $("pull-h").textContent = pc().h; $("pull-p").textContent = pc().p; $("pull-out").innerHTML = pullOut();
     $("stage").querySelectorAll("[data-mood]").forEach((x, k) => x.setAttribute("aria-pressed", MOODS[k] === b));
   }
   function pullOut() {
-    const n = d.noticed.length;
-    const first = n ? PULLS.find((x) => x.id === d.noticed[0]).label.toLowerCase() : "we do less and pull back";
-    return `<div class="loops">
-      <div class="loop down"><b>The pull down</b><span class="n${n ? " you" : ""}">${n ? esc(first.charAt(0).toUpperCase() + first.slice(1)) : "We do less and pull back"}</span><i>→</i><span class="n">Fewer good moments</span><i>→</i><span class="n">Mood dips further</span><i>↺</i></div>
-      <div class="loop up"><b>The way back up</b><span class="n">One small step anyway</span><i>→</i><span class="n">A moment of "I did it"</span><i>→</i><span class="n">A little more energy</span><i>↻</i></div>
-    </div>${n ? `<p class="pull-feedback">That makes sense. Pulling back is how low mood tries to protect us, but it keeps the cycle going. Next, you'll see small steps that gently do the opposite, suggested first.</p>` : ""}`;
+    const c = pc(), n = d.noticed.length;
+    const first = n ? PULLS.find((x) => x.id === d.noticed[0]).label : c.down[1];
+    const row = (cls, arr, end, you) => `<div class="loop ${cls}"><b>${arr[0]}</b>${arr.slice(1).map((t, k) => `<span class="n${k === 0 && you ? " you" : ""}">${esc(k === 0 && cls === "down" ? first : t)}</span>`).join("<i>→</i>")}<i>${end}</i></div>`;
+    return `<div class="loops">${row("down", c.down, "↺", n)}${row("up", c.up, "↻", false)}</div>${n ? `<p class="pull-feedback">${c.fb}</p>` : ""}`;
   }
+
 
   const label = (t) => `<p class="step-label">${t}</p>`;
   const nav = (txt, ok = true, back = true) => `<div class="actions"><button type="button" class="btn btn-primary" data-act="next" ${ok ? "" : "disabled"}>${txt}</button>${back ? '<button type="button" class="btn btn-text" data-act="back">← Back</button>' : ""}</div>`;
@@ -493,8 +506,8 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       <div class="options energy">${ENERGY.map((e) => `<button type="button" class="opt" data-energy="${e.id}" aria-pressed="${d.energy === e.id}"><span><b>${esc(e.label)}</b><small>${esc(e.sub)}</small></span></button>`).join("")}</div>
       ${moodView()}
       <div class="pull">
-        <h3>Low mood pulls us to do less</h3>
-        <p>Which of these have you noticed lately? Tap any that fit. They're very common, and they'll help suggest steps that fit you.</p>
+        <h3 id="pull-h">${pc().h}</h3>
+        <p id="pull-p">${pc().p}</p>
         <div class="chipset" role="group" aria-label="What you've noticed lately">${PULLS.map((x) => `<button type="button" class="chip" data-pull="${x.id}" aria-pressed="${d.noticed.includes(x.id)}"><span aria-hidden="true">${x.icon}</span>${esc(x.label)}</button>`).join("")}</div>
         <div id="pull-out">${pullOut()}</div>
       </div>
@@ -504,7 +517,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     1: () => `
       ${label("Step 2 of 3 · Choose")}
       <h2 class="q" tabindex="-1">Pick <em>1 to 3</em> small steps for today</h2>
-      <p class="hint">${d.energy === "empty" && !d.showAll ? "Showing the tiniest steps, since energy is low. One is plenty. " : (suggested().length ? "Steps that gently counter what you noticed are shown first. " : "A mix helps: something enjoyable, something accomplished, or someone to connect with. ")}${d.energy === "empty" ? `<button type="button" class="btn-text" data-act="showall">${d.showAll ? "Show tiny steps only" : "Show all steps"}</button>` : ""}</p>
+      <p class="hint">${d.energy === "empty" && !d.showAll ? "Showing the tiniest steps, since energy is low. One is plenty. " : (suggested().length ? (tier() === "good" ? "Steps that help keep your early signs at bay are shown first. " : "Steps that gently counter what you noticed are shown first. ") : "A mix helps: something enjoyable, something accomplished, or someone to connect with. ")}${d.energy === "empty" ? `<button type="button" class="btn-text" data-act="showall">${d.showAll ? "Show tiny steps only" : "Show all steps"}</button>` : ""}</p>
       ${[...CATS].sort((x, y) => suggested().includes(y.id) - suggested().includes(x.id)).map((c) => { const acts = c.acts.filter(([, e]) => effOk(e)); return acts.length ? `<div class="cat"><h3><span aria-hidden="true">${c.icon}</span>${esc(c.name)}${suggested().includes(c.id) ? '<span class="sugg">Suggested for you</span>' : ""} <small>${esc(c.sub)}</small></h3>
         <div class="acts">${acts.map(([t, e]) => { const on = d.picks.includes(t); return `<button type="button" class="act" data-pick="${esc(t)}" aria-pressed="${on}"${!on && full() ? " disabled" : ""}><span class="plus" aria-hidden="true">${on ? "✓" : "+"}</span><span>${esc(t)}</span><span class="eff">${e}</span></button>`; }).join("")}</div></div>` : ""; }).join("")}
       <details class="own-words"${d.ownOn ? " open" : ""}><summary>Add my own small step</summary>
@@ -531,7 +544,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
         ${label(new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }))}
         <h2 class="q" tabindex="-1">Today's small <em>steps</em></h2>
         <ul class="today">${items.map((a) => `<li><span class="box" aria-hidden="true"></span><span><b>${catOf(a).icon} ${esc(a)}</b><small>${esc(d.when[a] || "Sometime today")}${d.guess[a] ? ` · I guess it might help: ${esc(d.guess[a].toLowerCase())}` : ""}</small></span></li>`).join("")}</ul>
-        ${d.noticed.length ? `<div class="card-sec"><h3>What I've noticed lately</h3><p>${esc(PULLS.filter((x) => d.noticed.includes(x.id)).map((x) => x.label).join(" · "))}</p></div>` : ""}
+        ${d.noticed.length ? `<div class="card-sec"><h3>${pc().card}</h3><p>${esc(PULLS.filter((x) => d.noticed.includes(x.id)).map((x) => x.label).join(" · "))}</p></div>` : ""}
         ${d.ifnot ? `<div class="card-sec"><h3>If I don't feel like it</h3><p>${esc(d.ifnot)}.</p></div>` : ""}
         <p class="encourage">${esc(energy() ? energy().say : ENERGY[1].say)}</p>
         <div class="notice"><b>After each step, notice:</b> did your mood shift, even a little? ${guessed.length ? "Compare it with your guess. Low mood often predicts less than we actually feel." : "Low mood often predicts less than we actually feel."} Mood right now: ${d.mood}/10 (${moodBand(d.mood).name.toLowerCase()}).</div>
@@ -580,7 +593,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     const L = ["SMALL STEPS · " + dateLong(), ""];
     if (therapist) L.push(`For a session with ${therapist.name}`, "");
     L.push(`Energy: ${energy() ? energy().label : ""} · Mood right now: ${d.mood}/10 (${moodBand(d.mood).name.toLowerCase()})`);
-    if (d.noticed.length) L.push("What I've noticed lately: " + PULLS.filter((x) => d.noticed.includes(x.id)).map((x) => x.label.toLowerCase()).join("; "));
+    if (d.noticed.length) L.push(pc().card + ": " + PULLS.filter((x) => d.noticed.includes(x.id)).map((x) => x.label.toLowerCase()).join("; "));
     L.push("", "Today's small steps:");
     allPicks().forEach((a) => L.push(`[ ] ${a} (${d.when[a] || "sometime today"}${d.guess[a] ? `; might help: ${d.guess[a].toLowerCase()}` : ""})`));
     if (d.ifnot) L.push("", "If I don't feel like it: " + d.ifnot + ".");
