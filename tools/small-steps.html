@@ -434,20 +434,21 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   const MOOD_PICK = [1, 3, 5, 7, 9];
   const moodBand = (m) => MOODS.find((b) => m <= b.max);
   const PULLS = [
-    { id: "bed", icon: "🛏️", label: "Staying in bed or on the couch longer", cat: "body", opp: "Step outside for 5 minutes of daylight" },
-    { id: "msgs", icon: "📵", label: "Not answering messages or calls", cat: "connection", opp: "Send one short text to someone you like" },
-    { id: "plans", icon: "🗓️", label: "Canceling or skipping plans", cat: "connection", opp: "Call or voice-message a friend for 5 minutes" },
-    { id: "scroll", icon: "📱", label: "Scrolling or zoning out to pass time", cat: "pleasure", opp: "Swap 10 minutes of scrolling for one song you love" },
-    { id: "pile", icon: "🧺", label: "Letting chores or tasks pile up", cat: "mastery", opp: "Do 10 minutes on one task, then stop" },
-    { id: "care", icon: "🍽️", label: "Skipping meals, movement, or sleep routines", cat: "body", opp: "Eat one real meal at a regular time" },
-    { id: "joy", icon: "🎨", label: "Dropping things I used to enjoy", cat: "pleasure", opp: "Spend 10 minutes on something you used to enjoy" },
-    { id: "ready", icon: "⏳", label: "Waiting until I feel ready", cat: "values", opp: "Start for just 2 minutes, before you feel ready" }
+    { id: "bed", icon: "🛏️", label: "Staying in bed or on the couch longer", cat: "body", opp: "Step outside for 5 minutes of daylight", gentle: "Sit by a window, or step outside for a minute" },
+    { id: "msgs", icon: "📵", label: "Not answering messages or calls", cat: "connection", opp: "Send one short text to someone you like", gentle: "Send one emoji or \"thinking of you\" to someone" },
+    { id: "plans", icon: "🗓️", label: "Canceling or skipping plans", cat: "connection", opp: "Call or voice-message a friend for 5 minutes", gentle: "Reply to one person, even just to say not today" },
+    { id: "scroll", icon: "📱", label: "Scrolling or zoning out to pass time", cat: "pleasure", opp: "Swap 10 minutes of scrolling for one song you love", gentle: "Put on one song you like while you rest" },
+    { id: "pile", icon: "🧺", label: "Letting chores or tasks pile up", cat: "mastery", opp: "Do 10 minutes on one task, then stop", gentle: "Do one tiny thing, like putting away one cup" },
+    { id: "care", icon: "🍽️", label: "Skipping meals, movement, or sleep routines", cat: "body", opp: "Eat one real meal at a regular time", gentle: "Have a glass of water or a small snack" },
+    { id: "joy", icon: "🎨", label: "Dropping things I used to enjoy", cat: "pleasure", opp: "Spend 10 minutes on something you used to enjoy", gentle: "Spend 2 minutes near something you used to enjoy" },
+    { id: "ready", icon: "⏳", label: "Waiting until I feel ready", cat: "values", opp: "Start for just 2 minutes, before you feel ready", gentle: "Try 2 minutes. Stopping after is completely okay" }
   ];
   const tier = () => d.mood <= 3 ? "low" : d.mood <= 5 ? "flat" : "good";
   const PULL_COPY = {
     low: { h: "Low mood pulls us to do less", p: "Which of these have you noticed lately? Tap any that fit. They're very common, and they'll help suggest steps that fit you.",
-      down: ["The pull down", "We do less and pull back", "Fewer good moments", "Mood dips further"], up: ["The way back up", "One small step anyway", "A moment of \"I did it\"", "A little more energy"],
-      fb: "That makes sense. Pulling back is how low mood tries to protect us, but it keeps the cycle going. Next, you'll see small steps that gently do the opposite, suggested first.", card: "What I've noticed lately" },
+      down: ["The pull down", "We do less and pull back", "Fewer good moments", "Mood dips further"], up: ["A gentle way back up", "One tiny step, if you can", "A small moment of relief", "A little more energy, over time"],
+      fb: "That makes sense. Pulling back is how low mood tries to protect us, and there's nothing to fix about you here. There's no pressure. When you're ready, the next screen shows a few very small options. One is plenty, and resting counts too.", card: "What I've noticed lately",
+      mine: "A gentle way back up, if it feels possible", more: "Gentle options, if one feels possible", pick: "opp" },
     flat: { h: "On flat days, it's easy to drift", p: "Which of these have crept in lately? Tap any that fit. Catching them early helps suggest steps that fit you.",
       down: ["The slow drift", "We start to pull back", "Fewer good moments", "Mood sinks lower"], up: ["The way back up", "One small step anyway", "A moment of \"I did it\"", "A little more energy"],
       fb: "Good catch. Drifts like these are easier to turn around early. Next, you'll see small steps that gently do the opposite, suggested first.", card: "What I've noticed lately" },
@@ -498,9 +499,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   }
   function pullOut() {
     const c = pc(), sel = PULLS.filter((x) => d.noticed.includes(x.id)).sort((a, b) => d.noticed.indexOf(a.id) - d.noticed.indexOf(b.id)), n = sel.length;
-    const row = (cls, arr, end, firstText) => `<div class="loop ${cls}"><b>${n && cls === "up" ? "Your way back up" : arr[0]}</b>${arr.slice(1).map((t, k) => `<span class="n${k === 0 && n ? " you" : ""}">${esc(k === 0 && n ? firstText : t)}</span>`).join("<i>→</i>")}<i>${end}</i></div>`;
-    const more = n > 1 ? `<div class="pairs"><p class="pairs-k">More ways back up, for what you noticed</p><ul>${sel.slice(1).map((x) => `<li><span class="from"><span aria-hidden="true">${x.icon}</span> ${esc(x.label)}</span><i aria-hidden="true">→</i><span class="to">${esc(x.opp)}</span></li>`).join("")}</ul></div>` : "";
-    return `<div class="loops">${row("down", c.down, "↺", n ? sel[0].label : "")}${row("up", c.up, "↻", n ? sel[0].opp : "")}</div>${more}${n ? `<p class="pull-feedback">${c.fb}</p>` : ""}`;
+    const row = (cls, arr, end, firstText) => `<div class="loop ${cls}"><b>${n && cls === "up" ? (c.mine || "Your way back up") : arr[0]}</b>${arr.slice(1).map((t, k) => `<span class="n${k === 0 && n ? " you" : ""}">${esc(k === 0 && n ? firstText : t)}</span>`).join("<i>→</i>")}<i>${end}</i></div>`;
+    const step = (x) => tier() === "low" ? x.gentle : x.opp;
+    const more = n > 1 ? `<div class="pairs"><p class="pairs-k">${c.more || "More ways back up, for what you noticed"}</p><ul>${sel.slice(1).map((x) => `<li><span class="from"><span aria-hidden="true">${x.icon}</span> ${esc(x.label)}</span><i aria-hidden="true">→</i><span class="to">${esc(step(x))}</span></li>`).join("")}</ul></div>` : "";
+    return `<div class="loops">${row("down", c.down, "↺", n ? sel[0].label : "")}${row("up", c.up, "↻", n ? step(sel[0]) : "")}</div>${more}${n ? `<p class="pull-feedback">${c.fb}</p>` : ""}`;
   }
 
 
@@ -527,7 +529,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     1: () => `
       ${label("Step 2 of 3 · Choose")}
       <h2 class="q" tabindex="-1">Pick <em>1 to 3</em> small steps for today</h2>
-      <p class="hint">${d.energy === "empty" && !d.showAll ? "Showing the tiniest steps, since energy is low. One is plenty. " : (suggested().length ? (tier() === "good" ? "Steps that help keep your early signs at bay are shown first. " : "Steps that gently counter what you noticed are shown first. ") : "A mix helps: something enjoyable, something accomplished, or someone to connect with. ")}${d.energy === "empty" ? `<button type="button" class="btn-text" data-act="showall">${d.showAll ? "Show tiny steps only" : "Show all steps"}</button>` : ""}</p>
+      <p class="hint">${d.energy === "empty" && !d.showAll ? "Showing the tiniest steps, since energy is low. One is plenty. " : (suggested().length ? (tier() === "good" ? "Steps that help keep your early signs at bay are shown first. " : tier() === "low" ? "A few gentle options that fit what you noticed are shown first. One is plenty. Resting can be part of today too. " : "Steps that gently counter what you noticed are shown first. ") : "A mix helps: something enjoyable, something accomplished, or someone to connect with. ")}${d.energy === "empty" ? `<button type="button" class="btn-text" data-act="showall">${d.showAll ? "Show tiny steps only" : "Show all steps"}</button>` : ""}</p>
       ${[...CATS].sort((x, y) => suggested().includes(y.id) - suggested().includes(x.id)).map((c) => { const acts = c.acts.filter(([, e]) => effOk(e)); return acts.length ? `<div class="cat"><h3><span aria-hidden="true">${c.icon}</span>${esc(c.name)}${suggested().includes(c.id) ? '<span class="sugg">Suggested for you</span>' : ""} <small>${esc(c.sub)}</small></h3>
         <div class="acts">${acts.map(([t, e]) => { const on = d.picks.includes(t); return `<button type="button" class="act" data-pick="${esc(t)}" aria-pressed="${on}"${!on && full() ? " disabled" : ""}><span class="plus" aria-hidden="true">${on ? "✓" : "+"}</span><span>${esc(t)}</span><span class="eff">${e}</span></button>`; }).join("")}</div></div>` : ""; }).join("")}
       <details class="own-words"${d.ownOn ? " open" : ""}><summary>Add my own small step</summary>
