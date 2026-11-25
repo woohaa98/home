@@ -192,6 +192,25 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
 .photo-tip { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
 .photo-box img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 14px; border: 1px solid var(--line); margin: 0 auto; -webkit-touch-callout: default; }
 @media print { .photo-box { display: none !important; } }
+.al { margin-top: 22px; background: var(--sand); border-radius: 18px; padding: 16px 18px 14px; }
+.al-title { margin: 0 0 12px; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.al-ring { display: grid; grid-template-columns: 1fr 34px 1fr; grid-template-rows: auto 30px auto; align-items: stretch; }
+.al-node { background: #fff; border: 1px dashed var(--line); border-radius: 14px; padding: 10px 12px; opacity: .55; transition: opacity .3s, border-color .3s; }
+.al-node.on { opacity: 1; border-style: solid; }
+.al-node small { display: block; font-size: 12px; color: var(--muted); }
+.al-node b { display: block; font-weight: 600; font-size: 15px; line-height: 1.35; }
+.al-a { grid-area: 1 / 1; } .al-b { grid-area: 1 / 3; } .al-c { grid-area: 3 / 3; } .al-d { grid-area: 3 / 1; }
+.al-b.on { border-color: var(--warm); } .al-b.on b { color: var(--warm-ink); }
+.al-d.on { border-color: var(--accent); }
+.al-ar { font-style: normal; color: var(--muted); display: grid; place-items: center; font-size: 18px; }
+.al-ar.r1 { grid-area: 1 / 2; } .al-ar.r2 { grid-area: 2 / 3; } .al-ar.r3 { grid-area: 3 / 2; } .al-ar.r4 { grid-area: 2 / 1; }
+.al-foot { margin: 12px 0 0; font-size: 14.5px; color: var(--warm-ink); text-align: center; }
+.why-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 640px) { .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.why-tile { appearance: none; font: inherit; font-size: 14px; line-height: 1.3; cursor: pointer; display: grid; justify-items: center; gap: 6px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 8px; color: var(--ink); transition: border-color .2s, background .2s; }
+.why-tile .wi { font-size: 26px; line-height: 1; }
+.why-tile:hover { border-color: var(--accent); }
+.why-tile[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
 .opt.bal { background: #F2F8F3; border-color: #CFE0D4; align-items: center; }
 .opt.bal b { font-weight: 500; font-family: var(--font-display); font-size: 17px; color: #2F4A3A; }
 .opt.bal:hover { border-color: var(--accent); background: #EAF3EC; }
@@ -451,6 +470,24 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   ];
 
   /* ================== STATE (not saved) ================== */
+  const ICON = { "A task for work or school": "💼", "Emails or messages": "✉️", "A hard conversation": "💬", "Bills or paperwork": "🧾", "A health appointment": "🩺", "Starting something new": "🌱", "Cleaning or chores": "🧺", "Exercise": "🏃", "A feeling I don't want to feel": "🌊",
+    "being someone who keeps my word": "🤝", "my health": "💚", "my future": "🌅", "the people I love": "👨‍👩‍👧", "peace of mind": "🕊️", "growing and learning": "📚", "doing work I'm proud of": "⭐", "feeling free of this": "🎈",
+    "Do it for just 2 minutes": "⏱️", "Open the file, email, or app": "📂", "Write one sentence": "✍️", "Put it on my calendar": "📅", "Ask someone for help": "🙋", "Do the smallest first part": "🪜", "Tell someone I'm starting": "📣" };
+  const ic = (t) => ICON[t] ? `<span class="icon" aria-hidden="true">${ICON[t]}</span>` : "";
+  function avLoop() {
+    const node = (k, label, val, on) => `<div class="al-node al-${k}${on ? " on" : ""}"><small>${label}</small><b>${esc(val)}</b></div>`;
+    const feel = d.feel.length ? listText(d.feel) : "…", esc2 = d.escape.length ? "I " + d.escape[0].replace(/^tell myself/, "tell myself") : "…";
+    return `<div class="al" aria-live="polite">
+      <p class="al-title">Your avoidance loop</p>
+      <div class="al-ring">
+        ${node("a", "1 · I think about", lcFirst(avoidText()) || "it", true)}<i class="al-ar r1" aria-hidden="true">→</i>
+        ${node("b", "2 · and feel", feel, d.feel.length)}<i class="al-ar r2" aria-hidden="true">↓</i>
+        ${node("c", "3 · so", esc2, d.escape.length)}<i class="al-ar r3" aria-hidden="true">←</i>
+        ${node("d", "4 · I get", "quick relief", d.escape.length)}<i class="al-ar r4" aria-hidden="true">↑</i>
+      </div>
+      <p class="al-foot">…and next time, ${d.feel.length ? esc(d.feel[0]) : "the feeling"} shows up sooner and stronger. ↺</p>
+    </div>`;
+  }
   const blank = () => ({ step: 0, avoid: "", avoidOwn: "", feel: [], escape: [], costs: [], struggle: 8, why: "", whyOwn: "", start: "", startOwn: "", willing: 6 });
   let d = blank(), lastView = -1, roomTimer = null, roomIdx = 0, runTimer = null;
   const STEPS = 6;
@@ -540,7 +577,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${label("Step 1 of 5 · What you're avoiding")}
       <h2 class="q" tabindex="-1">What have you been <em>putting off</em>?</h2>
       <p class="hint">Pick one thing to focus on today. Everyone avoids something. It's a very human way of protecting ourselves from discomfort.</p>
-      <div class="options two">${AVOID.map((t) => `<button type="button" class="opt" data-avoid="${esc(t)}" aria-pressed="${d.avoid === t && !d.avoidOwn.trim()}"><span><b style="font-weight:500">${esc(t)}</b></span></button>`).join("")}</div>
+      <div class="options two">${AVOID.map((t) => `<button type="button" class="opt" data-avoid="${esc(t)}" aria-pressed="${d.avoid === t && !d.avoidOwn.trim()}">${ic(t)}<span><b style="font-weight:500">${esc(t)}</b></span></button>`).join("")}</div>
       <input type="text" data-field="avoidOwn" maxlength="80" style="margin-top:10px" aria-label="In your own words" placeholder="Or name it specifically, e.g. my tax forms" value="${esc(d.avoidOwn)}">
       ${nav("Continue", !!avoidText(), false)}`,
 
@@ -551,6 +588,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${chips("feel", FEELS, true)}
       <p class="group-name" style="margin-top:18px">What do you usually do instead?</p>
       ${chips("escape", ESCAPES, true)}
+      <div id="av-loop">${avLoop()}</div>
       ${nav("Continue", d.feel.length > 0)}`,
 
     2: () => `
@@ -586,10 +624,10 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       ${label("Step 5 of 5 · A willing step")}
       <h2 class="q" tabindex="-1">Why does this <em>matter</em> to you?</h2>
       <p class="hint">Willingness is easier when you know what it's for.</p>
-      ${chips("why", WHY, false)}
-      <input type="text" data-field="whyOwn" maxlength="80" aria-label="In your own words" placeholder="Or in your own words" value="${esc(d.whyOwn)}">
+      <div class="why-grid">${WHY.map((t) => `<button type="button" class="why-tile" data-k="why" data-v="${esc(t)}" data-multi="0" aria-pressed="${d.why === t}"><span class="wi" aria-hidden="true">${ICON[t] || ""}</span><span>${esc(t)}</span></button>`).join("")}</div>
+      <input type="text" data-field="whyOwn" maxlength="80" style="margin-top:10px" aria-label="In your own words" placeholder="Or in your own words" value="${esc(d.whyOwn)}">
       <p class="group-name" style="margin-top:22px">Your smallest start</p>
-      <div class="options">${STARTS.map((t) => `<button type="button" class="opt bal" data-start="${esc(t)}" aria-pressed="${d.start === t && !d.startOwn.trim()}"><span><b style="font-weight:500">${esc(t)}</b></span></button>`).join("")}</div>
+      <div class="options two">${STARTS.map((t) => `<button type="button" class="opt bal" data-start="${esc(t)}" aria-pressed="${d.start === t && !d.startOwn.trim()}">${ic(t)}<span><b style="font-weight:500">${esc(t)}</b></span></button>`).join("")}</div>
       <input type="text" data-field="startOwn" maxlength="100" style="margin-top:8px" aria-label="Your own smallest start" placeholder="Or my own tiny start" value="${esc(d.startOwn)}">
       <div class="scale" style="margin-top:22px"><p class="dial-q" id="dial-q">${dialQ()}</p>
         <label for="willing" class="sr-only" style="position:absolute;left:-9999px">Willingness</label>
@@ -717,6 +755,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
     if (focus) { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); const h = $("stage").querySelector("[tabindex='-1']"); if (h) h.focus({ preventScroll: true }); }
   }
   function sync() {
+    const lp = $("av-loop"); if (lp) lp.innerHTML = avLoop();
     const n = $("stage").querySelector('[data-act="next"]'); if (!n) return;
     if (d.step === 0) n.disabled = !avoidText();
     if (d.step === 1) n.disabled = !d.feel.length;
