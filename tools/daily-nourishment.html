@@ -132,6 +132,17 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
 
 /* ---------- Step 3: nourish ---------- */
 .privacy-note { font-size: 13.5px; color: var(--muted); margin: -30px 0 36px; display: flex; gap: 8px; align-items: baseline; }
+.session-banner { display: flex; gap: 12px; align-items: flex-start; background: var(--accent-soft, #EEF4EF); border: 1px solid #CFE0D4; border-radius: 16px; padding: 14px 16px; margin: -18px 0 30px; font-size: 14.5px; }
+.session-banner[hidden] { display: none; }
+.session-banner b { display: block; color: var(--accent, #476B56); font-weight: 600; }
+.session-banner p { margin: 0; }
+.share-th { margin: 24px 0 4px; background: #fff; border: 1px solid #CFE0D4; border-radius: 20px; padding: 20px 22px 16px; box-shadow: 0 1px 2px rgba(42,47,53,.04), 0 10px 30px rgba(42,47,53,.06); text-align: left; }
+.share-th .st-h { margin: 0 0 2px; font-family: var(--font-display); font-size: 22px; }
+.share-th .st-h b { font-weight: 400; font-style: italic; color: #476B56; }
+.share-th .st-sub { margin: 0 0 14px; color: var(--muted); font-size: 14.5px; }
+.share-th .st-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.share-th .st-tip { margin: 12px 0 0; font-size: 13px; color: var(--muted); line-height: 1.55; }
+@media print { .share-th, .session-banner { display: none !important; } }
 .privacy-note::before { content: "🔒"; font-size: 12px; }
 .need-note { color: var(--muted); font-size: 15px; margin: 18px 0 0; max-width: 58ch; }
 .paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 30px 0 0; }
@@ -223,6 +234,8 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
       <p class="lede">A few minutes to notice what you need, remember that you are already enough, and choose how to care for yourself today: with words to carry, or small things to do.</p>
     </header>
     <p class="privacy-note">Today's plan saves on this device so you can check things off later. Nothing is sent anywhere unless you choose to share it.</p>
+    <div class="session-banner" id="session-banner" role="note" hidden><span aria-hidden="true">🌿</span>
+      <div><b>Shared by your therapist, <span class="th-name"></span></b><p>Take a few minutes for yourself. At the end, you can email your check-in to <span class="th-name"></span> or save it as a PDF for your next session. Nothing is sent anywhere unless you choose to share it.</p></div></div>
 
     <!-- Step 1 -->
     <section id="step-choose" aria-labelledby="q">
@@ -275,6 +288,7 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         <div id="acts"></div>
       </section>
 
+      <div id="share-th-box"></div>
       <div class="actions">
         <button type="button" class="btn btn-primary" id="copy">Copy My Message</button>
         <button type="button" class="btn btn-ghost" id="photo">Save as Photo</button>
@@ -772,6 +786,31 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
   });
   $("photo-close").addEventListener("click", () => { $("photo-box").hidden = true; });
   // Email to myself: opens the person's own email app with the message as text, for them to address and send.
+  /* session mode (?from=Name&reply=email), as in the other tools. Only shown when a therapist sent the link. */
+  let therapist = null;
+  (function () {
+    const KEYS = "wk-daily-nourishment-session", q = new URLSearchParams(location.search), from = (q.get("from") || "").trim().slice(0, 60);
+    try {
+      if (from) {
+        const t = { name: from.toLowerCase() === "elise" ? "Elise Kwak" : from, reply: "" };
+        const r = (q.get("reply") || "").trim().slice(0, 120);
+        if (r && /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(r)) t.reply = r; else if (from.toLowerCase() === "elise") t.reply = "elise@selfspaceseattle.com";
+        sessionStorage.setItem(KEYS, JSON.stringify(t)); therapist = t;
+      } else { const raw = sessionStorage.getItem(KEYS); if (raw) therapist = JSON.parse(raw); }
+    } catch (_) { if (from) therapist = { name: from, reply: "" }; }
+    if (!therapist || !therapist.name) { therapist = null; return; }
+    $("session-banner").hidden = false; document.querySelectorAll(".th-name").forEach((el) => { el.textContent = therapist.name; });
+    const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const first = therapist.name.split(" ")[0];
+    $("share-th-box").innerHTML = `<div class="share-th">
+      <p class="st-h">Share this with <b>${esc(therapist.name)}</b></p>
+      <p class="st-sub">Your check-in is ready to explore together in your next session.</p>
+      <div class="st-row"><button type="button" class="btn btn-primary" id="th-email">Email It to ${esc(first)}</button><button type="button" class="btn btn-ghost" id="th-print">Print or Save as PDF</button></div>
+      <p class="st-tip"><b>Email It</b> opens your own email app with your check-in written in${therapist.reply ? `, addressed to ${esc(therapist.reply)}` : `; add ${esc(first)}'s email address`}. You can read or change anything before you send it. Email isn't fully private, so only share what you're comfortable sending that way.</p></div>`;
+    $("th-email").addEventListener("click", () => { if (!current) return; window.location.href = `mailto:${therapist.reply ? encodeURIComponent(therapist.reply) : ""}?subject=${encodeURIComponent("My Daily Nourishment check-in · for our session")}&body=${encodeURIComponent(messageText(current))}`; });
+    $("th-print").addEventListener("click", () => $("print").click());
+  })();
+
   $("email-me").addEventListener("click", () => {
     if (!current) return;
     const subject = "My Daily Nourishment · " + new Date().toLocaleDateString(undefined, { month: "long", day: "numeric" });

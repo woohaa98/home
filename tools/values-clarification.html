@@ -742,8 +742,9 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
       try { localStorage.setItem(SESSION_KEY, JSON.stringify(t)); } catch (_) {}
     } else {
       try {
-        const raw = localStorage.getItem(SESSION_KEY);
-        if (raw === "elise") t = PRESETS.elise; else if (raw) t = JSON.parse(raw);
+        const raw = localStorage.getItem(SESSION_KEY), progress = localStorage.getItem(KEY);
+        if (raw && progress) { t = raw === "elise" ? PRESETS.elise : JSON.parse(raw); }
+        else if (raw) localStorage.removeItem(SESSION_KEY);
       } catch (_) {}
     }
     therapist = t && t.name ? t : null;
@@ -1187,7 +1188,7 @@ textarea:focus, input[type=text]:focus { outline: none; border-color: var(--acce
   $("erase").addEventListener("click", () => { $("erase-confirm").hidden = false; $("erase").hidden = true; $("erase-no").focus(); });
   $("erase-no").addEventListener("click", () => { $("erase-confirm").hidden = true; $("erase").hidden = false; });
   $("erase-yes").addEventListener("click", () => {
-    try { localStorage.removeItem(KEY); localStorage.removeItem(SESSION_KEY + "-name"); } catch (_) {}
+    try { localStorage.removeItem(KEY); localStorage.removeItem(SESSION_KEY); localStorage.removeItem(SESSION_KEY + "-name"); } catch (_) {}
     $("client-name").value = "";
     S = blank(); $("erase-confirm").hidden = true; $("erase").hidden = false; go(0);
     $("nav-status").textContent = "Your answers were erased.";
