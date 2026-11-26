@@ -2,6 +2,8 @@
 
 Personal site of Woohee (Elise) Kwak, served by GitHub Pages from `main`. Work on a branch and open a pull request. Nothing merges to `main` (which publishes the site) without Elise's explicit approval, and any clinical or psychoeducational content gets her review first.
 
+The interactive tools, the Therapy Resources library, and the For Therapists toolkit live on Beyond the Room (repo `woohaa98/beyond-the-room`, beyondtheroomtherapy.com). Here, `tools/`, `therapists/` and the `resources/` pages are redirect stubs that forward to it, keeping `?from=`/`?reply=` therapist links working. Build or change tools there, not here. The homepage Tools section is a short teaser linking to Beyond the Room.
+
 ## Privacy guardrails (apply to every page and tool)
 
 The site never collects information. Tools are for individuals to use on their own, save on their own device, and share outside the tool if they choose.
