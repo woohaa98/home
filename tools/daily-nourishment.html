@@ -154,6 +154,36 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
 .path-btn b { display: block; font-size: 16px; font-weight: 600; }
 .path-btn small { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; }
 .panel { margin-top: 26px; }
+.dots { list-style: none; display: flex; gap: 6px; padding: 0; margin: 0 0 22px; }
+.dots li { flex: 1; height: 4px; border-radius: 4px; background: var(--line); transition: background .3s; }
+.dots li.on { background: var(--accent); }
+.step-label { font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
+.fstep .q { margin-bottom: 8px; }
+.fstep { animation: fsIn .45s ease-out both; }
+@keyframes fsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.msg-card { margin-top: 16px; background: var(--surface, #fff); border: 1px solid var(--line); border-radius: 22px; padding: 26px 26px 20px; box-shadow: 0 10px 30px rgba(42,47,53,.06); }
+.msg-card .mantra { margin-top: 0; }
+.soak { margin: 8px 0 26px; text-align: center; background: linear-gradient(180deg, var(--accent-soft) 0%, #FBF8F3 100%); border-radius: 22px; padding: 28px 22px 22px; }
+.soak-orb { width: 84px; height: 84px; margin: 0 auto 18px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff 0%, #CFE0D4 55%, #A9C6B2 100%); transform: scale(.8); transition: transform 4s ease-in-out; }
+.soak-orb.in { transform: scale(1.12); transition-duration: 4s; }
+.soak-orb.out { transform: scale(.8); transition-duration: 6s; }
+.soak-words { font-family: var(--font-display); font-size: 21px; line-height: 1.55; margin: 0 auto 10px; max-width: 30em; }
+.soak-cue { color: var(--muted); font-size: 14.5px; margin: 0 0 16px; min-height: 1.5em; }
+.rq { margin: 0 0 22px; }
+.rq-h { display: block; font-weight: 600; margin: 0 0 4px; }
+.rq-sub { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+.rq textarea { width: 100%; margin-top: 10px; font: inherit; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: #fff; resize: vertical; }
+.chipset { display: flex; flex-wrap: wrap; gap: 8px; }
+.chipset .chip { appearance: none; font: inherit; font-size: 14px; cursor: pointer; text-align: left; background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; color: var(--ink); }
+.chipset .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.promise { margin: 6px 0 4px; background: #FBF5EF; border-left: 3px solid var(--warm); border-radius: 0 16px 16px 0; padding: 16px 18px; font-family: var(--font-display); font-size: 18px; line-height: 1.6; }
+.promise:empty { display: none; }
+.promise b { display: block; font-family: var(--font-body, inherit); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--warm-ink, #9A5232); margin-bottom: 6px; }
+.reflect-card { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }
+.reflect-card .k { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 6px; }
+.reflect-card p { margin: 0 0 12px; }
+.reflect-card .rem { font-family: var(--font-display); font-size: 18px; }
+@media (prefers-reduced-motion: reduce) { .fstep { animation: none; } .soak-orb { transition: none; } }
 .panel h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px; margin: 0 0 4px; }
 .panel .sub { color: var(--muted); font-size: 14.5px; margin: 0 0 16px; }
 .quotes { display: grid; gap: 12px; }
@@ -190,7 +220,7 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
 .plan .empty { padding: 16px 20px; background: #fff; color: var(--muted); margin: 0; font-size: 14.5px; }
 .erase { margin-top: 10px; font-size: 13.5px; }
 .btn-text { appearance: none; background: none; border: 0; padding: 4px 0; font: inherit; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-@media print { .topbar, header, .privacy-note, #step-choose, .paths, .panel, .actions, .erase, .disclaimer, .photo-box { display: none !important; } .card { box-shadow: none; } }
+@media print { .topbar, header, .privacy-note, #step-choose, #step-flow, .paths, .panel, .actions, .erase, .disclaimer, .photo-box, #step-result > .hint { display: none !important; } .card { box-shadow: none; } }
 
 .photo-box { margin-top: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
 .photo-tip { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); }
@@ -231,7 +261,7 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     <header>
       <p class="eyebrow">Beyond the Room · Nourishment</p>
       <h1>Daily <em>Nourishment</em> Check-In</h1>
-      <p class="lede">A few minutes to notice what you need, remember that you are already enough, and choose how to care for yourself today: with words to carry, or small things to do.</p>
+      <p class="lede">A few minutes to notice what you need, remember that you are already enough, and find words to carry, choose small things to do, and let that care sink in.</p>
     </header>
     <p class="privacy-note">Today's plan saves on this device so you can check things off later. Nothing is sent anywhere unless you choose to share it.</p>
     <div class="session-banner" id="session-banner" role="note" hidden><span aria-hidden="true">🌿</span>
@@ -241,6 +271,7 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     <section id="step-choose" aria-labelledby="q">
       <form id="form" novalidate>
         <fieldset>
+          <p class="step-label">Step 1 of 5 · Notice</p>
           <legend class="q" id="q">What parts of you <em>need nourishment</em> today?</legend>
           <p class="hint" id="hint">Choose as many as feel true. There are no wrong answers.</p>
           <div class="grid" id="options" aria-describedby="hint"></div>
@@ -258,9 +289,64 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
       <p>Take one slow breath with me…</p>
     </section>
 
-    <!-- Step 2 -->
+    <!-- Guided steps -->
+    <section id="step-flow" hidden>
+      <ol class="dots" id="dots" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol>
+
+      <div class="fstep" id="fs-message">
+        <p class="step-label">Step 2 of 5 · Your message</p>
+        <h2 class="q" tabindex="-1">A message for <em>you</em> today</h2>
+        <ul class="chips" id="m-chips"></ul>
+        <div class="msg-card"><p class="mantra" id="m-mantra"></p><p class="need-note" id="m-note"></p></div>
+        <p class="hint" style="margin-top:14px">Read it slowly, maybe twice. Let it land before moving on.</p>
+        <div class="actions"><button type="button" class="btn btn-primary" data-go="words">Next: Words to Carry</button><button type="button" class="btn-text" data-go="choose">← Back</button></div>
+      </div>
+
+      <div class="fstep" id="fs-words" hidden>
+        <p class="step-label">Step 3 of 5 · Words to carry</p>
+        <h2 class="q" tabindex="-1">Words to <em>carry</em></h2>
+        <p class="hint">Read slowly. Tap the one that speaks to you today, the one you'd like to keep in your pocket.</p>
+        <div class="quotes" id="quotes"></div>
+        <div class="actions"><button type="button" class="btn btn-primary" data-go="do" id="words-next">Skip for Now</button><button type="button" class="btn-text" data-go="message">← Back</button></div>
+      </div>
+
+      <div class="fstep" id="fs-do" hidden>
+        <p class="step-label">Step 4 of 5 · Small things to do</p>
+        <h2 class="q" tabindex="-1">Small things to <em>nourish</em> you</h2>
+        <p class="hint">Tap one to three for today's plan. Small is the point. One is plenty.</p>
+        <div id="acts"></div>
+        <p class="status" id="do-status" role="status" aria-live="polite"></p>
+        <div class="actions"><button type="button" class="btn btn-primary" data-go="reflect" id="do-next">Skip for Now</button><button type="button" class="btn-text" data-go="words">← Back</button></div>
+      </div>
+
+      <div class="fstep" id="fs-reflect" hidden>
+        <p class="step-label">Step 5 of 5 · Take it in</p>
+        <h2 class="q" tabindex="-1">Let it <em>sink in</em></h2>
+        <p class="hint">A minute to let today's care become yours, not just words on a screen.</p>
+        <div class="soak">
+          <div class="soak-orb" id="soak-orb" aria-hidden="true"></div>
+          <p class="soak-words" id="soak-words"></p>
+          <p class="soak-cue" id="soak-cue" aria-live="polite">Breathe with your words: in as you read, out as you let them settle.</p>
+          <button type="button" class="btn btn-ghost" id="soak-btn">Breathe With It · 3 Breaths</button>
+        </div>
+        <div class="rq">
+          <label class="rq-h" for="remember">What do you want to remember today?</label>
+          <p class="rq-sub">In your own words, or tap to borrow a line.</p>
+          <div class="chipset" id="borrow"></div>
+          <textarea id="remember" rows="2" maxlength="220" placeholder="Today I want to remember…"></textarea>
+        </div>
+        <div class="rq">
+          <p class="rq-h" id="hope-h">How do you hope to feel by tonight?</p>
+          <div class="chipset" id="hope" role="group" aria-labelledby="hope-h"></div>
+        </div>
+        <div class="promise" id="promise" aria-live="polite"></div>
+        <div class="actions"><button type="button" class="btn btn-primary" data-go="card">See My Card</button><button type="button" class="btn-text" data-go="do">← Back</button></div>
+      </div>
+    </section>
+
+    <!-- Card -->
     <section id="step-result" hidden aria-labelledby="result-title">
-      <h2 id="result-title" class="sr-only">Your daily message</h2>
+      <h2 id="result-title" class="sr-only">Your daily nourishment card</h2>
       <article class="card">
         <p class="named fade-in">What you named today</p>
         <ul class="chips fade-in" id="chips"></ul>
@@ -268,26 +354,10 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
         <p class="need-note fade-in d2" id="need-note"></p>
         <div id="chosen-wrap"></div>
         <div id="plan-wrap"></div>
+        <div id="reflect-wrap"></div>
         <p class="closing fade-in d3">However much of this you do is enough.</p>
       </article>
-
-      <div class="paths fade-in d3" role="group" aria-label="What would nourish you right now?">
-        <button type="button" class="path-btn" id="path-words" aria-pressed="false" aria-controls="panel-words"><span class="icon" aria-hidden="true">📜</span><span><b>Words to carry</b><small>Choose a poem or quote for inspiration today.</small></span></button>
-        <button type="button" class="path-btn" id="path-do" aria-pressed="false" aria-controls="panel-do"><span class="icon" aria-hidden="true">🌿</span><span><b>Small things to do</b><small>Pick one to three ideas for your plan today.</small></span></button>
-      </div>
-
-      <section class="panel" id="panel-words" hidden aria-labelledby="pw-h">
-        <h3 id="pw-h">Words to carry</h3>
-        <p class="sub">Read slowly. Tap the one that speaks to you today.</p>
-        <div class="quotes" id="quotes"></div>
-      </section>
-
-      <section class="panel" id="panel-do" hidden aria-labelledby="pd-h">
-        <h3 id="pd-h">Small things to do</h3>
-        <p class="sub">Tap to add to today's plan. One is plenty; three at most.</p>
-        <div id="acts"></div>
-      </section>
-
+      <p class="hint" style="margin-top:12px"><button type="button" class="btn-text" data-go="reflect">← Back to edit</button></p>
       <div id="share-th-box"></div>
       <div class="actions">
         <button type="button" class="btn btn-primary" id="copy">Copy My Message</button>
@@ -544,11 +614,55 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
 
     const mantra = pick(pool, last.mantra);
     last = { mantra };
-    return { ids: cats.map((c) => c.id), names: cats.map((c) => c.name), mantra, quote: null, plan: [], done: [] };
+    return { ids: cats.map((c) => c.id), names: cats.map((c) => c.name), mantra, quote: null, plan: [], done: [], remember: "", hope: [] };
   }
 
   function show(id) {
-    ["step-choose", "step-pause", "step-result"].forEach((s) => ($(s).hidden = s !== id));
+    ["step-choose", "step-pause", "step-flow", "step-result"].forEach((s) => ($(s).hidden = s !== id));
+  }
+  const HOPES = ["Calmer", "Lighter", "More connected", "Rested", "Cared for", "Proud of myself", "More like myself"];
+  const FLOW = ["message", "words", "do", "reflect"];
+  const firstSentence = (t) => { const m = String(t).match(/^.*?[.!?](?=\s|$)/); return (m ? m[0] : t).replace(/[.!?]$/, ""); };
+  const lc = (t) => t.charAt(0).toLowerCase() + t.slice(1);
+  function goStep(name) {
+    if (name === "choose") { show("step-choose"); window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); return; }
+    if (name === "card") { renderResult(selectedCats()); show("step-result"); $("step-result").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" }); $("mantra").focus({ preventScroll: true }); store(current); return; }
+    show("step-flow");
+    FLOW.forEach((f) => ($("fs-" + f).hidden = f !== name));
+    const k = FLOW.indexOf(name) + 1;
+    $("dots").querySelectorAll("li").forEach((li, i) => li.classList.toggle("on", i <= k));
+    if (name === "reflect") renderReflect();
+    $("step-flow").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    const h = $("fs-" + name).querySelector(".q"); if (h) h.focus({ preventScroll: true });
+  }
+  const selectedCats = () => (current ? current.ids.map((id) => CATEGORIES.find((c) => c.id === id)).filter(Boolean) : []);
+  function nextLabels() {
+    $("words-next").textContent = current && current.quote ? "Next: Small Things" : "Skip for Now";
+    $("do-next").textContent = current && current.plan.length ? "Next: Take It In" : "Skip for Now";
+  }
+  function promiseText() {
+    if (!current) return "";
+    const needs = joinList(selectedCats().map((c) => c.need));
+    const words = (current.remember || "").trim() || current.mantra;
+    let t = `When I feel low on ${needs} today, I'll remember: “${words}”`;
+    if (current.plan.length) t += ` And I'll start with one small thing: ${lc(firstSentence(current.plan[0]))}.`;
+    if (current.hope && current.hope.length) t += ` I hope to feel ${joinList(current.hope.map((h) => h.toLowerCase()))} by tonight.`;
+    return t;
+  }
+  function renderReflect() {
+    const q = quoteById(current.quote);
+    $("soak-words").textContent = (current.remember || "").trim() || current.mantra;
+    const borrow = [current.mantra].concat(q ? [q.text.split("\n").slice(0, 2).join(" ")] : []);
+    $("borrow").innerHTML = borrow.map((b, i) => `<button type="button" class="chip" data-borrow="${i}">${i === 0 ? "My message" : "My words to carry"}</button>`).join("");
+    $("borrow").dataset.lines = JSON.stringify(borrow);
+    $("remember").value = current.remember || "";
+    $("hope").innerHTML = HOPES.map((h) => `<button type="button" class="chip" data-hope="${h}" aria-pressed="${(current.hope || []).includes(h)}">${h}</button>`).join("");
+    $("promise").innerHTML = `<b>My nourishment promise</b>${esc(promiseText())}`;
+  }
+  function renderReflectCard() {
+    if (!current) return;
+    const rem = (current.remember || "").trim(), hope = current.hope || [];
+    $("reflect-wrap").innerHTML = (rem || hope.length) ? `<div class="reflect-card">${rem ? `<p class="k">What I want to remember</p><p class="rem">${esc(rem)}</p>` : ""}${hope.length ? `<p class="k">How I hope to feel tonight</p><p>${esc(hope.join(" · "))}</p>` : ""}</div>` : "";
   }
 
   /* ---------------- Flow ---------------- */
@@ -557,17 +671,9 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     const cats = selected();
     if (!cats.length) return;
     current = buildMessage(cats); store(current);
-    ["path-words", "path-do"].forEach((id) => $(id).setAttribute("aria-pressed", "false"));
-    $("panel-words").hidden = $("panel-do").hidden = true;
-
     renderResult(cats);
-
     show("step-pause");
-    setTimeout(() => {
-      show("step-result");
-      $("step-result").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
-      $("mantra").focus({ preventScroll: true });
-    }, reduceMotion ? 200 : 1600);
+    setTimeout(() => goStep("message"), reduceMotion ? 200 : 1600);
   });
 
   $("restart").addEventListener("click", () => {
@@ -585,6 +691,9 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     const q = quoteById(m.quote);
     if (q) L.push("", "Words to carry:", q.text, `(${q.by}, ${q.from})`);
     if (m.plan.length) { L.push("", "Today's plan:"); m.plan.forEach((a) => L.push(`${m.done.includes(a) ? "[x]" : "[ ]"} ${a}`)); }
+    if ((m.remember || "").trim()) L.push("", "What I want to remember:", m.remember.trim());
+    if (m.hope && m.hope.length) L.push("", "How I hope to feel tonight: " + m.hope.join(", "));
+    L.push("", "My nourishment promise:", promiseText());
     L.push("", "Daily Nourishment Check-In by Woohee (Elise) Kwak");
     return L.join("\n");
   }
@@ -623,6 +732,9 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
   function renderResult(cats) {
     $("chips").innerHTML = current.names.map((n) => `<li>${esc(n)}</li>`).join("");
     $("mantra").textContent = current.mantra;
+    $("m-chips").innerHTML = current.names.map((n) => `<li>${esc(n)}</li>`).join("");
+    $("m-mantra").textContent = current.mantra;
+    $("m-note").textContent = cats.length === 1 ? cats[0].note : "Many needs at once can feel like a lot. You don't have to meet them all today; one small act of care is enough to begin.";
     $("need-note").textContent = cats.length === 1 ? cats[0].note : "Many needs at once can feel like a lot. You don't have to meet them all today; one small act of care is enough to begin.";
     $("copy-status").textContent = "";
     // quotes for chosen areas
@@ -633,7 +745,7 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     $("acts").innerHTML = cats.map((c) => `<div class="acts-group"><h4><span aria-hidden="true">${c.icon}</span>${esc(c.name)}</h4><div class="acts">
       ${c.actions.map(([t, tm]) => `<button type="button" class="act" data-act="${esc(t)}" aria-pressed="${current.plan.includes(t)}"><span class="plus" aria-hidden="true">${current.plan.includes(t) ? "✓" : "+"}</span><span>${esc(t)}</span><span class="time">${esc(tm)}</span></button>`).join("")}
       </div></div>`).join("");
-    renderChosen(); renderPlan();
+    renderChosen(); renderPlan(); renderReflectCard(); nextLabels();
   }
   function renderChosen() {
     const q = quoteById(current.quote);
@@ -646,28 +758,20 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
       <ul>${current.plan.map((a, i) => `<li class="${current.done.includes(a) ? "done" : ""}"><label><input type="checkbox" data-done="${esc(a)}" ${current.done.includes(a) ? "checked" : ""}><span>${esc(a)}</span></label></li>`).join("")}</ul>
       ${current.done.length ? `<p class="cheer">${allDone ? "You did it. Notice how that feels." : "One done. That counts."}</p>` : ""}</div>`;
   }
-  function togglePath(which) {
-    const on = $("path-" + which).getAttribute("aria-pressed") !== "true";
-    $("path-" + which).setAttribute("aria-pressed", on);
-    $(which === "words" ? "panel-words" : "panel-do").hidden = !on;
-    if (on) $(which === "words" ? "panel-words" : "panel-do").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
-  }
-  $("path-words").addEventListener("click", () => togglePath("words"));
-  $("path-do").addEventListener("click", () => togglePath("do"));
   $("quotes").addEventListener("click", (e) => {
     const b = e.target.closest("[data-quote]"); if (!b || !current) return;
     current.quote = current.quote === b.dataset.quote ? null : b.dataset.quote;
     $("quotes").querySelectorAll("[data-quote]").forEach((x) => x.setAttribute("aria-pressed", x.dataset.quote === current.quote));
-    renderChosen(); store(current);
+    renderChosen(); nextLabels(); store(current);
   });
   $("acts").addEventListener("click", (e) => {
     const b = e.target.closest("[data-act]"); if (!b || !current) return;
     const a = b.dataset.act, i = current.plan.indexOf(a);
     if (i >= 0) { current.plan.splice(i, 1); current.done = current.done.filter((x) => x !== a); }
-    else if (current.plan.length >= 3) { $("copy-status").textContent = "Three is plenty for today. Remove one to add another."; return; }
+    else if (current.plan.length >= 3) { $("do-status").textContent = "Three is plenty for today. Remove one to add another."; return; }
     else current.plan.push(a);
     $("acts").querySelectorAll("[data-act]").forEach((x) => { const on = current.plan.includes(x.dataset.act); x.setAttribute("aria-pressed", on); x.querySelector(".plus").textContent = on ? "✓" : "+"; });
-    $("copy-status").textContent = ""; renderPlan(); store(current);
+    $("do-status").textContent = ""; renderPlan(); nextLabels(); store(current);
   });
   $("plan-wrap").addEventListener("change", (e) => {
     const a = e.target.dataset.done; if (!a || !current) return;
@@ -675,6 +779,36 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
     renderPlan(); store(current);
   });
   $("print").addEventListener("click", () => window.print());
+  document.addEventListener("click", (e) => { const g = e.target.closest("[data-go]"); if (g && current) { e.preventDefault(); goStep(g.dataset.go); } });
+  $("borrow").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-borrow]"); if (!b) return;
+    const line = JSON.parse($("borrow").dataset.lines || "[]")[+b.dataset.borrow] || "";
+    $("remember").value = line; current.remember = line; $("soak-words").textContent = line;
+    $("promise").innerHTML = `<b>My nourishment promise</b>${esc(promiseText())}`; renderReflectCard(); store(current);
+  });
+  $("remember").addEventListener("input", () => {
+    current.remember = $("remember").value; $("soak-words").textContent = current.remember.trim() || current.mantra;
+    $("promise").innerHTML = `<b>My nourishment promise</b>${esc(promiseText())}`; renderReflectCard(); store(current);
+  });
+  $("hope").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-hope]"); if (!b) return;
+    const h = b.dataset.hope; current.hope = current.hope || [];
+    const i = current.hope.indexOf(h); if (i >= 0) current.hope.splice(i, 1); else current.hope.push(h);
+    b.setAttribute("aria-pressed", i < 0); $("promise").innerHTML = `<b>My nourishment promise</b>${esc(promiseText())}`; renderReflectCard(); store(current);
+  });
+  // three slow breaths with your words: in 4s, out 6s
+  let soakTimers = [];
+  $("soak-btn").addEventListener("click", () => {
+    soakTimers.forEach(clearTimeout); soakTimers = [];
+    const orb = $("soak-orb"), cue = $("soak-cue"), btn = $("soak-btn"); btn.disabled = true;
+    const T = reduceMotion ? [1500, 1500] : [4000, 6000];
+    for (let k = 0; k < 3; k++) {
+      const t0 = k * (T[0] + T[1]);
+      soakTimers.push(setTimeout(() => { orb.className = "soak-orb in"; cue.textContent = `Breathe in, and read your words… (${k + 1} of 3)`; }, t0));
+      soakTimers.push(setTimeout(() => { orb.className = "soak-orb out"; cue.textContent = "Breathe out, and let them settle."; }, t0 + T[0]));
+    }
+    soakTimers.push(setTimeout(() => { orb.className = "soak-orb"; cue.textContent = "Notice anything that shifted, even a little. These words are yours to carry today."; btn.disabled = false; btn.textContent = "Breathe Again"; }, 3 * (T[0] + T[1])));
+  });
 
   /* ---------------- Save as photo (drawn on this device; nothing is uploaded) ---------------- */
   function wrapLines(ctx, text, maxW) {
@@ -821,8 +955,6 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
   $("erase").addEventListener("click", () => {
     store(null); current = null; $("photo-box").hidden = true;
     boxes().forEach((b) => (b.checked = false)); updateButton();
-    ["path-words", "path-do"].forEach((id) => $(id).setAttribute("aria-pressed", "false"));
-    $("panel-words").hidden = $("panel-do").hidden = true;
     show("step-choose"); $("erase-status").textContent = "";
     window.scrollTo({ top: 0 }); $("choose-status").textContent = "Your answers were erased.";
   });
@@ -832,11 +964,9 @@ legend.q { font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 32px)
   if (saved) {
     const cats = saved.ids.map((id) => CATEGORIES.find((c) => c.id === id)).filter(Boolean);
     if (cats.length) {
-      current = Object.assign({ quote: null, plan: [], done: [] }, saved);
+      current = Object.assign({ quote: null, plan: [], done: [], remember: "", hope: [] }, saved);
       cats.forEach((c) => { const b = $("opt-" + c.id); if (b) b.checked = true; });
       renderResult(cats); show("step-result");
-      if (current.plan.length) { $("path-do").setAttribute("aria-pressed", "true"); $("panel-do").hidden = false; }
-      if (current.quote) { $("path-words").setAttribute("aria-pressed", "true"); $("panel-words").hidden = false; }
     }
   }
 
